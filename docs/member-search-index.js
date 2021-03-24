@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"it.polimi.ingsw","c":"App","l":"App()","u":"%3Cinit%3E()"},{"p":"it.polimi.ingsw.model","c":"Match","l":"Match()","u":"%3Cinit%3E()"}];updateSearchResults();
