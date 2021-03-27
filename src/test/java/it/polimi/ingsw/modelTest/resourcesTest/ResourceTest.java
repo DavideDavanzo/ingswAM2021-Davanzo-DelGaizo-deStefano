@@ -13,26 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ResourceTest {
 
     /**
-     * Tests the method getResourceName() of each Resource's subclass
-     */
-    @Test
-    @DisplayName("Each different kind of resources return its name as a String correctly")
-    public void testGetResourceName(){
-
-        Resource tested = new Coin();
-        assertTrue(tested.getResourceName().equals("Coin"));
-
-        tested = new Stone();
-        assertTrue(tested.getResourceName().equals("Stone"));
-
-        tested = new Shield();
-        assertTrue(tested.getResourceName().equals("Shield"));
-
-        tested = new Servant();
-        assertTrue(tested.getResourceName().equals("Servant"));
-    }
-
-    /**
      * Tests the method "update()" with positive parameter
      */
     @Test

@@ -8,23 +8,16 @@ public class Shield extends Resource{
     /**
      * Default method
      */
-    public Shield(){};
+    public Shield(){
+        super();
+    }
 
     /**
      * Parameterized constructor
      * @param numShields
      */
     public Shield(int numShields){
-        volume = numShields;
-    }
-
-    /**
-     * Implementation of super class "Resource"'s method
-     * @return
-     */
-    @Override
-    public String getResourceName() {
-        return "Shield";
+        super(numShields);
     }
 
 }

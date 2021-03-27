@@ -8,22 +8,16 @@ public class Coin extends Resource{
     /**
      * Default method
      */
-    public Coin(){};
+    public Coin(){
+        super();
+    }
 
     /**
      * Parameterized constructor
      * @param numCoins
      */
     public Coin(int numCoins){
-        volume = numCoins;
+        super(numCoins);
     }
 
-    /**
-     * Implementation of super class "Resource"'s method
-     * @return
-     */
-    @Override
-    public String getResourceName() {
-        return "Coin";
-    }
 }

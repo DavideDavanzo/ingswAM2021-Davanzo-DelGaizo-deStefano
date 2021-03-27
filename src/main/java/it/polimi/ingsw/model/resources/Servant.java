@@ -8,23 +8,16 @@ public class Servant extends Resource{
     /**
      * Default method
      */
-    public Servant(){};
+    public Servant(){
+        super();
+    }
 
     /**
      * Parameterized constructor
      * @param numServants
      */
     public Servant(int numServants) {
-        volume = numServants;
-    }
-
-    /**
-     * Implementation of super class "Resource"'s method
-     * @return
-     */
-    @Override
-    public String getResourceName() {
-        return "Servant";
+        super(numServants);
     }
 
 }

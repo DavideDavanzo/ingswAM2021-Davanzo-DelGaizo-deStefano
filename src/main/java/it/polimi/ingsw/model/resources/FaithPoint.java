@@ -13,7 +13,8 @@ public class FaithPoint extends Item {
     /**
      * Default constructor
      */
-    public FaithPoint(){};
+    public FaithPoint(){
+    }
 
     /**
      * Parameterized constructor

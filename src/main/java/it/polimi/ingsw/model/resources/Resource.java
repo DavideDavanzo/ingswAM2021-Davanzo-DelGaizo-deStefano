@@ -4,12 +4,19 @@ package it.polimi.ingsw.model.resources;
 /**
  * Abstract class which represents a generic resource of the four given in the game (coin, stone, shield, servant)
  */
-abstract public class Resource extends Item{
+public abstract class Resource extends Item{
 
     /**
      * Number of resources in the instance
      */
-    protected int volume;
+    private int volume;
+
+    public Resource(){
+    }
+
+    public Resource(int volume){
+        this.volume = volume;
+    }
 
     /**
      * Inherited from abstract class "Item", it increases or decreases the attribute "volume"
@@ -28,9 +35,4 @@ abstract public class Resource extends Item{
         return volume;
     }
 
-    /**
-     * Abstract method which returns the name of resource type
-     * @return
-     */
-    public abstract String getResourceName();
 }
