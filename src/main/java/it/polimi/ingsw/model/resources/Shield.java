@@ -5,19 +5,23 @@ package it.polimi.ingsw.model.resources;
  */
 public class Shield extends Resource{
 
-    /**
-     * Default method
-     */
     public Shield(){
         super();
     }
 
-    /**
-     * Parameterized constructor
-     * @param numShields
-     */
     public Shield(int numShields){
         super(numShields);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Shield))
+            return false;
+        Shield otherShield = (Shield) o;
+        if( this.volume == otherShield.getVolume() )
+            return true;
+        return false;
     }
 
 }

@@ -5,19 +5,22 @@ package it.polimi.ingsw.model.resources;
  */
 public class Servant extends Resource{
 
-    /**
-     * Default method
-     */
     public Servant(){
         super();
     }
 
-    /**
-     * Parameterized constructor
-     * @param numServants
-     */
     public Servant(int numServants) {
         super(numServants);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Servant))
+            return false;
+        Servant otherServant = (Servant) o;
+        if( this.volume == otherServant.getVolume() )
+            return true;
+        return false;
     }
 
 }

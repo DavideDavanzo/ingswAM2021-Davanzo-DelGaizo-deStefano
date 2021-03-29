@@ -1,23 +1,27 @@
 package it.polimi.ingsw.model.resources;
 
 /**
- * Class which represents an amount of coins
+ * Class which represents a general amount of coins
  */
-public class Coin extends Resource{
+public class Coin extends Resource {
 
-    /**
-     * Default method
-     */
     public Coin(){
         super();
     }
 
-    /**
-     * Parameterized constructor
-     * @param numCoins
-     */
     public Coin(int numCoins){
         super(numCoins);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof Coin))
+            return false;
+        Coin otherCoin = (Coin) o;
+        if( this.volume == otherCoin.getVolume() )
+            return true;
+        return false;
+    }
+
 
 }

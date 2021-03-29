@@ -2,6 +2,7 @@ package it.polimi.ingsw.modelTest.resourcesTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import it.polimi.ingsw.exceptions.resourcesExceptions.GameOverException;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,40 +13,23 @@ import org.junit.jupiter.api.Test;
 class FaithPointTest {
 
     /**
-     * Tests the method "update()" with positive parameter
+     * Tests that assures faith points can be increased correctly
      */
     @Test
     @DisplayName("Attribute numPoints increased correctly")
-    public void testPositiveUpdate() {
+    public void testUpdate() throws GameOverException {
 
-        FaithPoint tested = new FaithPoint();               //numPoints initialized to 0
-        tested.update(3);                               //add 3 to 0 numPoints
+        FaithPoint underTest = new FaithPoint();               //numPoints initialized to 0
 
-        assertTrue(tested.getNumPoints() == 3);     //numPoints of tested should now be 3
+        underTest.update(new FaithPoint(3));        //add 3 to 0 numPoints
+        assertTrue(underTest.getVolume() == 3);     //numPoints of tested should now be 3
 
-        tested.update(2);                               //add 2 to 3 numPoints
+        underTest.update(new FaithPoint());
+        assertTrue(underTest.getVolume() == 3);     //numPoints of tested should still be 5
 
-        assertFalse(tested.getNumPoints() == 3);    //numPoints of tested should not be 3 anymore
-        assertTrue(tested.getNumPoints() == 5);     //numPoints of tested should now be 5
+        assertThrows(GameOverException.class, () -> underTest.update(new FaithPoint(20)));      //this exception must be thrown when faith points exceeds 20
 
-    }
-
-    /**
-     * Tests the method "update()" with negative parameter
-     */
-    @Test
-    @DisplayName("Attribute numPoints decreased correctly")
-    public void testNegativeUpdate() {      //TODO: create an exception to throw when there are not enough resources
-
-        FaithPoint tested = new FaithPoint(5);      //numPoints initialized to 5
-        tested.update(-2);                              //sub 2 from 5
-
-        assertTrue(tested.getNumPoints() == 3);     //numPoints of tested should now be 3
-
-        tested.update(-5);                              //sub 5 from 3
-
-        assertFalse(tested.getNumPoints() == -2);   //numPoints of tested should not be -2
-        assertTrue(tested.getNumPoints() == 0);     //3-5<0 then numPoints of tested should now be 0
+        assertTrue(underTest.getVolume() == 20);    //20 is the upper limit
 
     }
 

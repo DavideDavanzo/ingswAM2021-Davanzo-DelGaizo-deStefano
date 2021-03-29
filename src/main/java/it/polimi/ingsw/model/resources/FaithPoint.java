@@ -1,44 +1,30 @@
 package it.polimi.ingsw.model.resources;
 
+import it.polimi.ingsw.exceptions.resourcesExceptions.GameOverException;
+
 /**
  * Class which represents an amount of faith points
  */
 public class FaithPoint extends Item {
 
-    /**
-     * Attribute which represents the number of the instance's faith points
-     */
-    private int numPoints;
-
-    /**
-     * Default constructor
-     */
     public FaithPoint(){
+        super();
     }
 
-    /**
-     * Parameterized constructor
-     * @param numPoints
-     */
     public FaithPoint(int numPoints) {
-        this.numPoints = numPoints;
+        super(numPoints);
     }
 
-    /**
-     * Inherited from abstract class "Item", it increases or decreases the number of faith points
-     * @param num is the amount added (positive or negative)
-     */
     @Override
-    public void update(int num) {
-        numPoints = numPoints + num > 0 ? numPoints + num : 0;
-    }
+    public void update(Item newPoints) throws GameOverException {
 
-    /**
-     * Getter method for the attribute "numPoints"
-     * @return
-     */
-    public int getNumPoints() {
-        return numPoints;
+        //The path has 20 positions, player can't go further
+        volume = volume + newPoints.getVolume() < 20 ? volume + newPoints.getVolume() : 20;
+
+        //Finish line of the path  (last vatican report)
+        if(getVolume()==20)
+            throw new GameOverException("Last vatican report. Game Over");
+
     }
 
 }
