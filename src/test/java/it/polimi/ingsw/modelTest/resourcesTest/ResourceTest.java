@@ -49,4 +49,24 @@ class ResourceTest {
 
     }
 
+
+    /**
+     * Testing if method equals() works correctly
+     */
+    @Test
+    void testEquals(){
+
+        Resource underTestOne = new Coin(3);
+        Resource underTestTwo = new Coin(3);
+
+        //a.equals(b) <==> b.equals(a)
+        assertTrue(underTestOne.equals(underTestTwo));
+        assertTrue(underTestTwo.equals(underTestOne));
+
+        underTestOne = new Coin(1);
+
+        assertFalse(underTestOne.equals(underTestTwo));
+        assertFalse(underTestTwo.equals(underTestOne));
+
+    }
 }

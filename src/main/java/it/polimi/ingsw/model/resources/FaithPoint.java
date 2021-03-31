@@ -27,4 +27,14 @@ public class FaithPoint extends Item {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof FaithPoint))
+            return false;
+       FaithPoint otherFaithPoint = (FaithPoint) o;
+        if( this.volume == otherFaithPoint.getVolume() )
+            return true;
+        return false;
+    }
+
 }

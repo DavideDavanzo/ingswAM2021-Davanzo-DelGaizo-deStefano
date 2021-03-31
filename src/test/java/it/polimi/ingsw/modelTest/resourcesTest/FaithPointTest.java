@@ -17,7 +17,7 @@ class FaithPointTest {
      */
     @Test
     @DisplayName("Attribute numPoints increased correctly")
-    public void testUpdate() throws GameOverException {
+    void testUpdate() throws GameOverException {
 
         FaithPoint underTest = new FaithPoint();               //numPoints initialized to 0
 
@@ -30,6 +30,26 @@ class FaithPointTest {
         assertThrows(GameOverException.class, () -> underTest.update(new FaithPoint(20)));      //this exception must be thrown when faith points exceeds 20
 
         assertTrue(underTest.getVolume() == 20);    //20 is the upper limit
+
+    }
+
+    /**
+     * Testing if method equals() works correctly
+     */
+    @Test
+    void testEquals() {
+
+        FaithPoint underTestOne = new FaithPoint(2);
+        FaithPoint underTestTwo = new FaithPoint(2);
+
+        //a.equals(b) <==> b.equals(a)
+        assertTrue(underTestOne.equals(underTestTwo));
+        assertTrue(underTestTwo.equals(underTestOne));
+
+        underTestOne = new FaithPoint(1);
+
+        assertFalse(underTestOne.equals(underTestTwo));
+        assertFalse(underTestTwo.equals(underTestOne));
 
     }
 
