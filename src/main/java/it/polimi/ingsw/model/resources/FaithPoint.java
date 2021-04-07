@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.resourcesExceptions.GameOverException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
 
 /**
  * Class which represents an amount of faith points

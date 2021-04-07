@@ -1,4 +1,5 @@
-package it.polimi.ingsw.exceptions.resourcesExceptions;
+
+package it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions;
 
 /**
  * Exception thrown when player's resources are not enough to pay a card or activate production

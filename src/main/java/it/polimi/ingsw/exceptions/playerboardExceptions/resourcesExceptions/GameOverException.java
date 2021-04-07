@@ -1,4 +1,4 @@
-package it.polimi.ingsw.exceptions.resourcesExceptions;
+package it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions;
 
 public class GameOverException extends Exception{
 
