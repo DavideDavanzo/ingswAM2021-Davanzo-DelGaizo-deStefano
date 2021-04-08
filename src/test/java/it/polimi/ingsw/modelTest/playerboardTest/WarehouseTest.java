@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 public class WarehouseTest {
 
+    private Warehouse underTest = new Warehouse();
+
     /**
      * Testing the behaviour of Warehouse when trying to switch valid and invalid shelves
      * @throws NotEnoughResourcesException
@@ -20,8 +22,6 @@ public class WarehouseTest {
      */
     @Test
     void testSwitchShelves() throws NotEnoughResourcesException, InvalidInputException {
-
-        Warehouse underTest = new Warehouse();
 
         //initialization of an example of shelves
         underTest.getFirstShelf().updateShelf(new Coin(1));

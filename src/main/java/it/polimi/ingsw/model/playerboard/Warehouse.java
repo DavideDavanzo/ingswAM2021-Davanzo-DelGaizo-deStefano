@@ -26,10 +26,11 @@ public class Warehouse {
     private final Shelf thirdShelf = new Shelf(3);
 
     /**
-     * It is the lower shelf, which can contain up to two resources.
-     * Unlike the other ones, this shelf has a specific type of resource which can be stock in.
+     * Extra shelves, given by a specific leader card, that contain up to two resources.
+     * Unlike the other ones, these shelves have a specific type of resource which can be stock in.
+     * During the game, a player will own up to two extra shelves.
      */
-    private Shelf extraShelf;       //not initialized cause just the players who own the specific leader card has one
+    private ArrayList<Shelf> extraShelves;       //not initialized cause just the players who own the specific leader card has one
 
     /**
      * Default Constructor
@@ -69,11 +70,13 @@ public class Warehouse {
         //case 1 and 2: one of the shelves is the warehouse's firstShelf, which means can contain one resource max
         //case 3 and 4: one of the shelves is the warehouse's firstShelf, which means can contain two resource max
         //case 5: one of the shelves is an extraShelf given by the leader card, these type of shelves cannot be switched
-        return !( (shelfOne == firstShelf && shelfTwo.getShelfResource().getVolume() > 1) ||    //case 1
-                (shelfTwo == firstShelf && shelfOne.getShelfResource().getVolume() > 1) ||      //case 2
-                (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2) ||     //case 3
-                (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2) ||     //case 4
-                (shelfOne == extraShelf) || (shelfTwo == extraShelf) );                         //case 5
+        return !(   (shelfOne == firstShelf && shelfTwo.getShelfResource().getVolume() > 1)         //case 1
+                    || (shelfTwo == firstShelf && shelfOne.getShelfResource().getVolume() > 1)      //case 2
+                    || (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2)     //case 3
+                    || (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2)     //case 4
+                    // case 5
+                    || (extraShelves != null && (extraShelves.contains(shelfOne) || (extraShelves.contains(shelfTwo))) )
+        );
 
     }
 
@@ -87,9 +90,10 @@ public class Warehouse {
         warehouseShelves.add(firstShelf);
         warehouseShelves.add(secondShelf);
         warehouseShelves.add(thirdShelf);
-        warehouseShelves.add(extraShelf);
+        warehouseShelves.addAll(extraShelves);
 
         return warehouseShelves;
+
     }
 
     public Shelf getFirstShelf() {
@@ -104,8 +108,12 @@ public class Warehouse {
         return thirdShelf;
     }
 
-    public Shelf getExtraShelf() {
-        return extraShelf;
+    public ArrayList<Shelf> getExtraShelves() {
+        return extraShelves;
+    }
+
+    public void addExtraShelf(Shelf extraShelf) {
+        this.extraShelves.add(extraShelf);
     }
 
 }

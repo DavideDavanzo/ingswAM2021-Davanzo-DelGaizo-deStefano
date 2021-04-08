@@ -36,10 +36,10 @@ public class Shelf {
         if(newResource.getVolume() > availableVolume)       //trying to introduce more resources than available spaces
             throw new InvalidInputException("Not enough spaces available in this shelf");
         else {
-            if (shelfResource == null)      //case: empty shelf
-                shelfResource = newResource;
+            if (shelfResource == null)                      //case: empty shelf
+                this.setShelfResource(newResource);
             else
-                shelfResource.update(newResource);          //try to add the incoming resources
+                shelfResource.update(newResource);          //trying to add the incoming resources
             availableVolume -= newResource.getVolume();     //update the available spaces in this shelf
         }
 
@@ -56,4 +56,5 @@ public class Shelf {
     public int getAvailableVolume() {
         return availableVolume;
     }
+
 }
