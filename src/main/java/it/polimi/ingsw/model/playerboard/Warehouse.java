@@ -32,6 +32,11 @@ public class Warehouse {
     private Shelf extraShelf;       //not initialized cause just the players who own the specific leader card has one
 
     /**
+     * Default Constructor
+     */
+    public Warehouse(){ }
+
+    /**
      * Method to switch two of the three warehouse's main shelves
      * @param shelfOne
      * @param shelfTwo
