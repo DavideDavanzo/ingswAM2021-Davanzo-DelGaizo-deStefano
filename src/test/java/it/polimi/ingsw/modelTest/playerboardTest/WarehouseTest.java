@@ -46,4 +46,16 @@ public class WarehouseTest {
 
     }
 
+    @Test
+    void testSwitchExtraShelves() throws NotEnoughResourcesException, InvalidInputException {
+
+        underTest.getFirstShelf().updateShelf(new Shield(1));
+        Shelf extraShelf = new Shelf(2);
+        extraShelf.updateShelf(new Shield());
+        underTest.addExtraShelf(extraShelf);
+
+        assertThrows(InvalidInputException.class, () -> underTest.switchShelves(underTest.getFirstShelf(), underTest.getExtraShelves().get(0)));
+
+    }
+
 }
