@@ -75,7 +75,7 @@ public class Warehouse {
                     || (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2)     //case 3
                     || (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2)     //case 4
                     // case 5
-                    || (extraShelves != null && (extraShelves.contains(shelfOne) || (extraShelves.contains(shelfTwo))) )
+                    || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) )
         );
 
     }
@@ -113,7 +113,11 @@ public class Warehouse {
     }
 
     public void addExtraShelf(Shelf extraShelf) {
+
+        if(this.extraShelves == null)
+            this.extraShelves = new ArrayList<>();
         this.extraShelves.add(extraShelf);
+
     }
 
 }
