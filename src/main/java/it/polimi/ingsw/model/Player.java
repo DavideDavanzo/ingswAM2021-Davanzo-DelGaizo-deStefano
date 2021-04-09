@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.playerboard.PlayerBoard;
 public class Player {
     private PlayerBoard playerBoard;
 
-    public Player() {
-        playerBoard = new PlayerBoard();
-    }
+    public Player() { playerBoard = new PlayerBoard(); }
+
+    public PlayerBoard getPlayerBoard() { return playerBoard; }
 }

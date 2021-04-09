@@ -10,7 +10,6 @@ import it.polimi.ingsw.model.resources.Resource;
  * exclusive for one specific type of {@link Resource}
  */
 public class ExtraShelfEffect extends Effect {
-    private Shelf extraShelf;
     private Resource shelfResource;
 
     /**
@@ -37,12 +36,22 @@ public class ExtraShelfEffect extends Effect {
     }
 
     /**
+     * Special Getter
+     * @return is Effect's Resource attribute
+     */
+    @Override
+    public Object getAttribute() {
+        return shelfResource;
+    }
+
+    /**
      * Creates and adds an extra shelf to the Player's {@link Warehouse}
-     * @param p
+     * The Shelf is empty and has a specific type of {@link Resource} that can be stored inside
+     * @param p is the Player that activates the Effect
      */
     private void addExtraShelf(Player p) {
-        extraShelf = new Shelf(2); // The Shelf is created only if the Effect is activated
+        Shelf extraShelf = new Shelf(2); // The Shelf is created only if the Effect is activated
         extraShelf.setShelfResource(shelfResource); // Shelf main resource is set here
-    
+        p.getPlayerBoard().getWarehouse().addExtraShelf(extraShelf);
     }
 }

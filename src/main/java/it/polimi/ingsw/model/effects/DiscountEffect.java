@@ -15,6 +15,11 @@ public class DiscountEffect extends Effect {
         addDiscount(p);
     }
 
+    @Override
+    public Object getAttribute() {
+        return null;
+    }
+
     private void addDiscount(Player p) {
         //AGGIUNGERE DISCOUNT AL PLAYER
         //METODO DA TESTARE AGGIUNTO IL PLAYER

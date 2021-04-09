@@ -8,4 +8,9 @@ public class WhiteMarbleEffect extends Effect {
     public void applyOn(Player p) {
 
     }
+
+    @Override
+    public Object getAttribute() {
+        return null;
+    }
 }
