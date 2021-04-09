@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.resources.Resource;
 
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class Warehouse {
      */
     public void switchShelves(Shelf shelfOne, Shelf shelfTwo) throws InvalidInputException {
 
-        if(!notValid(shelfOne, shelfTwo))
+        if(notValid(shelfOne, shelfTwo))
             throw new InvalidInputException("These shelves cannot be switched");
         else {
             //local variable used to not loose the shelf resources during the switch
@@ -70,13 +71,12 @@ public class Warehouse {
         //case 1 and 2: one of the shelves is the warehouse's firstShelf, which means can contain one resource max
         //case 3 and 4: one of the shelves is the warehouse's firstShelf, which means can contain two resource max
         //case 5: one of the shelves is an extraShelf given by the leader card, these type of shelves cannot be switched
-        return !(   (shelfOne == firstShelf && shelfTwo.getShelfResource().getVolume() > 1)         //case 1
-                    || (shelfTwo == firstShelf && shelfOne.getShelfResource().getVolume() > 1)      //case 2
-                    || (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2)     //case 3
-                    || (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2)     //case 4
-                    // case 5
-                    || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) )
-        );
+        return (shelfOne == firstShelf && shelfTwo.getShelfResource().getVolume() > 1)         //case 1
+                || (shelfTwo == firstShelf && shelfOne.getShelfResource().getVolume() > 1)      //case 2
+                || (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2)     //case 3
+                || (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2)     //case 4
+                // case 5
+                || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) );
 
     }
 

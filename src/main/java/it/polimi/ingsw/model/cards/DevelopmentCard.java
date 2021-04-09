@@ -81,4 +81,5 @@ public class DevelopmentCard extends Card {
     public Trade getTrade() {
         return trade;
     }
+
 }

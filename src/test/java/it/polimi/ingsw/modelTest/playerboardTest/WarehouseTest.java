@@ -46,6 +46,27 @@ public class WarehouseTest {
 
     }
 
+
+    @Test
+    void testAddExtraShelf() {
+
+        Shelf extraShelf = new Shelf(2);
+        extraShelf.setShelfResource(new Stone());
+
+        underTest.addExtraShelf(extraShelf);
+
+        assertTrue(extraShelf == underTest.getExtraShelves().get(0));
+
+        extraShelf = new Shelf(2);
+        extraShelf.setShelfResource(new Coin());
+
+        underTest.addExtraShelf(extraShelf);
+
+        assertFalse(extraShelf == underTest.getExtraShelves().get(0));
+        assertTrue(extraShelf == underTest.getExtraShelves().get(1));
+
+    }
+
     @Test
     void testSwitchExtraShelves() throws NotEnoughResourcesException, InvalidInputException {
 
