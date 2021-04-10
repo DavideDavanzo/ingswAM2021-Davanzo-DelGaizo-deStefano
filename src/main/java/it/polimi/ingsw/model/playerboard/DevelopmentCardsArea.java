@@ -2,44 +2,46 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import java.util.Stack;
 
-import java.util.ArrayList;
-
+/**
+ * <h1>Development Card Area</h1>
+ * This section of the {@link PlayerBoard} contains three stacks of
+ * {@link DevelopmentCard} which are previously purchased by the Player
+ */
 public class DevelopmentCardsArea {
 
-    private ArrayList<DevelopmentCard> firstDevSlot = new ArrayList<>();
-    private ArrayList<DevelopmentCard> secondDevSlot = new ArrayList<>();
-    private ArrayList<DevelopmentCard> thirdDevSlot = new ArrayList<>();
+    private Stack<DevelopmentCard> firstStack = new Stack<>();
+    private Stack<DevelopmentCard> secondStack = new Stack<>();
+    private Stack<DevelopmentCard> thirdStack = new Stack<>();
 
-    public void addDevCard(DevelopmentCard developmentCard, ArrayList<DevelopmentCard> slot) throws InvalidInputException {
+    public void addDevCard(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) throws InvalidInputException {
 
         if(notValid(developmentCard, slot)) {
             throw new InvalidInputException("Development card must be placed over other ones of a lesser level");
         } else {
-            slot.add(developmentCard);
+            slot.push(developmentCard);
         }
 
     }
 
-    private boolean notValid(DevelopmentCard developmentCard, ArrayList<DevelopmentCard> slot) {
+    private boolean notValid(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) {
 
-        if(slot.size() == 0)
-            return false;
+        if(slot.empty()) return developmentCard.getLevel() != 1;
 
-        return slot.get(slot.size()-1).getLevel() >= developmentCard.getLevel();
-
+        return slot.peek().getLevel() != developmentCard.getLevel() - 1;
     }
 
-    public ArrayList<DevelopmentCard> getFirstDevSlot() {
-        return firstDevSlot;
+    public Stack<DevelopmentCard> getFirstStack() {
+        return firstStack;
     }
 
-    public ArrayList<DevelopmentCard> getSecondDevSlot() {
-        return secondDevSlot;
+    public Stack<DevelopmentCard> getSecondStack() {
+        return secondStack;
     }
 
-    public ArrayList<DevelopmentCard> getThirdDevSlot() {
-        return thirdDevSlot;
+    public Stack<DevelopmentCard> getThirdStack() {
+        return thirdStack;
     }
 
 }
