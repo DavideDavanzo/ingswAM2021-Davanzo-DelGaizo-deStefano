@@ -15,4 +15,3 @@ public class GreyMarble extends Marble{
         return new Stone(1);
     }
 }
-

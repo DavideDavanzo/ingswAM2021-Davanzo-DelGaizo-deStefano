@@ -15,4 +15,3 @@ public class BlueMarble extends Marble{
         return new Shield(1);
     }
 }
-

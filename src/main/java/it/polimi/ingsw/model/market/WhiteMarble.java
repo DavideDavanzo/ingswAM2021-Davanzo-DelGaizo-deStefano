@@ -17,4 +17,3 @@ public class WhiteMarble extends Marble {
     return null;
     }
 }
-
