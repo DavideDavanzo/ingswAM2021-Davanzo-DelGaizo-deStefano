@@ -16,3 +16,4 @@ public class YellowMarble extends Marble{
         return new Coin(1);
     }
 }
+

@@ -15,3 +15,4 @@ public class RedMarble extends Marble{
         return new FaithPoint(1);
     }
 }
+
