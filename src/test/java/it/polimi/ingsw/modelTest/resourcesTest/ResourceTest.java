@@ -1,6 +1,6 @@
 package it.polimi.ingsw.modelTest.resourcesTest;
 
-import it.polimi.ingsw.exceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

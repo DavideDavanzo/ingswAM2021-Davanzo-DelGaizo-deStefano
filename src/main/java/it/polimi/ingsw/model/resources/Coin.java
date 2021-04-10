@@ -15,11 +15,15 @@ public class Coin extends Resource {
 
     @Override
     public boolean equals(Object o) {
+
         if(!(o instanceof Coin))
             return false;
+
         Coin otherCoin = (Coin) o;
+
         if( this.volume == otherCoin.getVolume() )
             return true;
+
         return false;
     }
 

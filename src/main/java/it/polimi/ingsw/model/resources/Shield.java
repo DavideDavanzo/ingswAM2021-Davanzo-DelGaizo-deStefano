@@ -16,11 +16,15 @@ public class Shield extends Resource{
 
     @Override
     public boolean equals(Object o) {
+
         if(!(o instanceof Shield))
             return false;
+
         Shield otherShield = (Shield) o;
+
         if( this.volume == otherShield.getVolume() )
             return true;
+
         return false;
     }
 

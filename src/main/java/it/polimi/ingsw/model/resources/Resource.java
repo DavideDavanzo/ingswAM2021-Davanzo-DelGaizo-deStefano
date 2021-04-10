@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.resources;
 
 
-import it.polimi.ingsw.exceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 /**
  * Abstract class which represents an amount of resources of the same type (coins, shields, stones, servants)

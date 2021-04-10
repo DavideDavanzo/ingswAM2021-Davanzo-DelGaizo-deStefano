@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.playerboard;
 
-import it.polimi.ingsw.exceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.resources.*;
 
 

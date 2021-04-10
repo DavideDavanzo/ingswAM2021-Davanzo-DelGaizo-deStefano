@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.resourcesExceptions.GameOverException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
 
 /**
  * Class which represents an amount of faith points
@@ -31,10 +31,11 @@ public class FaithPoint extends Item {
     public boolean equals(Object o) {
         if(!(o instanceof FaithPoint))
             return false;
-       FaithPoint otherFaithPoint = (FaithPoint) o;
+        FaithPoint otherFaithPoint = (FaithPoint) o;
         if( this.volume == otherFaithPoint.getVolume() )
             return true;
         return false;
     }
+
 
 }

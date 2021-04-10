@@ -15,11 +15,15 @@ public class Stone extends Resource{
 
     @Override
     public boolean equals(Object o) {
+
         if(!(o instanceof Stone))
             return false;
+
         Stone otherStone = (Stone) o;
+
         if( this.volume == otherStone.getVolume() )
             return true;
+
         return false;
     }
 

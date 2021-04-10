@@ -15,11 +15,15 @@ public class Servant extends Resource{
 
     @Override
     public boolean equals(Object o) {
+
         if(!(o instanceof Servant))
             return false;
+
         Servant otherServant = (Servant) o;
+
         if( this.volume == otherServant.getVolume() )
             return true;
+
         return false;
     }
 

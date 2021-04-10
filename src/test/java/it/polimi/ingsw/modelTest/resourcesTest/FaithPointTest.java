@@ -2,7 +2,7 @@ package it.polimi.ingsw.modelTest.resourcesTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import it.polimi.ingsw.exceptions.resourcesExceptions.GameOverException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.resourcesExceptions.NotEnoughResourcesException;
-import it.polimi.ingsw.exceptions.resourcesExceptions.GameOverException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
 
 /**
  * Abstract class which represents either a resource or faith points
