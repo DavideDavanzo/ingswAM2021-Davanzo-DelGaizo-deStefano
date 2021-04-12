@@ -16,4 +16,11 @@ public abstract class Effect {
      * @param p is the {@link Player}
      */
     public abstract void applyOn(Player p);
+
+    /**
+     * Special Getter
+     * @return is the attribute of an Effect
+     * also see: {@link ExtraShelfEffect#getAttribute()}
+     */
+    public abstract Object getAttribute();
 }
