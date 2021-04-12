@@ -27,4 +27,9 @@ public class Stone extends Resource{
         return false;
     }
 
+    @Override
+    public boolean sameType(Object o) {
+        return (o instanceof Stone);
+    }
+
 }

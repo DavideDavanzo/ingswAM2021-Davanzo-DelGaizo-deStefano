@@ -28,4 +28,9 @@ public class Shield extends Resource{
         return false;
     }
 
+    @Override
+    public boolean sameType(Object o) {
+        return (o instanceof Shield);
+    }
+
 }

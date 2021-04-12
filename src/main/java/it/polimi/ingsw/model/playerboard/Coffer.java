@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.playerboard;
 
+import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.resources.*;
 
@@ -19,7 +20,7 @@ public class Coffer {
      * @param newCoins
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Coin newCoins) throws NotEnoughResourcesException {
+    public void updateCoffer(Coin newCoins) throws NotEnoughResourcesException, InvalidInputException {
         coins.update(newCoins);
     }
 
@@ -28,7 +29,7 @@ public class Coffer {
      * @param newStones
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Stone newStones) throws NotEnoughResourcesException {
+    public void updateCoffer(Stone newStones) throws NotEnoughResourcesException, InvalidInputException {
         stones.update(newStones);
     }
 
@@ -37,7 +38,7 @@ public class Coffer {
      * @param newShields
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Shield newShields) throws NotEnoughResourcesException {
+    public void updateCoffer(Shield newShields) throws NotEnoughResourcesException, InvalidInputException {
         shields.update(newShields);
     }
 
@@ -46,7 +47,7 @@ public class Coffer {
      * @param newServants
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Servant newServants) throws NotEnoughResourcesException {
+    public void updateCoffer(Servant newServants) throws NotEnoughResourcesException, InvalidInputException {
         servants.update(newServants);
     }
 

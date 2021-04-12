@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
+
+import it.polimi.ingsw.exceptions.InvalidInputException;
 
 /**
  * Class which represents an amount of faith points
@@ -16,15 +17,12 @@ public class FaithPoint extends Item {
     }
 
     @Override
-    public void update(Item newPoints) throws GameOverException {
-
-        //The path has 20 positions, player can't go further
-        volume = volume + newPoints.getVolume() < 20 ? volume + newPoints.getVolume() : 20;
-
-        //Finish line of the path  (last vatican report)
-        if(getVolume()==20)
-            throw new GameOverException("Last vatican report. Game Over");
-
+    public void update(Item newPoints) throws InvalidInputException {
+        if(this.sameType(newPoints))
+            //The path has 20 positions, player can't go further
+            volume = Math.min(volume + newPoints.getVolume(), 24);
+        else
+            throw new InvalidInputException("Trying to add items of different type");
     }
 
     @Override
@@ -37,5 +35,9 @@ public class FaithPoint extends Item {
         return false;
     }
 
+    @Override
+    public boolean sameType(Object o) {
+        return (o instanceof FaithPoint);
+    }
 
 }

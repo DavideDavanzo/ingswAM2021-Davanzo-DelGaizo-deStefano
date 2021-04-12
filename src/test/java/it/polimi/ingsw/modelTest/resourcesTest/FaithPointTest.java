@@ -2,7 +2,9 @@ package it.polimi.ingsw.modelTest.resourcesTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
+import it.polimi.ingsw.model.resources.Coin;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +19,7 @@ class FaithPointTest {
      */
     @Test
     @DisplayName("Attribute numPoints increased correctly")
-    void testUpdate() throws GameOverException {
+    void testUpdate() throws GameOverException, InvalidInputException {
 
         FaithPoint underTest = new FaithPoint();               //numPoints initialized to 0
 
@@ -27,9 +29,15 @@ class FaithPointTest {
         underTest.update(new FaithPoint());
         assertTrue(underTest.getVolume() == 3);     //numPoints of tested should still be 5
 
-        assertThrows(GameOverException.class, () -> underTest.update(new FaithPoint(20)));      //this exception must be thrown when faith points exceeds 20
+        underTest.update(new FaithPoint(30));
+        assertTrue(underTest.getVolume() == 24);
 
-        assertTrue(underTest.getVolume() == 20);    //20 is the upper limit
+    }
+
+    @Test
+    void testItemTypeException() {
+
+        assertThrows(InvalidInputException.class, () -> (new FaithPoint()).update(new Coin()));
 
     }
 

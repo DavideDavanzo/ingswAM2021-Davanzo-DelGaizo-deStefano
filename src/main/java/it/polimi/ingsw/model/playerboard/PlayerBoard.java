@@ -1,10 +1,13 @@
 package it.polimi.ingsw.model.playerboard;
 
+import it.polimi.ingsw.model.playerboard.path.Path;
+
 public class PlayerBoard {
 
-    private Warehouse warehouse;
-    private Coffer coffer;
-    private DevelopmentCardsArea developmentCardsArea;
+    private final Warehouse warehouse = new Warehouse();
+    private final Coffer coffer = new Coffer();
+    private final DevelopmentCardsArea developmentCardsArea = new DevelopmentCardsArea();
+    private final Path path = new Path();
 
     public DevelopmentCardsArea getDevelopmentCardsArea() {
         return developmentCardsArea;
@@ -16,6 +19,10 @@ public class PlayerBoard {
 
     public Coffer getCoffer() {
         return coffer;
+    }
+
+    public Path getPath() {
+        return path;
     }
 
 }

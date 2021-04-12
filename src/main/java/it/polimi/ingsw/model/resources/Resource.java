@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.resources;
 
 
+import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 /**
@@ -22,11 +23,13 @@ public abstract class Resource extends Item{
      * @throws NotEnoughResourcesException when asked to remove more resources than current volume
      */
     @Override
-    public void update(Item newResource) throws NotEnoughResourcesException {
+    public void update(Item newResource) throws NotEnoughResourcesException, InvalidInputException {
 
         if (volume + newResource.getVolume() < 0) {         //volume cannot decreased below zero
             // if so, volume must not be updated
             throw new NotEnoughResourcesException("There are not enough resources to complete this operation");
+        } else if(!this.sameType(newResource)) {
+            throw new InvalidInputException("Trying to add resources of different type");
         } else {
             volume = volume + newResource.getVolume();      //add volume of newResource to this instance's one
         }
@@ -38,5 +41,7 @@ public abstract class Resource extends Item{
      */
     @Override
     public abstract boolean equals(Object o);
+
+    public abstract boolean sameType(Object o);
 
 }
