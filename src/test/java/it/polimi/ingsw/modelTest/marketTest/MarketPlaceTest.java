@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Servant;
 import it.polimi.ingsw.model.resources.Shield;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,25 +15,52 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class MarketPlaceTest {
 
     @Test
     @DisplayName("Testing all the methods of Market")
     public void testMarketPlace() throws IllegalArgumentException, IllegalChoiceException {
-        Market market = new Market();
-        Marble[][] tested = { {new BlueMarble(), new WhiteMarble(), new YellowMarble(), new GreyMarble()}, {new PurpleMarble(), new RedMarble(),
-                    new WhiteMarble(), new BlueMarble()}, {new GreyMarble(), new YellowMarble(), new PurpleMarble(), new WhiteMarble()} };
-        Marble spareMarble = new WhiteMarble();
-        Player currentPlayer = new Player();
-        ArrayList<Item> test = market.getResources('r',1 , currentPlayer);
-        ArrayList<Item> proof = new ArrayList<Item>(Arrays.asList(new Servant(), new FaithPoint(), null, new Shield()));
-        Marble[][] anotherOne = { {new BlueMarble(), new WhiteMarble(), new YellowMarble(), new GreyMarble()}, {new WhiteMarble(), new PurpleMarble(), new RedMarble(),
-                new WhiteMarble()}, {new GreyMarble(), new YellowMarble(), new PurpleMarble(), new WhiteMarble()} };
-        assertEquals(proof, test);
-        assertEquals(anotherOne, market.getMatrix());
-        assertTrue(spareMarble instanceof BlueMarble);
 
+        Market market = new Market();
+        Market otherMarket = new Market();
+
+        //Market Creation
+        Marble[][] tested = { {new BlueMarble(), new WhiteMarble(), new YellowMarble(), new GreyMarble()},
+                              {new PurpleMarble(), new RedMarble(), new WhiteMarble(), new BlueMarble()},
+                              {new GreyMarble(), new YellowMarble(), new PurpleMarble(), new WhiteMarble()}
+        };
+        market.setMarketMatrix(tested);
+
+        //Other Market Creation
+        Marble[][] anotherOne = { {new BlueMarble(), new WhiteMarble(), new YellowMarble(), new GreyMarble()},
+                                  {new WhiteMarble(), new PurpleMarble(), new RedMarble(), new WhiteMarble()},
+                                  {new GreyMarble(), new YellowMarble(), new PurpleMarble(), new WhiteMarble()}
+        };
+        otherMarket.setMarketMatrix(anotherOne);
+
+        //Spare Marbles
+        Marble spareMarble = new WhiteMarble();
+        market.setSpareMarble(spareMarble);
+
+        Marble secondSpareMarble = new BlueMarble();
+        otherMarket.setSpareMarble(secondSpareMarble);
+
+        //Player
+        Player currentPlayer = new Player();
+
+        //Returned Items
+        ArrayList<Item> test = market.getResources('r',1 , currentPlayer);
+        ArrayList<Item> proof = new ArrayList<Item>(Arrays.asList(new Servant(), new FaithPoint(), new Shield()));
+
+        //Asserts
+        for(int i=0; i<test.size(); i++) {
+            assertSame(test.get(i).getClass(), proof.get(i).getClass());
+        }
+        assertEquals(otherMarket, market);
     }
 
 }

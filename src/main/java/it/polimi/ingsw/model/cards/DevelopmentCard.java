@@ -37,7 +37,7 @@ public class DevelopmentCard extends Card {
      * @param level goes from 1 up to 3
      * @param color is a {@link ECardColor}
      */
-    public DevelopmentCard(int level, ECardColor color) {
+    public DevelopmentCard(ECardColor color, int level) {
         this.level = level;
         this.color = color;
     }
@@ -50,7 +50,7 @@ public class DevelopmentCard extends Card {
      * @param cost indicates the {@link Resource} the Player spends to buy the Card
      * @param trade indicates the {@link Trade} of the Card
      */
-    public DevelopmentCard(int victoryPoints, int level, ECardColor color, ArrayList<Resource> cost, Trade trade) {
+    public DevelopmentCard(ECardColor color,  int level, ArrayList<Resource> cost, Trade trade, int victoryPoints) {
         super(victoryPoints);
         this.level = level;
         this.color = color;

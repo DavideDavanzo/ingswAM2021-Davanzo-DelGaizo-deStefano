@@ -4,5 +4,6 @@ public class CrossAndShuffleToken extends CrossToken{
 
     private LorenzoToken Shuffle(){
         // devo mischiare l'arrayList di tokens
+        return null;
     }
 }

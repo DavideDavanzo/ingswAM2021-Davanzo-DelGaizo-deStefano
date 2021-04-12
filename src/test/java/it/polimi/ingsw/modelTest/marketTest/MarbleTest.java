@@ -1,7 +1,6 @@
 package it.polimi.ingsw.modelTest.marketTest;
 
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerStub;
+import it.polimi.ingsw.modelTest.stubs.PlayerStub;
 import it.polimi.ingsw.model.market.*;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.DisplayName;
@@ -83,7 +82,7 @@ public class MarbleTest {
     @Test
     @DisplayName("Method returns Shield if boolean is true")
     public void testGetWhiteResourceBlueMarble(){
-        PlayerStub p = new PlayerStub(new Shield(1), true);
+        PlayerStub p = new PlayerStub(new BlueMarble(), true);
         Marble tested = new WhiteMarble();
         assertEquals(new Shield(1), tested.returnItem(p));
     }
@@ -95,7 +94,7 @@ public class MarbleTest {
     @Test
     @DisplayName("Method returns either Servant, boolean is true")
     public void testGetWhiteResourcePurpleMarble(){
-        PlayerStub p = new PlayerStub(new Servant(1), true);
+        PlayerStub p = new PlayerStub(new PurpleMarble(), true);
         Marble tested = new WhiteMarble();
         assertEquals(new Servant(1), tested.returnItem(p));
     }
@@ -107,7 +106,7 @@ public class MarbleTest {
     @Test
     @DisplayName("Method returns Coin, boolean is true")
     public void testGetWhiteResourceYellowMarble() {
-        PlayerStub p = new PlayerStub(new Coin(1), true);
+        PlayerStub p = new PlayerStub(new YellowMarble(), true);
         Marble tested = new WhiteMarble();
         assertEquals(new Coin(1), tested.returnItem(p));
     }
@@ -119,7 +118,7 @@ public class MarbleTest {
     @Test
     @DisplayName("Method returns Stone, boolean is true")
     public void testGetWhiteResourceGreyMarble(){
-        PlayerStub p = new PlayerStub(new Stone(1), true);
+        PlayerStub p = new PlayerStub(new GreyMarble(), true);
         Marble tested = new WhiteMarble();
         assertEquals(new Stone(1), tested.returnItem(p));
     }

@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.market;
 
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerStub;
 import it.polimi.ingsw.model.resources.Item;
 
 /**
@@ -13,7 +12,7 @@ public class WhiteMarble extends Marble {
     @Override
     public Item returnItem(Player p) {
         if (p.hasWhiteMarblePower())
-            return p.getWhiteResource();
+            return p.getExtraMarble().returnItem(p);
     return null;
     }
 }

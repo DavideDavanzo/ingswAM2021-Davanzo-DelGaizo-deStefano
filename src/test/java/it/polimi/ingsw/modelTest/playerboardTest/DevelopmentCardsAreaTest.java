@@ -21,10 +21,10 @@ public class DevelopmentCardsAreaTest {
     @Test
     void testAddDevCard() throws InvalidInputException {
 
-        DevelopmentCard greenCard = new DevelopmentCard(1, ECardColor.GREEN);
-        DevelopmentCard blueCard = new DevelopmentCard(1, ECardColor.BLUE);
-        DevelopmentCard purpleCard = new DevelopmentCard(2, ECardColor.PURPLE);
-        DevelopmentCard yellowCard = new DevelopmentCard(3, ECardColor.YELLOW);
+        DevelopmentCard greenCard = new DevelopmentCard( ECardColor.GREEN, 1);
+        DevelopmentCard blueCard = new DevelopmentCard(ECardColor.BLUE, 1);
+        DevelopmentCard purpleCard = new DevelopmentCard(ECardColor.PURPLE, 2);
+        DevelopmentCard yellowCard = new DevelopmentCard(ECardColor.YELLOW,3);
 
         //@TestedMethod
         underTest.addDevCard(greenCard, underTest.getFirstStack());

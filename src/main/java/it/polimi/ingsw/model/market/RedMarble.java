@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.market;
 
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerStub;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
 
