@@ -12,10 +12,11 @@ import java.util.ArrayList;
  */
 public class DevelopmentCard extends Card {
 
-    private int level;
     private ECardColor color;
+    private int level;
     private ArrayList<Resource> cost;
     private Trade trade;
+    private int victoryPoints;
 
     /**
      * Default Constructor
@@ -58,6 +59,18 @@ public class DevelopmentCard extends Card {
         this.trade = trade;
     }
 
+    public void setColor(ECardColor color) {
+        this.color = color;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void setVictoryPoints(int victoryPoints) {
+        this.victoryPoints = victoryPoints;
+    }
+
     public void setTrade(Trade trade) {
         this.trade = trade;
     }
@@ -66,12 +79,12 @@ public class DevelopmentCard extends Card {
         this.cost = cost;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
     public ECardColor getColor() {
         return color;
+    }
+
+    public int getLevel() {
+        return level;
     }
 
     public ArrayList<Resource> getCost() {
@@ -82,4 +95,19 @@ public class DevelopmentCard extends Card {
         return trade;
     }
 
+    @Override
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
+
+    @Override
+    public String toString() {
+        return "DevelopmentCard -" +
+                " color: " + color +
+                " , level: " + level +
+                " , cost: " + cost +
+                " , trade: " + trade +
+                " , points: " + victoryPoints +
+                " -";
+    }
 }
