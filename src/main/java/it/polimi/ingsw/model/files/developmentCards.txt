@@ -1,0 +1,2 @@
+GREEN//Level: 1//Cost: 1 Shield,1 Servant,1 Stone//Trade: 1 Stone > 1 Servant//Points: 2
+GREEN//Level: 1//Cost: 2 Coin,2 Shield//Trade: 1 Stone,1 Servant > 2 Coin,1 Faith//Points: 4
