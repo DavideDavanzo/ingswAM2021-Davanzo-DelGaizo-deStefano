@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.resources.Resource;
  */
 public class Shelf {
 
+    private boolean extraShelf;
+
     /**
      * All the resources in the shelf, all of the same type (ex: coins)
      */
@@ -22,6 +24,7 @@ public class Shelf {
     public Shelf() {}
 
     public Shelf(int shelfDimension) {
+        extraShelf = false;
         this.availableVolume = shelfDimension;
     }
 
@@ -36,10 +39,13 @@ public class Shelf {
         if(newResource.getVolume() > availableVolume)       //trying to introduce more resources than available spaces
             throw new InvalidInputException("Not enough spaces available in this shelf");
         else {
-            if (shelfResource == null)                      //case: empty shelf
+            if (shelfResource == null)                  //case: empty shelf
                 this.setShelfResource(newResource);
-            else
+            else{
                 shelfResource.update(newResource);          //trying to add the incoming resources
+                if(shelfResource.getVolume() == 0 && !isExtraShelf())              //shelf actually empty
+                    shelfResource = null;
+            }
             availableVolume -= newResource.getVolume();     //update the available spaces in this shelf
         }
 
@@ -51,6 +57,14 @@ public class Shelf {
 
     public void setShelfResource(Resource resource) {
         shelfResource = resource;
+    }
+
+    public boolean isExtraShelf() {
+        return extraShelf;
+    }
+
+    public void setAsExtraShelf() {
+        extraShelf = true;
     }
 
     public int getAvailableVolume() {

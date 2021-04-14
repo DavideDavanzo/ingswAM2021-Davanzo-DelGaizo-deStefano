@@ -60,8 +60,10 @@ public class Path {
 
     }
 
+    //add one by one incoming faith points
     public void moveForward(FaithPoint faithPoint) throws InvalidInputException {
-        currentFaithPoints.update(faithPoint);
+        for(int i=0; i<faithPoint.getVolume(); i++)
+            currentFaithPoints.update(new FaithPoint(1));
     }
 
     //returns if the player is currently in a Vatican report section
@@ -76,6 +78,7 @@ public class Path {
         track[position].setPopeSquare(false);       //at the end disable the Pope space
     }
 
+    //returns the sum between the points given by the position and the points given by the papal tokens if face up
     public int getPathVictoryPoints() {
         return popeTokens.stream().filter(PopeToken::isFaceUp).mapToInt(PopeToken::getVictoryPoints).sum() + track[getCurrentPositionAsInt()].getVictoryPoints();
     }

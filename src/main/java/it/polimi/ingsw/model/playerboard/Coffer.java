@@ -4,6 +4,9 @@ import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.resources.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 
 /**
  * Coffer is the place where the player stores his production resources
@@ -14,6 +17,18 @@ public class Coffer {
     private Resource stones = new Stone();
     private Resource shields = new Shield();
     private Resource servants = new Servant();
+
+    //add the incoming resources to the correct attribute
+    public void updateCoffer(Resource newResource) throws NotEnoughResourcesException, InvalidInputException {
+        if(newResource.sameType(coins))
+            updateCoffer((Coin) newResource);
+        else if(newResource.sameType(stones))
+            updateCoffer((Stone) newResource);
+        else if(newResource.sameType(shields))
+            updateCoffer((Shield) newResource);
+        else if(newResource.sameType(servants))
+            updateCoffer((Servant) newResource);
+    }
 
     /**
      * Modifies the number of coins
@@ -65,6 +80,18 @@ public class Coffer {
 
     public Resource getServants() {
         return servants;
+    }
+
+    public ArrayList<Resource> getAllCofferResources() {
+
+        ArrayList<Resource> totalResources = new ArrayList<>();
+
+        totalResources.add(coins);
+        totalResources.add(shields);
+        totalResources.add(stones);
+        totalResources.add(servants);
+
+        return totalResources;
     }
 
 }

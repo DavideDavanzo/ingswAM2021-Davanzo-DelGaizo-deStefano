@@ -58,6 +58,7 @@ public class PathTest {
     void testStandingBeforeVaticanReportArea() throws InvalidInputException {
 
         Path tested = new Path();
+
         tested.moveForward(new FaithPoint(3));
 
         tested.applyVaticanReport(8);

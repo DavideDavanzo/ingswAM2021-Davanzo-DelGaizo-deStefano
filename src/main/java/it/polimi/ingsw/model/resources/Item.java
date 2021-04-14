@@ -8,7 +8,6 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.Game
  * Abstract class which represents either a resource or faith points
  */
 abstract public class Item {
-
     protected int volume;
 
     public Item(){
@@ -28,6 +27,10 @@ abstract public class Item {
          return volume;
      }
 
-    public abstract boolean sameType(Object o);
+     public void setVolume(int volume) {
+        this.volume = volume;
+     }
+
+     public abstract boolean sameType(Object o);
 
 }
