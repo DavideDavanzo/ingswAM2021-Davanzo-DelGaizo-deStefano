@@ -2,6 +2,7 @@ package it.polimi.ingsw.modelTest.playerboardTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.resources.Coin;
@@ -10,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class CofferTest {
 
     @Test
-    public void testUpdateCoffer() throws NotEnoughResourcesException {
+    public void testUpdateCoffer() throws NotEnoughResourcesException, InvalidInputException {
 
         Coffer cofferTested = new Coffer();
 

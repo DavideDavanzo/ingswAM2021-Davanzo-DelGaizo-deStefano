@@ -1,7 +1,11 @@
 package it.polimi.ingsw.model.playerboard;
 
+import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.resources.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 
 /**
@@ -14,12 +18,24 @@ public class Coffer {
     private Resource shields = new Shield();
     private Resource servants = new Servant();
 
+    //add the incoming resources to the correct attribute
+    public void updateCoffer(Resource newResource) throws NotEnoughResourcesException, InvalidInputException {
+        if(newResource.sameType(coins))
+            updateCoffer((Coin) newResource);
+        else if(newResource.sameType(stones))
+            updateCoffer((Stone) newResource);
+        else if(newResource.sameType(shields))
+            updateCoffer((Shield) newResource);
+        else if(newResource.sameType(servants))
+            updateCoffer((Servant) newResource);
+    }
+
     /**
      * Modifies the number of coins
      * @param newCoins
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Coin newCoins) throws NotEnoughResourcesException {
+    public void updateCoffer(Coin newCoins) throws NotEnoughResourcesException, InvalidInputException {
         coins.update(newCoins);
     }
 
@@ -28,7 +44,7 @@ public class Coffer {
      * @param newStones
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Stone newStones) throws NotEnoughResourcesException {
+    public void updateCoffer(Stone newStones) throws NotEnoughResourcesException, InvalidInputException {
         stones.update(newStones);
     }
 
@@ -37,7 +53,7 @@ public class Coffer {
      * @param newShields
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Shield newShields) throws NotEnoughResourcesException {
+    public void updateCoffer(Shield newShields) throws NotEnoughResourcesException, InvalidInputException {
         shields.update(newShields);
     }
 
@@ -46,7 +62,7 @@ public class Coffer {
      * @param newServants
      * @throws NotEnoughResourcesException
      */
-    public void updateCoffer(Servant newServants) throws NotEnoughResourcesException {
+    public void updateCoffer(Servant newServants) throws NotEnoughResourcesException, InvalidInputException {
         servants.update(newServants);
     }
 
@@ -64,6 +80,18 @@ public class Coffer {
 
     public Resource getServants() {
         return servants;
+    }
+
+    public ArrayList<Resource> getAllCofferResources() {
+
+        ArrayList<Resource> totalResources = new ArrayList<>();
+
+        totalResources.add(coins);
+        totalResources.add(shields);
+        totalResources.add(stones);
+        totalResources.add(servants);
+
+        return totalResources;
     }
 
 }

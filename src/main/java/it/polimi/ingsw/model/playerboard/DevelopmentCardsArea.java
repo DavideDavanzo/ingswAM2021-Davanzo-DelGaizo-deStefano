@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+
+import java.util.ArrayList;
 import java.util.Stack;
 
 /**
@@ -27,9 +29,11 @@ public class DevelopmentCardsArea {
 
     private boolean notValid(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) {
 
-        if(slot.empty()) return developmentCard.getLevel() != 1;
+        if(slot.empty())
+            return developmentCard.getLevel() != 1;
 
         return slot.peek().getLevel() != developmentCard.getLevel() - 1;
+
     }
 
     public Stack<DevelopmentCard> getFirstStack() {

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.modelTest.resourcesTest;
 
+import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +18,7 @@ class ResourceTest {
      */
     @Test
     @DisplayName("Attribute volume of Resource (Coin) increased correctly")
-    void testPositiveUpdate() throws NotEnoughResourcesException {
+    void testPositiveUpdate() throws NotEnoughResourcesException, InvalidInputException {
 
         Resource underTest = new Coin();
 
@@ -36,7 +37,7 @@ class ResourceTest {
      */
     @Test
     @DisplayName("Attribute volume of Resource (Coin) decreased correctly")
-    void testNegativeUpdate() throws NotEnoughResourcesException {
+    void testNegativeUpdate() throws NotEnoughResourcesException, InvalidInputException {
 
         Resource underTest = new Coin(3);       //initialized at 3
 
@@ -46,6 +47,15 @@ class ResourceTest {
         assertThrows(NotEnoughResourcesException.class, () -> underTest.update( new Coin(-2)));     //volume cannot be decreased below zero
 
         assertTrue(underTest.getVolume() == 1);     //when NotEnoughResourcesException thrown volume must not be modified
+
+    }
+
+    @Test
+    void testResourceTypeException() {
+
+        Resource coins = new Coin(3);
+        Resource stones = new Stone(1);
+        assertThrows(InvalidInputException.class, () -> coins.update(stones));
 
     }
 

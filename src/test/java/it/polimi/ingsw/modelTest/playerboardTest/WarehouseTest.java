@@ -6,14 +6,12 @@ import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.playerboard.Warehouse;
-import it.polimi.ingsw.model.resources.Coin;
-import it.polimi.ingsw.model.resources.Shield;
-import it.polimi.ingsw.model.resources.Stone;
+import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.Test;
 
-public class WarehouseTest {
+import java.util.ArrayList;
 
-    private Warehouse underTest = new Warehouse();
+public class WarehouseTest {
 
     /**
      * Testing the behaviour of Warehouse when trying to switch valid and invalid shelves
@@ -22,6 +20,8 @@ public class WarehouseTest {
      */
     @Test
     void testSwitchShelves() throws NotEnoughResourcesException, InvalidInputException {
+
+        Warehouse underTest = new Warehouse();
 
         //initialization of an example of shelves
         underTest.getFirstShelf().updateShelf(new Coin(1));
@@ -50,6 +50,8 @@ public class WarehouseTest {
     @Test
     void testAddExtraShelf() {
 
+        Warehouse underTest = new Warehouse();
+
         Shelf extraShelf = new Shelf(2);
         extraShelf.setShelfResource(new Stone());
 
@@ -70,12 +72,49 @@ public class WarehouseTest {
     @Test
     void testSwitchExtraShelves() throws NotEnoughResourcesException, InvalidInputException {
 
+        Warehouse underTest = new Warehouse();
+
         underTest.getFirstShelf().updateShelf(new Shield(1));
         Shelf extraShelf = new Shelf(2);
         extraShelf.updateShelf(new Shield());
         underTest.addExtraShelf(extraShelf);
 
         assertThrows(InvalidInputException.class, () -> underTest.switchShelves(underTest.getFirstShelf(), underTest.getExtraShelves().get(0)));
+
+    }
+
+    @Test
+    void testGetAllResources() throws NotEnoughResourcesException, InvalidInputException {
+
+        Warehouse underTest = new Warehouse();
+
+        underTest.getFirstShelf().updateShelf(new Coin(1));
+        underTest.getSecondShelf().updateShelf(new Stone(1));
+        underTest.getThirdShelf().updateShelf(new Shield(3));
+        ArrayList<Resource> expected = new ArrayList<>();
+        expected.add(new Coin(1));
+        expected.add(new Stone(1));
+        expected.add(new Shield(3));
+        for(int i=0; i<3; i++)
+            assertTrue(expected.get(i).equals(underTest.getAllWarehouseResources().get(i)));
+        underTest.addExtraShelf(new Shelf(2));
+        underTest.getExtraShelves().get(0).updateShelf(new Servant(1));
+        expected.add(new Servant(1));
+        for(int i=0; i<3; i++)
+            assertTrue(expected.get(i).equals(underTest.getAllWarehouseResources().get(i)));
+
+    }
+
+    @Test
+    void testAddResourceToShelf() throws NotEnoughResourcesException, InvalidInputException {
+
+        Warehouse tested = new Warehouse();
+
+        tested.addResourcesToShelf(new Coin(1), tested.getFirstShelf());
+        tested.addExtraShelf(new Shelf(2));
+        tested.addResourcesToShelf(new Servant(), tested.getExtraShelves().get(0));
+        assertThrows(InvalidInputException.class, () -> tested.addResourcesToShelf(new Coin(2), tested.getSecondShelf()));
+        assertThrows(InvalidInputException.class, () -> tested.addResourcesToShelf(new Coin(2), tested.getThirdShelf()));
 
     }
 
