@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.resources;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
 
+import java.util.Objects;
+
 /**
  * Abstract class which represents either a resource or faith points
  */
@@ -26,5 +28,13 @@ abstract public class Item {
      public int getVolume(){
          return volume;
      }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return volume == item.volume;
+    }
 
 }

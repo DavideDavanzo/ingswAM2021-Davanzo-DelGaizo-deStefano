@@ -1,9 +1,12 @@
 package it.polimi.ingsw.model.sharedarea;
 
 
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.cards.DevCardParser;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
+
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -42,6 +45,70 @@ public class CardMarket {
         }
 
         return true;
+    }
+
+    //TODO: Simplify when number - color association is created
+    /**
+     * Returns true if the Card Market contains on top of a deck the specific card.
+     * @param card if null, it returns false.
+     */
+    public boolean contains(DevelopmentCard card) {
+        for(Deck d : decks[3 - card.getLevel()]) {
+            if(d.isEmpty()) continue;
+            if(d.getCards().peek().equals(card)) return true;
+        }
+        return false;
+    }
+
+    //TODO: Simplify when number - color association is created
+    /**
+     * The method destroys a card of a specific color starting from the lower level to the highest.
+     * @param color is a card color.
+     * @throws LossException when every card of a color is destroyed by {@link LorenzoIlMagnifico}
+     * in single player mode, causing the instant loss.
+     */
+    public void destroyCard(ECardColor color) throws LossException {
+        switch (color) {
+            case GREEN: destroyLine(0);
+                break;
+            case BLUE: destroyLine(1);
+                break;
+            case YELLOW: destroyLine(2);
+                break;
+            case PURPLE: destroyLine(3);
+                break;
+        }
+    }
+
+    //TODO: Simplify when number - color association is created
+    /**
+     * Takes a specific Development Card from the Card Market given the color as a String and the level.
+     * @param color is the color of the card as a String.
+     * @param level is the level of the card.
+     * @return a development card.
+     * @throws IllegalArgumentException if the specific card doesn't exist in the market.
+     */
+    public DevelopmentCard takeCard(String color, int level) throws IllegalArgumentException {
+        for(Deck[] line : decks) {
+            for(Deck d : line) {
+                if(d.isEmpty()) continue;
+                if(d.getColor().equals(ECardColor.valueOf(color)) && d.getLevel() == level) return d.getCards().pop();
+            }
+        }
+        throw new IllegalArgumentException("There's no such card... try again.");
+    }
+
+    //TODO: Simplify when number - color association is created
+    /**
+     * Takes a specific Card given a row and a column.
+     * @param row goes from 1 up to 3.
+     * @param column goes from 1 up to 4.
+     * @return a development card.
+     * @throws IllegalArgumentException if the specific card doesn't exist in the market.
+     */
+    public DevelopmentCard takeCard(int row, int column) throws IllegalArgumentException {
+         if(decks[row - 1][column - 1].isEmpty()) throw new IllegalArgumentException("There's no such card... try again.");
+         return decks[row - 1][column - 1].getCards().pop();
     }
 
     private void init() throws FileNotFoundException {
@@ -94,6 +161,21 @@ public class CardMarket {
         decks[3 - c.getLevel()][color].setLevel(c.getLevel());
     }
 
+    private void destroyLine(int line) throws LossException {
+
+        for(int i = 2; i >= 0 ; i--) {
+            if(decks[i][line].isEmpty()) continue;
+            decks[i][line].getCards().pop();
+            return;
+        }
+
+        throw new LossException("You Lost!");
+    }
+
+    /**
+     * Decks Getter
+     * @return the decks in the market, even if empty.
+     */
     public Deck[][] getDecks() {
         return decks;
     }

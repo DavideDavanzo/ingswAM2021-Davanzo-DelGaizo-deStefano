@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * <\h1>Trade</\h1>
@@ -51,4 +52,34 @@ public class Trade {
     public ArrayList<Item> getOutput() {
         return output;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trade trade = (Trade) o;
+        return this.equalInput(trade.getInput()) &&
+                this.equalOutput(trade.getOutput());
+    }
+
+    public boolean equalInput(ArrayList<Resource> resources) {
+        if(input == resources) return true;
+        if(resources.size() != this.getInput().size()) return false;
+        for(Resource r : resources) {
+            if(this.getInput().contains(r)) continue;
+            return false;
+        }
+        return true;
+    }
+
+    public boolean equalOutput(ArrayList<Item> items) {
+        if(output == items) return true;
+        if(items.size() != this.getOutput().size()) return false;
+        for(Item i : items) {
+            if(this.getInput().contains(i)) continue;
+            return false;
+        }
+        return true;
+    }
+
 }

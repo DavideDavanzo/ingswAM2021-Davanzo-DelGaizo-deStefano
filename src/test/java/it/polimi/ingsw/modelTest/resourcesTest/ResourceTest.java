@@ -60,13 +60,21 @@ class ResourceTest {
         Resource underTestTwo = new Coin(3);
 
         //a.equals(b) <==> b.equals(a)
-        assertTrue(underTestOne.equals(underTestTwo));
-        assertTrue(underTestTwo.equals(underTestOne));
+        assertEquals(underTestTwo, underTestOne);
+        assertEquals(underTestOne, underTestTwo);
 
         underTestOne = new Coin(1);
 
-        assertFalse(underTestOne.equals(underTestTwo));
-        assertFalse(underTestTwo.equals(underTestOne));
+        assertNotEquals(underTestTwo, underTestOne);
+        assertNotEquals(underTestOne, underTestTwo);
+
+        Item underTest1 = new Coin(2);
+        Item underTest2 = new Coin(2);
+
+        assertEquals(underTest1, underTest2);
+        assertNotEquals(underTest1, underTestOne);
+        assertEquals(new FaithPoint(3), new FaithPoint(3));
+        assertNotEquals(new FaithPoint(1), new FaithPoint(2));
 
     }
 }
