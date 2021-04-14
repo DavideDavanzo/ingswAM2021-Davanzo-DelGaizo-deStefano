@@ -82,8 +82,10 @@ public class PlayerboardTest {
 
     @Test
     void testProduce() throws InvalidInputException, NotEnoughResourcesException {
+
         PlayerBoard test = new PlayerBoard();
         ArrayList<Item> output = new ArrayList<>();
+
         output.add(new Coin(2));
         output.add(new FaithPoint(1));
         output.add(new Shield(1));
@@ -160,6 +162,53 @@ public class PlayerboardTest {
         assertEquals(1, tested.getCoffer().getStones().getVolume());
         assertEquals(2, tested.getCoffer().getShields().getVolume());
         assertEquals(2, tested.getPath().getCurrentPositionAsInt());
+
+    }
+
+    @Test
+    void testCalculateVictoryPoints() throws InvalidInputException {
+
+        PlayerBoard tested = new PlayerBoard();
+
+        tested.getPath().moveForward(new FaithPoint(7));    //move to position 7
+
+        tested.getPath().applyVaticanReport(8);     //flip first papal token
+
+        DevelopmentCard dev1 = new DevelopmentCard(ECardColor.GREEN, 1, null, null, 3);
+        DevelopmentCard dev2 = new DevelopmentCard(ECardColor.BLUE, 2, null, null, 4);
+        DevelopmentCard dev3 = new DevelopmentCard(ECardColor.BLUE, 1, null, null, 3);
+
+        //de2 on dev1 in first slot, dev 3 in second slot
+        tested.getDevelopmentCardsArea().addDevCard(dev1, tested.getDevelopmentCardsArea().getFirstStack());
+        tested.getDevelopmentCardsArea().addDevCard(dev2, tested.getDevelopmentCardsArea().getFirstStack());
+        tested.getDevelopmentCardsArea().addDevCard(dev3, tested.getDevelopmentCardsArea().getSecondStack());
+
+        assertEquals(14, tested.calculateVictoryPoints() );
+
+    }
+
+    @Test
+    void testBaseProduction() throws NotEnoughResourcesException, InvalidInputException {
+
+        PlayerBoard underTest = new PlayerBoard();
+
+        underTest.getWarehouse().addResourcesToShelf(new Shield(1), underTest.getWarehouse().getFirstShelf());
+        underTest.getWarehouse().addResourcesToShelf(new Coin(2), underTest.getWarehouse().getSecondShelf());
+
+        ArrayList<Resource> input = new ArrayList<>();
+        input.add(new Coin(1));
+        input.add(new Shield(1));
+
+        underTest.activateBaseProduction(input, new Servant(1));
+        assertEquals(1, underTest.getCoffer().getServants().getVolume());
+
+        underTest.getCoffer().updateCoffer(new Servant(1));
+
+        input = new ArrayList<>();
+        input.add(new Servant(2));
+
+        underTest.activateBaseProduction(input, new FaithPoint(1));
+        assertEquals(1, underTest.getPath().getCurrentPositionAsInt());
 
     }
 

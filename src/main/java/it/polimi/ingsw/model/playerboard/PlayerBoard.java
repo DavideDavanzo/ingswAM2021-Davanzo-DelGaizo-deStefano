@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.*;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * <h1>PlayerBoard</h1>
@@ -54,12 +55,14 @@ public class PlayerBoard {
 
     //put all the incoming resource in the coffer and update the player's faith points
     public void produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
+
         for(Item product : totalProductionOutput) {
             if (product instanceof FaithPoint)
                 path.moveForward((FaithPoint) product);
             else
                 coffer.updateCoffer((Resource) product);
         }
+
     }
 
     //take from the player's warehouse and coffer the resources needed by the chosen productions
@@ -246,6 +249,36 @@ public class PlayerBoard {
                 tempPlayerResource.update(r);
             }
         return tempPlayerResource.getVolume() >= tempResourceRequire.getVolume();
+
+    }
+
+    public void activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
+
+        payRequiredProductionResources(input);
+
+        if (output instanceof FaithPoint)
+            path.moveForward((FaithPoint) output);
+        else
+            coffer.updateCoffer((Resource) output);
+
+    }
+
+    public int calculateVictoryPoints() {
+
+        int boardPoints = 0;
+
+        //add victory points given by all the player's development cards
+        for(DevelopmentCard playerDevCard : developmentCardsArea.getFirstStack())
+            boardPoints += playerDevCard.getVictoryPoints();
+        for(DevelopmentCard playerDevCard : developmentCardsArea.getSecondStack())
+            boardPoints += playerDevCard.getVictoryPoints();
+        for(DevelopmentCard playerDevCard : developmentCardsArea.getThirdStack())
+            boardPoints += playerDevCard.getVictoryPoints();
+
+        //add also points given by the path position and papal tokens
+        boardPoints += path.getPathVictoryPoints();
+
+        return boardPoints;
 
     }
 
