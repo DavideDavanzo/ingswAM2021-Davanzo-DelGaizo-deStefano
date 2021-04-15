@@ -18,32 +18,6 @@ import java.util.ArrayList;
 public class PlayerboardTest {
 
     @Test
-    void testPossibleProduction() throws NotEnoughResourcesException, InvalidInputException {
-
-        PlayerBoard tested = new PlayerBoard();
-
-        ArrayList<Resource> resourcesRequired = new ArrayList<>();
-        resourcesRequired.add(new Coin(1));
-        resourcesRequired.add(new Shield(1));
-        resourcesRequired.add(new Servant(2));
-        resourcesRequired.add(new Coin(1));
-
-        ArrayList<Resource> playerTotalResources = new ArrayList<>();
-        playerTotalResources.add(new Coin(1));
-        playerTotalResources.add(new Stone(1));
-        playerTotalResources.add(new Shield(2));
-        playerTotalResources.add(new Stone(4));
-        playerTotalResources.add(new Servant(5));
-
-        assertFalse(tested.possibleProduction(resourcesRequired, playerTotalResources));
-
-        playerTotalResources.add(new Coin(2));
-
-        assertTrue(tested.possibleProduction(resourcesRequired, playerTotalResources));
-
-    }
-
-    @Test
     void testPayRequiredProductionResources() throws NotEnoughResourcesException, InvalidInputException {
 
         // Player board status initialisation
@@ -69,7 +43,7 @@ public class PlayerboardTest {
         input.add(new Stone(2));
         input.add(new Coin(1));
 
-        tested.payRequiredProductionResources(input);
+        tested.payRequiredResources(input);
 
         assertNull(tested.getWarehouse().getFirstShelf().getShelfResource());
         assertNull(tested.getWarehouse().getSecondShelf().getShelfResource());

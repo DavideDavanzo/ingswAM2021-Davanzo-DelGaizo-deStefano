@@ -98,6 +98,23 @@ public class CardMarket {
         throw new IllegalArgumentException("There's no such card... try again.");
     }
 
+    /**
+     * Gets a specific Development Card from the Card Market without actually removing it from de deck.
+     * @param color is the color of the card as a String.
+     * @param level is the level of the card.
+     * @return a development card.
+     * @throws IllegalArgumentException if the specific card doesn't exist in the market.
+     */
+    public DevelopmentCard getCard(String color, int level) throws IllegalArgumentException {
+        for(Deck[] line : decks) {
+            for(Deck d : line) {
+                if(d.isEmpty()) continue;
+                if(d.getColor().equals(ECardColor.valueOf(color)) && d.getLevel() == level) return d.getCards().peek();
+            }
+        }
+        throw new IllegalArgumentException("There's no such card... try again.");
+    }
+
     //TODO: Simplify when number - color association is created
     /**
      * Takes a specific Card given a row and a column.

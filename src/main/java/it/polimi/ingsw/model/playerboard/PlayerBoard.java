@@ -8,7 +8,6 @@ import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.*;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 /**
  * <h1>PlayerBoard</h1>
@@ -34,20 +33,16 @@ public class PlayerBoard {
 
         ArrayList<Resource> totalInputRequired = new ArrayList<>();
         ArrayList<Item> totalProductionOutput = new ArrayList<>();
-        ArrayList<Resource> playerGivenInput = new ArrayList<>();
 
         for(DevelopmentCard developmentCard : chosenDevCards)
             totalInputRequired.addAll(developmentCard.getTrade().getInput());
         for(DevelopmentCard developmentCard : chosenDevCards)
             totalProductionOutput.addAll(developmentCard.getTrade().getOutput());
 
-        playerGivenInput.addAll(warehouse.getAllWarehouseResources());
-        playerGivenInput.addAll(coffer.getAllCofferResources());
-
-        if(!possibleProduction(totalInputRequired, playerGivenInput))
+        if(!possiblePayment(totalInputRequired))
             throw new ProductionFailException("Resources chosen do not match with production requirements");
         else {
-            payRequiredProductionResources(totalInputRequired);
+            payRequiredResources(totalInputRequired);
             produce(totalProductionOutput);
         }
 
@@ -65,8 +60,8 @@ public class PlayerBoard {
 
     }
 
-    //take from the player's warehouse and coffer the resources needed by the chosen productions
-    public void payRequiredProductionResources(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException, InvalidInputException {
+    //take from the player's warehouse and coffer the resources needed by the transaction
+    public void payRequiredResources(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException, InvalidInputException {
 
         int oldPlayerResourceVolume = 0;
         int oldInputVolume = 0;
@@ -192,9 +187,12 @@ public class PlayerBoard {
         }
     }
 
-    //check if the player has enough resources to spend for the chosen production
-    public boolean possibleProduction( ArrayList<Resource> totalInputRequired, ArrayList<Resource> playerGivenInput) throws NotEnoughResourcesException, InvalidInputException {
+    //check if the player has enough resources to spend for the transaction
+    public boolean possiblePayment(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException, InvalidInputException {
 
+        ArrayList<Resource> playerGivenInput = new ArrayList<>();
+        playerGivenInput.addAll(warehouse.getAllWarehouseResources());
+        playerGivenInput.addAll(coffer.getAllCofferResources());
         //
         Resource tempResourceRequire = new Coin();
         Resource tempPlayerResource = new Coin();
@@ -254,7 +252,7 @@ public class PlayerBoard {
 
     public void activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
 
-        payRequiredProductionResources(input);
+        payRequiredResources(input);
 
         if (output instanceof FaithPoint)
             path.moveForward((FaithPoint) output);
