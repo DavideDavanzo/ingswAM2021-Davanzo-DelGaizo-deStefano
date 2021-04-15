@@ -16,4 +16,13 @@ public class SharedArea {
         market = new Market();
         cardMarket = new CardMarket();
     }
+
+    public Market getMarket() {
+        return market;
+    }
+
+    public CardMarket getCardMarket() {
+        return cardMarket;
+    }
+
 }
