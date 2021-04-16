@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.resources.Resource;
 public class Discount {
 
     private boolean active;
-    private Resource resourceDiscount;
+    private Resource discountResource;
 
     public Discount() {
         this.active = false;
@@ -13,7 +13,7 @@ public class Discount {
 
     public Discount(Resource resourceDiscount) {
         this.active = false;
-        this.resourceDiscount = resourceDiscount;
+        this.discountResource = resourceDiscount;
     }
 
     public void activate() {
@@ -22,5 +22,9 @@ public class Discount {
 
     public boolean isActive() {
         return active;
+    }
+
+    public Resource getDiscountResource() {
+        return discountResource;
     }
 }

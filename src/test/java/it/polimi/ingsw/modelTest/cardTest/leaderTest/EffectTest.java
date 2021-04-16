@@ -3,15 +3,15 @@ package it.polimi.ingsw.modelTest.cardTest.leaderTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.effects.Effect;
-import it.polimi.ingsw.model.effects.ExtraShelfEffect;
-import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
-import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.effects.*;
 import it.polimi.ingsw.model.market.BlueMarble;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 public class EffectTest {
 
@@ -50,6 +50,40 @@ public class EffectTest {
         assertNotNull(player.getExtraMarble());
         assertTrue(player.hasWhiteMarblePower());
         assertEquals(Shield.class, player.getExtraMarble().returnItem(player).getClass());
+    }
+
+    @Test
+    public void testDiscount() {
+        underTest = new DiscountEffect(new Discount(new Coin(1)));
+
+        assertNull(player.getDiscount());
+        assertFalse(player.hasDiscount());
+
+        //@TestedMethod
+        underTest.applyOn(player);
+
+        assertNotNull(player.getDiscount());
+        assertTrue(player.hasDiscount());
+        assertEquals(Coin.class, player.getDiscount().getDiscountResource().getClass());
+        assertTrue(player.getDiscount().isActive());
+    }
+
+    @Test
+    public void testExtraTrade() {
+        Trade t = new Trade();
+        t.setInput(new ArrayList<Resource>(){{add(new Coin(1));}});
+        t.setOutput(new ArrayList<Item>(){{add(new FaithPoint(1));}});
+
+        underTest = new ExtraDevEffect(t);
+
+        assertNull(player.getExtraTrade());
+        assertFalse(player.hasExtraTrade());
+
+        //@TestedMethod
+        underTest.applyOn(player);
+
+        assertNotNull(player.getExtraTrade());
+        assertTrue(player.hasExtraTrade());
     }
 
 }

@@ -5,6 +5,7 @@ import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.Discount;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.market.Marble;
@@ -30,10 +31,12 @@ public class Player {
     private PlayerBoard playerBoard;
     private SharedArea sharedArea;
     private ArrayList<LeaderCard> leaderCards;
-    private boolean whiteMarblePower;
     private Marble extraMarble;
+    private boolean whiteMarblePower;
     private Discount discount;
-
+    private boolean activeDiscount;
+    private Trade extraTrade;
+    private boolean activeTrade;
 
 
     /**
@@ -41,15 +44,17 @@ public class Player {
      */
     public Player() {
         playerBoard = new PlayerBoard();
-        whiteMarblePower = false;
         leaderCards = new ArrayList<>();
+        whiteMarblePower = false;
+        activeDiscount = false;
     }
 
     public Player(String nickname) {
         playerBoard = new PlayerBoard();
-        whiteMarblePower = false;
         leaderCards = new ArrayList<>();
         this.nickname = nickname;
+        whiteMarblePower = false;
+        activeDiscount = false;
     }
 
     /**
@@ -61,7 +66,46 @@ public class Player {
         this.extraMarble = extraMarble;
     }
 
+    /**
+     * Return <b>true</b> if the {@link WhiteMarbleEffect} is active on the player.
+     * @return
+     */
     public boolean hasWhiteMarblePower() { return whiteMarblePower; }
+
+    /**
+     * Gives a discount to the player.
+     * @param discount is a {@link Resource} discount, also see {@link Discount}.
+     */
+    public void giveDiscount(Discount discount) {
+        this.activeDiscount = true;
+        this.discount = discount;
+    }
+
+    /**
+     * Returns <b>true</b> if the player has an active discount from a {@link LeaderCard}.
+     * @return
+     */
+    public boolean hasDiscount() {
+        return activeDiscount;
+    }
+
+
+    /**
+     * Gives the player an extra possible Trade.
+     * @param trade is made of a {@link FaithPoint} and a generic {@link Resource} as output.
+     */
+    public void giveExtraTrade(Trade trade) {
+        this.activeTrade = true;
+        this.extraTrade = trade;
+    }
+
+    /**
+     * Returns <b>true</b> if the player has an active Extra Trade from a {@link LeaderCard}.
+     * @return
+     */
+    public boolean hasExtraTrade() {
+        return activeTrade;
+    }
 
     public int getCurrentVictoryPoints() {
 
@@ -102,12 +146,23 @@ public class Player {
         playerBoard.getWarehouse().addResourcesToShelf(newResource, warehouseShelf);
     }
 
-    public PlayerBoard getPlayerBoard() { return playerBoard; }
+    public PlayerBoard getPlayerBoard() {
+        return playerBoard;
+    }
 
-    public Marble getExtraMarble() { return extraMarble; }
+    public Marble getExtraMarble() {
+        return extraMarble;
+    }
 
     public ArrayList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
 
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public Trade getExtraTrade() {
+        return extraTrade;
+    }
 }

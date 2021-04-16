@@ -1,13 +1,27 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.resources.Resource;
 
 public class DiscountEffect extends Effect {
 
     private Discount discount;
 
     /**
-     * Adctivates a discount in term of spent Resources
+     * Default Constructor
+     */
+    public DiscountEffect() { }
+
+    /**
+     * Main Constructor
+     * @param discount is a Discount related to a certain {@link Resource}
+     */
+    public DiscountEffect(Discount discount) {
+        this.discount = discount;
+    }
+
+    /**
+     * Activates a discount in term of spent Resources
      * @param p is the {@link Player}
      */
     @Override
@@ -15,14 +29,18 @@ public class DiscountEffect extends Effect {
         addDiscount(p);
     }
 
+    /**
+     * Special Getter
+     * @return is Effect's Discount attribute
+     */
     @Override
     public Object getAttribute() {
-        return null;
+        return discount;
     }
 
     private void addDiscount(Player p) {
-        //AGGIUNGERE DISCOUNT AL PLAYER
-        //METODO DA TESTARE AGGIUNTO IL PLAYER
+        discount.activate();
+        p.giveDiscount(discount);
     }
 
     public void setDiscount(Discount discount) {
