@@ -6,10 +6,60 @@ import it.polimi.ingsw.model.resources.Item;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Random;
 
 public class Market {
-    private Marble[][] marketMatrix = new Marble[3][4];
+    private Marble[][] marketMatrix;
     private Marble spareMarble;
+    private ArrayList<Marble> marbleArrayList = new ArrayList<>();
+
+
+
+    public Market() {
+        marketMatrix = new Marble[3][4];
+        init();
+    }
+
+    private void init() {
+
+        ArrayList<Marble> marbleArrayList = new ArrayList<Marble>();
+        marbleArrayList.add(new BlueMarble());
+        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new YellowMarble());
+        marbleArrayList.add(new GreyMarble());
+        marbleArrayList.add(new PurpleMarble());
+        marbleArrayList.add(new PurpleMarble());
+        marbleArrayList.add(new GreyMarble());
+        marbleArrayList.add(new RedMarble());
+        marbleArrayList.add(new YellowMarble());
+        marbleArrayList.add(new BlueMarble());
+
+        shuffle(marbleArrayList);
+        for(int i = 0; i < 3 ; i++) {
+            for (int j = 0; j < 4; j++) {
+                marketMatrix[i][j] = marbleArrayList.get(i * 4 + j);
+            }
+        }
+    }
+
+    public void shuffle (ArrayList<Marble> marbles) {
+
+        Random random = new Random();
+
+        for(int i = 0; i < marbles.size(); i++ ) {
+            int index = i + random.nextInt(marbles.size() - i);
+
+            Marble temp = marbles.get(index);
+            marbles.set(index, marbles.get(i));
+            marbles.set(i, temp);
+        }
+    }
+
+
 
     public ArrayList<Item> getResources(char line, int index, Player p) throws IllegalArgumentException, IllegalChoiceException {
 
@@ -112,3 +162,5 @@ public class Market {
     }
 
 }
+
+

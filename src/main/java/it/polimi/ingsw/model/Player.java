@@ -26,15 +26,14 @@ import java.util.Stack;
  */
 public class Player {
 
-    private String nickname;
     private PlayerBoard playerBoard;
     private SharedArea sharedArea;
-    private ArrayList<LeaderCard> leaderCards;
     private boolean whiteMarblePower;
     private Marble extraMarble;
     private Discount discount;
-
-
+    private ArrayList<LeaderCard> leaderCards;
+    private String nickname;
+    private int victoryPoints;
 
     /**
      * Default Constructor
@@ -43,6 +42,7 @@ public class Player {
         playerBoard = new PlayerBoard();
         whiteMarblePower = false;
         leaderCards = new ArrayList<>();
+        victoryPoints = 0;
     }
 
     public Player(String nickname) {
@@ -50,6 +50,7 @@ public class Player {
         whiteMarblePower = false;
         leaderCards = new ArrayList<>();
         this.nickname = nickname;
+        victoryPoints = 0;
     }
 
     /**
@@ -70,8 +71,21 @@ public class Player {
         for(LeaderCard card : leaderCards)
             victoryPoints += card.getVictoryPoints();   //add points given by leader cards
 
+        this.victoryPoints = victoryPoints;
         return victoryPoints;
 
+    }
+
+    public void setSharedArea(SharedArea sharedArea) {
+        this.sharedArea = sharedArea;
+    }
+
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
+
+    public void setVictoryPoints(int victoryPoints){
+        this.victoryPoints =victoryPoints;
     }
 
     public DevelopmentCard buyDevCard(String color, int level) throws NotEnoughResourcesException, InvalidInputException {
@@ -110,4 +124,7 @@ public class Player {
         return leaderCards;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
 }
