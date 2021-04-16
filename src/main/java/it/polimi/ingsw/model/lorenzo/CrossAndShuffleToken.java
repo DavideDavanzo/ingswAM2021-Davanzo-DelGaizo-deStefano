@@ -1,9 +1,26 @@
 package it.polimi.ingsw.model.lorenzo;
 
-public class CrossAndShuffleToken extends CrossToken{
+import java.util.Random;
 
-    private LorenzoToken Shuffle(){
-        // devo mischiare l'arrayList di tokens
-        return null;
+public class CrossAndShuffleToken extends CrossToken {
+    private int steps;
+
+    public CrossAndShuffleToken(){
+        steps = 1;
     }
+
+    @Override
+    public void activate(LorenzoIlMagnifico lorenzo){
+        lorenzo.move(steps);
+        lorenzo.shuffleToken();
+    }
+
+
+
+
+
+
+
+
+
 }

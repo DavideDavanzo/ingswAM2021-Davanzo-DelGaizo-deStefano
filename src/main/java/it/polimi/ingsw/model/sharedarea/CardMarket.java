@@ -47,6 +47,8 @@ public class CardMarket {
         return true;
     }
 
+
+
     //TODO: Simplify when number - color association is created
     /**
      * Returns true if the Card Market contains on top of a deck the specific card.
