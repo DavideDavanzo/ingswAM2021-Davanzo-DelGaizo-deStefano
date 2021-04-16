@@ -1,12 +1,9 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
-import it.polimi.ingsw.model.lorenzo.LorenzoToken;
 import it.polimi.ingsw.model.sharedarea.SharedArea;
 
-import java.security.KeyStore;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Match {
 
@@ -14,7 +11,6 @@ public class Match {
     private SharedArea sharedArea;
     private int turn;
     private Player currentPlayer;
-    private ArrayList<Player> ranking;
 
     private boolean singlePlayer;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
@@ -38,33 +34,34 @@ public class Match {
 
 
    private void chooseOrder(){
-       Random random = new Random();
+        Random random = new Random();
 
-       for(int i = 0; i < players.size(); i++){
-           int index = i + random.nextInt(players.size() - i);
+        for(int i = 0; i < players.size(); i++){
 
-           Player temp = players.get(index);
-           players.set(index, players.get(i));
-           players.set(i, temp);
+            int index = i + random.nextInt(players.size() - i);
+
+            Player temp = players.get(index);
+            players.set(index, players.get(i));
+            players.set(i, temp);
        }
    }
 
-    public void createRanking() {
-       ranking = new ArrayList<>();
-       ranking.addAll(players);
-       ranking.sort(Comparator.comparingInt(Player :: getCurrentVictoryPoints).reversed());
-    }
+   public void updateQueue() {
+        Player p = players.remove();
+        players.add(p);
+   }
 
-    public void updateQueue() {
-       Player p = players.remove();
-       players.add(p);
-    }
-
-    public Player getCurrentPlayer() {
+   public Player getCurrentPlayer() {
         return players.peek();
-    }
+   }
 
-    public ArrayList<Player> getRanking() {
+   public LinkedList<Player> getRanking() {
+        LinkedList<Player> ranking = new LinkedList<>(players);
+        ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());
         return ranking;
+   }
+
+    public SharedArea getSharedArea() {
+        return sharedArea;
     }
 }
