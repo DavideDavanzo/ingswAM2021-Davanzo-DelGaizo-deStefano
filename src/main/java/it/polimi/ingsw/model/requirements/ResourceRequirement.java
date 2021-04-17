@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 
-public class ResourceRequirement extends Requirement{
+public class ResourceRequirement extends Requirement {
 
     Resource resource;
 
@@ -24,5 +24,4 @@ public class ResourceRequirement extends Requirement{
     public Object getAttribute() {
         return resource;
     }
-
 }

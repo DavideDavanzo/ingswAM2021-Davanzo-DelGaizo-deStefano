@@ -2,9 +2,9 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.enums.ECardColor;
 
-import java.util.ArrayList;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * <h1>Development Card Area</h1>
@@ -17,6 +17,14 @@ public class DevelopmentCardsArea {
     private Stack<DevelopmentCard> secondStack = new Stack<>();
     private Stack<DevelopmentCard> thirdStack = new Stack<>();
 
+    private Stack<DevelopmentCard>[] area = new Stack[3];
+
+    public DevelopmentCardsArea() {
+        area[0] = firstStack;
+        area[1] = secondStack;
+        area[2] = thirdStack;
+    }
+
     public void addDevCard(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) throws InvalidInputException {
 
         if(notValid(developmentCard, slot)) {
@@ -24,6 +32,55 @@ public class DevelopmentCardsArea {
         } else {
             slot.push(developmentCard);
         }
+
+    }
+
+    public boolean hasColorLevel(HashMap<ECardColor, Integer> colorLevel) {
+
+        for(Map.Entry<ECardColor, Integer> entry : colorLevel.entrySet()) {
+            ECardColor color = entry.getKey();
+            Integer level = entry.getValue();
+            if(!colorAndLevelCheck(color, level)) return false;
+        }
+
+        return true;
+
+    }
+
+    public boolean hasColors(HashMap<ECardColor, Integer> colors) {
+
+        for(Map.Entry<ECardColor, Integer> entry : colors.entrySet()) {
+            ECardColor color = entry.getKey();
+            Integer number = entry.getValue();
+            if(!colorAndNumberCheck(color, number)) return false;
+        }
+
+        return true;
+
+    }
+
+    private boolean colorAndLevelCheck(ECardColor color, Integer level) {
+
+        for(Stack<DevelopmentCard> s : area) {
+            for(DevelopmentCard card : s) {
+                if(card.getColor().equals(color) && card.getLevel() == level) return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean colorAndNumberCheck(ECardColor color, Integer i) {
+
+        int count = i;
+
+        for(Stack<DevelopmentCard> s : area) {
+            for(DevelopmentCard card : s) {
+                if(card.getColor().equals(color)) count--;
+            }
+        }
+
+        return count <= 0;
 
     }
 

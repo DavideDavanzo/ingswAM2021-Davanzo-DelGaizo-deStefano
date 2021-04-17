@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.requirements;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.FaithPoint;
 
-public class FaithPointsRequirement extends Requirement{
+public class FaithPointsRequirement extends Requirement {
 
     FaithPoint points;
 
@@ -16,7 +16,7 @@ public class FaithPointsRequirement extends Requirement{
 
     @Override
     public boolean validateOn(Player p) {
-        return p.getPlayerBoard().getPath().getCurrentPositionAsInt() >= points.getVolume() ? true : false;
+        return p.getPlayerBoard().getPath().getCurrentPositionAsInt() >= points.getVolume();
     }
 
     @Override
