@@ -12,7 +12,7 @@ import java.util.Random;
 public abstract class Marble {
 
 
-  public abstract Item returnItem(Player p);
+  public abstract Item returnItem();
 
 
 

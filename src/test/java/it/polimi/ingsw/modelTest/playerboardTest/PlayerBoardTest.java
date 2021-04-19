@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-public class PlayerboardTest {
+public class PlayerBoardTest {
 
     @Test
     void testPayRequiredProductionResources() throws NotEnoughResourcesException, InvalidInputException {

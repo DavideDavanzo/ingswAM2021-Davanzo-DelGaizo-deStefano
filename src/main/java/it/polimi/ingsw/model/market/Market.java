@@ -24,19 +24,20 @@ public class Market {
     private void init() {
 
         ArrayList<Marble> marbleArrayList = new ArrayList<Marble>();
+
+        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new WhiteMarble());
         marbleArrayList.add(new BlueMarble());
-        marbleArrayList.add(new WhiteMarble());
-        marbleArrayList.add(new WhiteMarble());
-        marbleArrayList.add(new WhiteMarble());
-        marbleArrayList.add(new WhiteMarble());
+        marbleArrayList.add(new BlueMarble());
+        marbleArrayList.add(new YellowMarble());
         marbleArrayList.add(new YellowMarble());
         marbleArrayList.add(new GreyMarble());
-        marbleArrayList.add(new PurpleMarble());
-        marbleArrayList.add(new PurpleMarble());
         marbleArrayList.add(new GreyMarble());
+        marbleArrayList.add(new PurpleMarble());
+        marbleArrayList.add(new PurpleMarble());
         marbleArrayList.add(new RedMarble());
-        marbleArrayList.add(new YellowMarble());
-        marbleArrayList.add(new BlueMarble());
 
         shuffle(marbleArrayList);
         for(int i = 0; i < 3 ; i++) {
@@ -61,7 +62,7 @@ public class Market {
 
 
 
-    public ArrayList<Item> getResources(char line, int index, Player p) throws IllegalArgumentException, IllegalChoiceException {
+    public ArrayList<Item> getResources(char line, int index) throws IllegalArgumentException, IllegalChoiceException {
 
         ArrayList<Item> list = new ArrayList<Item>();
 
@@ -70,8 +71,7 @@ public class Market {
             if(index >= 0 && index < 3){
 
                 for(int i = 0; i < 4; i ++ ){
-                    if(marketMatrix[index][i].returnItem(p) != null)
-                        list.add(marketMatrix[index][i].returnItem(p));
+                    list.add(marketMatrix[index][i].returnItem());
                 }
 
             } else {
@@ -82,8 +82,7 @@ public class Market {
             if(index >= 0 && index < 4){
 
                 for(int i = 0; i < 3; i++){
-                    if(marketMatrix[i][index].returnItem(p) != null)
-                        list.add(marketMatrix[i][index].returnItem(p));
+                    list.add(marketMatrix[i][index].returnItem());
                 }
 
             } else {
@@ -141,20 +140,13 @@ public class Market {
         Market otherMarket = (Market) o;
         Player p = new Player();
 
-        if(!(this.spareMarble.returnItem(p).equals(otherMarket.spareMarble.returnItem(p)))) return false;
+        if(!(this.spareMarble.returnItem().equals(otherMarket.spareMarble.returnItem()))) return false;
 
         for(int i = 0; i < 3; i++) {
 
             for(int j = 0; j < 4; j++) {
-                boolean one = this.marketMatrix[i][j].returnItem(p) == null;
-                boolean other = otherMarket.marketMatrix[i][j].returnItem(p) == null;
 
-                if(one || other) {
-                    if (one == other) continue;
-                    return false;
-                }
-
-                if (!(this.marketMatrix[i][j].returnItem(p).equals(otherMarket.marketMatrix[i][j].returnItem(p))))
+                if (!(this.marketMatrix[i][j].returnItem().equals(otherMarket.marketMatrix[i][j].returnItem())))
                     return false;
             }
         }

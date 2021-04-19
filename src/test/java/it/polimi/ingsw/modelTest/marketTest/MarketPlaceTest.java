@@ -3,10 +3,7 @@ package it.polimi.ingsw.modelTest.marketTest;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.market.*;
-import it.polimi.ingsw.model.resources.FaithPoint;
-import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.resources.Servant;
-import it.polimi.ingsw.model.resources.Shield;
+import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -49,15 +46,12 @@ public class MarketPlaceTest {
         Marble secondSpareMarble = new BlueMarble();
         otherMarket.setSpareMarble(secondSpareMarble);
 
-        //Player
-        Player currentPlayer = new Player();
-
         //Returned Items
-        ArrayList<Item> test = market.getResources('r',1 , currentPlayer);
-        ArrayList<Item> proof = new ArrayList<Item>(Arrays.asList(new Servant(), new FaithPoint(), new Shield()));
+        ArrayList<Item> test = market.getResources('r',1);
+        ArrayList<Item> proof = new ArrayList<Item>(Arrays.asList(new Servant(), new FaithPoint(), new Resource(), new Shield()));
 
         //Asserts
-        for(int i=0; i<test.size(); i++) {
+        for(int i = 0; i < test.size(); i++) {
             assertSame(test.get(i).getClass(), proof.get(i).getClass());
         }
         assertEquals(otherMarket, market);

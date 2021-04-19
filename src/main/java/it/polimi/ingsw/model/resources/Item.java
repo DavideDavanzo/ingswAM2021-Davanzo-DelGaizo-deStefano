@@ -13,8 +13,7 @@ abstract public class Item {
 
     protected int volume;
 
-    public Item(){
-    }
+    public Item(){ }
 
     public Item(int volume){
         this.volume = volume;
@@ -34,6 +33,7 @@ abstract public class Item {
         this.volume = volume;
      }
 
+    //TODO: Remove
      public abstract boolean sameType(Object o);
 
     @Override

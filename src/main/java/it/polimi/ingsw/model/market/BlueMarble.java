@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.resources.Shield;
 
 public class BlueMarble extends Marble{
     @Override
-    public Item returnItem(Player p) {
+    public Item returnItem() {
         return new Shield(1);
     }
 }

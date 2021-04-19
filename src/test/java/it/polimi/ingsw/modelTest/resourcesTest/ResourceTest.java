@@ -30,6 +30,8 @@ class ResourceTest {
         underTest.update(new Coin());
         assertTrue(underTest.getVolume() == 3);     //not modified at all
 
+
+
     }
 
     /**

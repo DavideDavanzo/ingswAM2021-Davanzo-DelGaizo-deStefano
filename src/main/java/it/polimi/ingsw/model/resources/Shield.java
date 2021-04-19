@@ -22,12 +22,10 @@ public class Shield extends Resource{
 
         Shield otherShield = (Shield) o;
 
-        if( this.volume == otherShield.getVolume() )
-            return true;
-
-        return false;
+        return this.volume == otherShield.getVolume();
     }
 
+    //TODO: Remove
     @Override
     public boolean sameType(Object o) {
         return (o instanceof Shield);

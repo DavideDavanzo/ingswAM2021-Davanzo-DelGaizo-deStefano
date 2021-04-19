@@ -21,12 +21,10 @@ public class Servant extends Resource{
 
         Servant otherServant = (Servant) o;
 
-        if( this.volume == otherServant.getVolume() )
-            return true;
-
-        return false;
+        return this.volume == otherServant.getVolume();
     }
 
+    //TODO: Remove
     @Override
     public boolean sameType(Object o) {
         return (o instanceof Servant);

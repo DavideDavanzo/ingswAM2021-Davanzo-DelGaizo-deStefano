@@ -46,7 +46,7 @@ public class WhiteMarbleEffect extends Effect {
 
     /**
      * Gives the Player an extra marble that can be
-     * accessed via {@link Player#getExtraMarble()}
+     * accessed via {@link Player#getExtraMarbles()}
      * @param p refers to the player
      */
     private void addExtraMarble(Player p) {

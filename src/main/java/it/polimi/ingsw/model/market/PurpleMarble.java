@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.resources.Servant;
 
 public class PurpleMarble extends Marble{
     @Override
-    public Item returnItem(Player p) {
+    public Item returnItem() {
         return new Servant(1);
     }
 }

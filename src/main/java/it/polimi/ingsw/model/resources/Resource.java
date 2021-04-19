@@ -4,10 +4,13 @@ package it.polimi.ingsw.model.resources;
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
+import java.util.Iterator;
+
 /**
- * Abstract class which represents an amount of resources of the same type (coins, shields, stones, servants)
+ *  Represents an amount of resources of the same type (coins, shields, stones, servants)
+ *  or a blank resource.
  */
-public abstract class Resource extends Item{
+public class Resource extends Item{
 
     public Resource(){
         super();
@@ -36,12 +39,18 @@ public abstract class Resource extends Item{
 
     }
 
-    /**
-     * This equals to other resource if they are of the same subclass and have same volume
-     */
-    @Override
-    public abstract boolean equals(Object o);
 
-    public abstract boolean sameType(Object o);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Resource resource = (Resource) o;
+        return volume == resource.volume;
+    }
+
+    public boolean sameType(Object o) {
+        //TODO: Remove
+        return false;
+    }
 
 }

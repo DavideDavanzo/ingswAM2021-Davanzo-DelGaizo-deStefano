@@ -33,13 +33,13 @@ public class Player {
 
     private ArrayList<LeaderCard> leaderCards;
 
-    private Marble extraMarble;
+    private ArrayList<Marble> extraMarbles;
     private boolean whiteMarblePower;
 
-    private Discount discount;
+    private ArrayList<Discount> discounts;
     private boolean activeDiscount;
 
-    private Trade extraTrade;
+    private ArrayList<Trade> extraTrades;
     private boolean activeTrade;
 
     private int victoryPoints;
@@ -71,23 +71,31 @@ public class Player {
      * @param extraMarble is a colored Marble
      */
     public void giveWhiteMarblePower(Marble extraMarble) {
-        this.whiteMarblePower = true;
-        this.extraMarble = extraMarble;
+        if(!whiteMarblePower) {
+            extraMarbles = new ArrayList<>();
+            whiteMarblePower = true;
+        }
+        extraMarbles.add(extraMarble);
     }
 
     /**
      * Return <b>true</b> if the {@link WhiteMarbleEffect} is active on the player.
      * @return
      */
-    public boolean hasWhiteMarblePower() { return whiteMarblePower; }
+    public boolean hasWhiteMarblePower() {
+        return whiteMarblePower;
+    }
 
     /**
      * Gives a discount to the player.
      * @param discount is a {@link Resource} discount, also see {@link Discount}.
      */
     public void giveDiscount(Discount discount) {
-        this.activeDiscount = true;
-        this.discount = discount;
+        if(!activeDiscount) {
+            discounts = new ArrayList<>();
+            activeDiscount = true;
+        }
+        discounts.add(discount);
     }
 
     /**
@@ -104,8 +112,11 @@ public class Player {
      * @param trade is made of a {@link FaithPoint} and a generic {@link Resource} as output.
      */
     public void giveExtraTrade(Trade trade) {
-        this.activeTrade = true;
-        this.extraTrade = trade;
+        if(!activeTrade) {
+            extraTrades = new ArrayList<>();
+            activeTrade = true;
+        }
+        extraTrades.add(trade);
     }
 
     /**
@@ -161,7 +172,7 @@ public class Player {
     }
 
     public ArrayList<Item> takeResourcesFromMarket(char rowOrColumn, int index) throws IllegalChoiceException {
-        return sharedArea.getMarket().getResources(rowOrColumn, index, this);
+        return sharedArea.getMarket().getResources(rowOrColumn, index);
     }
 
     public void putMarketResourcesInWarehouse(Resource newResource, Shelf warehouseShelf) throws NotEnoughResourcesException, InvalidInputException {
@@ -172,21 +183,22 @@ public class Player {
         return playerBoard;
     }
 
-    public Marble getExtraMarble() {
-        return extraMarble;
+    public ArrayList<Marble> getExtraMarbles() {
+        return extraMarbles;
     }
 
     public ArrayList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
 
-    public Discount getDiscount() {
-        return discount;
+    public ArrayList<Discount> getDiscounts() {
+        return discounts;
     }
 
-    public Trade getExtraTrade() {
-        return extraTrade;
+    public ArrayList<Trade> getExtraTrades() {
+        return extraTrades;
     }
+
     public String getNickname() {
         return nickname;
     }

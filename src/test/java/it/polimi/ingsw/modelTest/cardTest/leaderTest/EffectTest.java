@@ -41,31 +41,30 @@ public class EffectTest {
     public void testWhiteMarble() {
         underTest = new WhiteMarbleEffect(new BlueMarble());
 
-        assertNull(player.getExtraMarble());
+        assertNull(player.getExtraMarbles());
         assertFalse(player.hasWhiteMarblePower());
 
         //@TestedMethod
         underTest.applyOn(player);
 
-        assertNotNull(player.getExtraMarble());
+        assertNotNull(player.getExtraMarbles());
         assertTrue(player.hasWhiteMarblePower());
-        assertEquals(Shield.class, player.getExtraMarble().returnItem(player).getClass());
     }
 
     @Test
     public void testDiscount() {
         underTest = new DiscountEffect(new Discount(new Coin(1)));
 
-        assertNull(player.getDiscount());
+        assertNull(player.getDiscounts());
         assertFalse(player.hasDiscount());
 
         //@TestedMethod
         underTest.applyOn(player);
 
-        assertNotNull(player.getDiscount());
+        assertNotNull(player.getDiscounts());
         assertTrue(player.hasDiscount());
-        assertEquals(Coin.class, player.getDiscount().getDiscountResource().getClass());
-        assertTrue(player.getDiscount().isActive());
+        assertEquals(Coin.class, player.getDiscounts().get(0).getDiscountResource().getClass());
+        assertTrue(player.getDiscounts().get(0).isActive());
     }
 
     @Test
@@ -76,13 +75,13 @@ public class EffectTest {
 
         underTest = new ExtraDevEffect(t);
 
-        assertNull(player.getExtraTrade());
+        assertNull(player.getExtraTrades());
         assertFalse(player.hasExtraTrade());
 
         //@TestedMethod
         underTest.applyOn(player);
 
-        assertNotNull(player.getExtraTrade());
+        assertNotNull(player.getExtraTrades());
         assertTrue(player.hasExtraTrade());
     }
 

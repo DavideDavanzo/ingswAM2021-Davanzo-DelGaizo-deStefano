@@ -21,12 +21,10 @@ public class Coin extends Resource {
 
         Coin otherCoin = (Coin) o;
 
-        if( this.volume == otherCoin.getVolume() )
-            return true;
-
-        return false;
+        return this.volume == otherCoin.getVolume();
     }
 
+    //TODO: Remove
     @Override
     public boolean sameType(Object o) {
         return (o instanceof Coin);

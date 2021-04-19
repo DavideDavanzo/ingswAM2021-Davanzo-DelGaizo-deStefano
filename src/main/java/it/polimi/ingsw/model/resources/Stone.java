@@ -21,12 +21,10 @@ public class Stone extends Resource{
 
         Stone otherStone = (Stone) o;
 
-        if( this.volume == otherStone.getVolume() )
-            return true;
-
-        return false;
+        return this.volume == otherStone.getVolume();
     }
 
+    //TODO: Remove
     @Override
     public boolean sameType(Object o) {
         return (o instanceof Stone);
