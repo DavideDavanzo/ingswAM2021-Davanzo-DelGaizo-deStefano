@@ -24,8 +24,8 @@ public class PlayerboardTest {
         // Warehouse: first shelf -> 1 coin, second shelf -> 1 shield, first extra -> 1 servant, second extra -> 2 shields
         // Coffer: 5 coins, 3 stones, 3 servants
         PlayerBoard tested = new PlayerBoard();
-        tested.getWarehouse().getFirstShelf().updateShelf(new Coin(1));
-        tested.getWarehouse().getSecondShelf().updateShelf(new Shield(1));
+        tested.getWarehouse().addResourcesToShelf(new Coin(1), tested.getWarehouse().getFirstShelf());
+        tested.getWarehouse().addResourcesToShelf(new Shield(1), tested.getWarehouse().getSecondShelf());
         tested.getWarehouse().addExtraShelf(new Shelf(2));
         tested.getWarehouse().getExtraShelves().get(0).updateShelf(new Servant(1));
         tested.getWarehouse().addExtraShelf(new Shelf(2));

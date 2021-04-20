@@ -19,51 +19,11 @@ public class Coffer {
     private Resource servants = new Servant();
 
     //add the incoming resources to the correct attribute
-    public void updateCoffer(Resource newResource) throws NotEnoughResourcesException, InvalidInputException {
-        if(newResource.sameType(coins))
-            updateCoffer((Coin) newResource);
-        else if(newResource.sameType(stones))
-            updateCoffer((Stone) newResource);
-        else if(newResource.sameType(shields))
-            updateCoffer((Shield) newResource);
-        else if(newResource.sameType(servants))
-            updateCoffer((Servant) newResource);
-    }
-
-    /**
-     * Modifies the number of coins
-     * @param newCoins
-     * @throws NotEnoughResourcesException
-     */
-    public void updateCoffer(Coin newCoins) throws NotEnoughResourcesException, InvalidInputException {
-        coins.update(newCoins);
-    }
-
-    /**
-     * Modifies the number of stones
-     * @param newStones
-     * @throws NotEnoughResourcesException
-     */
-    public void updateCoffer(Stone newStones) throws NotEnoughResourcesException, InvalidInputException {
-        stones.update(newStones);
-    }
-
-    /**
-     * Modifies the number of shields
-     * @param newShields
-     * @throws NotEnoughResourcesException
-     */
-    public void updateCoffer(Shield newShields) throws NotEnoughResourcesException, InvalidInputException {
-        shields.update(newShields);
-    }
-
-    /**
-     * Modifies the number of servants
-     * @param newServants
-     * @throws NotEnoughResourcesException
-     */
-    public void updateCoffer(Servant newServants) throws NotEnoughResourcesException, InvalidInputException {
-        servants.update(newServants);
+    public void updateCoffer(Item newResource) throws NotEnoughResourcesException, InvalidInputException {
+        coins.update(newResource);
+        stones.update(newResource);
+        shields.update(newResource);
+        servants.update(newResource);
     }
 
     public Resource getCoins() {

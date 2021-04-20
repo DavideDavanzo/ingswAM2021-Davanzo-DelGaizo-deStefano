@@ -22,7 +22,6 @@ public class Match {
 
     public void initPlayers(){
         for(Player p: players){
-            p.setSharedArea(this.sharedArea);
             //p.giveLeaderCard(Stack<LeaderCard>)
         }
     }
@@ -58,6 +57,22 @@ public class Match {
     public void updateQueue() {
        Player p = players.remove();
        players.add(p);
+    }
+
+    public LinkedList<Player> getPlayers() {
+        return players;
+    }
+
+    public SharedArea getSharedArea() {
+        return sharedArea;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public LorenzoIlMagnifico getLorenzoIlMagnifico() {
+        return lorenzoIlMagnifico;
     }
 
     public Player getCurrentPlayer() {

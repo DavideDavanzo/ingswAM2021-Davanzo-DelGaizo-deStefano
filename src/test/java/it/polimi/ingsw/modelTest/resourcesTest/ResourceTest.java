@@ -50,16 +50,6 @@ class ResourceTest {
 
     }
 
-    @Test
-    void testResourceTypeException() {
-
-        Resource coins = new Coin(3);
-        Resource stones = new Stone(1);
-        assertThrows(InvalidInputException.class, () -> coins.update(stones));
-
-    }
-
-
     /**
      * Testing if method equals() works correctly
      */

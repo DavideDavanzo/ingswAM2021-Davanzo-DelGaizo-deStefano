@@ -27,4 +27,5 @@ public class Discount {
     public Resource getDiscountResource() {
         return discountResource;
     }
+
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.resources;
 
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 /**
  * Class which represents an amount of faith points
@@ -17,12 +18,33 @@ public class FaithPoint extends Item {
     }
 
     @Override
-    public void update(Item newPoints) throws InvalidInputException {
-        if(this.sameType(newPoints))
-            //The path has 20 positions, player can't go further
-            volume = Math.min(volume + newPoints.getVolume(), 24);
-        else
-            throw new InvalidInputException("Trying to add items of different type");
+    public void update(Item newItems) {
+        volume = Math.min( (volume + newItems.addFaithPoints()), 24 );
+    }
+
+    @Override
+    public int addCoins() {
+        return 0;
+    }
+
+    @Override
+    public int addStones() {
+        return 0;
+    }
+
+    @Override
+    public int addShields() {
+        return 0;
+    }
+
+    @Override
+    public int addServants() {
+        return 0;
+    }
+
+    @Override
+    public int addFaithPoints() {
+        return volume;
     }
 
     @Override

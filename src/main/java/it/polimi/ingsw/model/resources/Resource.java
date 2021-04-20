@@ -7,7 +7,7 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 /**
  * Abstract class which represents an amount of resources of the same type (coins, shields, stones, servants)
  */
-public abstract class Resource extends Item{
+public class Resource extends Item{
 
     public Resource(){
         super();
@@ -17,31 +17,49 @@ public abstract class Resource extends Item{
         super(numResources);
     }
 
-    /**
-     * Method which modifies the amount of resources in the instance
-     * @param newResource
-     * @throws NotEnoughResourcesException when asked to remove more resources than current volume
-     */
     @Override
-    public void update(Item newResource) throws NotEnoughResourcesException, InvalidInputException {
+    public void update(Item newItems) throws NotEnoughResourcesException {
+    }
 
-        if (volume + newResource.getVolume() < 0) {         //volume cannot decreased below zero
-            // if so, volume must not be updated
-            throw new NotEnoughResourcesException("There are not enough resources to complete this operation");
-        } else if(!this.sameType(newResource)) {
-            throw new InvalidInputException("Trying to add resources of different type");
-        } else {
-            volume = volume + newResource.getVolume();      //add volume of newResource to this instance's one
-        }
+    @Override
+    public int addCoins() {
+        return 0;
+    }
 
+    @Override
+    public int addStones() {
+        return 0;
+    }
+
+    @Override
+    public int addShields() {
+        return 0;
+    }
+
+    @Override
+    public int addServants() {
+        return 0;
+    }
+
+    @Override
+    public int addFaithPoints() {
+        return 0;
     }
 
     /**
      * This equals to other resource if they are of the same subclass and have same volume
      */
     @Override
-    public abstract boolean equals(Object o);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Resource item = (Resource) o;
+        return volume == item.volume;
+    }
 
-    public abstract boolean sameType(Object o);
+    //TODO: Remove
+    public boolean sameType(Object o) {
+        return false;
+    }
 
 }
