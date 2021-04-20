@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.LinkedList;
 
-public class matchTest {
+public class MatchTest {
 
     Match underTest;
 
@@ -36,12 +36,11 @@ public class matchTest {
     }
 
     @Test
-    @DisplayName("")
     public void testRanking() {
 
-        underTest.createRanking();
-        for (int i = 0; i < underTest.getRanking().size() -1 ; i++) {
-            assertTrue(underTest.getRanking().get(i).getVictoryPoints() >= underTest.getRanking().get(i + 1).getVictoryPoints());
+        LinkedList<Player> finalRanking = underTest.getRanking();
+        for (int i = 0; i < finalRanking.size() -1 ; i++) {
+            assertTrue(finalRanking.get(i).getVictoryPoints() >= finalRanking.get(i + 1).getVictoryPoints());
         }
     }
 }

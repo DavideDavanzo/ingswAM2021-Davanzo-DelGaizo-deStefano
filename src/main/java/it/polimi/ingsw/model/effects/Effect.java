@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
 
 /**
- * <\h1>Effect</\h1>
+ * <h1>Effect</h1>
  * An Effect is a special special power that can be activated
  * through a {@link LeaderCard}. Once active, it lasts until the
  * end of the game
