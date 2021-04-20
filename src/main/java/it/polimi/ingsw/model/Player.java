@@ -12,9 +12,7 @@ import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 
 import it.polimi.ingsw.model.playerboard.Shelf;
-import it.polimi.ingsw.model.resources.FaithPoint;
-import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.model.sharedarea.SharedArea;
 
 import java.util.ArrayList;
@@ -29,7 +27,6 @@ public class Player {
     private String nickname;
 
     private PlayerBoard playerBoard;
-    private SharedArea sharedArea;
 
     private ArrayList<LeaderCard> leaderCards;
 
@@ -135,25 +132,32 @@ public class Player {
             victoryPoints += card.getVictoryPoints();   //add points given by leader cards
 
         this.victoryPoints = victoryPoints;
+
         return victoryPoints;
-
-    }
-
-    public void setSharedArea(SharedArea sharedArea) {
-        this.sharedArea = sharedArea;
     }
 
     public int getVictoryPoints() {
         return victoryPoints;
     }
 
-    public void setVictoryPoints(int victoryPoints){
+    public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints =victoryPoints;
     }
 
-    public DevelopmentCard buyDevCard(String color, int level) throws NotEnoughResourcesException, InvalidInputException {
+    public void pay(DevelopmentCard developmentCard) throws NotEnoughResourcesException, InvalidInputException {
 
-        ArrayList<Resource> devCost = sharedArea.getCardMarket().getCard(color, level).getCost();
+        ArrayList<Resource> devCost = (ArrayList<Resource>) developmentCard.getCost().clone();
+
+        if(activeDiscount){
+            for(Resource r : devCost){
+                if(discount.getDiscountResource().sameType(r)) {
+                    r.update((Coin) discount.getDiscountResource());
+                    r.update((Shield) discount.getDiscountResource());
+                    r.update((Stone) discount.getDiscountResource());
+                    r.update((Servant) discount.getDiscountResource());
+                }
+            }
+        }
 
         if(!playerBoard.possiblePayment(devCost))
             throw new NotEnoughResourcesException("Impossible transaction");
@@ -161,21 +165,15 @@ public class Player {
 
             //TODO: verify discount, if there is one -> modify devCost
             playerBoard.payRequiredResources(devCost);
-
-            return sharedArea.getCardMarket().takeCard(color, level);
         }
 
     }
 
-    public void putDevCardOnBoard(DevelopmentCard developmentCard, Stack<DevelopmentCard> developmentCardStack) throws InvalidInputException {
+    public void handleNewDevCard(DevelopmentCard developmentCard, Stack<DevelopmentCard> developmentCardStack) throws InvalidInputException {
         playerBoard.getDevelopmentCardsArea().addDevCard(developmentCard, developmentCardStack);
     }
 
-    public ArrayList<Item> takeResourcesFromMarket(char rowOrColumn, int index) throws IllegalChoiceException {
-        return sharedArea.getMarket().getResources(rowOrColumn, index);
-    }
-
-    public void putMarketResourcesInWarehouse(Resource newResource, Shelf warehouseShelf) throws NotEnoughResourcesException, InvalidInputException {
+    public void handleMarketResources(Resource newResource, Shelf warehouseShelf) throws NotEnoughResourcesException, InvalidInputException {
         playerBoard.getWarehouse().addResourcesToShelf(newResource, warehouseShelf);
     }
 
@@ -202,4 +200,5 @@ public class Player {
     public String getNickname() {
         return nickname;
     }
+
 }

@@ -18,7 +18,6 @@ public class Match {
 
     public void initPlayers(){
         for(Player p: players){
-            p.setSharedArea(this.sharedArea);
             //p.giveLeaderCard(Stack<LeaderCard>)
         }
     }
@@ -51,9 +50,21 @@ public class Match {
         players.add(p);
    }
 
-   public Player getCurrentPlayer() {
+    public LinkedList<Player> getPlayers() {
+        return players;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public LorenzoIlMagnifico getLorenzoIlMagnifico() {
+        return lorenzoIlMagnifico;
+    }
+
+    public Player getCurrentPlayer() {
         return players.peek();
-   }
+    }
 
    public LinkedList<Player> getRanking() {
         LinkedList<Player> ranking = new LinkedList<>(players);

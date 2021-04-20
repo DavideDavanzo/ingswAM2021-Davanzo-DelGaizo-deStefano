@@ -34,13 +34,6 @@ class FaithPointTest {
 
     }
 
-    @Test
-    void testItemTypeException() {
-
-        assertThrows(InvalidInputException.class, () -> (new FaithPoint()).update(new Coin()));
-
-    }
-
     /**
      * Testing if method equals() works correctly
      */

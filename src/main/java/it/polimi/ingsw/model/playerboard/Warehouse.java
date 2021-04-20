@@ -139,6 +139,18 @@ public class Warehouse {
         shelf.updateShelf(newResource);
     }
 
+    public ArrayList<Shelf> getAllShelves() {
+        ArrayList<Shelf> temp = new ArrayList<>();
+
+        temp.add(firstShelf);
+        temp.add(secondShelf);
+        temp.add(thirdShelf);
+        if(extraShelves != null)
+            temp.addAll(extraShelves);
+
+        return temp;
+    }
+
     public Shelf getFirstShelf() {
         return firstShelf;
     }

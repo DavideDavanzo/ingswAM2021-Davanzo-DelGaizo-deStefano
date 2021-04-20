@@ -4,8 +4,6 @@ package it.polimi.ingsw.model.resources;
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
-import java.util.Iterator;
-
 /**
  *  Represents an amount of resources of the same type (coins, shields, stones, servants)
  *  or a blank resource.
@@ -20,26 +18,38 @@ public class Resource extends Item{
         super(numResources);
     }
 
-    /**
-     * Method which modifies the amount of resources in the instance
-     * @param newResource
-     * @throws NotEnoughResourcesException when asked to remove more resources than current volume
-     */
     @Override
-    public void update(Item newResource) throws NotEnoughResourcesException, InvalidInputException {
-
-        if (volume + newResource.getVolume() < 0) {         //volume cannot decreased below zero
-            // if so, volume must not be updated
-            throw new NotEnoughResourcesException("There are not enough resources to complete this operation");
-        } else if(!this.sameType(newResource)) {
-            throw new InvalidInputException("Trying to add resources of different type");
-        } else {
-            volume = volume + newResource.getVolume();      //add volume of newResource to this instance's one
-        }
-
+    public void update(Item newItems) throws NotEnoughResourcesException {
     }
 
+    @Override
+    public int addCoins() {
+        return 0;
+    }
 
+    @Override
+    public int addStones() {
+        return 0;
+    }
+
+    @Override
+    public int addShields() {
+        return 0;
+    }
+
+    @Override
+    public int addServants() {
+        return 0;
+    }
+
+    @Override
+    public int addFaithPoints() {
+        return 0;
+    }
+
+    /**
+     * This equals to other resource if they are of the same subclass and have same volume
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,8 +58,8 @@ public class Resource extends Item{
         return volume == resource.volume;
     }
 
+    //TODO: Remove
     public boolean sameType(Object o) {
-        //TODO: Remove
         return false;
     }
 

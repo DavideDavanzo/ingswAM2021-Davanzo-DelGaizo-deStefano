@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
-import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.*;
 
 /**
  * Class which represents a single shelf of the player's warehouse
@@ -28,6 +28,10 @@ public class Shelf {
         this.availableVolume = shelfDimension;
     }
 
+    public void emptyThisShelf() {
+        shelfResource = null;
+    }
+
     /**
      * To add or subtract a given amount of resources
      * @param newResource
@@ -40,11 +44,11 @@ public class Shelf {
             throw new InvalidInputException("Not enough spaces available in this shelf");
         else {
             if (shelfResource == null)                  //case: empty shelf
-                this.setShelfResource(newResource);
+                setShelfResource(newResource);
             else{
-                shelfResource.update(newResource);          //trying to add the incoming resources
+                shelfResource.update(newResource);
                 if(shelfResource.getVolume() == 0 && !isExtraShelf())              //shelf actually empty
-                    shelfResource = null;
+                    emptyThisShelf();
             }
             availableVolume -= newResource.getVolume();     //update the available spaces in this shelf
         }

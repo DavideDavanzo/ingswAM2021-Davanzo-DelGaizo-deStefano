@@ -19,22 +19,28 @@ abstract public class Item {
         this.volume = volume;
     }
 
-    /**
-     * Method which increases or decreases the volume of resources
-     * @param newItem is the amount added (positive or negative)
-     */
-     public abstract void update(Item newItem) throws NotEnoughResourcesException, GameOverException, InvalidInputException;
+    public abstract void update(Item newItems) throws NotEnoughResourcesException;
 
-     public int getVolume(){
+    public abstract int addCoins();
+
+    public abstract int addStones();
+
+    public abstract int addShields();
+
+    public abstract int addServants();
+
+    public abstract int addFaithPoints();
+
+    public int getVolume() {
          return volume;
-     }
+    }
 
-     public void setVolume(int volume) {
+    public void setVolume(int volume) {
         this.volume = volume;
-     }
+    }
 
     //TODO: Remove
-     public abstract boolean sameType(Object o);
+    public abstract boolean sameType(Object o);
 
     @Override
     public boolean equals(Object o) {
