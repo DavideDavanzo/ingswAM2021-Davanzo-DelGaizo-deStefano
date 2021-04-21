@@ -48,6 +48,11 @@ public class FaithPoint extends Item {
     }
 
     @Override
+    public int pathSteps() {
+        return volume;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if(!(o instanceof FaithPoint))
             return false;

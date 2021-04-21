@@ -20,8 +20,6 @@ public class ShelfTest {
 
         underTest.updateShelf(new Coin(2));
 
-        assertTrue(underTest.getAvailableVolume() == 1);
-
         assertEquals(new Coin(2), underTest.getShelfResource());
 
         underTest.updateShelf(new Coin(-1));

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.playerboard.path;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.resources.FaithPoint;
+import it.polimi.ingsw.model.resources.Item;
 
 import java.util.ArrayList;
 
@@ -61,8 +62,8 @@ public class Path {
     }
 
     //add one by one incoming faith points
-    public void moveForward(FaithPoint faithPoint) throws InvalidInputException {
-        for(int i=0; i<faithPoint.getVolume(); i++)
+    public void moveForward(int totSteps) throws InvalidInputException {
+        for(int i=0; i<totSteps; i++)
             currentFaithPoints.update(new FaithPoint(1));
     }
 

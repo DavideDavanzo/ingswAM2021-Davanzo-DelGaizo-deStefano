@@ -15,7 +15,7 @@ public class PathTest {
 
         Path tested = new Path();
         //move to first Pope space
-        tested.moveForward(new FaithPoint(8));
+        tested.moveForward(8);
 
         tested.applyVaticanReport(8);
 
@@ -23,7 +23,7 @@ public class PathTest {
         assertFalse(tested.getTrack()[8].isPopeSquare());
 
         //move to second Pope space
-        tested.moveForward(new FaithPoint(8));
+        tested.moveForward(8);
 
         tested.applyVaticanReport(16);
 
@@ -31,7 +31,7 @@ public class PathTest {
         assertFalse(tested.getTrack()[16].isPopeSquare());
 
         //move to third Pope space
-        tested.moveForward(new FaithPoint(8));
+        tested.moveForward(8);
 
         tested.applyVaticanReport(24);
 
@@ -44,7 +44,7 @@ public class PathTest {
     void testStandingInVaticanReportArea() throws InvalidInputException {
 
         Path tested = new Path();
-        tested.moveForward(new FaithPoint(6));
+        tested.moveForward(6);
 
         tested.applyVaticanReport(8);
 
@@ -59,7 +59,7 @@ public class PathTest {
 
         Path tested = new Path();
 
-        tested.moveForward(new FaithPoint(3));
+        tested.moveForward(3);
 
         tested.applyVaticanReport(8);
 
@@ -76,16 +76,16 @@ public class PathTest {
 
         assertTrue(tested.getPathVictoryPoints() == 0);
 
-        tested.moveForward(new FaithPoint(3));
+        tested.moveForward(3);
 
         assertTrue(tested.getPathVictoryPoints() == 1);
 
-        tested.moveForward(new FaithPoint(5));
+        tested.moveForward(5);
         tested.applyVaticanReport(8);
 
         assertTrue(tested.getPathVictoryPoints() == 4);
 
-        tested.moveForward(new FaithPoint(2));
+        tested.moveForward(2);
         tested.applyVaticanReport(16);
 
         assertTrue(tested.getPathVictoryPoints() == 6);

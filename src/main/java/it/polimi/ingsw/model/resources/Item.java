@@ -31,6 +31,8 @@ abstract public class Item {
 
     public abstract int addFaithPoints();
 
+    public abstract int pathSteps();
+
     public int getVolume() {
          return volume;
     }
