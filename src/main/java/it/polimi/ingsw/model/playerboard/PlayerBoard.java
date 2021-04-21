@@ -113,7 +113,7 @@ public class PlayerBoard {
     }
 
     //check if the player has enough resources to spend for the transaction
-    public boolean possiblePayment(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException, InvalidInputException {
+    public boolean possiblePayment(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException {
 
         ArrayList<Resource> playerGivenInput = new ArrayList<>();
         playerGivenInput.addAll(warehouse.getAllWarehouseResources());

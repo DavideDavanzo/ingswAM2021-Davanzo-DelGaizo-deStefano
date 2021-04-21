@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.requirements;
 
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
+
+import java.util.ArrayList;
 
 public class ResourceRequirement extends Requirement {
 
@@ -16,8 +19,13 @@ public class ResourceRequirement extends Requirement {
 
     @Override
     public boolean validateOn(Player p) {
-        //TODO: Implement with Warehouse-Coffer logic.
-        return false;
+        ArrayList<Resource> resources = new ArrayList<>();
+        resources.add(resource.clone());
+        try {
+            return p.getPlayerBoard().possiblePayment(resources);
+        } catch (NotEnoughResourcesException e) {
+            return false;
+        }
     }
 
     @Override

@@ -151,7 +151,11 @@ public class Player {
         if(activeDiscount) {
             for(Resource r : devCost) {
                 for(Discount d : discounts) {
-                    r.update(d.getDiscountResource());
+                    try {
+                        r.update(d.getDiscountResource());
+                    } catch (NotEnoughResourcesException e) {
+                        r.setVolume(0);
+                    }
                 }
             }
         }
@@ -159,8 +163,6 @@ public class Player {
         if(!playerBoard.possiblePayment(devCost))
             throw new NotEnoughResourcesException("Impossible transaction, not enough resources..");
         else {
-
-            //TODO: verify discount, if there is one -> modify devCost
             playerBoard.payRequiredResources(devCost);
         }
 

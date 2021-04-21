@@ -6,7 +6,9 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.effects.Discount;
+import it.polimi.ingsw.model.effects.DiscountEffect;
 import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.market.BlueMarble;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.resources.Coin;
@@ -23,15 +25,18 @@ public class PlayerTest {
 
     DevelopmentCard developmentCard;
     ArrayList<Resource> cost;
+    Effect discount;
 
     @BeforeEach
     void setUp() {
         underTest = new Player();
 
+        discount = new DiscountEffect(new Discount(new Coin(-1)));
+
         underTest.getPlayerBoard().getWarehouse().getSecondShelf().setShelfResource(new Servant(2));
         underTest.getPlayerBoard().getWarehouse().getThirdShelf().setShelfResource(new Coin(1));
 
-        developmentCard = new DevelopmentCard();
+        developmentCard = new DevelopmentCard(ECardColor.BLUE, 1);
         cost = new ArrayList<>();
         cost.add(new Servant(1));
         cost.add(new Coin(1));
@@ -39,7 +44,7 @@ public class PlayerTest {
     }
 
     @Test
-    void testPay() throws NotEnoughResourcesException, InvalidInputException {
+    void testPayNoDiscount() throws NotEnoughResourcesException, InvalidInputException {
 
         //@TestedMethod
         underTest.pay(developmentCard);
@@ -59,6 +64,36 @@ public class PlayerTest {
         assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getShelfResource().getVolume(),0);
 
         assertThrows(NotEnoughResourcesException.class, () -> underTest.pay(developmentCard));
+
+    }
+
+    @Test
+    void testPayDiscounted() throws NotEnoughResourcesException, InvalidInputException {
+
+        discount.applyOn(underTest);
+
+        //@TestedMethod
+        underTest.pay(developmentCard);
+
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource().getVolume(), 1);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getShelfResource().getVolume(),1);
+
+        Effect discount2 = new DiscountEffect(new Discount(new Servant(-2)));
+        discount2.applyOn(underTest);
+
+        //@TestedMethod
+        underTest.pay(developmentCard);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource().getVolume(), 1);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getShelfResource().getVolume(),1);
+
+    }
+
+    @Test
+    void testHandleNewDevCard() throws InvalidInputException {
+
+        underTest.handleNewDevCard(developmentCard, underTest.getPlayerBoard().getDevelopmentCardsArea().getFirstStack());
+        assertThrows(InvalidInputException.class, () -> underTest.handleNewDevCard(developmentCard, underTest.getPlayerBoard().getDevelopmentCardsArea().getFirstStack()));
+        underTest.handleNewDevCard(new DevelopmentCard(ECardColor.PURPLE, 2), underTest.getPlayerBoard().getDevelopmentCardsArea().getFirstStack());
 
     }
 }

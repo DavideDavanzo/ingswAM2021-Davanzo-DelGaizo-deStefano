@@ -3,17 +3,18 @@ package it.polimi.ingsw.modelTest.cardTest.leaderTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.requirements.ColorLevelRequirement;
-import it.polimi.ingsw.model.requirements.ColorRequirement;
-import it.polimi.ingsw.model.requirements.FaithPointsRequirement;
-import it.polimi.ingsw.model.requirements.Requirement;
+import it.polimi.ingsw.model.requirements.*;
+import it.polimi.ingsw.model.resources.Coin;
 import it.polimi.ingsw.model.resources.FaithPoint;
+import it.polimi.ingsw.model.resources.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RequirementTest {
@@ -95,8 +96,37 @@ public class RequirementTest {
     }
 
     @Test
-    void testResourceRequirement() {
-        //TODO: Test when right implementation is submitted.
+    void testResourceRequirement() throws NotEnoughResourcesException, InvalidInputException {
+
+        underTest = new ResourceRequirement(new Coin(5));
+        //@TestedMethod
+        assertFalse(underTest.validateOn(player));
+
+        player.getPlayerBoard().getCoffer().updateCoffer(new Coin(4));
+
+        //@TestedMethod
+        assertFalse(underTest.validateOn(player));
+
+        player.getPlayerBoard().getWarehouse().getSecondShelf().setShelfResource(new Coin(1));
+
+        //@TestedMethod
+        assertTrue(underTest.validateOn(player));
+
+        DevelopmentCard developmentCard = new DevelopmentCard();
+        ArrayList<Resource> cost = new ArrayList<Resource>() {
+            {
+                add(new Coin(2));
+            }
+        };
+        developmentCard.setCost(cost);
+
+        //player.pay(developmentCard);
+        //@TestedMethod
+        //assertFalse(underTest.validateOn(player));
+
+
+
+
     }
 
 }
