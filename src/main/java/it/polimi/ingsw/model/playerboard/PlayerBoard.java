@@ -63,32 +63,47 @@ public class PlayerBoard {
     public void payRequiredResources(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException, InvalidInputException {
 
         int previousVolume;
+        ArrayList<Resource> totalCost = new ArrayList<>(totalInputRequired.size());
+        for(Resource r : totalInputRequired) totalCost.add(r.clone());
 
-        for(Resource newResource : totalInputRequired) {
-
-            newResource.setVolume(-newResource.getVolume());
+        for(Resource newResource : totalCost) {
 
             for (Shelf s : getWarehouse().getAllShelves()) {
-                if (s.getShelfResource() != null) {
+
+                if (!s.isEmpty()) {
+
                     previousVolume = s.getShelfResource().getVolume();
-                    if (s.getShelfResource().getVolume() >= -(newResource.getVolume())) {
+
+                    if (previousVolume >= newResource.getVolume()) {
+
+                        newResource.setVolume(-newResource.getVolume());
                         s.updateShelf(newResource);
-                        if(s.getShelfResource() == null || s.getShelfResource().getVolume() != previousVolume)
+                        newResource.setVolume(-newResource.getVolume());
+
+                        if(s.isEmpty() || s.getShelfResource().getVolume() != previousVolume)
                             newResource.setVolume(0);
-                    } else {
+
+                    }
+                    else {
+
                         try {
                             s.updateShelf(newResource);
                         } catch(NotEnoughResourcesException e) {
+
                             newResource.setVolume(newResource.getVolume() + s.getShelfResource().getVolume());
-                            if(!s.isExtraShelf())
-                                s.emptyThisShelf();
-                            else
-                                s.getShelfResource().setVolume(0);
+
+                            if(!s.isExtraShelf()) s.emptyThisShelf();
+
+                            else s.getShelfResource().setVolume(0);
+
                             coffer.updateCoffer(newResource);
                             newResource.setVolume(0);
+
                         }
+
                     }
                 }
+
             }
 
             if(newResource.getVolume() != 0)
@@ -107,50 +122,48 @@ public class PlayerBoard {
         //
         Resource tempResourceRequire = new Coin();
         Resource tempPlayerResource = new Coin();
+
         for(Resource r : totalInputRequired)
-            if(tempResourceRequire.sameType(r))
-                tempResourceRequire.update(r);
-
+            tempResourceRequire.update(r);
         for(Resource r : playerGivenInput)
-            if(tempPlayerResource.sameType(r))
-                tempPlayerResource.update(r);
+            tempPlayerResource.update(r);
 
-            if(tempPlayerResource.getVolume() < tempResourceRequire.getVolume())
-                return false;
+        if(tempPlayerResource.getVolume() < tempResourceRequire.getVolume())
+            return false;
 
         //
         tempResourceRequire = new Stone();
         tempPlayerResource = new Stone();
+
         for(Resource r : totalInputRequired)
-            if(tempResourceRequire.sameType(r))
-                tempResourceRequire.update(r);
+            tempResourceRequire.update(r);
         for(Resource r : playerGivenInput)
-            if(tempPlayerResource.sameType(r))
-                tempPlayerResource.update(r);
+            tempPlayerResource.update(r);
+
         if(tempPlayerResource.getVolume() < tempResourceRequire.getVolume())
             return false;
 
         //
         tempResourceRequire = new Shield();
         tempPlayerResource = new Shield();
+
         for(Resource r : totalInputRequired)
-            if(tempResourceRequire.sameType(r))
-                tempResourceRequire.update(r);
+            tempResourceRequire.update(r);
         for(Resource r : playerGivenInput)
-            if(tempPlayerResource.sameType(r))
-                tempPlayerResource.update(r);
+            tempPlayerResource.update(r);
+
         if(tempPlayerResource.getVolume() < tempResourceRequire.getVolume())
             return false;
 
         //
         tempResourceRequire = new Servant();
         tempPlayerResource = new Servant();
+
         for(Resource r : totalInputRequired)
-            if(tempResourceRequire.sameType(r))
-                tempResourceRequire.update(r);
+            tempResourceRequire.update(r);
         for(Resource r : playerGivenInput)
-            if(tempPlayerResource.sameType(r))
-                tempPlayerResource.update(r);
+            tempPlayerResource.update(r);
+
         return tempPlayerResource.getVolume() >= tempResourceRequire.getVolume();
 
     }

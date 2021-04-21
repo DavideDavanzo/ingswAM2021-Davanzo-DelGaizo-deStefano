@@ -53,7 +53,7 @@ public class EffectTest {
 
     @Test
     public void testDiscount() {
-        underTest = new DiscountEffect(new Discount(new Coin(1)));
+        underTest = new DiscountEffect(new Discount(new Coin(-1)));
 
         assertNull(player.getDiscounts());
         assertFalse(player.hasDiscount());

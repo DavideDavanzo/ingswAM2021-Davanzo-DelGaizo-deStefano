@@ -50,4 +50,6 @@ abstract public class Item {
         return volume == item.volume;
     }
 
+    @Override
+    public abstract Item clone();
 }

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 /**
@@ -65,5 +64,8 @@ public class Coin extends Resource {
         return (o instanceof Coin);
     }
 
-
+    @Override
+    public Resource clone() {
+        return new Coin(getVolume());
+    }
 }

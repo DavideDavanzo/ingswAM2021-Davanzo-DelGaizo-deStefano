@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 /**
  * Class which represents a group of servants
  */
-public class Servant extends Resource{
+public class Servant extends Resource {
 
     public Servant(){
         super();
@@ -19,7 +18,7 @@ public class Servant extends Resource{
     @Override
     public void update(Item newItems) throws NotEnoughResourcesException {
         if(volume + newItems.addServants() < 0)
-            throw new NotEnoughResourcesException("Not enough resources to complee operation");
+            throw new NotEnoughResourcesException("Not enough resources to complete operation");
         volume += newItems.addServants();
     }
 
@@ -66,4 +65,8 @@ public class Servant extends Resource{
         return (o instanceof Servant);
     }
 
+    @Override
+    public Resource clone() {
+        return new Servant(getVolume());
+    }
 }

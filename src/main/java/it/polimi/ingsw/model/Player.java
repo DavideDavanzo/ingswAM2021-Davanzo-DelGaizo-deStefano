@@ -13,7 +13,6 @@ import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.*;
-import it.polimi.ingsw.model.sharedarea.SharedArea;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -146,21 +145,19 @@ public class Player {
 
     public void pay(DevelopmentCard developmentCard) throws NotEnoughResourcesException, InvalidInputException {
 
-        ArrayList<Resource> devCost = (ArrayList<Resource>) developmentCard.getCost().clone();
+        ArrayList<Resource> devCost = new ArrayList<>(developmentCard.getCost().size());
+        for(Resource r : developmentCard.getCost()) devCost.add(r.clone());
 
-        if(activeDiscount){
-            for(Resource r : devCost){
-                if(discount.getDiscountResource().sameType(r)) {
-                    r.update((Coin) discount.getDiscountResource());
-                    r.update((Shield) discount.getDiscountResource());
-                    r.update((Stone) discount.getDiscountResource());
-                    r.update((Servant) discount.getDiscountResource());
+        if(activeDiscount) {
+            for(Resource r : devCost) {
+                for(Discount d : discounts) {
+                    r.update(d.getDiscountResource());
                 }
             }
         }
 
         if(!playerBoard.possiblePayment(devCost))
-            throw new NotEnoughResourcesException("Impossible transaction");
+            throw new NotEnoughResourcesException("Impossible transaction, not enough resources..");
         else {
 
             //TODO: verify discount, if there is one -> modify devCost

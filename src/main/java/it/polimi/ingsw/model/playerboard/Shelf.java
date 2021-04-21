@@ -9,6 +9,10 @@ import it.polimi.ingsw.model.resources.*;
  */
 public class Shelf {
 
+    private boolean empty;
+
+    private final int dimension;
+
     private boolean extraShelf;
 
     /**
@@ -21,15 +25,16 @@ public class Shelf {
      */
     private int availableVolume;
 
-    public Shelf() {}
-
-    public Shelf(int shelfDimension) {
+    public Shelf(int dimension) {
         extraShelf = false;
-        this.availableVolume = shelfDimension;
+        this.dimension = dimension;
+        availableVolume = dimension;
+        empty = true;
     }
 
     public void emptyThisShelf() {
-        shelfResource = null;
+        empty = true;
+        availableVolume = dimension;
     }
 
     /**
@@ -40,31 +45,56 @@ public class Shelf {
      */
     public void updateShelf(Resource newResource) throws NotEnoughResourcesException, InvalidInputException {
 
-        if(newResource.getVolume() > availableVolume)       //trying to introduce more resources than available spaces
+        if(newResource.getVolume() > availableVolume)   //Trying to introduce more resources than available spaces
             throw new InvalidInputException("Not enough spaces available in this shelf");
+
         else {
-            if (shelfResource == null)                  //case: empty shelf
-                setShelfResource(newResource);
-            else{
-                shelfResource.update(newResource);
-                if(shelfResource.getVolume() == 0 && !isExtraShelf())              //shelf actually empty
-                    emptyThisShelf();
+
+            if (isEmpty() && newResource.getVolume() > 0 && !isExtraShelf()) {
+                setShelfResource(newResource);   //Empty case, just sets.
+                empty = false;
             }
-            availableVolume -= newResource.getVolume();     //update the available spaces in this shelf
+
+            else {
+
+                shelfResource.update(newResource);
+
+                if(shelfResource.getVolume() == 0 && !isExtraShelf()) {
+                    emptyThisShelf();   //Empties the shelf.
+                    return;
+                }
+
+            }
+
+            empty = false;
+            availableVolume = dimension - shelfResource.getVolume();
+
         }
 
+    }
+
+    public boolean isEmpty() {
+        return empty;
+    }
+
+    public boolean isExtraShelf() {
+        return extraShelf;
     }
 
     public Resource getShelfResource() {
         return shelfResource;
     }
 
-    public void setShelfResource(Resource resource) {
-        shelfResource = resource;
-    }
+    public void setShelfResource(Resource resource) throws IllegalArgumentException {
 
-    public boolean isExtraShelf() {
-        return extraShelf;
+        int volume = resource.getVolume();
+
+        if(volume < 0 || volume > dimension)
+            throw new IllegalArgumentException("Too many Resources for this Shelf! Can only have : " + dimension);
+
+        shelfResource = resource;
+        availableVolume = dimension - volume;
+        empty = volume == 0;
     }
 
     public void setAsExtraShelf() {
@@ -75,4 +105,7 @@ public class Shelf {
         return availableVolume;
     }
 
+    public int getDimension() {
+        return dimension;
+    }
 }

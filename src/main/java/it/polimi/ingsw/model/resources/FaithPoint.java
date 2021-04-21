@@ -62,4 +62,8 @@ public class FaithPoint extends Item {
         return (o instanceof FaithPoint);
     }
 
+    @Override
+    public Item clone() {
+        return new FaithPoint(getVolume());
+    }
 }

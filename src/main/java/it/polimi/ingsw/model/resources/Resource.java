@@ -1,14 +1,13 @@
 package it.polimi.ingsw.model.resources;
 
 
-import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 /**
  *  Represents an amount of resources of the same type (coins, shields, stones, servants)
  *  or a blank resource.
  */
-public class Resource extends Item{
+public class Resource extends Item {
 
     public Resource(){
         super();
@@ -63,4 +62,8 @@ public class Resource extends Item{
         return false;
     }
 
+    @Override
+    public Resource clone() {
+        return new Resource(getVolume());
+    }
 }

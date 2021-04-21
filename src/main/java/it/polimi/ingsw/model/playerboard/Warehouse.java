@@ -105,7 +105,7 @@ public class Warehouse {
     public ArrayList<Resource> getAllWarehouseResources() {
 
         ArrayList<Resource> totWarehouseResources = new ArrayList<>();
-        getAllWarehouseShelves().stream().map(Shelf::getShelfResource).forEach(totWarehouseResources::add);
+        getAllWarehouseShelves().stream().filter(s -> !s.isEmpty()).map(Shelf::getShelfResource).forEach(totWarehouseResources::add);
 
         return totWarehouseResources;
     }

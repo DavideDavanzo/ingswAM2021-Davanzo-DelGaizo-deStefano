@@ -1,12 +1,11 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 /**
  * Class which represents an amount of shields
  */
-public class Shield extends Resource{
+public class Shield extends Resource {
 
     public Shield(){
         super();
@@ -19,7 +18,7 @@ public class Shield extends Resource{
     @Override
     public void update(Item newItems) throws NotEnoughResourcesException {
         if(volume + newItems.addShields() < 0)
-            throw new NotEnoughResourcesException("Not enough resources to complee operation");
+            throw new NotEnoughResourcesException("Not enough resources to complete operation");
         volume += newItems.addShields();
     }
 
@@ -66,4 +65,8 @@ public class Shield extends Resource{
         return (o instanceof Shield);
     }
 
+    @Override
+    public Resource clone() {
+        return new Shield(getVolume());
+    }
 }
