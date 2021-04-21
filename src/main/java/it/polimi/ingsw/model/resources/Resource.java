@@ -46,6 +46,12 @@ public class Resource extends Item {
         return 0;
     }
 
+    @Override
+    public int pathSteps() {
+        return 0;
+    }
+
+
     /**
      * This equals to other resource if they are of the same subclass and have same volume
      */

@@ -40,11 +40,11 @@ public class RequirementTest {
         //@TestedMethod
         assertFalse(underTest.validateOn(player));
 
-        player.getPlayerBoard().getPath().moveForward(new FaithPoint(12));
+        player.getPlayerBoard().getPath().moveForward(12);
         //@TestedMethod
         assertFalse(underTest.validateOn(player));
 
-        player.getPlayerBoard().getPath().moveForward(new FaithPoint(2));
+        player.getPlayerBoard().getPath().moveForward(2);
         assertTrue(underTest.validateOn(player));
 
         FaithPoint returned = (FaithPoint) underTest.getAttribute();

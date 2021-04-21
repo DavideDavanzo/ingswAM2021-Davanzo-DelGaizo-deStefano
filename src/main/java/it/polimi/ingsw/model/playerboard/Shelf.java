@@ -34,6 +34,7 @@ public class Shelf {
 
     public void emptyThisShelf() {
         empty = true;
+        shelfResource.setVolume(0);
         availableVolume = dimension;
     }
 

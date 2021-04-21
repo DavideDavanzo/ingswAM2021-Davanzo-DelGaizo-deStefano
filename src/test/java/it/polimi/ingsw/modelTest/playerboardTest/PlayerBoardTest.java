@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.ProductionFailException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.playerboard.Shelf;
@@ -18,21 +21,60 @@ import java.util.ArrayList;
 public class PlayerBoardTest {
 
     @Test
+    void testPossiblePayment() throws NotEnoughResourcesException, InvalidInputException {
+        ArrayList<Resource> inputRequired = new ArrayList<>();
+        Player player = new Player();
+
+        // Player board status initialisation
+        // Warehouse: first shelf -> 1 coin, second shelf -> 1 shield, first extra -> 1 servant, second extra -> 2 shields
+        // Coffer: 5 coins, 3 stones, 1 servant
+        Effect effect = new ExtraShelfEffect(new Servant());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Shield(1), player.getPlayerBoard().getWarehouse().getSecondShelf());
+        effect.applyOn(player);
+        effect = new ExtraShelfEffect(new Shield());
+        effect.applyOn(player);
+        player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).updateShelf(new Servant(1));
+        player.getPlayerBoard().getWarehouse().getExtraShelves().get(1).updateShelf(new Shield(2));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Coin(5));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Stone(3));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Servant(1));
+
+        //trade input example:
+        //1 shield, 3 servants, 3 coins, 2 stones, 1 coin
+        inputRequired.add(new Shield(1));
+        inputRequired.add(new Servant(3));
+        inputRequired.add(new Coin(3));
+        inputRequired.add(new Stone(2));
+        inputRequired.add(new Coin(1));
+
+        assertFalse(player.getPlayerBoard().possiblePayment(inputRequired));
+
+        player.getPlayerBoard().getCoffer().updateCoffer(new Servant(3));
+
+        assertTrue(player.getPlayerBoard().possiblePayment(inputRequired));
+
+    }
+
+    @Test
     void testPayRequiredProductionResources() throws NotEnoughResourcesException, InvalidInputException {
 
         // Player board status initialisation
         // Warehouse: first shelf -> 1 coin, second shelf -> 1 shield, first extra -> 1 servant, second extra -> 2 shields
         // Coffer: 5 coins, 3 stones, 3 servants
-        PlayerBoard tested = new PlayerBoard();
-        tested.getWarehouse().addResourcesToShelf(new Coin(1), tested.getWarehouse().getFirstShelf());
-        tested.getWarehouse().addResourcesToShelf(new Shield(1), tested.getWarehouse().getSecondShelf());
-        tested.getWarehouse().addExtraShelf(new Shelf(2));
-        tested.getWarehouse().getExtraShelves().get(0).updateShelf(new Servant(1));
-        tested.getWarehouse().addExtraShelf(new Shelf(2));
-        tested.getWarehouse().getExtraShelves().get(1).updateShelf(new Shield(2));
-        tested.getCoffer().updateCoffer(new Coin(5));
-        tested.getCoffer().updateCoffer(new Stone(3));
-        tested.getCoffer().updateCoffer(new Servant(3));
+        Player player = new Player();
+        Effect effect = new ExtraShelfEffect(new Servant());
+
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Shield(1), player.getPlayerBoard().getWarehouse().getSecondShelf());
+        effect.applyOn(player);
+        effect = new ExtraShelfEffect(new Shield());
+        effect.applyOn(player);
+        player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).updateShelf(new Servant(1));
+        player.getPlayerBoard().getWarehouse().getExtraShelves().get(1).updateShelf(new Shield(2));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Coin(5));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Stone(3));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Servant(3));
 
         //trade input example:
         //1 shield, 2 servants, 3 coins, 2 stones, 1 coin
@@ -43,14 +85,15 @@ public class PlayerBoardTest {
         input.add(new Stone(2));
         input.add(new Coin(1));
 
-        tested.payRequiredResources(input);
+        player.getPlayerBoard().payRequiredResources(input);
 
-        assertNull(tested.getWarehouse().getFirstShelf().getShelfResource());
-        assertNull(tested.getWarehouse().getSecondShelf().getShelfResource());
-        assertEquals(0, tested.getWarehouse().getExtraShelves().get(0).getShelfResource().getVolume());
-        assertEquals(2, tested.getCoffer().getServants().getVolume());
-        assertEquals(2, tested.getCoffer().getCoins().getVolume());
-        assertEquals(1, tested.getCoffer().getStones().getVolume());
+        assertTrue(player.getPlayerBoard().getWarehouse().getFirstShelf().isEmpty());
+        assertTrue(player.getPlayerBoard().getWarehouse().getSecondShelf().isEmpty());
+        assertTrue(player.getPlayerBoard().getWarehouse().getThirdShelf().isEmpty());
+        assertEquals(0, player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).getShelfResource().getVolume());
+        assertEquals(2, player.getPlayerBoard().getCoffer().getServants().getVolume());
+        assertEquals(2, player.getPlayerBoard().getCoffer().getCoins().getVolume());
+        assertEquals(1, player.getPlayerBoard().getCoffer().getStones().getVolume());
 
     }
 
@@ -80,19 +123,22 @@ public class PlayerBoardTest {
     @Test
     void testActivateProduction() throws NotEnoughResourcesException, InvalidInputException, ProductionFailException {
 
+        Player player = new Player();
+        Effect effect = new ExtraShelfEffect(new Servant());
+        effect.applyOn(player);
+        effect = new ExtraShelfEffect(new Shield());
+        effect.applyOn(player);
+
         // Player board status initialisation
         // Warehouse: first shelf -> 1 coin, second shelf -> 1 shield, first extra -> 1 servant, second extra -> 2 shields
         // Coffer: 5 coins, 3 stones, 3 servants
-        PlayerBoard tested = new PlayerBoard();
-        tested.getWarehouse().getFirstShelf().updateShelf(new Coin(1));
-        tested.getWarehouse().getSecondShelf().updateShelf(new Shield(1));
-        tested.getWarehouse().addExtraShelf(new Shelf(2));
-        tested.getWarehouse().getExtraShelves().get(0).updateShelf(new Servant(1));
-        tested.getWarehouse().addExtraShelf(new Shelf(2));
-        tested.getWarehouse().getExtraShelves().get(1).updateShelf(new Shield(2));
-        tested.getCoffer().updateCoffer(new Coin(5));
-        tested.getCoffer().updateCoffer(new Stone(3));
-        tested.getCoffer().updateCoffer(new Servant(3));
+        player.getPlayerBoard().getWarehouse().getFirstShelf().updateShelf(new Coin(1));
+        player.getPlayerBoard().getWarehouse().getSecondShelf().updateShelf(new Shield(1));
+        player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).updateShelf(new Servant(1));
+        player.getPlayerBoard().getWarehouse().getExtraShelves().get(1).updateShelf(new Shield(2));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Coin(5));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Stone(3));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Servant(3));
 
         ArrayList<Resource> input = new ArrayList<>();
         input.add(new Shield(1));
@@ -120,22 +166,22 @@ public class PlayerBoardTest {
         //tot input: 1 shield, 2 servants, 3 coins, 2 stones, 1 coin
         //tot output: 2 coins, 1 faith point, 1 shield, 2 servants, 1 shield, 1 faith point
 
-        tested.activateProduction(chosenCards);
+        player.getPlayerBoard().activateProduction(chosenCards);
 
         // Player board final status
         // Warehouse: totally empty except fot second extra shelf with 2 shields
         // Coffer: 4 servants, 4 coins, 1 stone, 2 shields
         // Path: +2
-        assertNull(tested.getWarehouse().getFirstShelf().getShelfResource());
-        assertNull(tested.getWarehouse().getSecondShelf().getShelfResource());
-        assertNull(tested.getWarehouse().getThirdShelf().getShelfResource());
-        assertEquals(new Servant(), tested.getWarehouse().getExtraShelves().get(0).getShelfResource());
-        assertEquals(new Shield(2), tested.getWarehouse().getExtraShelves().get(1).getShelfResource());
-        assertEquals(4, tested.getCoffer().getCoins().getVolume());
-        assertEquals(4, tested.getCoffer().getServants().getVolume());
-        assertEquals(1, tested.getCoffer().getStones().getVolume());
-        assertEquals(2, tested.getCoffer().getShields().getVolume());
-        assertEquals(2, tested.getPath().getCurrentPositionAsInt());
+        assertTrue(player.getPlayerBoard().getWarehouse().getFirstShelf().isEmpty());
+        assertTrue(player.getPlayerBoard().getWarehouse().getSecondShelf().isEmpty());
+        assertTrue(player.getPlayerBoard().getWarehouse().getThirdShelf().isEmpty());
+        assertEquals(new Servant(), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).getShelfResource());
+        assertEquals(new Shield(2), player.getPlayerBoard().getWarehouse().getExtraShelves().get(1).getShelfResource());
+        assertEquals(4, player.getPlayerBoard().getCoffer().getCoins().getVolume());
+        assertEquals(4, player.getPlayerBoard().getCoffer().getServants().getVolume());
+        assertEquals(1, player.getPlayerBoard().getCoffer().getStones().getVolume());
+        assertEquals(2, player.getPlayerBoard().getCoffer().getShields().getVolume());
+        assertEquals(2, player.getPlayerBoard().getPath().getCurrentPositionAsInt());
 
     }
 
@@ -144,7 +190,7 @@ public class PlayerBoardTest {
 
         PlayerBoard tested = new PlayerBoard();
 
-        tested.getPath().moveForward(new FaithPoint(7));    //move to position 7
+        tested.getPath().moveForward(7);    //move to position 7
 
         tested.getPath().applyVaticanReport(8);     //flip first papal token
 

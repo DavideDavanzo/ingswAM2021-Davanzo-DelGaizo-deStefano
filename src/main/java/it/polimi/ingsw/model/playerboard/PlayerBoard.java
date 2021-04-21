@@ -51,10 +51,8 @@ public class PlayerBoard {
     public void produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
 
         for(Item product : totalProductionOutput) {
-            if (product instanceof FaithPoint)
-                path.moveForward((FaithPoint) product);
-            else
-                coffer.updateCoffer(product);
+            path.moveForward(product.pathSteps());
+            coffer.updateCoffer(product);
         }
 
     }
@@ -80,21 +78,27 @@ public class PlayerBoard {
                         s.updateShelf(newResource);
                         newResource.setVolume(-newResource.getVolume());
 
-                        if(s.isEmpty() || s.getShelfResource().getVolume() != previousVolume)
+                        if(s.isEmpty() || s.getShelfResource().getVolume() != previousVolume) {
                             newResource.setVolume(0);
+                        }
 
                     }
                     else {
 
                         try {
+
+                            newResource.setVolume(-newResource.getVolume());
                             s.updateShelf(newResource);
+                            newResource.setVolume(-newResource.getVolume());
+
                         } catch(NotEnoughResourcesException e) {
 
                             newResource.setVolume(newResource.getVolume() + s.getShelfResource().getVolume());
 
-                            if(!s.isExtraShelf()) s.emptyThisShelf();
-
-                            else s.getShelfResource().setVolume(0);
+                            if(!s.isExtraShelf())
+                                s.emptyThisShelf();
+                            else
+                                s.getShelfResource().setVolume(0);
 
                             coffer.updateCoffer(newResource);
                             newResource.setVolume(0);
@@ -106,8 +110,11 @@ public class PlayerBoard {
 
             }
 
-            if(newResource.getVolume() != 0)
+            if(newResource.getVolume() != 0) {
+                newResource.setVolume(-newResource.getVolume());
                 coffer.updateCoffer(newResource);
+                newResource.setVolume(0);
+            }
 
         }
     }
@@ -172,10 +179,8 @@ public class PlayerBoard {
 
         payRequiredResources(input);
 
-        if (output instanceof FaithPoint)
-            path.moveForward((FaithPoint) output);
-        else
-            coffer.updateCoffer((Resource) output);
+        path.moveForward(output.pathSteps());
+        coffer.updateCoffer(output);
 
     }
 
