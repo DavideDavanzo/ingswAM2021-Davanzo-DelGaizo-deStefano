@@ -77,12 +77,17 @@ public class WarehouseTest {
 
         Player player = new Player();
         Effect effect = new ExtraShelfEffect(new Shield());
-
-        player.getPlayerBoard().getWarehouse().getFirstShelf().updateShelf(new Shield(1));
         effect.applyOn(player);
-        player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).updateShelf(new Shield(1));
 
-        assertThrows(InvalidInputException.class, () -> player.getPlayerBoard().getWarehouse().switchShelves(player.getPlayerBoard().getWarehouse().getFirstShelf(), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0)));
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Shield(1),  player.getPlayerBoard().getWarehouse().getFirstShelf());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Stone(1),  player.getPlayerBoard().getWarehouse().getSecondShelf());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Shield(1), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0));
+
+        assertThrows(InvalidInputException.class, () -> player.getPlayerBoard().getWarehouse().switchShelves(player.getPlayerBoard().getWarehouse().getSecondShelf(), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0)));
+        assertDoesNotThrow(() -> player.getPlayerBoard().getWarehouse().switchShelves(player.getPlayerBoard().getWarehouse().getFirstShelf(), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0)));
+
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Stone(-1),  player.getPlayerBoard().getWarehouse().getSecondShelf());
+        assertDoesNotThrow(() -> player.getPlayerBoard().getWarehouse().switchShelves(player.getPlayerBoard().getWarehouse().getFirstShelf(), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0)));
 
     }
 
@@ -113,14 +118,26 @@ public class WarehouseTest {
     void testAddResourceToShelf() throws NotEnoughResourcesException, InvalidInputException {
 
         Player player = new Player();
-        Effect effect = new ExtraShelfEffect(new Servant());
-
-        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf());
+        Effect effect = new ExtraShelfEffect(new Coin());
         effect.applyOn(player);
-        player.getPlayerBoard().getWarehouse().addExtraShelf(new Shelf(2));
-        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Servant(), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0));
-        assertThrows(InvalidInputException.class, () -> player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(2), player.getPlayerBoard().getWarehouse().getSecondShelf()));
-        assertThrows(InvalidInputException.class, () -> player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(2), player.getPlayerBoard().getWarehouse().getThirdShelf()));
+
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getSecondShelf());
+        assertEquals(new Coin(1), player.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getSecondShelf());
+        assertEquals(new Coin(2), player.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource());
+
+        assertThrows( InvalidInputException.class, () -> player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf()) );
+
+        assertDoesNotThrow( () -> player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(2), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0)) );
+
+        assertEquals(new Coin(2), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).getShelfResource());
+
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(-2), player.getPlayerBoard().getWarehouse().getSecondShelf());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf());
+
+        assertTrue(player.getPlayerBoard().getWarehouse().getSecondShelf().isEmpty());
+
+        assertEquals(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf().getShelfResource());
 
     }
 
