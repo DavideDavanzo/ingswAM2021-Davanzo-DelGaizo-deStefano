@@ -80,7 +80,7 @@ public class Warehouse {
                 || (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2)     //case 3
                 || (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2)     //case 4
                 // case 5
-                || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) );
+                || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) && !shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()) );
 
     }
 
@@ -123,31 +123,19 @@ public class Warehouse {
         //case: ADDING resources to the MAIN SHELVES only
         if(newResource.getVolume() > 0 && !shelf.isExtraShelf()) {
             if(shelf == firstShelf) {
-                if ((secondShelf.getShelfResource() != null && getSecondShelf().getShelfResource().sameType(newResource)) || (thirdShelf.getShelfResource() != null && getThirdShelf().getShelfResource().sameType(newResource)))
+                if ((!secondShelf.isEmpty() && getSecondShelf().getShelfResource().sameType(newResource)) || (!thirdShelf.isEmpty() && getThirdShelf().getShelfResource().sameType(newResource)))
                     throw new InvalidInputException("Different shelves cannot stock the same type of resource");
             }
             else if(shelf == secondShelf) {
-                if ((firstShelf.getShelfResource() != null && getFirstShelf().getShelfResource().sameType(newResource)) || (thirdShelf.getShelfResource() != null && getThirdShelf().getShelfResource().sameType(newResource)))
+                if ((!firstShelf.isEmpty() && getFirstShelf().getShelfResource().sameType(newResource)) || (!thirdShelf.isEmpty() && getThirdShelf().getShelfResource().sameType(newResource)))
                     throw new InvalidInputException("Different shelves cannot stock the same type of resource");
             }
             else if(shelf == thirdShelf) {
-                if ((firstShelf.getShelfResource() != null && getFirstShelf().getShelfResource().sameType(newResource)) || (secondShelf.getShelfResource() != null && getSecondShelf().getShelfResource().sameType(newResource)))
+                if ((!firstShelf.isEmpty() && getFirstShelf().getShelfResource().sameType(newResource)) || (!secondShelf.isEmpty() && getSecondShelf().getShelfResource().sameType(newResource)))
                     throw new InvalidInputException("Different shelves cannot stock the same type of resource");
             }
         }
         shelf.updateShelf(newResource);
-    }
-
-    public ArrayList<Shelf> getAllShelves() {
-        ArrayList<Shelf> temp = new ArrayList<>();
-
-        temp.add(firstShelf);
-        temp.add(secondShelf);
-        temp.add(thirdShelf);
-        if(extraShelves != null)
-            temp.addAll(extraShelves);
-
-        return temp;
     }
 
     public Shelf getFirstShelf() {

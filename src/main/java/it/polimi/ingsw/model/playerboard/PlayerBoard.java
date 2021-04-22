@@ -66,7 +66,7 @@ public class PlayerBoard {
 
         for(Resource newResource : totalCost) {
 
-            for (Shelf s : getWarehouse().getAllShelves()) {
+            for (Shelf s : getWarehouse().getAllWarehouseShelves()) {
 
                 if (!s.isEmpty()) {
 
