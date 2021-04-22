@@ -120,12 +120,17 @@ public class RequirementTest {
         };
         developmentCard.setCost(cost);
 
-        //player.pay(developmentCard);
+        player.pay(developmentCard);
         //@TestedMethod
-        //assertFalse(underTest.validateOn(player));
+        assertFalse(underTest.validateOn(player));
 
+        player.getPlayerBoard().getWarehouse().getThirdShelf().setShelfResource(new Coin(1));
+        //@TestedMethod
+        assertFalse(underTest.validateOn(player));
 
-
+        player.getPlayerBoard().getWarehouse().getFirstShelf().setShelfResource(new Coin(1));
+        //@TestedMethod
+        assertTrue(underTest.validateOn(player));
 
     }
 

@@ -9,11 +9,7 @@ import it.polimi.ingsw.model.effects.Discount;
 import it.polimi.ingsw.model.effects.DiscountEffect;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.market.BlueMarble;
-import it.polimi.ingsw.model.market.Marble;
-import it.polimi.ingsw.model.resources.Coin;
-import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.model.resources.Servant;
+import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -96,4 +92,21 @@ public class PlayerTest {
         underTest.handleNewDevCard(new DevelopmentCard(ECardColor.PURPLE, 2), underTest.getPlayerBoard().getDevelopmentCardsArea().getFirstStack());
 
     }
+
+    @Test
+    void testHandleMarketResource() throws NotEnoughResourcesException, InvalidInputException {
+        Resource rsh = new Shield(1);
+        Resource rst = new Stone(1);
+
+        //@TestedMethod
+        underTest.handleMarketResources(rsh, underTest.getPlayerBoard().getWarehouse().getFirstShelf());
+        assertThrows(InvalidInputException.class, () -> underTest.handleMarketResources(rst, underTest.getPlayerBoard().getWarehouse().getFirstShelf()));
+        assertThrows(InvalidInputException.class, () -> underTest.handleMarketResources(rst, underTest.getPlayerBoard().getWarehouse().getSecondShelf()));
+
+        underTest.getPlayerBoard().getWarehouse().getSecondShelf().emptyThisShelf();
+        assertDoesNotThrow(() -> underTest.handleMarketResources(rst, underTest.getPlayerBoard().getWarehouse().getSecondShelf()));
+
+    }
+
+
 }
