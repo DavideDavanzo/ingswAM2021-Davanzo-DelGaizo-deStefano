@@ -1,0 +1,39 @@
+[
+  {
+    "color" : "GREEN",
+    "level" : 1,
+    "cost" : [
+      {"@type" : "shield", "volume" : 1},
+      {"@type" : "servant", "volume" : 1},
+      {"@type" : "stone", "volume" : 1}
+    ],
+    "trade" : {
+      "input" : [
+        {"@type" : "stone", "volume" : 1}
+      ],
+      "output" : [
+        {"@type" : "servant", "volume" : 1}
+      ]
+    },
+    "victoryPoints" : 2
+  },
+  {
+    "color" : "GREEN",
+    "level" : 1,
+    "cost" : [
+      {"@type" : "coin", "volume" : 2},
+      {"@type" : "shield", "volume" : 2}
+    ],
+    "trade" : {
+      "input" : [
+        {"@type" : "stone", "volume" : 1},
+        {"@type" : "servant", "volume" : 1}
+      ],
+      "output" : [
+        {"@type" : "coin", "volume" : 2},
+        {"@type" : "faith", "volume" : 1}
+      ]
+    },
+    "victoryPoints" : 4
+  }
+]
