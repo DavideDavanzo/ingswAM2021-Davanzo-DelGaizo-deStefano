@@ -1,8 +1,8 @@
 package it.polimi.ingsw.modelTest.cardTest.developmentTest;
 
 import  static org.junit.jupiter.api.Assertions.*;
-import it.polimi.ingsw.model.cards.DevelopmentCard;
-import it.polimi.ingsw.model.cards.Trade;
+
+import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -76,5 +76,11 @@ public class DevelopmentCardTest {
         assertNotEquals(differentCard, underTest);
         assertNotEquals(almostEqualCard, underTest);
         assertTrue(underTest.equalCost(equalCardTwo.getCost()));
+    }
+
+    @Test
+    void testParsing() {
+        DevCardParser parser = new DevCardParser();
+        ArrayList<DevelopmentCard> cards = parser.parse();
     }
 }

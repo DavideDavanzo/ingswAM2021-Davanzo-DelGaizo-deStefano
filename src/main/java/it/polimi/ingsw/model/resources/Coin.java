@@ -68,4 +68,9 @@ public class Coin extends Resource {
     public Resource clone() {
         return new Coin(getVolume());
     }
+
+    @Override
+    public String toString() {
+        return "Coin: " + getVolume();
+    }
 }

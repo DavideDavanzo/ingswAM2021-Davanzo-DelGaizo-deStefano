@@ -32,4 +32,13 @@ public class ResourceRequirement extends Requirement {
     public Object getAttribute() {
         return resource;
     }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+    @Override
+    public String toString() {
+        return "Have at least " + resource.toString();
+    }
 }

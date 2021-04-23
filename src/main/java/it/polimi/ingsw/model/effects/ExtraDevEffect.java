@@ -44,4 +44,18 @@ public class ExtraDevEffect extends Effect {
     public Object getAttribute() {
         return extraTrade;
     }
+
+    public Trade getExtraTrade() {
+        return extraTrade;
+    }
+
+    public void setExtraTrade(Trade extraTrade) {
+        this.extraTrade = extraTrade;
+    }
+
+    @Override
+    public String toString() {
+        return "Extra Trade " + extraTrade.toString();
+    }
+
 }

@@ -46,4 +46,9 @@ public class DiscountEffect extends Effect {
     public void setDiscount(Discount discount) {
         this.discount = discount;
     }
+
+    @Override
+    public String toString() {
+        return "Discount on buy of " + discount.toString();
+    }
 }

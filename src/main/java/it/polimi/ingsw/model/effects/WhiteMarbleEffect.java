@@ -44,6 +44,10 @@ public class WhiteMarbleEffect extends Effect {
         return marble;
     }
 
+    public void setMarble(Marble marble) {
+        this.marble = marble;
+    }
+
     /**
      * Gives the Player an extra marble that can be
      * accessed via {@link Player#getExtraMarbles()}
@@ -51,5 +55,10 @@ public class WhiteMarbleEffect extends Effect {
      */
     private void addExtraMarble(Player p) {
         p.giveWhiteMarblePower(marble);
+    }
+
+    @Override
+    public String toString() {
+        return "White Marble becomes " + marble.toString();
     }
 }

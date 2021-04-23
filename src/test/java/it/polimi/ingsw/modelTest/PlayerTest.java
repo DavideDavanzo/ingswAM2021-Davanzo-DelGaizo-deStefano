@@ -5,10 +5,13 @@ import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.effects.BlankEffect;
 import it.polimi.ingsw.model.effects.Discount;
 import it.polimi.ingsw.model.effects.DiscountEffect;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.requirements.BlankRequirement;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -108,5 +111,20 @@ public class PlayerTest {
 
     }
 
+    @Test
+    void testGetCurrentVictoryPoints() throws NotEnoughResourcesException {
+
+        underTest.getPlayerBoard().getDevelopmentCardsArea().getFirstStack().push(new DevelopmentCard(10));
+        underTest.getPlayerBoard().getDevelopmentCardsArea().getSecondStack().push(new DevelopmentCard(4));
+
+        LeaderCard card = new LeaderCard(new BlankRequirement(), new BlankEffect(), 3);
+        underTest.giveLeaderCard(card);
+        card.activateOn(underTest);
+        assertTrue(card.isActive());
+
+        //@TestedMethod
+        assertEquals(underTest.getCurrentVictoryPoints(), 17);
+
+    }
 
 }

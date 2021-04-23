@@ -82,4 +82,8 @@ public class Trade {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return getInput().toString() + " -> " + output.toString();
+    }
 }

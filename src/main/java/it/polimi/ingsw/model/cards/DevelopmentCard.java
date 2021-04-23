@@ -18,7 +18,6 @@ public class DevelopmentCard extends Card {
     private int level;
     private ArrayList<Resource> cost;
     private Trade trade;
-    private int victoryPoints;
 
     /**
      * Default Constructor
@@ -32,7 +31,7 @@ public class DevelopmentCard extends Card {
      * @param victoryPoints refers to the card's Victory Points
      */
     public DevelopmentCard(int victoryPoints) {
-        this.victoryPoints = victoryPoints;
+        super(victoryPoints);
     }
 
     /**
@@ -54,11 +53,11 @@ public class DevelopmentCard extends Card {
      * @param trade indicates the {@link Trade} of the Card
      */
     public DevelopmentCard(ECardColor color,  int level, ArrayList<Resource> cost, Trade trade, int victoryPoints) {
+        super(victoryPoints);
         this.level = level;
         this.color = color;
         this.cost = cost;
         this.trade = trade;
-        this.victoryPoints = victoryPoints;
     }
 
     public void setColor(ECardColor color) {
@@ -67,10 +66,6 @@ public class DevelopmentCard extends Card {
 
     public void setLevel(int level) {
         this.level = level;
-    }
-
-    public void setVictoryPoints(int victoryPoints) {
-        this.victoryPoints = victoryPoints;
     }
 
     public void setTrade(Trade trade) {
@@ -99,17 +94,17 @@ public class DevelopmentCard extends Card {
 
     @Override
     public int getVictoryPoints() {
-        return victoryPoints;
+        return super.getVictoryPoints();
     }
 
     @Override
     public String toString() {
         return "DevelopmentCard [" +
-                " color: " + color +
-                " , level: " + level +
-                " , cost: " + cost +
-                " , trade: " + trade +
-                " , points: " + victoryPoints +
+                " Color: " + color +
+                " | Level: " + level +
+                " | Cost: " + cost +
+                " | Trade: " + trade +
+                " | Victory Points: " + getVictoryPoints() +
                 " ]";
     }
 
@@ -119,7 +114,7 @@ public class DevelopmentCard extends Card {
         if (o == null || getClass() != o.getClass()) return false;
         DevelopmentCard that = (DevelopmentCard) o;
         return level == that.level &&
-                victoryPoints == that.victoryPoints &&
+                getVictoryPoints() == that.getVictoryPoints() &&
                 color == that.color &&
                 this.equalCost(that.cost) &&
                 this.trade.equals(that.trade);

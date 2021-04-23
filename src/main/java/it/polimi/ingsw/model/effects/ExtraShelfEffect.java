@@ -44,6 +44,10 @@ public class ExtraShelfEffect extends Effect {
         return shelfResource;
     }
 
+    public void setShelfResource(Resource shelfResource) {
+        this.shelfResource = shelfResource;
+    }
+
     /**
      * Creates and adds an extra shelf to the Player's {@link Warehouse}
      * The Shelf is empty and has a specific type of {@link Resource} that can be stored inside
@@ -53,5 +57,10 @@ public class ExtraShelfEffect extends Effect {
         Shelf extraShelf = new Shelf(2); // The Shelf is created only if the Effect is activated
         extraShelf.setShelfResource(shelfResource); // Shelf main resource is set here
         p.getPlayerBoard().getWarehouse().addExtraShelf(extraShelf);
+    }
+
+    @Override
+    public String toString() {
+        return "Extra Shelf that can hold " + shelfResource.toString();
     }
 }

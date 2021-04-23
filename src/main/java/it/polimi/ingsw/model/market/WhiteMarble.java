@@ -15,4 +15,8 @@ public class WhiteMarble extends Marble {
         return new Resource(1);
     }
 
+    @Override
+    public String toString() {
+        return "White Marble";
+    }
 }

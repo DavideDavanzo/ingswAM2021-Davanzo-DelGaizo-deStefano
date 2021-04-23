@@ -13,4 +13,9 @@ public class BlueMarble extends Marble{
     public Item returnItem() {
         return new Shield(1);
     }
+
+    @Override
+    public String toString() {
+        return "Blue Marble";
+    }
 }

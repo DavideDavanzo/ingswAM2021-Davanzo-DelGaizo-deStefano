@@ -1,8 +1,19 @@
 package it.polimi.ingsw.model.resources;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Coin.class, name = "coin"),
+        @JsonSubTypes.Type(value = Servant.class, name = "servant"),
+        @JsonSubTypes.Type(value = Shield.class, name = "shield"),
+        @JsonSubTypes.Type(value = Stone.class, name = "stone")
+})
 /**
  *  Represents an amount of resources of the same type (coins, shields, stones, servants)
  *  or a blank resource.
@@ -71,5 +82,10 @@ public class Resource extends Item {
     @Override
     public Resource clone() {
         return new Resource(getVolume());
+    }
+
+    @Override
+    public String toString() {
+        return "Resource: " + getVolume();
     }
 }

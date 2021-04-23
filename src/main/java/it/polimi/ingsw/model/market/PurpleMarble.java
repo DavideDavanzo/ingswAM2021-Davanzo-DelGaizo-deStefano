@@ -13,4 +13,9 @@ public class PurpleMarble extends Marble{
     public Item returnItem() {
         return new Servant(1);
     }
+
+    @Override
+    public String toString() {
+        return "Purple Marble";
+    }
 }

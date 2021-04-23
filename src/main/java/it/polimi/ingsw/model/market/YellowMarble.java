@@ -15,4 +15,8 @@ public class YellowMarble extends Marble {
         return new Coin(1);
     }
 
+    @Override
+    public String toString() {
+        return "Yellow Marble";
+    }
 }

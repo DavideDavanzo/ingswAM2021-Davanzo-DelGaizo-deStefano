@@ -23,4 +23,13 @@ public class FaithPointsRequirement extends Requirement {
     public Object getAttribute() {
         return points;
     }
+
+    public void setPoints(FaithPoint points) {
+        this.points = points;
+    }
+
+    @Override
+    public String toString() {
+        return "Position at least " + points.toString();
+    }
 }

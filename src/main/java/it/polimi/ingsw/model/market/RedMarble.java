@@ -13,4 +13,9 @@ public class RedMarble extends Marble{
     public Item returnItem() {
         return new FaithPoint(1);
     }
+
+    @Override
+    public String toString() {
+        return "Red Marble";
+    }
 }

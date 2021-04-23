@@ -71,4 +71,9 @@ public class FaithPoint extends Item {
     public Item clone() {
         return new FaithPoint(getVolume());
     }
+
+    @Override
+    public String toString() {
+        return "FaithPoint: " + getVolume();
+    }
 }

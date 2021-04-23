@@ -69,4 +69,9 @@ public class Servant extends Resource {
     public Resource clone() {
         return new Servant(getVolume());
     }
+
+    @Override
+    public String toString() {
+        return "Servant: " + getVolume();
+    }
 }

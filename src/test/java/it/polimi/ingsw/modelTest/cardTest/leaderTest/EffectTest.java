@@ -71,7 +71,10 @@ public class EffectTest {
     public void testExtraTrade() {
         Trade t = new Trade();
         t.setInput(new ArrayList<Resource>(){{add(new Coin(1));}});
-        t.setOutput(new ArrayList<Item>(){{add(new FaithPoint(1));}});
+        t.setOutput(new ArrayList<Item>(){
+            {add(new FaithPoint(1));}
+            {add(new Resource(1));}
+        });
 
         underTest = new ExtraDevEffect(t);
 

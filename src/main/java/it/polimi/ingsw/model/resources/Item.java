@@ -1,11 +1,21 @@
 package it.polimi.ingsw.model.resources;
 
-import it.polimi.ingsw.exceptions.InvalidInputException;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
-import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
 
-import java.util.Objects;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Resource.class, name = "resource"),
+        @JsonSubTypes.Type(value = Coin.class, name = "coin"),
+        @JsonSubTypes.Type(value = Servant.class, name = "servant"),
+        @JsonSubTypes.Type(value = Shield.class, name = "shield"),
+        @JsonSubTypes.Type(value = Stone.class, name = "stone"),
+        @JsonSubTypes.Type(value = FaithPoint.class, name = "faith")
+})
 /**
  * Abstract class which represents either a resource or faith points
  */

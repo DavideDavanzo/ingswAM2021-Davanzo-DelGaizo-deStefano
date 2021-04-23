@@ -69,4 +69,9 @@ public class Shield extends Resource {
     public Resource clone() {
         return new Shield(getVolume());
     }
+
+    @Override
+    public String toString() {
+        return "Shield: " + getVolume();
+    }
 }

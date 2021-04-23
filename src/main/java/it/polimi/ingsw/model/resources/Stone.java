@@ -69,4 +69,9 @@ public class Stone extends Resource {
     public Resource clone() {
         return new Stone(getVolume());
     }
+
+    @Override
+    public String toString() {
+        return "Stone: " + getVolume();
+    }
 }

@@ -15,6 +15,7 @@ import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -27,7 +28,7 @@ public class Player {
 
     private PlayerBoard playerBoard;
 
-    private ArrayList<LeaderCard> leaderCards;
+    private LinkedList<LeaderCard> leaderCards;
 
     private ArrayList<Marble> extraMarbles;
     private boolean whiteMarblePower;
@@ -45,7 +46,7 @@ public class Player {
      */
     public Player() {
         playerBoard = new PlayerBoard();
-        leaderCards = new ArrayList<>();
+        leaderCards = new LinkedList<>();
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
@@ -54,12 +55,16 @@ public class Player {
 
     public Player(String nickname) {
         playerBoard = new PlayerBoard();
-        leaderCards = new ArrayList<>();
+        leaderCards = new LinkedList<>();
         this.nickname = nickname;
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
         victoryPoints = 0;
+    }
+
+    public void giveLeaderCard(LeaderCard leader) {
+        leaderCards.add(leader);
     }
 
     /**
@@ -128,7 +133,7 @@ public class Player {
         int victoryPoints = playerBoard.calculateVictoryPoints();      //add points given by development cards and path
 
         for(LeaderCard card : leaderCards)
-            victoryPoints += card.getVictoryPoints();   //add points given by leader cards
+            victoryPoints += card.calculateVictoryPoints();   //add points given by leader cards
 
         this.victoryPoints = victoryPoints;
 
@@ -184,7 +189,7 @@ public class Player {
         return extraMarbles;
     }
 
-    public ArrayList<LeaderCard> getLeaderCards() {
+    public LinkedList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
 

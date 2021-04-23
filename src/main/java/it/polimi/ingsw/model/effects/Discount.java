@@ -11,9 +11,9 @@ public class Discount {
         this.active = false;
     }
 
-    public Discount(Resource resourceDiscount) {
+    public Discount(Resource discountResource) {
         this.active = false;
-        this.discountResource = resourceDiscount;
+        this.discountResource = discountResource;
     }
 
     public void activate() {
@@ -28,4 +28,8 @@ public class Discount {
         return discountResource;
     }
 
+    @Override
+    public String toString() {
+        return discountResource.toString();
+    }
 }

@@ -13,4 +13,9 @@ public class GreyMarble extends Marble{
     public Item returnItem() {
         return new Stone(1);
     }
+
+    @Override
+    public String toString() {
+        return "Grey Marble";
+    }
 }
