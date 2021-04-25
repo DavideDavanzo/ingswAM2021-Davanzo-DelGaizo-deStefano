@@ -1,0 +1,162 @@
+#Protocollo di rete
+___
+###Login
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |                                            |
+        |<-------------- login request --------------|
+        |------------- username,password ----------->|
+        |                                            |
+        |<-------- new or interrupted match? --------|
+        |------------------ choice ----------------->|
+        |                                            |
+        |           (if interrupted match)           |
+        |<--------------- ID request ----------------|
+        |-------------------- ID ------------------->|
+        |   (if invalid username or password or ID)  |
+        |<------------------- ko --------------------|
+        |                 (if valid)                 |
+        |<------------------- ok --------------------|
+        |                                            |
+        |               (if new match)               |
+        |        (if match does not exist yet)       |
+        |<----------- how many players? -------------|
+        |------------ number of players ------------>|
+        |        (if invalid number of players)      |
+        |<------------------- ko --------------------|
+        |                 (if valid)                 |
+        |<-------------- new match ID ---------------|
+        |                                            |
+        |          (if match exist already)          |
+        |<------------ current match ID -------------|
+        |                                            |
+###Action choice
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |                                            |
+        |<------------------ ping -------------------|
+        |------------------- pong ------------------>|
+        |                                            |
+        |<---------------- your turn ----------------|
+        |<-------- list_1 of possible action --------|
+        !--------------- chosen action ------------->|
+        |               (while invalid)              |
+        |<------------------- ko --------------------|
+        |<-------- list_1 of possible action --------|
+        |                                            |
+        |              (if valid action)             |
+        |<-------- list_2 of possible action --------|
+        |--------------- chosen action ------------->|
+        |               (while invalid)              |
+        |<------------------- ko --------------------|
+        |<-------- list_2 of possible action --------|
+        |                                            |
+        |              (if valid action)             |
+        |                     ...                    |
+        |                                            |
+        |<-------- list_1 of possible action --------|
+        |--------------- chosen action ------------->|
+        |               (while invalid)              |
+        |<------------------- ko --------------------|
+        |<-------- list_1 of possible action --------|
+        |                                            |
+        |              (if valid action)             |
+        |<-------------- turn completed -------------|
+        |                                            |
+###Action: buy a card
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |                                            |
+        |----------------- buy a card -------------->|
+        |                                            |
+        |              (if valid action)             |
+        |<---------------- select one ---------------|
+        |<----------- list of 12 dev cards ----------|
+        |---------- selected (color, level)--------->|
+        |                                            |
+        |               (if there are)               |
+        |<---------------- take this ----------------|
+        |<----------- changed GUI object ------------|
+        |                                            |
+        |     (if there are not enough resources)    |
+        |<------------------ error ------------------|
+        |<-------- list_2 of possible action --------|
+        |                                            |
+###Action: activate base production
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |                                            |
+        |---------- activate base production ------->|
+        |                                            |
+        |              (if valid action)             |
+        |<------- select first input resource -------|
+        |------------------- choice ---------------->|
+        |<------- select second input resource ------|
+        |------------------- choice ---------------->|
+        |<---------- select output resource ---------|
+        |------------------- choice ---------------->|
+        |                                            |
+        |            (if valid production)           |
+        |<-------------------- ok -------------------|
+        |<------------ changed GUI object -----------|
+        |                                            |
+        |     (if there are not enough resources)    |
+        |<------------------ error ------------------|
+        |<-------- list_2 of possible action --------|
+        |                                            |
+###Action: activate production
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |                                            |
+        |------------ activate production ---------->|
+        |                                            |
+        |              (if valid action)             |
+        |<---------------- select one ---------------|
+        |<--------- list player's dev cards ---------|
+        |--------------- select a, b, c... --------->|
+        |                                            |
+        |            (for each extra trade)          |
+        |<-------- select '?' output resource -------|
+        |------------------- choice ---------------->|
+        |                                            |
+        |            (if valid production)           |
+        |<-------------------- ok -------------------|
+        |<------------ changed GUI object -----------|
+        |                                            |
+        |     (if there are not enough resources)    |
+        |<------------------ error ------------------|
+        |<-------- list_2 of possible action --------|
+        |                                            |
+###Action: get resources from market
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |                                            |
+        |--------- get resources from market ------->|
+        |                                            |
+        |               (if valid action)            |
+        |<------------- select row or col -----------|
+        |------------------- choice ---------------->|
+        |<--------------- select index --------------|
+        |------------------- choice ---------------->|
+        |                                            |
+        |            (for each white marble)         |
+        |            (if white marble leader)        |
+        |<------------ select active leader ---------|
+        |------------------- choice ---------------->|
+        |                                            |
+        |                  (if valid)                |
+        |             (for each resource)            |
+        |<----------- select toss or stock ----------|
+        |------------------- choice ---------------->|
+        |                  (if stock)                |
+        |<--------------- select shelf --------------|
+        |               (if valid action)            |
+        |<-------------------- ok -------------------|
+        |<------------ changed GUI object -----------|
+        |                                            |
