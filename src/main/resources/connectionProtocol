@@ -6,14 +6,14 @@ ___
     +--------+                                  +--------+
         |                                            |
         |<-------------- login request --------------|
-        |------------- username,password ----------->|
+        |------------- login response -------------->|
         |                                            |
-        |<-------- new or interrupted match? --------|
-        |------------------ choice ----------------->|
+        |<--------------- start request -------------|
+        |------------ start choice ----------------->|
         |                                            |
         |           (if interrupted match)           |
         |<--------------- ID request ----------------|
-        |-------------------- ID ------------------->|
+        |----------- ID response ------------------->|
         |   (if invalid username or password or ID)  |
         |<------------------- ko --------------------|
         |                 (if valid)                 |
@@ -21,16 +21,43 @@ ___
         |                                            |
         |               (if new match)               |
         |        (if match does not exist yet)       |
-        |<----------- how many players? -------------|
-        |------------ number of players ------------>|
+        |<----------- num players request -----------|
+        |------------ num players response --------->|
         |        (if invalid number of players)      |
         |<------------------- ko --------------------|
         |                 (if valid)                 |
-        |<-------------- new match ID ---------------|
+        |<-------------- match ID assignment---------|
         |                                            |
         |          (if match exist already)          |
-        |<------------ current match ID -------------|
+        |<---------------- match ID assignment-------|
         |                                            |
+**login request**\
+{"message": "Insert username and password"}\
+\
+**login response**\
+{"username", "password"}\
+\
+**start request**\
+{"message": "start a new match or an interrupted one?"}\
+\
+**start choice**\
+{"choice"}\
+\
+**ID request**\
+{"message": "Insert interrupted match ID"\
+\
+**ID response**\
+{"matchID"}\
+\
+**num players request**\
+{"message" : "how many players?"}\
+\
+**num players response**\
+{"numPlayers"}\
+\
+**match ID assignment**\
+{"matchID"}
+
 ###Action choice
     +--------+                                  +--------+
     | Client |                                  | Server |
@@ -39,7 +66,7 @@ ___
         |<------------------ ping -------------------|
         |------------------- pong ------------------>|
         |                                            |
-        |<---------------- your turn ----------------|
+        |<--------------------- wake ----------------|
         |<-------- list_1 of possible action --------|
         !--------------- chosen action ------------->|
         |               (while invalid)              |
@@ -65,6 +92,27 @@ ___
         |              (if valid action)             |
         |<-------------- turn completed -------------|
         |                                            |
+**wake**\
+{"message", "your turn"}\
+\
+**list_1 of possible action**\
+{"firstChoice": "toss first leader card (1)",\
+"secondChoice": "toss second leader card (2)",\
+"thirdChoice": "activate first leader card (3)",\
+"fourthChoice": "activate second leader card (4)"}\
+\
+**list_2 of possible action**\
+{"firstChoice": "get market's resources (1)",\
+"secondChoice": "buy a development card (2)",\
+"thirdChoice": "activate production (3)",\
+"fourthChoice": "activate base production (4)"}\
+\
+**action choice**\
+{"choice"}\
+\
+**turn completed**\
+{"message", "your turn is completed"}
+
 ###Action: buy a card
     +--------+                                  +--------+
     | Client |                                  | Server |
@@ -77,14 +125,31 @@ ___
         |<----------- list of 12 dev cards ----------|
         |---------- selected (color, level)--------->|
         |                                            |
-        |               (if there are)               |
-        |<---------------- take this ----------------|
-        |<----------- changed GUI object ------------|
+
         |                                            |
         |     (if there are not enough resources)    |
         |<------------------ error ------------------|
         |<-------- list_2 of possible action --------|
         |                                            |
+        |               (if there are)               |
+        |<---------------- in which -----------------|
+        |<----------- changed GUI object ------------|
+**choice**\
+{"choice": 2}\
+\
+**select**\
+{"message": "select one of these"}\
+\
+**dev cards list**\
+[ lista delle 12 dev cards selezionabili ]\
+\
+**selected**\
+{"color", "level"}\
+\
+**take this**\
+{color}
+
+
 ###Action: activate base production
     +--------+                                  +--------+
     | Client |                                  | Server |
