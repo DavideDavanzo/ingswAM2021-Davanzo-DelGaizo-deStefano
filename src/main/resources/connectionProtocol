@@ -147,7 +147,7 @@ ___
 {"color", "level"}\
 \
 **take this**\
-{color}
+{color}\
 \
 **changed GUI object**\
 {[ ]}
@@ -189,13 +189,13 @@ ___
 {"resource"}\
 \
 **output choice**\
-{"message": "choose the resource you want to produce"
+{"message": "choose the resource you want to produce"}\
 \
 **choice**\
 {"resource"}\
 \
 **changed GUI object**\
-{[ ]}
+{[ ]}\
 \
 **error message**\
 {"message": "error"}\
@@ -233,22 +233,22 @@ ___
         |                                            |
 
 **select action**\
-{"message": "select your action"}
+{"message": "select your action"}\
 \
 **player's dev cards**\
-{lista carte player}
+{lista carte player}\
 \
 **select from list**\
-{}
+{}\
 \
 **select unknown output**\
-{"message": choose a type of resource you need}
+{"message": choose a type of resource you need}\
 \
 **choice**\
-{"resource"}
+{"resource"}\
 \
 **changed GUI object**\
-{[ ]}
+{[ ]}\
 \
 **error message**\
 {"message": "error"}\
@@ -288,17 +288,14 @@ ___
         |                                            |
 
 **select line**\
-{"message": "do you want to move a row or a column?"}
+{"message": "do you want to move a row (1) or a column (2)?"}\
 \
 **choice**\
-{"row"}
-\
-**choice**\
-{"column"}
+{"choice"}\
 \
 **select index**\
-{"message": "choose index"}
+{"message": "choose index"}\
 \
 **index**\
-{"index"}
+{"index"}\
 \
