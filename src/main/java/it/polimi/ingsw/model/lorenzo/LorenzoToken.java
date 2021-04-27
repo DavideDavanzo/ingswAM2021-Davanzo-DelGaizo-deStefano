@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.lorenzo;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 
 /**
- * Class that represents the actual tokens used to play a solo match
+ * Class that represents the tokens used to play a solo match
  */
 public abstract class LorenzoToken {
 

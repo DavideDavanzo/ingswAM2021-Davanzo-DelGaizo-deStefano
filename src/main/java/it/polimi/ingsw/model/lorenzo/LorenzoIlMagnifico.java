@@ -19,7 +19,6 @@ public class LorenzoIlMagnifico {
 
     /**
      * method flips the tokens used to play a solo match
-     * @return
      */
     public void flipActionToken() throws LossException {
         LorenzoToken token = lorenzoList.remove(0);
@@ -39,10 +38,17 @@ public class LorenzoIlMagnifico {
         return blackCrossPosition;
     }
 
+    /**
+     * This method increases Lorenzo's position
+     * @param step is used to set the value of the increment
+     */
     public void move(int step){
         blackCrossPosition = blackCrossPosition + step;
     }
 
+    /**
+     * This method shuffles randomly all the tokens
+     */
     public void shuffleToken(){
 
         Random random = new Random();

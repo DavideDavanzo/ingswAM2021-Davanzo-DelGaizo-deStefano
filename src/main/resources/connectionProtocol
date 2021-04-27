@@ -66,7 +66,7 @@ ___
         |<------------------ ping -------------------|
         |------------------- pong ------------------>|
         |                                            |
-        |<--------------------- wake ----------------|
+        |<------------------ wake -------------------|
         |<-------- list_1 of possible action --------|
         !--------------- chosen action ------------->|
         |               (while invalid)              |
@@ -148,7 +148,10 @@ ___
 \
 **take this**\
 {color}
-
+\
+**changed GUI object**\
+{[ ]}
+\
 
 ###Action: activate base production
     +--------+                                  +--------+
@@ -173,6 +176,37 @@ ___
         |<------------------ error ------------------|
         |<-------- list_2 of possible action --------|
         |                                            |
+**first choice**\
+{"message": "choose the first resource you want to transform"}\
+\
+**choice**\
+{"resource"}\
+\
+**second choice**\
+{"message": "choose the second resource you want to transform"}\
+\
+**choice**\
+{"resource"}\
+\
+**output choice**\
+{"message": "choose the resource you want to produce"
+\
+**choice**\
+{"resource"}\
+\
+**changed GUI object**\
+{[ ]}
+\
+**error message**\
+{"message": "error"}\
+\
+**dev cards list**\
+[ lista delle 12 dev cards selezionabili ]\
+\
+
+
+
+
 ###Action: activate production
     +--------+                                  +--------+
     | Client |                                  | Server |
@@ -197,6 +231,33 @@ ___
         |<------------------ error ------------------|
         |<-------- list_2 of possible action --------|
         |                                            |
+
+**select action**\
+{"message": "select your action"}
+\
+**player's dev cards**\
+{lista carte player}
+\
+**select from list**\
+{}
+\
+**select unknown output**\
+{"message": choose a type of resource you need}
+\
+**choice**\
+{"resource"}
+\
+**changed GUI object**\
+{[ ]}
+\
+**error message**\
+{"message": "error"}\
+\
+**dev cards list**\
+[ lista delle 12 dev cards selezionabili ]\
+\
+
+
 ###Action: get resources from market
     +--------+                                  +--------+
     | Client |                                  | Server |
@@ -225,3 +286,19 @@ ___
         |<-------------------- ok -------------------|
         |<------------ changed GUI object -----------|
         |                                            |
+
+**select line**\
+{"message": "do you want to move a row or a column?"}
+\
+**choice**\
+{"row"}
+\
+**choice**\
+{"column"}
+\
+**select index**\
+{"message": "choose index"}
+\
+**index**\
+{"index"}
+\
