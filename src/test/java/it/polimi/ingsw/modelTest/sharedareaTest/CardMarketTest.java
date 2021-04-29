@@ -52,4 +52,10 @@ public class CardMarketTest {
         assertDoesNotThrow(() -> underTest.destroyCard(ECardColor.GREEN));
         if(underTest.isEmpty()) assertThrows(LossException.class, () -> underTest.destroyCard(ECardColor.GREEN));
     }
+
+    @Test
+    public void printTest() {
+        //Activate when necessary
+        //System.out.println(underTest.toString());
+    }
 }
