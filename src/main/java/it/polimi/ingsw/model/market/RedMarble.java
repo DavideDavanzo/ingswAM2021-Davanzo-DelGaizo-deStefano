@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
 
 /**
- *Class which represents a red Marble and returns a FaithPoint
+ * This class represents a red Marble and returns a FaithPoint
  */
 
 public class RedMarble extends Marble{

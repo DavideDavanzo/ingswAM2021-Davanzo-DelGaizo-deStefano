@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Servant;
 
 /**
- *Class which represents a purple Marble and returns a Servant
+ * This class represents a purple Marble and returns a Servant
  */
 
 public class PurpleMarble extends Marble{

@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Shield;
 
 /**
- *Class which represents a blue Marble and returns a Shield
+ * This class represents a blue Marble and returns a Shield
  */
 
 public class BlueMarble extends Marble{

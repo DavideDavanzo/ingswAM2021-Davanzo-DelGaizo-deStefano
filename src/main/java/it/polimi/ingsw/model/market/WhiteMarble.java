@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 
 /**
- * Class which represents a white Marble and returns either nothing or a Resource if hasWhiteMarblePower is true
+ * This class represents a white Marble and returns either nothing or a Resource if hasWhiteMarblePower is true
  */
 
 public class WhiteMarble extends Marble {
