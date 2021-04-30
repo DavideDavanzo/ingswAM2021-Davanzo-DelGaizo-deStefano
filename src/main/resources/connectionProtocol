@@ -1,19 +1,21 @@
 #Net Protocol
+Server and clients connect with each other following TCP standard.
+Every interaction/phase follows a ping check.
 ___
 ###Login
     +--------+                                  +--------+
     | Client |                                  | Server |
     +--------+                                  +--------+
         |                                            |
-        |<-------------- login request --------------|
-        |------------- login response -------------->|
+        |<------------- login request ---------------|
+        |-------------- login response ------------->|
         |                                            |
-        |<--------------- start request -------------|
-        |------------ start choice ----------------->|
+        |<------------- start request ---------------|
+        |-------------- start choice --------------->|
         |                                            |
         |           (if interrupted match)           |
         |<--------------- ID request ----------------|
-        |----------- ID response ------------------->|
+        |--------------- ID response --------------->|
         |   (if invalid username or password or ID)  |
         |<------------------- ko --------------------|
         |                 (if valid)                 |
@@ -26,10 +28,10 @@ ___
         |        (if invalid number of players)      |
         |<------------------- ko --------------------|
         |                 (if valid)                 |
-        |<-------------- match ID assignment---------|
+        |<----------- match ID assignment------------|
         |                                            |
         |          (if match exist already)          |
-        |<---------------- match ID assignment-------|
+        |<----------- match ID assignment------------|
         |                                            |
 **login request**\
 {"message": "Insert username and password"}\
@@ -49,11 +51,23 @@ ___
 **ID response**\
 {"matchID"}\
 \
+**invalid username**\
+{"message" : "invalid username, please try again"}\
+\
+**wrong password**\
+{"message"; "wrong password,try again"}\
+\
+**wrong ID**\
+{"message": "The ID you have inserted is wrong, please try again"}\
+\
 **num players request**\
 {"message" : "how many players?"}\
 \
 **num players response**\
 {"numPlayers"}\
+\
+**invalid number**\
+{"message" : "Invalid number of players, please choose between 1 and 4"}\
 \
 **match ID assignment**\
 {"matchID"}
@@ -68,7 +82,7 @@ ___
         |                                            |
         |<------------------ wake -------------------|
         |<-------- list_1 of possible action --------|
-        !--------------- chosen action ------------->|
+        |--------------- chosen action ------------->|
         |               (while invalid)              |
         |<------------------- ko --------------------|
         |<-------- list_1 of possible action --------|
@@ -101,31 +115,33 @@ ___
 "thirdChoice": "activate first leader card (3)",\
 "fourthChoice": "activate second leader card (4)"}\
 \
+**action choice**\
+{"choice"}\
+\
+**invalid choice**\
+{"message": "Try again"}\
+\
 **list_2 of possible action**\
 {"firstChoice": "get market's resources (1)",\
 "secondChoice": "buy a development card (2)",\
-"thirdChoice": "activate production (3)",\
-"fourthChoice": "activate base production (4)"}\
-\
-**action choice**\
-{"choice"}\
+"thirdChoice": "activate production (3)"\
 \
 **turn completed**\
 {"message", "your turn is completed"}
 
-###Action: buy a card
+###Action: buy a development card
     +--------+                                  +--------+
     | Client |                                  | Server |
     +--------+                                  +--------+
         |                                            |
-        |----------------- buy a card -------------->|
+        |--------------- buy a card ---------------->|
         |                                            |
         |              (if valid action)             |
-        |<---------------- select one ---------------|
+        |<--------------- select one ----------------|
         |<----------- list of 12 dev cards ----------|
         |---------- selected (color, level)--------->|
         |                                            |
-
+        |                                            |
         |                                            |
         |     (if there are not enough resources)    |
         |<------------------ error ------------------|
@@ -141,70 +157,17 @@ ___
 {"message": "select one of these"}\
 \
 **dev cards list**\
-[ lista delle 12 dev cards selezionabili ]\
+[ list of purchasable dev cards ]\
 \
 **selected**\
 {"color", "level"}\
 \
-**take this**\
-{color}\
+**invalid action**\
+{"message": "You have not enough resources to buy this card, do you want to
+              choose another action(1) or buy another card(2)?"}\
 \
 **changed GUI object**\
 {[ ]}
-\
-
-###Action: activate base production
-    +--------+                                  +--------+
-    | Client |                                  | Server |
-    +--------+                                  +--------+
-        |                                            |
-        |---------- activate base production ------->|
-        |                                            |
-        |              (if valid action)             |
-        |<------- select first input resource -------|
-        |------------------- choice ---------------->|
-        |<------- select second input resource ------|
-        |------------------- choice ---------------->|
-        |<---------- select output resource ---------|
-        |------------------- choice ---------------->|
-        |                                            |
-        |            (if valid production)           |
-        |<-------------------- ok -------------------|
-        |<------------ changed GUI object -----------|
-        |                                            |
-        |     (if there are not enough resources)    |
-        |<------------------ error ------------------|
-        |<-------- list_2 of possible action --------|
-        |                                            |
-**first choice**\
-{"message": "choose the first resource you want to transform"}\
-\
-**choice**\
-{"resource"}\
-\
-**second choice**\
-{"message": "choose the second resource you want to transform"}\
-\
-**choice**\
-{"resource"}\
-\
-**output choice**\
-{"message": "choose the resource you want to produce"}\
-\
-**choice**\
-{"resource"}\
-\
-**changed GUI object**\
-{[ ]}\
-\
-**error message**\
-{"message": "error"}\
-\
-**dev cards list**\
-[ lista delle 12 dev cards selezionabili ]\
-\
-
-
 
 
 ###Action: activate production
@@ -215,11 +178,25 @@ ___
         |------------ activate production ---------->|
         |                                            |
         |              (if valid action)             |
-        |<---------------- select one ---------------|
-        |<--------- list player's dev cards ---------|
-        |--------------- select a, b, c... --------->|
         |                                            |
-        |            (for each extra trade)          |
+        |<--------- base production choice ----------|
+        |--------- base production reply ----------->|
+        |               ( if invalid )               |
+        |<---------- choose another action ----------|
+        |                                            |
+        |              (if base production)          |
+        |<------- select first input resource -------|
+        |------------------- choice ---------------->|
+        |<------- select second input resource ------|
+        |------------------- choice ---------------->|
+        |<---------- select output resource ---------|
+        |------------------- choice ---------------->|
+        |                                            |
+        |<-------------- select one -----------------|
+        |<--------- list player's dev cards ---------|
+        |------------- select a, b, c... ----------->|
+        |                                            |
+        |        (for each extra trade, if any)      |
         |<-------- select '?' output resource -------|
         |------------------- choice ---------------->|
         |                                            |
@@ -231,12 +208,41 @@ ___
         |<------------------ error ------------------|
         |<-------- list_2 of possible action --------|
         |                                            |
-
+**base production**\
+{"message" : "Do you want to activate the base production (1) or not (2)?"}\
+\
 **select action**\
-{"message": "select your action"}\
+{"choice"}\
+\
+**first choice**\
+{"message" : "choose the first resource you want to transform:\
+(1) Coin\
+(2) Shield\
+(3) Stone\
+(4) Servant"}\
+\
+**second choice**\
+{"message": "choose the second resource you want to transform:\
+(1) Coin\
+(2) Shield\
+(3) Stone\
+(4) Servant"}\
+\
+**output choice**\
+{"message": "choose the resource you want to produce:
+(1) Coin\
+(2) Shield\
+(3) Stone\
+(4) Servant"}\
+\
+**changed GUI object**\
+{[ ]}\
+\
+**error message**\
+{"message": "you do not have enough resources, choose another action"}\
 \
 **player's dev cards**\
-{lista carte player}\
+{player's dev card list}\
 \
 **select from list**\
 {}\
@@ -244,19 +250,8 @@ ___
 **select unknown output**\
 {"message": choose a type of resource you need}\
 \
-**choice**\
-{"resource"}\
-\
-**changed GUI object**\
-{[ ]}\
-\
-**error message**\
-{"message": "error"}\
-\
 **dev cards list**\
-[ lista delle 12 dev cards selezionabili ]\
-\
-
+[ list of purchasable dev cards ]
 
 ###Action: get resources from market
     +--------+                                  +--------+
@@ -266,36 +261,62 @@ ___
         |--------- get resources from market ------->|
         |                                            |
         |               (if valid action)            |
+        |<----------------- market toString() -------|
         |<------------- select row or col -----------|
         |------------------- choice ---------------->|
+        |                                            |
+        |             ( if invalid choice )          |
+        |<-------------- select row or col-----------|
         |<--------------- select index --------------|
         |------------------- choice ---------------->|
+        |                                            |
+        |             (if invalid index )            |
+        |<-------------- select index----------------|
+        |                                            |
         |                                            |
         |            (for each white marble)         |
         |            (if white marble leader)        |
         |<------------ select active leader ---------|
         |------------------- choice ---------------->|
         |                                            |
+        |<----------- move among shelves ------------|
+        |------------------ choice ----------------->|
+        |<----------- warehouse toString() ----------|
+        |<------------- switch request --------------|
+        |------------------ choice ----------------->|
+        |                 (if invalid)               |
+        |<------------------ error ------------------|
         |                  (if valid)                |
+        |<----------- move among shelves ------------|
+        |------------------ choice ----------------->|
+        |                                            |
         |             (for each resource)            |
         |<----------- select toss or stock ----------|
-        |------------------- choice ---------------->|
-        |                  (if stock)                |
-        |<--------------- select shelf --------------|
-        |               (if valid action)            |
-        |<-------------------- ok -------------------|
-        |<------------ changed GUI object -----------|
+        |------------------ choice ----------------->|
+        |                 (if stock)                 |
+        |<-------------- select shelf ---------------|
+        |------------------ choice ----------------->|
+        |             (if valid action)              |
+        |<------------------ ok ---------------------|
+        |<----------- changed GUI object ------------|
         |                                            |
-
+**move among shelves**\
+{"message" : "do you want to switch your shelves' resources (1) before going to the market, or not (2)?"}\
+\
+**switch request**\
+{"message" : "which shelves do you want to switch?"}\
+\
+**move choice**\
+{"choice"}\
+\
+**invalid**\
+{"message" : " You cannot move those resources, you can try moving others if you want"}\
+\
+**move choice**\
+{"choice"}\
+\
 **select line**\
 {"message": "do you want to move a row (1) or a column (2)?"}\
 \
-**choice**\
-{"choice"}\
-\
 **select index**\
-{"message": "choose index"}\
-\
-**index**\
-{"index"}\
-\
+{"message": "choose index"}

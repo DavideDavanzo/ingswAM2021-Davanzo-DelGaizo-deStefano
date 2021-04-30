@@ -650,7 +650,7 @@
     "victoryPoints" : 12
   },
   {
-    "color" : "GREEN",
+    "color" : "BLUE",
     "level" : 3,
     "cost" : [
       {"@type" : "coin", "volume" : 7}
