@@ -91,7 +91,7 @@
       "level" : 1,
       "cost" : [
          {"@type" : "shield", "volume" : 1},
-         {"@type" : "coin", "volume" : 1}
+         {"@type" : "coin", "volume" : 1},
          {"@type" : "servant", "volume" : 1}
       ],
       "trade" : {
@@ -108,16 +108,16 @@
       "color" : "PURPLE",
       "level" : 1,
       "cost" : [
-        {"@type" : "servant", "volume" : 2}
+        {"@type" : "servant", "volume" : 2},
         {"@type" : "stone", "volume" : 2}
       ],
       "trade" : {
         "input" : [
-            {"@type" : "coin", "volume" : 1}
+            {"@type" : "coin", "volume" : 1},
             {"@type" : "shield", "volume" : 1}
       ],
       "output" : [
-        {"@type" : "faith", "volume" : 1}
+        {"@type" : "faith", "volume" : 1},
         {"@type" : "stone", "volume" : 2}
       ]
       },
@@ -154,7 +154,7 @@
           {"@type" : "servant", "volume" : 1}
         ],
         "output" : [
-          {"@type" : "stone", "volume" : 1},
+          {"@type" : "stone", "volume" : 1}
         ]
       },
       "victoryPoints" : 2
@@ -287,7 +287,7 @@
     "color" : "GREEN",
     "level" : 2,
     "cost" : [
-      {"@type" : "shield", "volume" : 4},
+      {"@type" : "shield", "volume" : 4}
     ],
     "trade" : {
       "input" : [
@@ -303,7 +303,7 @@
     "color" : "PURPLE",
     "level" : 2,
     "cost" : [
-      {"@type" : "servant", "volume" : 4},
+      {"@type" : "servant", "volume" : 4}
     ],
     "trade" : {
       "input" : [
@@ -319,7 +319,7 @@
     "color" : "BLUE",
     "level" : 2,
     "cost" : [
-      {"@type" : "coin", "volume" : 4},
+      {"@type" : "coin", "volume" : 4}
     ],
     "trade" : {
       "input" : [
@@ -335,7 +335,7 @@
     "color" : "YELLOW",
     "level" : 2,
     "cost" : [
-      {"@type" : "stone", "volume" : 4},
+      {"@type" : "stone", "volume" : 4}
     ],
     "trade" : {
       "input" : [
@@ -648,7 +648,7 @@
     },
     "victoryPoints" : 12
     },
-    "color" : "GREEN",
+    "color" : "BLUE",
     "level" : 3,
     "cost" : [
       {"@type" : "coin", "volume" : 7}

@@ -134,14 +134,14 @@ ___
     | Client |                                  | Server |
     +--------+                                  +--------+
         |                                            |
-        |----------------- buy a card -------------->|
+        |--------------- buy a card ---------------->|
         |                                            |
         |              (if valid action)             |
-        |<---------------- select one ---------------|
+        |<--------------- select one ----------------|
         |<----------- list of 12 dev cards ----------|
         |---------- selected (color, level)--------->|
         |                                            |
-
+        |                                            |
         |                                            |
         |     (if there are not enough resources)    |
         |<------------------ error ------------------|
@@ -242,7 +242,7 @@ ___
 {"message": "you do not have enough resources, choose another action"}\
 \
 **player's dev cards**\
-{lista carte player}\
+{player's dev card list}\
 \
 **select from list**\
 {}\
@@ -251,7 +251,7 @@ ___
 {"message": choose a type of resource you need}\
 \
 **dev cards list**\
-[ lista delle 12 dev cards selezionabili ]
+[ list of purchasable dev cards ]
 
 ###Action: get resources from market
     +--------+                                  +--------+
@@ -279,26 +279,26 @@ ___
         |<------------ select active leader ---------|
         |------------------- choice ---------------->|
         |                                            |
-        |<------------------ move among shelves -----|
-        |------------------- choice ---------------->|
-        |<---------------- warehouse toString() -----|
-        |<----------------- switch request ----------|
+        |<----------- move among shelves ------------|
         |------------------ choice ----------------->|
-        |               (if invalid)                 |
+        |<----------- warehouse toString() ----------|
+        |<------------- switch request --------------|
+        |------------------ choice ----------------->|
+        |                 (if invalid)               |
         |<------------------ error ------------------|
         |                  (if valid)                |
-        |<------------------ move among shelves -----|
-        |------------------- choice ---------------->|
+        |<----------- move among shelves ------------|
+        |------------------ choice ----------------->|
         |                                            |
         |             (for each resource)            |
         |<----------- select toss or stock ----------|
-        |------------------- choice ---------------->|
-        |                  (if stock)                |
-        |<--------------- select shelf --------------|
-        |------------------- choice ---------------->|
-        |               (if valid action)            |
-        |<-------------------- ok -------------------|
-        |<------------ changed GUI object -----------|
+        |------------------ choice ----------------->|
+        |                 (if stock)                 |
+        |<-------------- select shelf ---------------|
+        |------------------ choice ----------------->|
+        |             (if valid action)              |
+        |<------------------ ok ---------------------|
+        |<----------- changed GUI object ------------|
         |                                            |
 **move among shelves**\
 {"message" : "do you want to switch your shelves' resources (1) before going to the market, or not (2)?"}\
