@@ -1,0 +1,230 @@
+[
+  {
+    "requirement" : {
+      "@type" : "colorLevelReq",
+      "colorLevel" : {"BLUE" : 2}
+    },
+    "effect" : {
+      "@type": "extraDevEff",
+      "extraTrade": {
+        "input": [
+          {"@type": "servant", "volume": 1}
+        ],
+        "output": [
+          {"@type": "resource", "volume": 1},
+          {"@type": "faith", "volume": 1}
+        ]
+      }
+    },
+    "victoryPoints" : 4
+  },
+  {
+    "requirement" : {
+      "@type" : "colorLevelReq",
+      "colorLevel" : {"GREEN" : 2}
+    },
+    "effect" : {
+      "@type": "extraDevEff",
+      "extraTrade": {
+        "input": [
+          {"@type": "coin", "volume": 1}
+        ],
+        "output": [
+          {"@type": "resource", "volume": 1},
+          {"@type": "faith", "volume": 1}
+        ]
+      }
+    },
+    "victoryPoints" : 4
+  },
+  {
+    "requirement" : {
+      "@type" : "colorLevelReq",
+      "colorLevel" : {"PURPLE" : 2}
+    },
+    "effect" : {
+      "@type": "extraDevEff",
+      "extraTrade": {
+        "input": [
+          {"@type": "stone", "volume": 1}
+        ],
+        "output": [
+          {"@type": "resource", "volume": 1},
+          {"@type": "faith", "volume": 1}
+        ]
+      }
+    },
+    "victoryPoints" : 4
+  },
+  {
+    "requirement" : {
+      "@type" : "colorLevelReq",
+      "colorLevel" : {"YELLOW" : 2}
+    },
+    "effect" : {
+      "@type": "extraDevEff",
+      "extraTrade": {
+        "input": [
+          {"@type": "shield", "volume": 1}
+        ],
+        "output": [
+          {"@type": "resource", "volume": 1},
+          {"@type": "faith", "volume": 1}
+        ]
+      }
+    },
+    "victoryPoints" : 4
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"PURPLE" : 2, "GREEN" : 1}
+    },
+    "effect" : {
+      "@type" : "whiteMarbleEff",
+      "marble" : {"@type" : "yellow"}
+    },
+    "victoryPoints" : 5
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"BLUE" : 2, "YELLOW" : 1}
+    },
+    "effect" : {
+      "@type" : "whiteMarbleEff",
+      "marble" : {"@type" : "grey"}
+    },
+    "victoryPoints" : 5
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"GREEN" : 2, "PURPLE" : 1}
+    },
+    "effect" : {
+      "@type" : "whiteMarbleEff",
+      "marble" : {"@type" : "blue"}
+    },
+    "victoryPoints" : 5
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"YELLOW" : 2, "BLUE" : 1}
+    },
+    "effect" : {
+      "@type" : "whiteMarbleEff",
+      "marble" : {"@type" : "purple"}
+    },
+    "victoryPoints" : 5
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"YELLOW" : 1, "GREEN" : 1}
+    },
+    "effect" : {
+      "@type" : "discountEff",
+      "discount" : {"discountResource" : {"@type" : "servant", "volume" : -1}}
+    },
+    "victoryPoints" : 2
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"BLUE" : 1, "PURPLE" : 1}
+    },
+    "effect" : {
+      "@type" : "discountEff",
+      "discount" : {"discountResource" : {"@type" : "shield", "volume" : -1}}
+    },
+    "victoryPoints" : 2
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"YELLOW" : 1, "PURPLE" : 1}
+    },
+    "effect" : {
+      "@type" : "discountEff",
+      "discount" : {"discountResource" : {"@type" : "coin", "volume" : -1}}
+    },
+    "victoryPoints" : 2
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"GREEN" : 1, "BLUE" : 1}
+    },
+    "effect" : {
+      "@type" : "discountEff",
+      "discount" : {"discountResource" : {"@type" : "stone", "volume" : -1}}
+    },
+    "victoryPoints" : 2
+  },
+  {
+    "requirement" : {
+      "@type" : "resourceReq",
+      "resource" : {"@type" : "shield", "volume" : 5}
+    },
+    "effect" : {
+      "@type" : "extraShelfEff",
+      "shelfResource" : {"@type" : "coin", "volume" : 2}
+    },
+    "victoryPoints" : 3
+  },
+  {
+    "requirement" : {
+      "@type" : "resourceReq",
+      "resource" : {"@type" : "coin", "volume" : 5}
+    },
+    "effect" : {
+      "@type" : "extraShelfEff",
+      "shelfResource" : {"@type" : "stone", "volume" : 2}
+    },
+    "victoryPoints" : 3
+  },
+  {
+    "requirement" : {
+      "@type" : "resourceReq",
+      "resource" : {"@type" : "servant", "volume" : 5}
+    },
+    "effect" : {
+      "@type" : "extraShelfEff",
+      "shelfResource" : {"@type" : "shield", "volume" : 2}
+    },
+    "victoryPoints" : 3
+  },
+  {
+    "requirement" : {
+      "@type" : "resourceReq",
+      "resource" : {"@type" : "stone", "volume" : 5}
+    },
+    "effect" : {
+      "@type" : "extraShelfEff",
+      "shelfResource" : {"@type" : "servant", "volume" : 2}
+    },
+    "victoryPoints" : 3
+  },
+  {
+    "requirement" : {
+      "@type" : "faithReq",
+      "points" : {"@type" : "faith", "volume" : 14}
+    },
+    "effect" : {
+      "@type" : "blankEff"
+    },
+    "victoryPoints" : 7
+  },
+  {
+    "requirement" : {
+      "@type" : "colorReq",
+      "colors" : {"YELLOW" : 1,"GREEN" : 1, "BLUE" : 1, "PURPLE" : 1}
+    },
+    "effect" : {
+      "@type" : "blankEff"
+    },
+    "victoryPoints" : 8
+  }
+]
