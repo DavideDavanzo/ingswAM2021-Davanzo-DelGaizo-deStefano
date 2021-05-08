@@ -1,0 +1,39 @@
+package it.polimi.ingsw.network.messages;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import it.polimi.ingsw.view.View;
+
+import java.io.Serializable;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
+@JsonSubTypes({ @JsonSubTypes.Type(value = InfoMessage.class, name = "InfoMessage"),
+                @JsonSubTypes.Type(value = QueryMessage.class, name = "QueryMessage"),
+                @JsonSubTypes.Type(value = LoginRequest.class, name = "LoginRequest"),
+                @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
+                @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
+                @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
+                @JsonSubTypes.Type(value = Error.class, name = "Error") })
+public abstract class Message implements Serializable {
+
+    String msg;
+
+    public Message(){}
+
+    public Message(String msg){
+        this.msg = msg;
+    }
+
+    public abstract void apply(View view);
+
+    public String getMsg(){
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+}
