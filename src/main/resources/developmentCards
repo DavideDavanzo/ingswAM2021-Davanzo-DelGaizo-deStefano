@@ -51,8 +51,8 @@
         ]
       },
       "victoryPoints" : 1
-    },
-    {
+  },
+  {
       "color" : "GREEN",
       "level" : 1,
       "cost" : [
@@ -69,8 +69,8 @@
       ]
       },
       "victoryPoints" : 3
-    },
-    {
+  },
+  {
       "color" : "PURPLE",
       "level" : 1,
       "cost" : [
@@ -85,8 +85,8 @@
       ]
       },
       "victoryPoints" : 1
-    },
-    {
+  },
+  {
       "color" : "PURPLE",
       "level" : 1,
       "cost" : [
@@ -103,8 +103,8 @@
       ]
       },
       "victoryPoints" : 2
-      },
-      {
+  },
+  {
       "color" : "PURPLE",
       "level" : 1,
       "cost" : [
@@ -122,7 +122,7 @@
       ]
       },
       "victoryPoints" : 4
-      },
+  },
   {
       "color" : "PURPLE",
       "level" : 1,
@@ -140,8 +140,8 @@
         ]
       },
       "victoryPoints" : 3
-    },
-    {
+  },
+  {
       "color" : "BLUE",
       "level" : 1,
       "cost" : [
@@ -158,8 +158,8 @@
         ]
       },
       "victoryPoints" : 2
-    },
-    {
+  },
+  {
       "color" : "BLUE",
       "level" : 1,
       "cost" : [
@@ -174,8 +174,8 @@
         ]
       },
       "victoryPoints" : 1
-    },
-    {
+  },
+  {
       "color" : "BLUE",
       "level" : 1,
       "cost" : [
@@ -192,8 +192,8 @@
         ]
       },
       "victoryPoints" : 3
-    },
-    {
+  },
+  {
       "color" : "BLUE",
       "level" : 1,
       "cost" : [
@@ -211,8 +211,8 @@
         ]
       },
       "victoryPoints" : 4
-      },
-      {
+  },
+  {
       "color" : "YELLOW",
       "level" : 1,
       "cost" : [
@@ -229,8 +229,8 @@
         ]
       },
       "victoryPoints" : 2
-      },
-      {
+  },
+  {
       "color" : "YELLOW",
       "level" : 1,
       "cost" : [
@@ -245,8 +245,8 @@
         ]
       },
       "victoryPoints" : 1
-      },
-      {
+  },
+  {
       "color" : "YELLOW",
       "level" : 1,
       "cost" : [
@@ -263,8 +263,8 @@
         ]
       },
       "victoryPoints" : 3
-      },
-      {
+  },
+  {
       "color" : "YELLOW",
       "level" : 1,
       "cost" : [
@@ -282,8 +282,8 @@
         ]
       },
       "victoryPoints" : 4
-      },
-      {
+  },
+  {
     "color" : "GREEN",
     "level" : 2,
     "cost" : [
@@ -298,8 +298,8 @@
       ]
     },
     "victoryPoints" : 5
-      },
-      {
+  },
+  {
     "color" : "PURPLE",
     "level" : 2,
     "cost" : [
@@ -314,8 +314,8 @@
       ]
     },
     "victoryPoints" : 5
-      },
-      {
+  },
+  {
     "color" : "BLUE",
     "level" : 2,
     "cost" : [
@@ -330,8 +330,8 @@
       ]
     },
     "victoryPoints" : 5
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 2,
     "cost" : [
@@ -346,8 +346,8 @@
       ]
     },
     "victoryPoints" : 5
-    },
-    {
+  },
+  {
     "color" : "GREEN",
     "level" : 2,
     "cost" : [
@@ -364,8 +364,8 @@
       ]
     },
     "victoryPoints" : 6
-    },
-    {
+  },
+  {
     "color" : "PURPLE",
     "level" : 2,
     "cost" : [
@@ -382,8 +382,8 @@
       ]
     },
     "victoryPoints" : 6
-    },
-    {
+  },
+  {
     "color" : "BLUE",
     "level" : 2,
     "cost" : [
@@ -400,8 +400,8 @@
       ]
     },
     "victoryPoints" : 6
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 2,
     "cost" : [
@@ -418,8 +418,8 @@
       ]
     },
     "victoryPoints" : 6
-    },
-    {
+  },
+  {
     "color" : "GREEN",
     "level" : 2,
     "cost" : [
@@ -435,8 +435,8 @@
       ]
     },
     "victoryPoints" : 7
-    },
-    {
+  },
+  {
     "color" : "PURPLE",
     "level" : 2,
     "cost" : [
@@ -452,8 +452,8 @@
       ]
     },
     "victoryPoints" : 7
-    },
-    {
+  },
+  {
     "color" : "BLUE",
     "level" : 2,
     "cost" : [
@@ -469,8 +469,8 @@
       ]
     },
     "victoryPoints" : 7
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 2,
     "cost" : [
@@ -486,8 +486,8 @@
       ]
     },
     "victoryPoints" : 7
-    },
-    {
+  },
+  {
     "color" : "GREEN",
     "level" : 2,
     "cost" : [
@@ -504,8 +504,8 @@
       ]
     },
     "victoryPoints" : 8
-    },
-    {
+  },
+  {
     "color" : "PURPLE",
     "level" : 2,
     "cost" : [
@@ -522,8 +522,8 @@
       ]
     },
     "victoryPoints" : 8
-    },
-    {
+  },
+  {
     "color" : "BLUE",
     "level" : 2,
     "cost" : [
@@ -540,8 +540,8 @@
       ]
     },
     "victoryPoints" : 8
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 2,
     "cost" : [
@@ -558,8 +558,8 @@
       ]
     },
     "victoryPoints" : 8
-    },
-    {
+  },
+  {
     "color" : "GREEN",
     "level" : 3,
     "cost" : [
@@ -578,8 +578,8 @@
       ]
     },
     "victoryPoints" : 10
-    },
-    {
+  },
+  {
     "color" : "GREEN",
     "level" : 3,
     "cost" : [
@@ -596,8 +596,8 @@
       ]
     },
     "victoryPoints" : 12
-    },
-    {
+  },
+  {
     "color" : "GREEN",
     "level" : 3,
     "cost" : [
@@ -613,7 +613,8 @@
       ]
     },
     "victoryPoints" : 11
-    },
+  },
+  {
     "color" : "GREEN",
     "level" : 3,
     "cost" : [
@@ -629,8 +630,8 @@
       ]
     },
     "victoryPoints" : 9
-    },
-    {
+  },
+  {
     "color" : "BLUE",
     "level" : 3,
     "cost" : [
@@ -647,7 +648,8 @@
       ]
     },
     "victoryPoints" : 12
-    },
+  },
+  {
     "color" : "BLUE",
     "level" : 3,
     "cost" : [
@@ -663,8 +665,8 @@
       ]
     },
     "victoryPoints" : 11
-    },
-    {
+  },
+  {
     "color" : "BLUE",
     "level" : 3,
     "cost" : [
@@ -680,8 +682,8 @@
       ]
     },
     "victoryPoints" : 9
-    },
-    {
+  },
+  {
     "color" : "BLUE",
     "level" : 3,
     "cost" : [
@@ -700,8 +702,8 @@
       ]
     },
     "victoryPoints" : 10
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 3,
     "cost" : [
@@ -718,8 +720,8 @@
       ]
     },
     "victoryPoints" : 12
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 3,
     "cost" : [
@@ -735,8 +737,8 @@
       ]
     },
     "victoryPoints" : 11
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 3,
     "cost" : [
@@ -755,8 +757,8 @@
       ]
     },
     "victoryPoints" : 10
-    },
-    {
+  },
+  {
     "color" : "YELLOW",
     "level" : 3,
     "cost" : [
@@ -772,8 +774,8 @@
       ]
     },
     "victoryPoints" : 9
-    },
-    {
+  },
+  {
     "color" : "PURPLE",
     "level" : 3,
     "cost" : [
@@ -790,8 +792,8 @@
       ]
     },
     "victoryPoints" : 12
-    },
-    {
+  },
+  {
     "color" : "PURPLE",
     "level" : 3,
     "cost" : [
@@ -807,24 +809,37 @@
       ]
     },
     "victoryPoints" : 11
-    },
-    {
-    "color" : "PURPLE",
-    "level" : 3,
-    "cost" : [
-      {"@type" : "servant", "volume" : 6}
+  },
+  {
+    "color": "PURPLE",
+    "level": 3,
+    "cost": [
+      {
+        "@type": "servant",
+        "volume": 6
+      }
     ],
-    "trade" : {
-      "input" : [
-        {"@type" : "stone", "volume" : 2}
+    "trade": {
+      "input": [
+        {
+          "@type": "stone",
+          "volume": 2
+        }
       ],
-      "output" : [
-        {"@type" : "coin", "volume" : 3},
-        {"@type" : "faith", "volume" : 2}
+      "output": [
+        {
+          "@type": "coin",
+          "volume": 3
+        },
+        {
+          "@type": "faith",
+          "volume": 2
+        }
       ]
     },
-    "victoryPoints" : 9
-    {
+    "victoryPoints": 9
+  },
+  {
     "color" : "PURPLE",
     "level" : 3,
     "cost" : [
@@ -843,5 +858,5 @@
       ]
     },
     "victoryPoints" : 10
-    }
+  }
 ]

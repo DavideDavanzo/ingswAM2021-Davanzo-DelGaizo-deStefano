@@ -82,5 +82,6 @@ public class DevelopmentCardTest {
     void testParsing() {
         DevCardParser parser = new DevCardParser();
         ArrayList<DevelopmentCard> cards = parser.parse();
+        for (DevelopmentCard d : cards) System.out.println(d);
     }
 }

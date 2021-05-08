@@ -1,4 +1,4 @@
-#Net protocol
+#Net Protocol
 Server and clients connect with each other following TCP standard.
 Every interaction/phase follows a ping check.
 ___
@@ -71,6 +71,8 @@ ___
 \
 **match ID assignment**\
 {"matchID"}
+
+###Match start Actions
 
 ###Action choice
     +--------+                                  +--------+
@@ -249,9 +251,6 @@ ___
 \
 **select unknown output**\
 {"message": choose a type of resource you need}\
-\
-**dev cards list**\
-[ list of purchasable dev cards ]
 
 ###Action: get resources from market
     +--------+                                  +--------+
@@ -279,17 +278,6 @@ ___
         |<------------ select active leader ---------|
         |------------------- choice ---------------->|
         |                                            |
-        |<----------- move among shelves ------------|
-        |------------------ choice ----------------->|
-        |<----------- warehouse toString() ----------|
-        |<------------- switch request --------------|
-        |------------------ choice ----------------->|
-        |                 (if invalid)               |
-        |<------------------ error ------------------|
-        |                  (if valid)                |
-        |<----------- move among shelves ------------|
-        |------------------ choice ----------------->|
-        |                                            |
         |             (for each resource)            |
         |<----------- select toss or stock ----------|
         |------------------ choice ----------------->|
@@ -300,18 +288,7 @@ ___
         |<------------------ ok ---------------------|
         |<----------- changed GUI object ------------|
         |                                            |
-**move among shelves**\
-{"message" : "do you want to switch your shelves' resources (1) before going to the market, or not (2)?"}\
-\
-**switch request**\
-{"message" : "which shelves do you want to switch?"}\
-\
-**move choice**\
-{"choice"}\
-\
-**invalid**\
-{"message" : " You cannot move those resources, you can try moving others if you want"}\
-\
+
 **move choice**\
 {"choice"}\
 \
@@ -320,3 +297,72 @@ ___
 \
 **select index**\
 {"message": "choose index"}
+
+###Action: Switch Shelves
+
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |-------------- switch shelves ------------->|                                            |
+        |------------------ choice ----------------->|
+        |                                            |
+        |                 (if invalid)               |
+        |<------------------ error ------------------|
+        |                  (if valid)                |
+        |<----------- move among shelves ------------|
+        |                                            |
+        |<----------- changed GUI object ------------|
+        |                                            |
+        
+**move choice**\
+{"choice"}\
+\
+**invalid**\
+{"message" : " You cannot move those resources, you can try moving others if you want"}\
+\
+
+###Action: activate Leader Card
+
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |-------------- activate leader ------------>|                                            |
+        |------------------ choice ----------------->|
+        |                                            |
+        |                 (if invalid)               |
+        |<------------------ error ------------------|
+        |                  (if valid)                |
+        |<---------- ok: activated leader -----------|
+        |                                            |
+        |<----------- changed GUI object ------------|
+        |                                            |
+        
+**move choice**\
+{"choice"}\
+\
+**invalid**\
+{"message" : " You cannot activate those cards, try again "}\
+\
+
+###Action: toss Leader Card
+
+    +--------+                                  +--------+
+    | Client |                                  | Server |
+    +--------+                                  +--------+
+        |---------------- toss leader -------------->|                                            |
+        |------------------ choice ----------------->|
+        |                                            |
+        |                 (if invalid)               |
+        |<------------------ error ------------------|
+        |                  (if valid)                |
+        |<------------- ok: toss leader -------------|
+        |                                            |
+        |<----------- changed GUI object ------------|
+        |                                            |
+        
+**move choice**\
+{"choice"}\
+\
+**invalid**\
+{"message" : " You cannot toss those cards, try again "}\
+\
