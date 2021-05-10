@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.observing_pattern;
+package it.polimi.ingsw.network.observingPattern;
 
 import it.polimi.ingsw.network.messages.Message;
 

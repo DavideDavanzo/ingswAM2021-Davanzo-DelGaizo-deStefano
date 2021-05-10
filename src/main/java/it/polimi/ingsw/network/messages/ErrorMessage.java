@@ -4,11 +4,13 @@ import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
 
-public class LoginRequest extends Message {
+public class ErrorMessage extends Message {
 
-    public LoginRequest(){}
+    public ErrorMessage(){
+        super();
+    }
 
-    public LoginRequest(String msg){
+    public ErrorMessage(String msg){
         super(msg);
     }
 

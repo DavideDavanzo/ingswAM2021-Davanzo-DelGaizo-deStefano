@@ -1,8 +1,8 @@
 package it.polimi.ingsw.view;
 
 
-import it.polimi.ingsw.network.observing_pattern.Observable;
-import it.polimi.ingsw.network.observing_pattern.Observer;
+import it.polimi.ingsw.network.observingPattern.Observable;
+import it.polimi.ingsw.network.observingPattern.Observer;
 
 public abstract class View extends Observable implements Observer {
 

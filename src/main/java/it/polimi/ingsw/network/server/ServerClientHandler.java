@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.polimi.ingsw.network.messages.Error;
+import it.polimi.ingsw.network.messages.ErrorMessage;
 import it.polimi.ingsw.network.messages.Message;
 
 import java.io.PrintWriter;
@@ -29,7 +29,7 @@ public class ServerClientHandler {
     }
 
     public Message waitClientMessage(){
-        Message message = new Error("Null message error");
+        Message message = new ErrorMessage("Null message error");
         try {
             message = objectMapper.readValue(socketIn.nextLine(), Message.class);
         } catch (JsonProcessingException e) {

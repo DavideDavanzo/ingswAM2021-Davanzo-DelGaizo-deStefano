@@ -24,7 +24,7 @@ public class LeaderCardParser {
             leaderCards = new ArrayList<>(Arrays.asList(card));
 
         } catch (IOException e) {
-            System.out.println("No json file for development cards..");
+            System.out.println("No json file for leader cards..");
             e.printStackTrace();
         }
 

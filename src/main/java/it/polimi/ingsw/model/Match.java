@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.sharedarea.SharedArea;
 
@@ -7,19 +9,34 @@ import java.util.*;
 
 public class Match {
 
-    private LinkedList<Player> players = new LinkedList<>();
+    public static final int MAX_PLAYERS = 4;
+
+    private LinkedList<Player> players;
     private SharedArea sharedArea;
     private int turn;
     private Player currentPlayer;
+    private List<LeaderCard> leaders;
 
     private boolean singlePlayer;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
 
+    private int chosenPlayerNumber;
 
-    public void initPlayers(){
-        for(Player p: players){
-            //p.giveLeaderCard(Stack<LeaderCard>)
-        }
+
+    public Match() {
+        this.players = new LinkedList<>();
+        this.sharedArea = new SharedArea();
+        this.leaders = createLeaders();
+        this.turn = 1;
+    }
+
+    public void setToSinglePlayer() {
+        this.lorenzoIlMagnifico = new LorenzoIlMagnifico();
+        this.singlePlayer = true;
+    }
+
+    private List<LeaderCard> createLeaders() {
+        return new LeaderCardParser().parse();
     }
 
    public boolean isSinglePlayer(){
@@ -31,6 +48,16 @@ public class Match {
        players.add(p);
    }
 
+   public boolean setChosenPlayerNumber(int number) {
+
+        if(number > 0 && number <= MAX_PLAYERS) {
+            this.chosenPlayerNumber = number;
+            return true;
+        }
+
+        return false;
+
+   }
 
    private void chooseOrder(){
         Random random = new Random();
@@ -75,4 +102,6 @@ public class Match {
     public SharedArea getSharedArea() {
         return sharedArea;
     }
+
+
 }

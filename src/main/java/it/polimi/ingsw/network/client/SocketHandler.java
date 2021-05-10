@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.polimi.ingsw.network.observing_pattern.Observable;
+import it.polimi.ingsw.network.observingPattern.Observable;
 import it.polimi.ingsw.network.messages.Message;
 
 import java.io.IOException;

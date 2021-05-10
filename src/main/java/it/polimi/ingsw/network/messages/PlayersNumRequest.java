@@ -1,8 +1,12 @@
 package it.polimi.ingsw.network.messages;
 
+import it.polimi.ingsw.controller.gameState.GameState;
+import it.polimi.ingsw.exceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
 
 public class PlayersNumRequest extends Message {
+
+    private int playerNum;
 
     public PlayersNumRequest(){
         super();
@@ -17,4 +21,12 @@ public class PlayersNumRequest extends Message {
         view.askNumberOfPlayers();
     }
 
+    @Override
+    public void getProcessedBy(GameState gameState) throws InvalidStateException {
+        gameState.process(this);
+    }
+
+    public int getPlayerNum() {
+        return playerNum;
+    }
 }
