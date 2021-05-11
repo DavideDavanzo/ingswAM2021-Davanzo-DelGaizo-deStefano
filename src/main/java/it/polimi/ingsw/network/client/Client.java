@@ -6,7 +6,6 @@ import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
 
@@ -18,12 +17,11 @@ public class Client {
         this.username = username;
     }
 
+    public Client(){}
+
     public static void main(String[] args) {
 
-        System.out.println("Welcome to Maestri del Rinascimento!");
-        System.out.println("Please enter your username: ");
-        Scanner stdIn = new Scanner(System.in);
-        Client client = new Client(stdIn.nextLine());
+        Client client = new Client();
         client.start(args[0], Integer.parseInt(args[1]));
 
     }
@@ -37,6 +35,7 @@ public class Client {
             e.printStackTrace();
         }
         System.out.println("Connection established");
+
         SocketHandler socketHandler = new SocketHandler(socket);
         clientView = new CliView(socketHandler);
         clientView.start();

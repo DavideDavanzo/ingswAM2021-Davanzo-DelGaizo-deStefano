@@ -4,14 +4,16 @@ import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
 
-public class LoginRequest extends Message {
+public class PlayersNumber extends Message {
 
-    public LoginRequest(){
+    private int playerNum;
+
+    public PlayersNumber(){
         super();
     }
 
-    public LoginRequest(String msg){
-        super(msg);
+    public PlayersNumber(int playerNum){
+        this.playerNum = playerNum;
     }
 
     @Override
@@ -21,8 +23,11 @@ public class LoginRequest extends Message {
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException {
-        gameState.process(this);
+
     }
 
+    public int getPlayerNum() {
+        return playerNum;
+    }
 
 }

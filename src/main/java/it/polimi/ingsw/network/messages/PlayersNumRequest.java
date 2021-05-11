@@ -6,8 +6,6 @@ import it.polimi.ingsw.view.View;
 
 public class PlayersNumRequest extends Message {
 
-    private int playerNum;
-
     public PlayersNumRequest(){
         super();
     }
@@ -26,7 +24,4 @@ public class PlayersNumRequest extends Message {
         gameState.process(this);
     }
 
-    public int getPlayerNum() {
-        return playerNum;
-    }
 }

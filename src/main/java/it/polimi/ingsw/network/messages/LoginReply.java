@@ -16,7 +16,7 @@ public class LoginReply extends Message {
 
     @Override
     public void apply(View view) {
-
+        view.showMessage(msg);
     }
 
     @Override

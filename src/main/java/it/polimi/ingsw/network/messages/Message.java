@@ -17,10 +17,13 @@ import java.io.Serializable;
                 @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
                 @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
                 @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
+                @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumber"),
                 @JsonSubTypes.Type(value = Error.class, name = "Error") })
 public abstract class Message implements Serializable {
 
-    private String msg;
+    protected String msg;
+
+    protected String username;
 
     public Message(){ }
 
@@ -36,8 +39,16 @@ public abstract class Message implements Serializable {
         return msg;
     }
 
+    public String getUsername(){
+        return username;
+    }
+
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 
 }

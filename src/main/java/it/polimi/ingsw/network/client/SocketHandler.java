@@ -12,20 +12,22 @@ import java.util.Scanner;
 
 public class SocketHandler extends Observable {
 
+    private String username;
     private Scanner stdIn;
     private Scanner socketIn;
     private PrintWriter socketOut;
-    private ObjectMapper objectMapper;
-    private Socket socket;
+    private final ObjectMapper objectMapper;
+    private final Socket socket;
 
     public SocketHandler(Socket socket){
 
         this.socket = socket;
+
         stdIn = new Scanner(System.in);
 
         try {
-            socketIn = new Scanner(socket.getInputStream());
-            socketOut = new PrintWriter(socket.getOutputStream());
+            socketIn = new Scanner(this.socket.getInputStream());
+            socketOut = new PrintWriter(this.socket.getOutputStream(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -35,6 +37,8 @@ public class SocketHandler extends Observable {
     }
 
     public void sendMessage(Message message){
+
+        message.setUsername(username);
 
         try {
             socketOut.println(objectMapper.writeValueAsString(message));
@@ -59,7 +63,7 @@ public class SocketHandler extends Observable {
     public void waitClientCommand(){
         while (!Thread.currentThread().isInterrupted()) {
             String userInput = stdIn.nextLine();
-            //sendCommand();
+            //TODO: sendCommand() method
         }
     }
 
@@ -81,6 +85,14 @@ public class SocketHandler extends Observable {
 
     public Socket getSocket() {
         return socket;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 
 }
