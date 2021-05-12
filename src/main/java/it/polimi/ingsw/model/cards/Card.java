@@ -1,11 +1,13 @@
 package it.polimi.ingsw.model.cards;
 
+
+
 /**
  * <h1>Card</h1>
  * Abstract concept of Card, tracks a card's Victory Voints.
  * Inherited by {@link LeaderCard} {@link DevelopmentCard}
  */
-public abstract class Card {
+public abstract class Card  {
 
     private int victoryPoints;
 
@@ -31,3 +33,4 @@ public abstract class Card {
     }
 
 }
+
