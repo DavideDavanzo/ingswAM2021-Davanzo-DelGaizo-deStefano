@@ -1,8 +1,10 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.Message;
 
 public class GuiView extends View{
+
     @Override
     public void update(Message message) {
 
@@ -19,8 +21,8 @@ public class GuiView extends View{
     }
 
     @Override
-    public void askUsername() {
-        
+    public void onLoginReply(LoginReply message) {
+
     }
 
     @Override
@@ -29,7 +31,18 @@ public class GuiView extends View{
     }
 
     @Override
+    public void showLogin(String msg, boolean successful) {
+
+    }
+
+    @Override
+    public void showError(String msg) {
+
+    }
+
+    @Override
     public void showMessage(String msg) {
 
     }
+
 }

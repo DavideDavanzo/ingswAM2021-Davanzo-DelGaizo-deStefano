@@ -37,10 +37,14 @@ public class ServerClientHandler extends Observable {
     }
 
     public void waitClientMessage(){
-        try {
-            notifyObservers(objectMapper.readValue(socketIn.nextLine(), Message.class));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                Message message = objectMapper.readValue(socketIn.nextLine(), Message.class);
+                System.out.println("Received: " + objectMapper.writeValueAsString(message));
+                notifyObservers(message);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         }
     }
 

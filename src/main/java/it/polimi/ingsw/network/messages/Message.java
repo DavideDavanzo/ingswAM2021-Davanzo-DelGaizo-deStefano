@@ -18,7 +18,7 @@ import java.io.Serializable;
                 @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
                 @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
                 @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumber"),
-                @JsonSubTypes.Type(value = Error.class, name = "Error") })
+                @JsonSubTypes.Type(value = ErrorMessage.class, name = "ErrorMessage") })
 public abstract class Message implements Serializable {
 
     protected String msg;

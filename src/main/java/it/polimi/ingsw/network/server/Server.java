@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.view.*;
 
@@ -25,6 +24,8 @@ public class Server {
 
     public void start(){
 
+        System.out.println("Server started");
+
         try {
             serverSocket = new ServerSocket(socketPort);
         } catch (IOException e) {
@@ -36,7 +37,6 @@ public class Server {
         try{
             while(true) {
 
-                System.out.println("Server started");
                 System.out.println("Waiting for a new connection...");
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Connection to " + clientSocket.getLocalAddress() + " established");
@@ -45,12 +45,13 @@ public class Server {
 
                 VirtualView serverVirtualView = new VirtualView(clientHandler);
 
-                System.out.println("waiting login...");
+                System.out.println("Waiting login...");
                 Message loginRequest = clientHandler.returnClientMessage();
                 System.out.println("Received username: " + loginRequest.getUsername());
 
-                serverVirtualView.getClientHandler().sendMessage(new LoginReply("OK"));
-                //HO CAMBIATO ADD VIEW IN LOG PLAYER E ORA FA TUTTO LUI.
+                if(gameController.isFull())
+                    gameController = new GameController();
+
                 gameController.logPlayer(loginRequest.getUsername(), serverVirtualView);
 
             }

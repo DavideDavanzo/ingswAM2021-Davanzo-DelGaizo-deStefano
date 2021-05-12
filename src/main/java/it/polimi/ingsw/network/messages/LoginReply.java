@@ -6,6 +6,8 @@ import it.polimi.ingsw.view.View;
 
 public class LoginReply extends Message {
 
+    private boolean successful;
+
     public LoginReply(){
         super();
     }
@@ -14,13 +16,20 @@ public class LoginReply extends Message {
         super(msg);
     }
 
+    public LoginReply(String msg, boolean successful){
+        this.msg = msg;
+        this.successful = successful;
+    }
+
     @Override
     public void apply(View view) {
-        view.showMessage(msg);
+        view.onLoginReply(this);
     }
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException { }
 
-
+    public boolean isSuccessful() {
+        return successful;
+    }
 }

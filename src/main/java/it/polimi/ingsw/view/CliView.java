@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 
 public class CliView extends View {
 
-    private SocketHandler socketHandler;
+    private final SocketHandler socketHandler;
 
     public CliView(SocketHandler socketHandler){
         this.socketHandler = socketHandler;
@@ -22,8 +22,9 @@ public class CliView extends View {
 
     @Override
     public void start() {
-        askUsername();
         socketHandler.addObserver(this);
+        welcome();
+        login();
         ExecutorService executor = Executors.newCachedThreadPool();
         executor.submit(socketHandler::waitServerMessage);
         executor.submit(socketHandler::waitClientCommand);
@@ -41,13 +42,13 @@ public class CliView extends View {
         }
     }
 
-    public void askUsername() {
-        System.out.println("Welcome to Maestri del Rinascimento!");
+    public void login() {
         System.out.println("Please enter your username: ");
         Scanner stdIn = new Scanner(System.in);
-        String username = stdIn.nextLine();
-        socketHandler.setUsername(username);
+        socketHandler.setUsername(stdIn.nextLine());
+        //TODO: validate username
         socketHandler.sendMessage(new LoginRequest());
+        socketHandler.waitServerMessage();      //wait LoginReply
     }
 
     @Override
@@ -57,8 +58,29 @@ public class CliView extends View {
     }
 
     @Override
+    public void showLogin(String msg, boolean successful) {
+        showMessage(msg);
+    }
+
+    @Override
+    public void showError(String msg) {
+        showMessage(msg);
+    }
+
+    @Override
     public void showMessage(String msg){
         System.out.println("Server: " + msg);
+    }
+
+    @Override
+    public void onLoginReply(LoginReply message) {
+        showMessage(message.getMsg());
+        if(!message.isSuccessful())
+            login();
+    }
+
+    private void welcome(){
+        System.out.println("Welcome to Maestri del Rinascimento!");
     }
 
 }
