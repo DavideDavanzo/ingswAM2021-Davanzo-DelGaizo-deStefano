@@ -24,4 +24,5 @@ public abstract class View extends Observable implements Observer {
     public abstract void showMessage(String msg);
 
     public abstract void onLoginReply(LoginReply message);
+
 }

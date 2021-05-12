@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.messages;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
@@ -18,6 +19,7 @@ import java.io.Serializable;
                 @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
                 @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
                 @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumber"),
+                @JsonSubTypes.Type(value = LeaderRequest.class, name = "LeaderRequest"),
                 @JsonSubTypes.Type(value = ErrorMessage.class, name = "ErrorMessage") })
 public abstract class Message implements Serializable {
 

@@ -129,7 +129,7 @@ public class GameController implements Observer, Serializable {
 
     @Override
     public void update(Message message) {
-
+        onMessage(message);
     }
 
     public Map<String, VirtualView> getVirtualViewMap() {
