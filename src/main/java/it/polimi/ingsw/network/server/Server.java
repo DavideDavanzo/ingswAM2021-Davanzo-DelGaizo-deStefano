@@ -50,8 +50,8 @@ public class Server {
                 System.out.println("Received username: " + loginRequest.getUsername());
 
                 serverVirtualView.getClientHandler().sendMessage(new LoginReply("OK"));
-
-                gameController.addVirtualView(loginRequest.getUsername(), serverVirtualView);
+                //HO CAMBIATO ADD VIEW IN LOG PLAYER E ORA FA TUTTO LUI.
+                gameController.logPlayer(loginRequest.getUsername(), serverVirtualView);
 
             }
         } catch (IOException e) {
