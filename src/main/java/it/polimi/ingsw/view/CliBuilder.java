@@ -46,15 +46,6 @@ public class CliBuilder {
         rectangle[maxVertTiles - 1][maxHorizTiles - 1] = "╝";
     }
 
-    final void plot() {
-        System.out.print(Color.ANSI_BLUE.escape());
-        for (int r = 0; r < 5; r++) {
-            System.out.println();
-            for (int c = 0; c < 25; c++) {
-                // System.out.print(rectangle[r][c]);
-            }
-        }
-    }
 }
 
 
