@@ -16,7 +16,7 @@ public class Match extends Observable {
     private SharedArea sharedArea;
     private int turn;
     private Player currentPlayer;
-    private List<LeaderCard> leaders;
+    private ArrayList<LeaderCard> leaders;
 
     private boolean singlePlayer;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
@@ -36,21 +36,20 @@ public class Match extends Observable {
         this.singlePlayer = true;
     }
 
-    private List<LeaderCard> createLeaders() {
+    private ArrayList<LeaderCard> createLeaders() {
         return new LeaderCardParser().parse();
     }
 
-   public boolean isSinglePlayer(){
+    public boolean isSinglePlayer(){
        return singlePlayer;
    }
 
 
-   public void addPlayer(Player p){
+    public void addPlayer(Player p){
        players.add(p);
    }
 
-   public boolean setChosenPlayerNumber(int number) {
-
+    public boolean setChosenPlayerNumber(int number) {
         if(number > 0 && number <= MAX_PLAYERS) {
             this.chosenPlayerNumber = number;
             if(chosenPlayerNumber == 1) singlePlayer = true;
@@ -59,25 +58,27 @@ public class Match extends Observable {
 
         return false;
 
-   }
+    }
 
-   private void chooseOrder(){
-        Random random = new Random();
+    public void shufflePlayers(){
+         Random random = new Random();
 
-        for(int i = 0; i < players.size(); i++){
+         for(int i = 0; i < players.size(); i++){
 
-            int index = i + random.nextInt(players.size() - i);
+             int index = i + random.nextInt(players.size() - i);
 
-            Player temp = players.get(index);
-            players.set(index, players.get(i));
-            players.set(i, temp);
+             Player temp = players.get(index);
+             players.set(index, players.get(i));
+             players.set(i, temp);
        }
-   }
+    }
 
-   public void updateQueue() {
-        Player p = players.remove();
-        players.add(p);
-   }
+    public void updateQueue() {
+         Player p = players.remove();
+         players.add(p);
+    }
+
+
 
     public LinkedList<Player> getPlayers() {
         return players;
@@ -85,6 +86,10 @@ public class Match extends Observable {
 
     public int getTurn() {
         return turn;
+    }
+
+    public ArrayList<LeaderCard> getLeaders() {
+        return leaders;
     }
 
     public LorenzoIlMagnifico getLorenzoIlMagnifico() {

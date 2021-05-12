@@ -32,4 +32,17 @@ public class LeaderCardParser {
 
     }
 
+    public String build(ArrayList<LeaderCard> leaderCards) {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            return objectMapper.writeValueAsString(leaderCards);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+    }
+
 }

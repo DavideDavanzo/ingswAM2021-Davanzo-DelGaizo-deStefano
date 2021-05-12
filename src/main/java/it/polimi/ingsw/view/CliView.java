@@ -1,8 +1,10 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -40,6 +42,12 @@ public class CliView extends View {
             System.out.println("ERROR: wrong format");
             askNumberOfPlayers();
         }
+    }
+
+    @Override
+    public void askLeaders(ArrayList<LeaderCard> leaderCards) {
+        System.out.println("Choose two of these cards:");
+        //TODO: show leader on screen
     }
 
     public void login() {

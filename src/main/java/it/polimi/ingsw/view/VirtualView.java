@@ -1,9 +1,13 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
 
-public class VirtualView extends View{
+import java.util.ArrayList;
+
+public class VirtualView extends View {
 
     private final ServerClientHandler clientHandler;
 
@@ -30,8 +34,14 @@ public class VirtualView extends View{
     }
 
     @Override
-    public void showMessage(String msg) {
+    public void askNumberOfPlayers() {
+        clientHandler.sendMessage(new PlayersNumRequest());
+    }
 
+    @Override
+    public void askLeaders(ArrayList<LeaderCard> leaderCards) {
+        LeaderCardParser parser = new LeaderCardParser();
+        clientHandler.sendMessage(new LeaderRequest(parser.build(leaderCards)));
     }
 
     @Override
@@ -45,8 +55,8 @@ public class VirtualView extends View{
     }
 
     @Override
-    public void askNumberOfPlayers() {
-        clientHandler.sendMessage(new PlayersNumRequest());
+    public void showMessage(String msg) {
+        clientHandler.sendMessage(new InfoMessage(msg));
     }
 
     @Override

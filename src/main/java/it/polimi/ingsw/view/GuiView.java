@@ -1,7 +1,10 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.Message;
+
+import java.util.ArrayList;
 
 public class GuiView extends View{
 
@@ -17,6 +20,11 @@ public class GuiView extends View{
 
     @Override
     public void askNumberOfPlayers() {
+
+    }
+
+    @Override
+    public void askLeaders(ArrayList<LeaderCard> leaderCards) {
 
     }
 

@@ -1,9 +1,20 @@
 package it.polimi.ingsw.controller.gameState;
 
+import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
+import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.network.messages.*;
 
-public class InitState extends GameState{
+public class InitState extends GameState {
+
+    private Match match;
+    private GameController gameController;
+
+    public InitState(Match match, GameController gameController) {
+        this.match = match;
+        this.gameController = gameController;
+    }
+
     @Override
     public void process(ReplyMessage message) throws InvalidStateException {
 

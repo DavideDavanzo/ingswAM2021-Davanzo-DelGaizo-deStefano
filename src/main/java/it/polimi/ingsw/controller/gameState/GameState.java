@@ -17,4 +17,6 @@ public abstract class GameState {
 
     public abstract void process(InfoMessage infoMessage) throws InvalidStateException;
 
+
+
 }

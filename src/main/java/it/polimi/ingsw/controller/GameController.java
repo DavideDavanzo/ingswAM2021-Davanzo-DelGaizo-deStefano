@@ -1,19 +1,19 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.gameState.GameState;
+import it.polimi.ingsw.controller.gameState.InitState;
 import it.polimi.ingsw.controller.gameState.LoginState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.exceptions.controllerExceptions.NicknameException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.network.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GameController implements Observer, Serializable {
 
@@ -21,6 +21,9 @@ public class GameController implements Observer, Serializable {
     private Map<String, VirtualView> virtualViewMap;
 
     private GameState gameState;
+    private TurnController turnController;
+
+    private Stack<ArrayList<LeaderCard>> leaderChoices;
 
     public GameController() {
         this.match = new Match();
@@ -81,7 +84,38 @@ public class GameController implements Observer, Serializable {
     }
 
     public void startMatch() {
-        //TODO: Match start messages and calls. Remember to divide singlePlayer and multiPlayer.
+
+        if(match.isSinglePlayer()) match.setToSinglePlayer();
+        match.shufflePlayers();
+
+        setGameState(new InitState(match, this));
+        turnController = new TurnController(this, virtualViewMap, match);
+        prepareLeaderChoices();
+
+        sendBroadcastMessage("Match started!" + turnController.getCurrentPlayer().getNickname() + "is the first player");
+
+        virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
+
+    }
+
+    private void prepareLeaderChoices() {
+
+        ArrayList<LeaderCard> leaderCards = match.getLeaders();
+        Collections.shuffle(leaderCards);
+        int playerNum = match.getPlayers().size();
+
+        for(int players = 0; players < playerNum; players++) {
+
+            ArrayList<LeaderCard> choice = new ArrayList<>();
+
+            for(int i = 0; i < 4; i++) {
+                choice.add(leaderCards.get(i + players * playerNum));
+            }
+
+            leaderChoices.push(choice);
+
+        }
+
     }
 
     public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
@@ -100,6 +134,16 @@ public class GameController implements Observer, Serializable {
 
     public Map<String, VirtualView> getVirtualViewMap() {
         return virtualViewMap;
+    }
+
+    public void sendBroadcastMessage(String message) {
+        for(VirtualView v : virtualViewMap.values()) v.showMessage(message);
+    }
+
+    public void sendBroadcastMessageExclude(String message, String nickname) {
+        for(Map.Entry<String, VirtualView> entry : virtualViewMap.entrySet()) {
+            if(!entry.getKey().equals(nickname)) entry.getValue().showMessage(message);
+        }
     }
 
     public boolean isFull() {
