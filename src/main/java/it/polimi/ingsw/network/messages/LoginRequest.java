@@ -6,7 +6,9 @@ import it.polimi.ingsw.view.View;
 
 public class LoginRequest extends Message {
 
-    public LoginRequest(){}
+    public LoginRequest(){
+        super();
+    }
 
     public LoginRequest(String msg){
         super(msg);
@@ -19,5 +21,6 @@ public class LoginRequest extends Message {
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException { }
+
 
 }

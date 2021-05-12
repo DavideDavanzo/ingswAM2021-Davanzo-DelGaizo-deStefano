@@ -10,10 +10,14 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void askNumberOfPlayers();
 
+    public abstract void askUsername();
+
     public abstract void askQuery(String msg);
 
     public abstract void showLogin(String msg, boolean successful);
 
     public abstract void showError(String msg);
+
+    public abstract void showMessage(String msg);
 
 }
