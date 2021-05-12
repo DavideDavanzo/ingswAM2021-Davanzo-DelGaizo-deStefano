@@ -12,4 +12,8 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void askQuery(String msg);
 
+    public abstract void showLogin(String msg, boolean successful);
+
+    public abstract void showError(String msg);
+
 }

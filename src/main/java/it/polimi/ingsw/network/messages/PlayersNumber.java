@@ -1,18 +1,18 @@
 package it.polimi.ingsw.network.messages;
 
 import it.polimi.ingsw.controller.gameState.GameState;
-import it.polimi.ingsw.exceptions.InvalidStateException;
+import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
 
-public class PlayersNumRequest extends Message {
+public class PlayersNumber extends Message {
 
     private int playerNum;
 
-    public PlayersNumRequest(){
+    public PlayersNumber(){
         super();
     }
 
-    public PlayersNumRequest(String msg){
+    public PlayersNumber(String msg){
         super(msg);
     }
 

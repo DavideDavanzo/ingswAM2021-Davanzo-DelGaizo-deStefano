@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.messages;
 
 import it.polimi.ingsw.controller.gameState.GameState;
-import it.polimi.ingsw.exceptions.InvalidStateException;
+import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 
 public abstract class Command extends Message {
 

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import it.polimi.ingsw.controller.gameState.GameState;
-import it.polimi.ingsw.exceptions.InvalidStateException;
+import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
 
 import java.io.Serializable;
@@ -16,7 +16,7 @@ import java.io.Serializable;
                 @JsonSubTypes.Type(value = LoginRequest.class, name = "LoginRequest"),
                 @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
                 @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
-                @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
+                @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumRequest"),
                 @JsonSubTypes.Type(value = Error.class, name = "Error") })
 public abstract class Message implements Serializable {
 

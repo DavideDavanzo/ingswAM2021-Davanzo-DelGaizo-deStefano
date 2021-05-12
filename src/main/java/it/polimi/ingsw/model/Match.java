@@ -4,10 +4,11 @@ import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.sharedarea.SharedArea;
+import it.polimi.ingsw.network.observingPattern.Observable;
 
 import java.util.*;
 
-public class Match {
+public class Match extends Observable {
 
     public static final int MAX_PLAYERS = 4;
 
@@ -22,12 +23,12 @@ public class Match {
 
     private int chosenPlayerNumber;
 
-
     public Match() {
         this.players = new LinkedList<>();
         this.sharedArea = new SharedArea();
         this.leaders = createLeaders();
         this.turn = 1;
+        this.chosenPlayerNumber = 0;
     }
 
     public void setToSinglePlayer() {
@@ -52,6 +53,7 @@ public class Match {
 
         if(number > 0 && number <= MAX_PLAYERS) {
             this.chosenPlayerNumber = number;
+            if(chosenPlayerNumber == 1) singlePlayer = true;
             return true;
         }
 
@@ -93,15 +95,18 @@ public class Match {
         return players.peek();
     }
 
-   public LinkedList<Player> getRanking() {
-        LinkedList<Player> ranking = new LinkedList<>(players);
-        ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());
-        return ranking;
-   }
+    public LinkedList<Player> getRanking() {
+         LinkedList<Player> ranking = new LinkedList<>(players);
+         ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());
+         return ranking;
+    }
 
     public SharedArea getSharedArea() {
         return sharedArea;
     }
 
+    public boolean isFull() {
+        return chosenPlayerNumber != 0 && chosenPlayerNumber == players.size();
+    }
 
 }
