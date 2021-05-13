@@ -67,7 +67,6 @@ public class CliView extends View {
 
     @Override
     public void showLogin(String msg, boolean successful) {
-        showMessage(msg);
     }
 
     @Override
@@ -135,7 +134,9 @@ public class CliView extends View {
                 System.out.print(rectangle[r][c]);
             }
         }
-    }
+        System.out.println();
+        System.out.println(CliBuilder.Color.ANSI_GREEN.escape());
 
+    }
 
 }

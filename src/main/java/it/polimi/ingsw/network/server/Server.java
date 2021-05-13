@@ -47,7 +47,6 @@ public class Server {
 
                 System.out.println("Waiting login...");
                 Message loginRequest = clientHandler.returnClientMessage();
-                System.out.println("Received username: " + loginRequest.getUsername());
 
                 if(gameController.isFull())
                     gameController = new GameController();

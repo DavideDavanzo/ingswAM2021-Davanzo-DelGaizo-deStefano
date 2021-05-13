@@ -55,6 +55,11 @@ public class GameController implements Observer, Serializable {
             }
 
             match.addPlayer(new Player(nickname));
+
+            //TO RECEIVE INCOMING MESSAGES
+            virtualView.addObserver(this);
+            virtualView.start();
+
             virtualView.showLogin("You've been logged in successfully", true);
             virtualView.askNumberOfPlayers();
 
@@ -67,6 +72,10 @@ public class GameController implements Observer, Serializable {
                 virtualView.showLogin("Nickname already logged, try another one", false);
                 return;
             }
+
+            //TO RECEIVE INCOMING MESSAGES
+            virtualView.addObserver(this);
+            virtualView.start();
 
             match.addPlayer(new Player(nickname));
             virtualView.showLogin("You've been logged in successfully", true);
