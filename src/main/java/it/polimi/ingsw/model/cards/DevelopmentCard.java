@@ -129,4 +129,21 @@ public class DevelopmentCard extends Card {
         }
         return true;
     }
+
+    @Override
+    public String print() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("╔═════════════════╗\n")
+                     .append("║                 ║\n")
+                     .append("║                 ║\n")
+                     .append("║                 ║\n")
+                     .append("║                 ║\n")
+                     .append("║                 ║\n")
+                     .append("║                 ║\n")
+                     .append("║                 ║\n")
+                     .append("║                 ║\n")
+                     .append("╚═════════════════╝" );
+
+            return stringBuilder.toString();
+        }
 }

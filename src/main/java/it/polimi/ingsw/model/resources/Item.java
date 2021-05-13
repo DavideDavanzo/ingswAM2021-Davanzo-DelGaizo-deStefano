@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import it.polimi.ingsw.CliPrinter;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -19,7 +20,7 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 /**
  * Abstract class which represents either a resource or faith points
  */
-abstract public class Item {
+abstract public class Item implements CliPrinter {
 
     protected int volume;
 

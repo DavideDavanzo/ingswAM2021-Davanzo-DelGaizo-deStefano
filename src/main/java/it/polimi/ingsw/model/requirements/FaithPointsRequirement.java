@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.requirements;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.FaithPoint;
 
 public class FaithPointsRequirement extends Requirement {
@@ -24,6 +26,8 @@ public class FaithPointsRequirement extends Requirement {
         return points;
     }
 
+
+
     public void setPoints(FaithPoint points) {
         this.points = points;
     }
@@ -31,5 +35,12 @@ public class FaithPointsRequirement extends Requirement {
     @Override
     public String toString() {
         return "Position at least " + points.toString();
+    }
+
+    @Override
+    public String print() {
+        return "14" + Color.ANSI_RED.escape() + "†" + Color.ANSI_WHITE.escape();
+
+
     }
 }

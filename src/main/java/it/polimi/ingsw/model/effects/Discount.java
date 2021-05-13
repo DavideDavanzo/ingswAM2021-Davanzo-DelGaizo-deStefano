@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
+import it.polimi.ingsw.CliPrinter;
 import it.polimi.ingsw.model.resources.Resource;
 
 public class Discount {
@@ -28,8 +29,8 @@ public class Discount {
         return discountResource;
     }
 
-    @Override
-    public String toString() {
-        return discountResource.toString();
-    }
+
+
+
+
 }

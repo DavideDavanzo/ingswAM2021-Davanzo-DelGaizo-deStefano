@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
@@ -47,6 +49,10 @@ public class CliView extends View {
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
         System.out.println("Choose two of these cards:");
+        for(LeaderCard card : leaderCards){
+           card.print();
+        }
+
         //TODO: show leader on screen
     }
 
@@ -128,7 +134,7 @@ public class CliView extends View {
         rectangle[3][17] = "t";
         rectangle[3][18] = "o";
 
-        System.out.print(CliBuilder.Color.ANSI_BLUE.escape());
+        System.out.print(Color.ANSI_BLUE.escape());
         for (int r = 0; r < 5; r++) {
             System.out.println();
             for (int c = 0; c < 25; c++) {

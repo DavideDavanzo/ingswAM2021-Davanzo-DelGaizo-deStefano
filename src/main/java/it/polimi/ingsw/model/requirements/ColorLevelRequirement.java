@@ -25,6 +25,7 @@ public class ColorLevelRequirement extends Requirement {
         return colorLevel;
     }
 
+
     public void setColorLevel(HashMap<ECardColor, Integer> colorLevel) {
         this.colorLevel = colorLevel;
     }
@@ -39,6 +40,16 @@ public class ColorLevelRequirement extends Requirement {
             s.append(entry.getValue());
         }
         return s.toString();
+    }
+
+    @Override
+    public String print() {
+        StringBuilder p = new StringBuilder();
+        for (ECardColor color : colorLevel.keySet()) {
+            p.append(color.print() + "lvl: " + colorLevel.get(color));
+        }
+        return p.toString();
+
     }
 
 }

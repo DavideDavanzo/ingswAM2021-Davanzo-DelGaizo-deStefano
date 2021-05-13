@@ -33,6 +33,8 @@ public class ResourceRequirement extends Requirement {
         return resource;
     }
 
+
+
     public void setResource(Resource resource) {
         this.resource = resource;
     }
@@ -40,5 +42,10 @@ public class ResourceRequirement extends Requirement {
     @Override
     public String toString() {
         return "Have at least " + resource.toString();
+    }
+
+    @Override
+    public String print() {
+        return resource.print();
     }
 }

@@ -4,6 +4,7 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.effects.Effect;
 import it.polimi.ingsw.model.requirements.Requirement;
+import it.polimi.ingsw.view.CliBuilder;
 
 /**
  * <h1>Leader Cards</h1>
@@ -83,6 +84,26 @@ public class LeaderCard extends Card {
     public int getVictoryPoints() {
         return super.getVictoryPoints();
     }
+
+    @Override
+    public String print() {
+       StringBuilder stringBuilder = new StringBuilder();
+
+       stringBuilder.append("╔═════════════════╗\n")
+                    .append("║ req: " + requirement.print() + "   ║\n")
+                    .append("║                 ║\n")
+                    .append("║                 ║\n")
+                    .append("║ vp: " + getVictoryPoints() +    "           ║\n")
+                    .append("║                 ║\n")
+                    .append("║                 ║\n")
+                    .append("║ effect: " + effect.print() +  "   ║\n")
+                    .append("║                 ║\n")
+                    .append("╚═════════════════╝" );
+
+       return stringBuilder.toString();
+    }
+
+
 
     @Override
     public String toString() {

@@ -2,16 +2,20 @@ package it.polimi.ingsw.model.requirements;
 
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.view.CliBuilder;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class ColorRequirement extends Requirement {
 
     HashMap<ECardColor, Integer> colors;
 
-    public ColorRequirement() { }
+    public ColorRequirement() {
+    }
 
     public ColorRequirement(HashMap<ECardColor, Integer> colors) {
         this.colors = colors;
@@ -27,6 +31,7 @@ public class ColorRequirement extends Requirement {
         return colors;
     }
 
+
     public void setColors(HashMap<ECardColor, Integer> colors) {
         this.colors = colors;
     }
@@ -35,13 +40,23 @@ public class ColorRequirement extends Requirement {
     public String toString() {
         StringBuilder s = new StringBuilder();
         Iterator iterator = colors.entrySet().iterator();
-        for(Map.Entry<ECardColor, Integer> entry : colors.entrySet()) {
+        for (Map.Entry<ECardColor, Integer> entry : colors.entrySet()) {
             s.append("Color ");
             s.append(entry.getKey().toString());
             s.append(" , Quantity ");
             s.append(entry.getValue());
-            if(iterator.hasNext()) s.append("; ");
+            if (iterator.hasNext()) s.append("; ");
         }
         return s.toString();
+    }
+
+    @Override
+    public String print() {
+        StringBuilder p = new StringBuilder();
+        for (ECardColor color : colors.keySet()) {
+            p.append(color.print() + "num: " + colors.get(color));
+        }
+        return p.toString();
+
     }
 }
