@@ -29,6 +29,7 @@ public class GameController implements Observer, Serializable {
         this.match = new Match();
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
         this.gameState = new LoginState(match, this);
+        this.leaderChoices = new Stack<>();
     }
 
     public void onMessage(Message received) {
@@ -43,7 +44,7 @@ public class GameController implements Observer, Serializable {
 
     }
 
-    public void logPlayer(String nickname, VirtualView virtualView) {
+    public void logPlayer(String nickname, VirtualView virtualView) throws Exception {
 
         if(virtualViewMap.isEmpty()) {
 
@@ -90,9 +91,14 @@ public class GameController implements Observer, Serializable {
             virtualView.showError("Sorry, something went wrong..");
         }
 
+        throw new Exception();
+
     }
 
     public void startMatch() {
+
+        System.out.println("Starting match...");
+        System.out.println(virtualViewMap.size());
 
         if(match.isSinglePlayer()) match.setToSinglePlayer();
         match.shufflePlayers();
@@ -101,7 +107,7 @@ public class GameController implements Observer, Serializable {
         turnController = new TurnController(this, virtualViewMap, match);
         prepareLeaderChoices();
 
-        sendBroadcastMessage("Match started!" + turnController.getCurrentPlayer().getNickname() + "is the first player");
+        sendBroadcastMessage("Match started! " + turnController.getCurrentPlayer().getNickname() + " is the first player");
 
         virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
 

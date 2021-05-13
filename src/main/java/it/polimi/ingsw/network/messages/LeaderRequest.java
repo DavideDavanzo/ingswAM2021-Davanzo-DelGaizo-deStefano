@@ -24,7 +24,7 @@ public class LeaderRequest extends Message {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             LeaderCard[] cards = objectMapper.readValue(msg, LeaderCard[].class);
-            view.askLeaders((ArrayList<LeaderCard>) Arrays.asList(cards));
+            view.askLeaders(new ArrayList<LeaderCard>(Arrays.asList(cards)));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
