@@ -9,6 +9,10 @@ import it.polimi.ingsw.model.resources.Shield;
  */
 
 public class BlueMarble extends Marble{
+
+    public BlueMarble(){
+        super();
+    }
     @Override
     public Item returnItem() {
         return new Shield(1);

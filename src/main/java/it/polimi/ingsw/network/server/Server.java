@@ -7,11 +7,14 @@ import it.polimi.ingsw.view.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
 
     private final int socketPort;
     private ServerSocket serverSocket;
+    //private Object controllerLock = new Object();
 
     public Server(int port){
         socketPort = port;
@@ -23,6 +26,8 @@ public class Server {
     }
 
     public void start(){
+
+        ExecutorService executor = Executors.newCachedThreadPool();
 
         System.out.println("Server started");
 
@@ -43,20 +48,31 @@ public class Server {
 
                 ServerClientHandler clientHandler = new ServerClientHandler(clientSocket);
 
-                VirtualView serverVirtualView = new VirtualView(clientHandler);
+                VirtualView virtualView = new VirtualView(clientHandler);
 
-                System.out.println("Waiting login...");
-                Message loginRequest = clientHandler.returnClientMessage();
-                System.out.println("Received username: " + loginRequest.getUsername());
+                GameController finalGameController = gameController;
+                executor.submit(() -> waitLogin(finalGameController, virtualView));
 
                 if(gameController.isFull())
                     gameController = new GameController();
 
-                gameController.logPlayer(loginRequest.getUsername(), serverVirtualView);
-
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+    }
+
+    public void waitLogin(GameController gameController, VirtualView virtualView){
+
+        while (!Thread.currentThread().isInterrupted()) {
+            System.out.println("Waiting login from " + virtualView.getClientHandler().getClientSocket().getLocalAddress());
+            Message loginRequest = virtualView.getClientHandler().returnClientMessage();
+            try {
+                gameController.logPlayer(loginRequest.getUsername(), virtualView);
+            } catch (Exception e) {
+                break;
+            }
         }
 
     }

@@ -9,6 +9,9 @@ import it.polimi.ingsw.model.resources.Servant;
  */
 
 public class PurpleMarble extends Marble{
+    public PurpleMarble(){
+        super();
+    }
     @Override
     public Item returnItem() {
         return new Servant(1);

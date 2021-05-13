@@ -9,6 +9,11 @@ import it.polimi.ingsw.model.resources.Stone;
  */
 
 public class GreyMarble extends Marble{
+
+    public GreyMarble(){
+        super();
+    }
+
     @Override
     public Item returnItem() {
         return new Stone(1);

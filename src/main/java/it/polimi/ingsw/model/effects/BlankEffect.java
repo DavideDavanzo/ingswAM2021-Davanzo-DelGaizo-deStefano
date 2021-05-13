@@ -15,7 +15,7 @@ public class BlankEffect extends Effect {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
         return null;
     }
 

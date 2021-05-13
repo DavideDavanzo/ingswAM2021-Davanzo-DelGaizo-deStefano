@@ -10,6 +10,10 @@ import it.polimi.ingsw.model.resources.Item;
 
 public class YellowMarble extends Marble {
 
+    public YellowMarble(){
+        super();
+    }
+
     @Override
     public Item returnItem() {
         return new Coin(1);

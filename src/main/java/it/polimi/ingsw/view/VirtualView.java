@@ -22,7 +22,6 @@ public class VirtualView extends View {
 
     @Override
     public void start() {
-        System.out.println("starting virtual view...");
         clientHandler.addObserver(this);
         Thread thread = new Thread(clientHandler::waitClientMessage);
         thread.start();

@@ -46,8 +46,11 @@ public class CliView extends View {
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
-        System.out.println("Choose two of these cards:");
+        System.out.println("Server: You can choose two of these leader cards to start");
+        for(LeaderCard leaderCard : leaderCards)
+            System.out.println(leaderCard.toString());
         //TODO: show leader on screen
+        System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
     }
 
     public void login() {
@@ -67,7 +70,6 @@ public class CliView extends View {
 
     @Override
     public void showLogin(String msg, boolean successful) {
-        showMessage(msg);
     }
 
     @Override
@@ -90,7 +92,7 @@ public class CliView extends View {
     private void welcome(){
 
         String rectangle[][] = new String[5][25];
-        CliBuilder.shape(rectangle, 5, 25);
+        CliBuilder.shape(rectangle, 25, 5);
 
         rectangle[1][7] = "W";
         rectangle[1][8] = "e";
@@ -128,7 +130,16 @@ public class CliView extends View {
         rectangle[3][17] = "t";
         rectangle[3][18] = "o";
 
-    }
+        System.out.print(CliBuilder.Color.ANSI_BLUE.escape());
+        for (int r = 0; r < 5; r++) {
+            System.out.println();
+            for (int c = 0; c < 25; c++) {
+                System.out.print(rectangle[r][c]);
+            }
+        }
+        System.out.println();
+        System.out.println(CliBuilder.Color.ANSI_GREEN.escape());
 
+    }
 
 }

@@ -47,7 +47,7 @@ public class RequirementTest {
         player.getPlayerBoard().getPath().moveForward(2);
         assertTrue(underTest.validateOn(player));
 
-        FaithPoint returned = (FaithPoint) underTest.getAttribute();
+        FaithPoint returned = (FaithPoint) underTest.returnAttribute();
 
         //@TestedMethod
         assertEquals(returned, new FaithPoint(14));
