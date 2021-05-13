@@ -16,13 +16,13 @@ public class LoginState extends GameState {
     }
 
     @Override
-    public void process(ReplyMessage message) {
-
+    public void process(ReplyMessage message) throws InvalidStateException {
+        throw new InvalidStateException("Cannot do this during login phase!");
     }
 
     @Override
-    public void process(ErrorMessage message) {
-
+    public void process(ErrorMessage message) throws InvalidStateException {
+        throw new InvalidStateException("Cannot do this during login phase!");
     }
 
     @Override
@@ -34,18 +34,23 @@ public class LoginState extends GameState {
     }
 
     @Override
-    public void process(QueryMessage message) {
-
+    public void process(QueryMessage message) throws InvalidStateException {
+        throw new InvalidStateException("Cannot do this during login phase!");
     }
 
     @Override
-    public void process(Command command) {
-
+    public void process(Command command) throws InvalidStateException {
+        throw new InvalidStateException("Cannot do this during login phase!");
     }
 
     @Override
     public void process(InfoMessage infoMessage) throws InvalidStateException {
-        //throw new InvalidStateException("Cannot do this during login phase!");
+        throw new InvalidStateException("Cannot do this during login phase!");
+    }
+
+    @Override
+    public void process(LeaderRequest leaderRequest) throws InvalidStateException {
+        throw new InvalidStateException("Cannot do this during login phase!");
     }
 
 

@@ -33,16 +33,36 @@ public class LeaderCardParser {
 
     }
 
-    public String build(ArrayList<LeaderCard> leaderCards) {
+    public String serialize(ArrayList<LeaderCard> leaderCards) {
 
         ObjectMapper objectMapper = new ObjectMapper();
+        String s = "";
 
         try {
-            return objectMapper.writeValueAsString(leaderCards);
+            s = objectMapper.writeValueAsString(leaderCards);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return "error";
+            System.out.println("Error in leader cards serialization");
         }
+
+        return s;
+
+    }
+
+    public ArrayList<LeaderCard> deserialize(String leadersAsString) {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+
+        try {
+            LeaderCard[] card = objectMapper.readValue(leadersAsString, LeaderCard[].class);
+            leaderCards = new ArrayList<>(Arrays.asList(card));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            System.out.println("Error in leader cards deserialization");
+        }
+
+        return leaderCards;
 
     }
 

@@ -3,7 +3,11 @@ package it.polimi.ingsw.controller.gameState;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.Match;
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.network.messages.*;
+
+import java.util.ArrayList;
 
 public class InitState extends GameState {
 
@@ -44,4 +48,10 @@ public class InitState extends GameState {
     public void process(InfoMessage infoMessage) throws InvalidStateException {
 
     }
+
+    @Override
+    public void process(LeaderRequest leaderRequest) throws InvalidStateException {
+        ArrayList<LeaderCard> leaderCards = new LeaderCardParser().deserialize(leaderRequest.getMsg());
+    }
+
 }

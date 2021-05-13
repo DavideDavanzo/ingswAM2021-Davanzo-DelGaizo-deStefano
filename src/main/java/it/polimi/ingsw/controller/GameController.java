@@ -153,4 +153,8 @@ public class GameController implements Observer, Serializable {
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
+
+    public TurnController getTurnController() {
+        return turnController;
+    }
 }
