@@ -34,7 +34,11 @@ public class DiscountEffect extends Effect {
      * @return is Effect's Discount attribute
      */
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getDiscount();
+    }
+
+    public Discount getDiscount(){
         return discount;
     }
 

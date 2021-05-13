@@ -37,7 +37,7 @@ public abstract class Effect {
     /**
      * Special Getter
      * @return is the attribute of an Effect
-     * also see: {@link ExtraShelfEffect#getAttribute()}
+     * also see: {@link ExtraShelfEffect#returnAttribute()}
      */
-    public abstract Object getAttribute();
+    public abstract Object returnAttribute();
 }

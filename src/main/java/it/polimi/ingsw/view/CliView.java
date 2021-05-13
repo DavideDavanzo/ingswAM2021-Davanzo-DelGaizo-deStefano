@@ -46,8 +46,11 @@ public class CliView extends View {
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
-        System.out.println("Choose two of these cards:");
+        System.out.println("Server: You can choose two of these leader cards to start");
+        for(LeaderCard leaderCard : leaderCards)
+            System.out.println(leaderCard.toString());
         //TODO: show leader on screen
+        System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
     }
 
     public void login() {

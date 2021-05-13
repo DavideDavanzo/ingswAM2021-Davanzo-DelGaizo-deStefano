@@ -38,6 +38,6 @@ public abstract class Requirement {
      * Special Getter that returns the unique attribute of a Requirement.
      * @return
      */
-    public abstract Object getAttribute();
+    public abstract Object returnAttribute();
 
 }

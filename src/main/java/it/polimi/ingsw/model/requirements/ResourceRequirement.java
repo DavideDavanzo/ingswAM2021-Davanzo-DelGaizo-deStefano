@@ -29,7 +29,11 @@ public class ResourceRequirement extends Requirement {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getResource();
+    }
+
+    public Resource getResource(){
         return resource;
     }
 

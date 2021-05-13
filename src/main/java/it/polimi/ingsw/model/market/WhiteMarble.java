@@ -10,6 +10,10 @@ import it.polimi.ingsw.model.resources.Resource;
 
 public class WhiteMarble extends Marble {
 
+    public WhiteMarble(){
+        super();
+    }
+
     @Override
     public Item returnItem() {
         return new Resource(1);

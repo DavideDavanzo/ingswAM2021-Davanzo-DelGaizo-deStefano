@@ -40,7 +40,11 @@ public class ExtraShelfEffect extends Effect {
      * @return is Effect's Resource attribute
      */
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getShelfResource();
+    }
+
+    private Resource getShelfResource(){
         return shelfResource;
     }
 

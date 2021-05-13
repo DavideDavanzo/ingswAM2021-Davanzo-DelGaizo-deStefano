@@ -25,9 +25,8 @@ import java.util.Random;
  */
 public abstract class Marble {
 
+  public Marble(){}
 
   public abstract Item returnItem();
-
-
 
 }

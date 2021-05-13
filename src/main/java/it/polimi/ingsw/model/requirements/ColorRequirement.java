@@ -23,7 +23,11 @@ public class ColorRequirement extends Requirement {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getColors();
+    }
+
+    public HashMap<ECardColor, Integer> getColors(){
         return colors;
     }
 
