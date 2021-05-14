@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.effects;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.playerboard.Warehouse;
@@ -10,6 +11,8 @@ import it.polimi.ingsw.model.resources.Resource;
  * exclusive for one specific type of {@link Resource}
  */
 public class ExtraShelfEffect extends Effect {
+
+    @JsonSerialize(as = Resource.class)
     private Resource shelfResource;
 
     /**

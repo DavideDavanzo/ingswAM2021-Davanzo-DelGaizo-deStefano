@@ -1,9 +1,12 @@
 package it.polimi.ingsw.model.effects;
 
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.market.Market;
 import it.polimi.ingsw.model.market.WhiteMarble;
+import it.polimi.ingsw.model.market.YellowMarble;
 
 /**
  * Gives the {@link Player} an extra colored {@link Marble} that
@@ -12,14 +15,13 @@ import it.polimi.ingsw.model.market.WhiteMarble;
  */
 public class WhiteMarbleEffect extends Effect {
 
+    @JsonSerialize(as = Marble.class)
     private Marble marble;
 
     /**
      * Default Constructor
      */
-    public WhiteMarbleEffect() {
-
-    }
+    public WhiteMarbleEffect() { }
 
     /**
      * Main Constructor

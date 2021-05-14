@@ -34,8 +34,6 @@ public class GameController implements Observer, Serializable {
 
     public void onMessage(Message received) {
 
-        //TODO: Create VV taken from map of received nickname
-
         try {
             received.getProcessedBy(gameState);
         } catch (InvalidStateException e) {
@@ -98,10 +96,9 @@ public class GameController implements Observer, Serializable {
     public void startMatch() {
 
         System.out.println("Starting match...");
-        System.out.println(virtualViewMap.size());
 
         if(match.isSinglePlayer()) match.setToSinglePlayer();
-        match.shufflePlayers();
+        else match.shufflePlayers();
 
         setGameState(new InitState(match, this));
         turnController = new TurnController(this, virtualViewMap, match);

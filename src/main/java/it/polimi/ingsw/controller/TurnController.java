@@ -27,4 +27,8 @@ public class TurnController {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
+
+    public boolean isValidPlayer(String username) {
+        return currentPlayer.getNickname().equals(username);
+    }
 }

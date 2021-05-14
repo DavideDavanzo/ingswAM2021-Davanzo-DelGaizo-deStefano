@@ -83,17 +83,9 @@ public class DevelopmentCardTest {
 
     @Test
     void testParsing() {
-        //DevCardParser parser = new DevCardParser();
-        //ArrayList<DevelopmentCard> cards = parser.parse();
+        DevCardParser parser = new DevCardParser();
+        ArrayList<DevelopmentCard> cards = parser.parse();
         //for (DevelopmentCard d : cards) System.out.println(d);
-
-        LeaderCardParser parser = new LeaderCardParser();
-        ArrayList<LeaderCard> cards = parser.parse();
-        for(LeaderCard leaderCard : cards) System.out.println(leaderCard);
-
-        List<LeaderCard> sub = cards.subList(0, 5);
-        for(LeaderCard c : sub) {
-            System.out.println(parser.serialize(new ArrayList<LeaderCard>(){{add(c);}}));
-        }
     }
+
 }

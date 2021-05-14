@@ -5,11 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.model.requirements.BlankRequirement;
-import it.polimi.ingsw.model.requirements.ColorLevelRequirement;
-import it.polimi.ingsw.model.requirements.ColorRequirement;
-import it.polimi.ingsw.model.requirements.ResourceRequirement;
-import it.polimi.ingsw.model.resources.FaithPoint;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
@@ -27,7 +22,6 @@ import it.polimi.ingsw.model.resources.FaithPoint;
  * end of the game
  */
 public abstract class Effect {
-
     /**
      * Applies the effect on a Player
      * @param p is the {@link Player}
