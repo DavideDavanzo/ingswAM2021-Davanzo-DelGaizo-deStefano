@@ -88,18 +88,16 @@ public class LeaderCard extends Card {
 
     @Override
     public String print() {
+       StringBuilder stringBuilder = new StringBuilder();
 
-        StringBuilder stringBuilder = new StringBuilder();
+       stringBuilder.append("╔═════════════════╗\n")
+                    .append("║   LEADER CARD   ║\n")
+                    .append("║ req: "   + requirement.print() + "       ║\n")
+                    .append("║ vp: " + getVictoryPoints() +    "           ║\n")
+                    .append("║ effect: " + effect.print() +  "   ║\n")
+                    .append("╚═════════════════╝" );
 
-        stringBuilder.append("╔══ LEADER CARD ══╗\n")
-                     .append("║ req: "   + requirement.print() + "      ║\n")
-                     .append("║                 ║\n")
-                     .append("║ vp: " + getVictoryPoints() +    "           ║\n")
-                     .append("║                 ║\n")
-                     .append("║ effect: " + effect.print() +  "   ║\n")
-                     .append("╚═════════════════╝" );
-
-        return stringBuilder.toString();
+       return stringBuilder.toString();
     }
 
 

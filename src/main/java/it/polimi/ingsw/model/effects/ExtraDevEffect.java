@@ -63,7 +63,7 @@ public class ExtraDevEffect extends Effect {
     public String print() {
         for (Resource r : extraTrade.getInput()) {
             for (Item p : extraTrade.getOutput())
-                return r.print() + "\u27BA" + p.print();
+                return r.print() + "\u2192" + p.print();
         }
         return null;
     }

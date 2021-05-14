@@ -58,7 +58,7 @@ public class ColorRequirement extends Requirement {
     public String print() {
         StringBuilder p = new StringBuilder();
         for (ECardColor color : colors.keySet()) {
-            p.append(colors.get(color) + color.print() + " ");
+            p.append(colors.get(color) + " " + color.print() + " ");
         }
         return p.toString();
 
