@@ -51,7 +51,7 @@ public class Shield extends Resource {
 
     @Override
     public String print() {
-        return Color.ANSI_BLUE.escape() + "U+1F6E1" + Color.ANSI_WHITE.escape();
+        return Color.ANSI_BLUE.escape() + "●" + Color.ANSI_WHITE.escape();
     }
 
     @Override

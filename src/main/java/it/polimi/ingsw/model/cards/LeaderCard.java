@@ -92,7 +92,7 @@ public class LeaderCard extends Card {
 
        stringBuilder.append("╔═════════════════╗\n")
                     .append("║   LEADER CARD   ║\n")
-                    .append("║ req: "   + requirement.print() + "       ║\n")
+                    .append("║ req: "   + requirement.print() + "          ║\n")
                     .append("║ vp: " + getVictoryPoints() +    "           ║\n")
                     .append("║ effect: " + effect.print() +  "   ║\n")
                     .append("╚═════════════════╝" );

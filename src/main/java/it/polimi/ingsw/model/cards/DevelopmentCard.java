@@ -132,20 +132,28 @@ public class DevelopmentCard extends Card {
         return true;
     }
 
-    public Resource resourceCost() {
+    public String printCost() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
         for (Resource r : cost) {
-            return r;
+            stringBuilder.append(r.print());
         }
-        return null;
+        return stringBuilder.toString();
     }
 
-    public String tradeResource(){
-        for(Resource resource : trade.getInput()){
-            for(Item o : trade.getOutput()){
-                return resource.print() + " " +"\u2192" + " " + o.print();
-            }
+    public String printTrade(){
+
+        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder s = new StringBuilder();
+        for(Resource resource : trade.getInput()) {
+            stringBuilder.append(resource.print());
         }
-        return null;
+            for(Item o : trade.getOutput()){
+                 s.append(o.print());
+            }
+
+        return stringBuilder.toString() + " " +" \u2192 " + " " + s.toString();
     }
 
 
@@ -155,8 +163,8 @@ public class DevelopmentCard extends Card {
 
         stringBuilder.append(ECardColor.getColorMap().get(color).escape() + "╔═════════════════╗\n")
                      .append("║ DEV CARD " + "lvl " + getLevel() + "  ║\n")
-                     .append("║ cost  " + Color.ANSI_WHITE.escape() + resourceCost().print() + ECardColor.getColorMap().get(color).escape() +  "         ║\n")
-                     .append("║ trade " + Color.ANSI_WHITE.escape() + tradeResource() + ECardColor.getColorMap().get(color).escape() + "     ║\n")
+                     .append("║ cost  " + Color.ANSI_WHITE.escape() + printCost() + ECardColor.getColorMap().get(color).escape() +  "        ║\n")
+                     .append("║ trade " + Color.ANSI_WHITE.escape() + printTrade() + ECardColor.getColorMap().get(color).escape() + "  ║\n")
                      .append("║ vp : " + getVictoryPoints() +  "          ║\n")
                      .append("╚═════════════════╝" + Color.ANSI_WHITE.escape());
 
