@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.effects.Effect;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.requirements.Requirement;
 import it.polimi.ingsw.view.CliBuilder;
 
@@ -87,18 +88,18 @@ public class LeaderCard extends Card {
 
     @Override
     public String print() {
-       StringBuilder stringBuilder = new StringBuilder();
 
-       stringBuilder.append("╔═════════════════╗\n")
-                    .append("║   LEADER CARD   ║\n")
-                    .append("║ req: "   + requirement.print() + "      ║\n")
-                    .append("║                 ║\n")
-                    .append("║ vp: " + getVictoryPoints() +    "           ║\n")
-                    .append("║                 ║\n")
-                    .append("║ effect: " + effect.print() +  "   ║\n")
-                    .append("╚═════════════════╝" );
+        StringBuilder stringBuilder = new StringBuilder();
 
-       return stringBuilder.toString();
+        stringBuilder.append("╔══ LEADER CARD ══╗\n")
+                     .append("║ req: "   + requirement.print() + "      ║\n")
+                     .append("║                 ║\n")
+                     .append("║ vp: " + getVictoryPoints() +    "           ║\n")
+                     .append("║                 ║\n")
+                     .append("║ effect: " + effect.print() +  "   ║\n")
+                     .append("╚═════════════════╝" );
+
+        return stringBuilder.toString();
     }
 
 

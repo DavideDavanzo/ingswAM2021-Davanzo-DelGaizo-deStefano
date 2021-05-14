@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
@@ -49,12 +50,41 @@ public class CliView extends View {
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
         System.out.println("Choose two of these cards:");
+
         for(LeaderCard card : leaderCards){
-           card.print();
+            System.out.println(card.print());
         }
 
         //TODO: show leader on screen
+
         System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
+
+        int firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        while(firstChoice < 1 || firstChoice > 4){
+            System.out.println("Error - try again");
+            System.out.println("Type (1),(2),(3) or (4) to choose the first one: ");
+            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        }
+
+        System.out.println("Server: Choose the second one (different from the first): ");
+
+        int secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        while(firstChoice < 1 || firstChoice > 4 || secondChoice == firstChoice){
+            System.out.println("Error -  try again");
+            System.out.println("Choose the second one (different from the first): ");
+            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        }
+
+        ArrayList<LeaderCard> reply = new ArrayList<>();
+        reply.add(leaderCards.get(firstChoice-1));
+        reply.add(leaderCards.get(secondChoice-1));
+
+        try {
+            socketHandler.sendMessage(new LeaderRequest(socketHandler.getObjectMapper().writeValueAsString(reply)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void login() {
@@ -143,6 +173,6 @@ public class CliView extends View {
             }
         }
         System.out.println();
-        System.out.println(Color.ANSI_GREEN.escape());
+        System.out.println(Color.ANSI_WHITE.escape());
     }
 }
