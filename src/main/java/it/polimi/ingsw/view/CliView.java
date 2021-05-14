@@ -5,11 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
-import it.polimi.ingsw.parser.Parser;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -19,13 +17,9 @@ import java.util.concurrent.Executors;
 public class CliView extends View {
 
     private final SocketHandler socketHandler;
-    private PlayerBoard playerBoard;
-    private Parser parser;
 
     public CliView(SocketHandler socketHandler){
         this.socketHandler = socketHandler;
-        this.playerBoard = new PlayerBoard();
-        this.parser = new Parser();
     }
 
     @Override
@@ -97,27 +91,30 @@ public class CliView extends View {
 
     @Override
     public void askBlankResources(String msg) {
-        System.out.println("Server: Choose " + msg + " resources to start");
+
         int cont = Integer.parseInt(msg);
         Scanner scanner = new Scanner(System.in);
         ArrayList<Resource> resources = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
-        for(int i=0; i<cont; i++){
-            System.out.println("Choose a resource: Coin(1), Shield(2), Stone(3) or Servant(4)");
-            String temp = scanner.nextLine();
 
+        System.out.println("Server: Choose " + msg + " resources to start");
+
+        for(int i=0; i<cont; i++){
+            System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
+            String temp = scanner.nextLine();
             try {
                 resources.add(objectMapper.readValue("{ \"@Type\":" + temp.toLowerCase() + "\", \"volume\": 1}", Resource.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
-
         }
+
         try {
             socketHandler.sendMessage(new ResourceChoice(objectMapper.writeValueAsString(resources)));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
     }
 
     public void login() {
