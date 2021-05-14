@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.cards;
 
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 
 import java.util.ArrayList;
@@ -130,20 +132,34 @@ public class DevelopmentCard extends Card {
         return true;
     }
 
+    public Resource resourceCost() {
+        for (Resource r : cost) {
+            return r;
+        }
+        return null;
+    }
+
+    public String tradeResource(){
+        for(Resource resource : trade.getInput()){
+            for(Item o : trade.getOutput()){
+                return resource.print() + " " +"\u2192" + " " + o.print();
+            }
+        }
+        return null;
+    }
+
+
     @Override
     public String print() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("╔═════════════════╗\n")
-                     .append("║                 ║\n")
-                     .append("║                 ║\n")
-                     .append("║                 ║\n")
-                     .append("║                 ║\n")
-                     .append("║                 ║\n")
-                     .append("║                 ║\n")
-                     .append("║                 ║\n")
-                     .append("║                 ║\n")
-                     .append("╚═════════════════╝" );
 
-            return stringBuilder.toString();
+        stringBuilder.append(ECardColor.getColorMap().get(color).escape() + "╔═════════════════╗\n")
+                     .append("║ DEV CARD " + "lvl " + getLevel() + "  ║\n")
+                     .append("║ cost  " + Color.ANSI_WHITE.escape() + resourceCost().print() + ECardColor.getColorMap().get(color).escape() +  "         ║\n")
+                     .append("║ trade " + Color.ANSI_WHITE.escape() + tradeResource() + ECardColor.getColorMap().get(color).escape() + "     ║\n")
+                     .append("║ vp : " + getVictoryPoints() +  "          ║\n")
+                     .append("╚═════════════════╝" + Color.ANSI_WHITE.escape());
+
+            return stringBuilder.toString() + Color.ANSI_WHITE.escape();
         }
 }
