@@ -28,7 +28,7 @@ public class CliBuilder {
 
         rectangle[maxVertTiles - 1][maxHorizTiles - 1] = "╝";
 
-        return rectangle[maxVertTiles][maxHorizTiles];
+        return rectangle[maxHorizTiles][maxVertTiles];
     }
 
 }

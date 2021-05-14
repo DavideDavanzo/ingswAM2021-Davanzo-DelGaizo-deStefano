@@ -144,7 +144,5 @@ public class CliView extends View {
         }
         System.out.println();
         System.out.println(Color.ANSI_GREEN.escape());
-
     }
-
 }
