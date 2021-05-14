@@ -39,7 +39,7 @@ public abstract class Requirement implements CliPrinter {
      * Special Getter that returns the unique attribute of a Requirement.
      * @return
      */
-    public abstract Object getAttribute();
+    public abstract Object returnAttribute();
 
 
 

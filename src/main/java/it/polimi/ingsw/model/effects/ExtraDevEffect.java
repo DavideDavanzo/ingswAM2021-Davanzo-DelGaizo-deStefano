@@ -41,8 +41,8 @@ public class ExtraDevEffect extends Effect {
      * @return is Effect's Trade attribute
      */
     @Override
-    public Object getAttribute() {
-        return extraTrade;
+    public Object returnAttribute() {
+        return getExtraTrade();
     }
 
     public Trade getExtraTrade() {

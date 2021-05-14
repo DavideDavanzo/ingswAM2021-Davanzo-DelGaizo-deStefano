@@ -15,7 +15,7 @@ public class BlankRequirement extends Requirement {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
         return null;
     }
 

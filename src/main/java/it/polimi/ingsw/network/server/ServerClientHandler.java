@@ -52,6 +52,7 @@ public class ServerClientHandler extends Observable {
         Message message = null;
         try {
             message = objectMapper.readValue(socketIn.nextLine(), Message.class);
+            System.out.println("Received: " + objectMapper.writeValueAsString(message));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

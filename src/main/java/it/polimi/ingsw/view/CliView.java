@@ -54,6 +54,7 @@ public class CliView extends View {
         }
 
         //TODO: show leader on screen
+        System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
     }
 
     public void login() {
@@ -141,7 +142,9 @@ public class CliView extends View {
                 System.out.print(rectangle[r][c]);
             }
         }
-    }
+        System.out.println();
+        System.out.println(Color.ANSI_GREEN.escape());
 
+    }
 
 }

@@ -21,7 +21,11 @@ public class ColorLevelRequirement extends Requirement {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getColorLevel();
+    }
+
+    public HashMap<ECardColor, Integer> getColorLevel(){
         return colorLevel;
     }
 

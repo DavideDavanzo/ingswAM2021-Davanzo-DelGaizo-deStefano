@@ -22,7 +22,11 @@ public class FaithPointsRequirement extends Requirement {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getPoints();
+    }
+
+    public FaithPoint getPoints(){
         return points;
     }
 

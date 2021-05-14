@@ -9,6 +9,9 @@ import it.polimi.ingsw.model.resources.Item;
  */
 
 public class RedMarble extends Marble{
+    public RedMarble(){
+        super();
+    }
     @Override
     public Item returnItem() {
         return new FaithPoint(1);

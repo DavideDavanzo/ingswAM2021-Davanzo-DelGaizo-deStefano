@@ -1,13 +1,9 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.CliPrinter;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.market.Market;
-import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.resources.Resource;
 
 /**
  * Gives the {@link Player} an extra colored {@link Marble} that
@@ -15,12 +11,15 @@ import it.polimi.ingsw.model.resources.Resource;
  * during his turn
  */
 public class WhiteMarbleEffect extends Effect {
+
     private Marble marble;
 
     /**
      * Default Constructor
      */
-    public WhiteMarbleEffect() {}
+    public WhiteMarbleEffect() {
+
+    }
 
     /**
      * Main Constructor
@@ -40,14 +39,24 @@ public class WhiteMarbleEffect extends Effect {
         addExtraMarble(p);
     }
 
+    @Override
+    public Object getAttribute() {
+        return null;
+    }
+
     /**
      * Special Getter
      * @return is Effect's Marble attribute
      */
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute(){
+        return getMarble();
+    }
+
+    private Marble getMarble(){
         return marble;
     }
+
 
     public void setMarble(Marble marble) {
         this.marble = marble;
@@ -66,6 +75,7 @@ public class WhiteMarbleEffect extends Effect {
     public String toString() {
         return "White Marble becomes " + marble.toString();
     }
+
 
     @Override
     public String print() {
