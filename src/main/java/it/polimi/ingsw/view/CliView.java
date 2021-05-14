@@ -1,12 +1,18 @@
 package it.polimi.ingsw.view;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.playerboard.PlayerBoard;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
+import it.polimi.ingsw.parser.Parser;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -14,9 +20,13 @@ import java.util.concurrent.Executors;
 public class CliView extends View {
 
     private final SocketHandler socketHandler;
+    private PlayerBoard playerBoard;
+    private Parser parser;
 
     public CliView(SocketHandler socketHandler){
         this.socketHandler = socketHandler;
+        this.playerBoard = new PlayerBoard();
+        this.parser = new Parser();
     }
 
     @Override
