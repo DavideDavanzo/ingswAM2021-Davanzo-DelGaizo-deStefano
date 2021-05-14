@@ -29,6 +29,11 @@ public class GuiView extends View{
     }
 
     @Override
+    public void askBlankResources(String msg) {
+
+    }
+
+    @Override
     public void onLoginReply(LoginReply message) {
 
     }

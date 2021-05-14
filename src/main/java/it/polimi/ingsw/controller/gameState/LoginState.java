@@ -30,6 +30,7 @@ public class LoginState extends GameState {
         if(!match.setChosenPlayerNumber(message.getPlayerNum()))
             gameController.getVirtualViewMap().get(message.getUsername()).askNumberOfPlayers();
         else
+            gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok,waiting for players . .");
             if(match.isSinglePlayer()) gameController.startMatch(); //Directly starts a singlePlayer match.
     }
 
@@ -50,6 +51,16 @@ public class LoginState extends GameState {
 
     @Override
     public void process(LeaderRequest leaderRequest) throws InvalidStateException {
+        throw new InvalidStateException("Cannot do this during login phase!");
+    }
+
+    @Override
+    public void process(ResourceRequest resourceRequest) throws InvalidStateException {
+        throw new InvalidStateException("Cannot do this during login phase!");
+    }
+
+    @Override
+    public void process(ResourceChoice resourceChoice) throws InvalidStateException {
         throw new InvalidStateException("Cannot do this during login phase!");
     }
 

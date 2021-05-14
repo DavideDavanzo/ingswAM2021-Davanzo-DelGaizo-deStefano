@@ -19,6 +19,8 @@ public abstract class GameState {
 
     public abstract void process(LeaderRequest leaderRequest) throws InvalidStateException;
 
+    public abstract void process(ResourceRequest resourceRequest) throws InvalidStateException;
 
+    public abstract void process(ResourceChoice resourceChoice) throws InvalidStateException;
 
 }

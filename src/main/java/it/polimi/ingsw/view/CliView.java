@@ -57,6 +57,31 @@ public class CliView extends View {
         System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
     }
 
+    @Override
+    public void askBlankResources(String msg) {
+        System.out.println("Server: Choose " + msg + " resources to start");
+        int cont = Integer.parseInt(msg);
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Resource> resources = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        for(int i=0; i<cont; i++){
+            System.out.println("Choose a resource: Coin(1), Shield(2), Stone(3) or Servant(4)");
+            String temp = scanner.nextLine();
+
+            try {
+                resources.add(objectMapper.readValue("{ \"@Type\":" + temp.toLowerCase() + "\", \"volume\": 1}", Resource.class));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+
+        }
+        try {
+            socketHandler.sendMessage(new ResourceChoice(objectMapper.writeValueAsString(resources)));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void login() {
         System.out.println("Please enter your username: ");
         Scanner stdIn = new Scanner(System.in);

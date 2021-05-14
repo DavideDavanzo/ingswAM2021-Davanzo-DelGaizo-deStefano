@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
 
@@ -41,6 +42,11 @@ public class VirtualView extends View {
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
         LeaderCardParser parser = new LeaderCardParser();
         clientHandler.sendMessage(new LeaderRequest(parser.serialize(leaderCards)));
+    }
+
+    @Override
+    public void askBlankResources(String msg) {
+        clientHandler.sendMessage(new ResourceRequest(msg));
     }
 
     @Override

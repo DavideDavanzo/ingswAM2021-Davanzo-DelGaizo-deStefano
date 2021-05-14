@@ -1,8 +1,7 @@
 package it.polimi.ingsw.model.cards;
 
 
-import it.polimi.ingsw.CliPrinter;
-import it.polimi.ingsw.view.CliBuilder;
+import it.polimi.ingsw.view.CliPrinter;
 
 /**
  * <h1>Card</h1>

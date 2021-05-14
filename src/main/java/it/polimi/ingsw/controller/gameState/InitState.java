@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.gameState;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
@@ -54,11 +56,12 @@ public class InitState extends GameState {
     @Override
     public void process(LeaderRequest leaderRequest) throws InvalidStateException {
 
-        Player current = gameController.getTurnController().getCurrentPlayer();
+        TurnController turnController = gameController.getTurnController();
+        Player current = turnController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(leaderRequest.getUsername());
 
         String username = leaderRequest.getUsername();
-        if(!gameController.getTurnController().isValidPlayer(username)) {
+        if(!turnController.isValidPlayer(username)) {
             currentView.showError("Not your turn! Invalid command.");
             return;
         }
@@ -66,7 +69,24 @@ public class InitState extends GameState {
         ArrayList<LeaderCard> leaderCards = new LeaderCardParser().deserialize(leaderRequest.getMsg());
         for(LeaderCard l : leaderCards) current.giveLeaderCard(l);
 
+        Integer resourceSupply;
+        try {
+            resourceSupply = turnController.initResourceSupply();
+        } catch (Exception e) {
+            turnController.nextTurn();
+            return;
+        }
 
+        currentView.askBlankResources(resourceSupply.toString());
+    }
+
+    @Override
+    public void process(ResourceRequest resourceRequest) throws InvalidStateException {
+
+    }
+
+    @Override
+    public void process(ResourceChoice resourceChoice) throws InvalidStateException {
 
     }
 

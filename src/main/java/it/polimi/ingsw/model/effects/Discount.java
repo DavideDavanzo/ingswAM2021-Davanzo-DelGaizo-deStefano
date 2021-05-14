@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.effects;
 
-import it.polimi.ingsw.CliPrinter;
 import it.polimi.ingsw.model.resources.Resource;
 
 public class Discount {

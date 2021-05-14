@@ -1,9 +1,14 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.resources.FaithPoint;
+import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
@@ -41,6 +46,22 @@ public class TurnController {
 
     private void updateTurnCounter() {
         match.nextTurn();
+    }
+
+    public Integer initResourceSupply() throws Exception {
+
+        int turn = match.getTurn();
+        if(turn < 2 || turn > 4) throw new Exception();
+
+        Integer resourceSupply;
+
+        resourceSupply = turn/2;
+        if(turn == 2) return resourceSupply;
+
+        getCurrentPlayer().moveForward(1);
+        //TODO: Move observed by views, update other players
+        return resourceSupply;
+
     }
 
     public boolean isValidPlayer(String username) {

@@ -3,11 +3,10 @@ package it.polimi.ingsw.model.requirements;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import it.polimi.ingsw.CliPrinter;
+import it.polimi.ingsw.view.CliPrinter;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
-import it.polimi.ingsw.model.resources.*;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)

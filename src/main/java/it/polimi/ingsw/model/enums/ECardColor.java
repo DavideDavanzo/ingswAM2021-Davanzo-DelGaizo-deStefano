@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.enums;
 
-import it.polimi.ingsw.CliPrinter;
+import it.polimi.ingsw.view.CliPrinter;
 
 public enum ECardColor implements CliPrinter {
     GREEN, BLUE, YELLOW, PURPLE;

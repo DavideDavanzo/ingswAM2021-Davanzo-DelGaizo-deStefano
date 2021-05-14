@@ -181,6 +181,10 @@ public class Player {
         playerBoard.getWarehouse().addResourcesToShelf(newResource, warehouseShelf);
     }
 
+    public void moveForward(int steps) throws InvalidInputException {
+        this.getPlayerBoard().getPath().moveForward(steps);
+    }
+
     public PlayerBoard getPlayerBoard() {
         return playerBoard;
     }
