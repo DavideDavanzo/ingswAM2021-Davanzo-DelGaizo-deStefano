@@ -90,14 +90,14 @@ public class LeaderCard extends Card {
        StringBuilder stringBuilder = new StringBuilder();
 
        stringBuilder.append("╔═════════════════╗\n")
-                    .append("║ req: " + requirement.print() + "   ║\n")
+                    .append("║   LEADER CARD   ║\n")
+                    .append("║ req: "   + requirement.print() + "      ║\n")
                     .append("║                 ║\n")
                     .append("║                 ║\n")
                     .append("║ vp: " + getVictoryPoints() +    "           ║\n")
                     .append("║                 ║\n")
                     .append("║                 ║\n")
                     .append("║ effect: " + effect.print() +  "   ║\n")
-                    .append("║                 ║\n")
                     .append("╚═════════════════╝" );
 
        return stringBuilder.toString();

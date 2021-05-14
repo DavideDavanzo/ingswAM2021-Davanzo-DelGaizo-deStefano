@@ -39,11 +39,6 @@ public class WhiteMarbleEffect extends Effect {
         addExtraMarble(p);
     }
 
-    @Override
-    public Object getAttribute() {
-        return null;
-    }
-
     /**
      * Special Getter
      * @return is Effect's Marble attribute

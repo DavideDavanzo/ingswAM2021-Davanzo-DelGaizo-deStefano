@@ -27,8 +27,12 @@ public class AppTest {
                                                 4);
         System.out.println(leaderCard.print());
 
-
+        LeaderCard card = new LeaderCard(new ColorRequirement(new HashMap<ECardColor, Integer>(){{put(ECardColor.GREEN, 2);}}),
+                new WhiteMarbleEffect(new BlueMarble()),
+                4);
+        System.out.println(card.print());
     }
+
 
 
 
