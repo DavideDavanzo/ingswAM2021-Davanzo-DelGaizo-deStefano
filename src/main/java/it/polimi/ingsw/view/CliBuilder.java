@@ -2,8 +2,6 @@ package it.polimi.ingsw.view;
 
 public class CliBuilder {
 
-
-
     public static String shape(String[][] rectangle, int maxHorizTiles, int maxVertTiles) {
         rectangle[0][0] = "╔";
         for (int c = 1; c < maxHorizTiles - 1; c++) {

@@ -51,7 +51,7 @@ public class Stone extends Resource {
 
     @Override
     public String print() {
-        return Color.ANSI_GREY.escape() + "●" + Color.ANSI_WHITE.escape();
+        return Color.ANSI_GREY.escape() + "U+1F48E" + Color.ANSI_WHITE.escape();
     }
 
     @Override

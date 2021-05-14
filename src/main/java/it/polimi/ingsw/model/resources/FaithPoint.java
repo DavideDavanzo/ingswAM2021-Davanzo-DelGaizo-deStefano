@@ -81,6 +81,6 @@ public class FaithPoint extends Item {
 
     @Override
     public String print() {
-        return Color.ANSI_RED.escape() + "†" + Color.ANSI_WHITE.escape();
+        return Color.ANSI_RED.escape() + "U+271F" + Color.ANSI_WHITE.escape();
     }
 }
