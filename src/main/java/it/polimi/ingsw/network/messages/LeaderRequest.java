@@ -35,7 +35,7 @@ public class LeaderRequest extends Message {
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
+        gameState.process(this);
     }
 
 }

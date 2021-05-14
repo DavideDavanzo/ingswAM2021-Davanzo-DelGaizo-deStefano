@@ -17,6 +17,8 @@ public abstract class GameState {
 
     public abstract void process(InfoMessage infoMessage) throws InvalidStateException;
 
+    public abstract void process(LeaderRequest leaderRequest) throws InvalidStateException;
+
 
 
 }

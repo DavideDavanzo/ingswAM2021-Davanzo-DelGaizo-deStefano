@@ -114,4 +114,8 @@ public class Match extends Observable {
         return chosenPlayerNumber != 0 && chosenPlayerNumber == players.size();
     }
 
+    public void nextTurn() {
+        turn++;
+    }
+
 }

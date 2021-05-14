@@ -2,6 +2,8 @@ package it.polimi.ingsw.modelTest.cardTest.developmentTest;
 
 import  static org.junit.jupiter.api.Assertions.*;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonParser;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.*;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DevelopmentCardTest {
 
@@ -82,6 +85,7 @@ public class DevelopmentCardTest {
     void testParsing() {
         DevCardParser parser = new DevCardParser();
         ArrayList<DevelopmentCard> cards = parser.parse();
-        for (DevelopmentCard d : cards) System.out.println(d);
+        //for (DevelopmentCard d : cards) System.out.println(d);
     }
+
 }

@@ -3,7 +3,13 @@ package it.polimi.ingsw.controller.gameState;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.Match;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.network.messages.*;
+import it.polimi.ingsw.view.VirtualView;
+
+import java.util.ArrayList;
 
 public class InitState extends GameState {
 
@@ -44,4 +50,24 @@ public class InitState extends GameState {
     public void process(InfoMessage infoMessage) throws InvalidStateException {
 
     }
+
+    @Override
+    public void process(LeaderRequest leaderRequest) throws InvalidStateException {
+
+        Player current = gameController.getTurnController().getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(leaderRequest.getUsername());
+
+        String username = leaderRequest.getUsername();
+        if(!gameController.getTurnController().isValidPlayer(username)) {
+            currentView.showError("Not your turn! Invalid command.");
+            return;
+        }
+
+        ArrayList<LeaderCard> leaderCards = new LeaderCardParser().deserialize(leaderRequest.getMsg());
+        for(LeaderCard l : leaderCards) current.giveLeaderCard(l);
+
+
+
+    }
+
 }

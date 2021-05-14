@@ -27,4 +27,23 @@ public class TurnController {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
+
+    public void nextTurn() {
+
+        match.updateQueue();
+        currentPlayer = players.peek();
+
+        updateTurnCounter();
+
+        gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + "'s turn started . ." , currentPlayer.getNickname());
+        virtualViewMap.get(currentPlayer.getNickname()).showMessage("Your turn started . .\n" + "Pick your moves!");
+    }
+
+    private void updateTurnCounter() {
+        match.nextTurn();
+    }
+
+    public boolean isValidPlayer(String username) {
+        return currentPlayer.getNickname().equals(username);
+    }
 }

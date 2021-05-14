@@ -40,7 +40,7 @@ public class VirtualView extends View {
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
         LeaderCardParser parser = new LeaderCardParser();
-        clientHandler.sendMessage(new LeaderRequest(parser.build(leaderCards)));
+        clientHandler.sendMessage(new LeaderRequest(parser.serialize(leaderCards)));
     }
 
     @Override
