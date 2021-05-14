@@ -2,26 +2,9 @@ package it.polimi.ingsw.view;
 
 public class CliBuilder {
 
-    public enum Color {
-        ANSI_RED("\u001B[31m"),
-        ANSI_GREEN("\u001B[32m"),
-        ANSI_YELLOW("\u001B[33m"),
-        ANSI_BLUE("\u001B[34m");
 
-        static final String RESET = "\u001B[0m";
 
-        private String escape;
-
-        Color(String escape) {
-            this.escape = escape;
-        }
-
-        public String escape() {
-            return escape;
-        }
-    }
-
-    static void shape(String[][] rectangle, int maxHorizTiles, int maxVertTiles) {
+    public static String shape(String[][] rectangle, int maxHorizTiles, int maxVertTiles) {
         rectangle[0][0] = "╔";
         for (int c = 1; c < maxHorizTiles - 1; c++) {
             rectangle[0][c] = "═";
@@ -44,6 +27,8 @@ public class CliBuilder {
         }
 
         rectangle[maxVertTiles - 1][maxHorizTiles - 1] = "╝";
+
+        return rectangle[maxVertTiles][maxHorizTiles];
     }
 
 }

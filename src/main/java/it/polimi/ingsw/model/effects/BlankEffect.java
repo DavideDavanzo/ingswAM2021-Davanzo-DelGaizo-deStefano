@@ -23,4 +23,9 @@ public class BlankEffect extends Effect {
     public String toString() {
         return "No Effect";
     }
+
+    @Override
+    public String print() {
+        return "No effect";
+    }
 }

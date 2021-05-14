@@ -72,4 +72,9 @@ public class WhiteMarbleEffect extends Effect {
         return "White Marble becomes " + marble.toString();
     }
 
+
+    @Override
+    public String print() {
+        return Color.ANSI_WHITE.escape() + "●" + " \u2192 " + marble.returnItem().print();
+    }
 }

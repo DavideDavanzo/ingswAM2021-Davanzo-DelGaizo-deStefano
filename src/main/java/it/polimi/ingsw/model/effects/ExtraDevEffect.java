@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.FaithPoint;
 
@@ -58,4 +59,12 @@ public class ExtraDevEffect extends Effect {
         return "Extra Trade " + extraTrade.toString();
     }
 
+    @Override
+    public String print() {
+        for (Resource r : extraTrade.getInput()) {
+            for (Item p : extraTrade.getOutput())
+                return r.print() + "\u27BA" + p.print();
+        }
+        return null;
+    }
 }

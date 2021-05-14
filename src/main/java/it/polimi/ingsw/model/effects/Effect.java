@@ -21,7 +21,8 @@ import it.polimi.ingsw.model.cards.LeaderCard;
  * through a {@link LeaderCard}. Once active, it lasts until the
  * end of the game
  */
-public abstract class Effect {
+public abstract class Effect implements CliPrinter {
+
     /**
      * Applies the effect on a Player
      * @param p is the {@link Player}

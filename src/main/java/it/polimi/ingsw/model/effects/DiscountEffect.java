@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 
 public class DiscountEffect extends Effect {
@@ -54,5 +55,10 @@ public class DiscountEffect extends Effect {
     @Override
     public String toString() {
         return "Discount on buy of " + discount.toString();
+    }
+
+    @Override
+    public String print() {
+        return discount.getDiscountResource().print();
     }
 }

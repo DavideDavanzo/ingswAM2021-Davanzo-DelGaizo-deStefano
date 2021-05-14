@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.effects;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
@@ -69,5 +70,10 @@ public class ExtraShelfEffect extends Effect {
     @Override
     public String toString() {
         return "Extra Shelf that can hold " + shelfResource.toString();
+    }
+
+    @Override
+    public String print() {
+        return shelfResource.print() + " " + shelfResource.print();
     }
 }

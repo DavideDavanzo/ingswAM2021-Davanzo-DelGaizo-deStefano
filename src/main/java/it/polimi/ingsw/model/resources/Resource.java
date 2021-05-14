@@ -88,4 +88,9 @@ public class Resource extends Item {
     public String toString() {
         return "Resource: " + getVolume();
     }
+
+    @Override
+    public String print() {
+        return null;
+    }
 }

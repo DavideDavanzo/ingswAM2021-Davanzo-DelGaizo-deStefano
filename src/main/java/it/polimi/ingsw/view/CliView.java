@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
@@ -46,9 +48,11 @@ public class CliView extends View {
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
-        System.out.println("Server: You can choose two of these leader cards to start");
-        for(LeaderCard leaderCard : leaderCards)
-            System.out.println(leaderCard.toString());
+        System.out.println("Choose two of these cards:");
+        for(LeaderCard card : leaderCards){
+           card.print();
+        }
+
         //TODO: show leader on screen
         System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
     }
@@ -70,6 +74,7 @@ public class CliView extends View {
 
     @Override
     public void showLogin(String msg, boolean successful) {
+        showMessage(msg);
     }
 
     @Override
@@ -130,7 +135,7 @@ public class CliView extends View {
         rectangle[3][17] = "t";
         rectangle[3][18] = "o";
 
-        System.out.print(CliBuilder.Color.ANSI_BLUE.escape());
+        System.out.print(Color.ANSI_BLUE.escape());
         for (int r = 0; r < 5; r++) {
             System.out.println();
             for (int c = 0; c < 25; c++) {
@@ -138,7 +143,7 @@ public class CliView extends View {
             }
         }
         System.out.println();
-        System.out.println(CliBuilder.Color.ANSI_GREEN.escape());
+        System.out.println(Color.ANSI_GREEN.escape());
 
     }
 
