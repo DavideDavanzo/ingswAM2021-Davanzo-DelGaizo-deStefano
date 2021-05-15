@@ -8,7 +8,7 @@ import it.polimi.ingsw.network.messages.*;
 public class LoginState extends GameState {
 
     private Match match;
-    private GameController gameController;
+    private final GameController gameController;
 
     public LoginState(Match match, GameController gameController) {
         this.match = match;
@@ -27,11 +27,20 @@ public class LoginState extends GameState {
 
     @Override
     public void process(PlayersNumber message) {
-        if(!match.setChosenPlayerNumber(message.getPlayerNum()))
-            gameController.getVirtualViewMap().get(message.getUsername()).askNumberOfPlayers();
-        else
-            gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok,waiting for players . .");
-            if(match.isSinglePlayer()) gameController.startMatch(); //Directly starts a singlePlayer match.
+
+        synchronized (gameController) {
+
+            if (!match.setChosenPlayerNumber(message.getPlayerNum()))
+                gameController.getVirtualViewMap().get(message.getUsername()).askNumberOfPlayers();
+            else {
+                gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok,waiting for players . .");
+                gameController.notifyAll();
+            }
+
+            if (match.isSinglePlayer()) gameController.startMatch(); //Directly starts a singlePlayer match.
+
+        }
+
     }
 
     @Override

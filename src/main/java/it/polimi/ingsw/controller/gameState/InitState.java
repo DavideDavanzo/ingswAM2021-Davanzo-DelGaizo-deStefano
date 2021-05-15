@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller.gameState;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
@@ -67,6 +66,7 @@ public class InitState extends GameState {
         }
 
         ArrayList<LeaderCard> leaderCards = new LeaderCardParser().deserialize(leaderRequest.getMsg());
+
         for(LeaderCard l : leaderCards) current.giveLeaderCard(l);
 
         Integer resourceSupply;

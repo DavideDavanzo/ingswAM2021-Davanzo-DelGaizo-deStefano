@@ -25,6 +25,7 @@ public class GameController implements Observer, Serializable {
 
     private Stack<ArrayList<LeaderCard>> leaderChoices;
 
+
     public GameController() {
         this.match = new Match();
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
@@ -42,7 +43,10 @@ public class GameController implements Observer, Serializable {
 
     }
 
-    public void logPlayer(String nickname, VirtualView virtualView) throws Exception {
+    public synchronized void logPlayer(String nickname, VirtualView virtualView) throws Exception {
+
+        while(!virtualViewMap.isEmpty() && (match.getChosenPlayerNumber() == 0))
+            wait();
 
         if(virtualViewMap.isEmpty()) {
 
@@ -84,6 +88,10 @@ public class GameController implements Observer, Serializable {
                 startMatch();
             }
 
+        }
+        else if(match.isFull()){
+            virtualView.showLogin("Sorry, something went wrong", false);
+            return;
         }
         else {
             virtualView.showError("Sorry, something went wrong..");

@@ -49,10 +49,11 @@ public class SocketHandler extends Observable {
     }
 
     public void waitServerMessage(){
-
+        String msg;
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                notifyObservers(objectMapper.readValue(socketIn.nextLine(), Message.class));
+                System.out.println("Received: " + (msg = socketIn.nextLine()));
+                notifyObservers(objectMapper.readValue(msg , Message.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }

@@ -100,6 +100,10 @@ public class Match extends Observable {
         return players.peek();
     }
 
+    public int getChosenPlayerNumber() {
+        return chosenPlayerNumber;
+    }
+
     public LinkedList<Player> getRanking() {
          LinkedList<Player> ranking = new LinkedList<>(players);
          ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());

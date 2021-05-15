@@ -29,8 +29,10 @@ public class ServerClientHandler extends Observable {
     }
 
     public void sendMessage(Message message){
+        String msg;
         try {
-            socketOut.println(objectMapper.writeValueAsString(message));
+            System.out.println("Sent: " + (msg = objectMapper.writeValueAsString(message)));
+            socketOut.println(msg);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
