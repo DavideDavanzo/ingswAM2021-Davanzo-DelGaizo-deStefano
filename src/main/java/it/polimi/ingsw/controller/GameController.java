@@ -47,7 +47,7 @@ public class GameController implements Observer, Serializable {
 
     public synchronized void logPlayer(String nickname, VirtualView virtualView) throws Exception {
 
-        while(!virtualViewMap.isEmpty() && (match.getChosenPlayerNumber() == 0))
+        while(!virtualViewMap.isEmpty() && (chosenPlayerNum == 0))
             wait();
 
         if(virtualViewMap.isEmpty()) {
@@ -87,7 +87,7 @@ public class GameController implements Observer, Serializable {
             }
 
         }
-        else if(match.isFull()){
+        else if(isFull()){
             virtualView.showLogin("Sorry, something went wrong", false);
             return;
         }
