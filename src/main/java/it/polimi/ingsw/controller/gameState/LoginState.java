@@ -13,11 +13,17 @@ public class LoginState extends GameState {
 
     @Override
     public void process(PlayersNumber message) {
-        if(!gameController.setChosenPlayersNum(message.getPlayerNum()))
-            gameController.getVirtualViewMap().get(message.getUsername()).askNumberOfPlayers();
-        else
-            gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok,waiting for players . .");
+        synchronized (gameController) {
+
+            if (!gameController.setChosenPlayersNum(message.getPlayerNum()))
+                gameController.getVirtualViewMap().get(message.getUsername()).askNumberOfPlayers();
+            else {
+                gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok,waiting for players . .");
+                gameController.notifyAll();
+            }
             if(gameController.isSinglePlayer()) gameController.startMatch(); //Directly starts a singlePlayer match.
+
+        }
     }
 
 }

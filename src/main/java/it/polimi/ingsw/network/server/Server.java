@@ -14,7 +14,7 @@ public class Server {
 
     private final int socketPort;
     private ServerSocket serverSocket;
-    //private Object controllerLock = new Object();
+    private GameController gameController;
 
     public Server(int port){
         socketPort = port;
@@ -37,7 +37,7 @@ public class Server {
             e.printStackTrace();
         }
 
-        GameController gameController = new GameController();
+        gameController = new GameController();
 
         try{
             while(true) {
@@ -50,11 +50,7 @@ public class Server {
 
                 VirtualView virtualView = new VirtualView(clientHandler);
 
-                GameController finalGameController = gameController;
-                executor.submit(() -> waitLogin(finalGameController, virtualView));
-
-                if(gameController.isFull())
-                    gameController = new GameController();
+                executor.submit(() -> waitLogin(virtualView));
 
             }
         } catch (IOException e) {
@@ -63,11 +59,13 @@ public class Server {
 
     }
 
-    public void waitLogin(GameController gameController, VirtualView virtualView){
+    public void waitLogin(VirtualView virtualView){
 
         while (!Thread.currentThread().isInterrupted()) {
             System.out.println("Waiting login from " + virtualView.getClientHandler().getClientSocket().getLocalAddress());
             Message loginRequest = virtualView.getClientHandler().returnClientMessage();
+            if(gameController.isFull())
+                gameController = new GameController();
             try {
                 gameController.logPlayer(loginRequest.getUsername(), virtualView);
             } catch (Exception e) {

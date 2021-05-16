@@ -78,6 +78,6 @@ public class Coin extends Resource {
 
     @Override
     public String print() {
-        return Color.ANSI_YELLOW.escape() + "U+1F4B0" + Color.ANSI_WHITE.escape();
+        return Color.ANSI_YELLOW.escape() + "●" + Color.ANSI_WHITE.escape();
     }
 }

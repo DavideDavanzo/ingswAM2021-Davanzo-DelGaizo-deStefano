@@ -24,7 +24,6 @@ public class LeaderRequest extends Message {
     public void apply(View view) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(msg);
         try {
             LeaderCard[] cards = objectMapper.readValue(msg, LeaderCard[].class);
             view.askLeaders(new ArrayList<LeaderCard>(Arrays.asList(cards)));

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
@@ -57,8 +56,6 @@ public class CliView extends View {
         for(LeaderCard card : leaderCards){
             System.out.println(card.print());
         }
-
-        //TODO: show leader on screen
 
         System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
 

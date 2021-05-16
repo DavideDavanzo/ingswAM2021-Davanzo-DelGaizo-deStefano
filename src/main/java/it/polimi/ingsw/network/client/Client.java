@@ -33,6 +33,7 @@ public class Client {
             socket = new Socket(hostName, port);
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(-1);
         }
         System.out.println("Connection established");
 
