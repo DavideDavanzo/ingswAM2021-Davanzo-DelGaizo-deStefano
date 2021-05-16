@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
+import org.json.JSONString;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -103,13 +104,14 @@ public class CliView extends View {
             System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
             String temp = scanner.nextLine();
             try {
-                resources.add(objectMapper.readValue("{ \"@Type\":" + temp.toLowerCase() + "\", \"volume\": 1}", Resource.class));
+                resources.add(objectMapper.readValue("{\"@type\":" +"\"" + temp.toLowerCase()+ "\"" + ", \"volume\": 1}", Resource.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
 
         try {
+            //TODO: ArrayList di risorse non specifica il tipo, problema di serializzazione. Nascondi logica Json in metodo apposito che chiama Parser.
             socketHandler.sendMessage(new ResourceChoice(objectMapper.writeValueAsString(resources)));
         } catch (JsonProcessingException e) {
             e.printStackTrace();

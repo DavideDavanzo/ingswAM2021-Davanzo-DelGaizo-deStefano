@@ -1,31 +1,26 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.resources.FaithPoint;
-import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.view.VirtualView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 
 public class TurnController {
 
     private GameController gameController;
-    private Match match;
     private Map<String, VirtualView> virtualViewMap;
+
+    private int turn;
 
     private LinkedList<Player> players;
     private Player currentPlayer;
 
-    public TurnController(GameController gameController, Map<String, VirtualView> virtualViewMap, Match match) {
+    public TurnController(GameController gameController, Map<String, VirtualView> virtualViewMap) {
         this.gameController = gameController;
         this.virtualViewMap = virtualViewMap;
-        this.match = match;
-        this.players = match.getPlayers();
+        this.turn = 0;
+        this.players = gameController.getPlayers();
         this.currentPlayer = players.peek();
     }
 
@@ -35,22 +30,26 @@ public class TurnController {
 
     public void nextTurn() {
 
-        match.updateQueue();
+        gameController.updateQueue();
         currentPlayer = players.peek();
-
         updateTurnCounter();
 
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + "'s turn started . ." , currentPlayer.getNickname());
         virtualViewMap.get(currentPlayer.getNickname()).showMessage("Your turn started . .\n" + "Pick your moves!");
     }
 
-    private void updateTurnCounter() {
-        match.nextTurn();
+    public void updateTurnCounter() {
+        turn++;
+    }
+
+    public void updateQueue() {
+        Player p = players.remove();
+        players.add(p);
+        currentPlayer = players.peek();
     }
 
     public Integer initResourceSupply() throws Exception {
 
-        int turn = match.getTurn();
         if(turn < 2 || turn > 4) throw new Exception();
 
         Integer resourceSupply;
@@ -64,7 +63,15 @@ public class TurnController {
 
     }
 
-    public boolean isValidPlayer(String username) {
+    public boolean isCurrentPlayer(String username) {
         return currentPlayer.getNickname().equals(username);
+    }
+
+    public int getTurn() {
+        return turn;
+    }
+
+    public LinkedList<Player> getPlayers() {
+        return players;
     }
 }

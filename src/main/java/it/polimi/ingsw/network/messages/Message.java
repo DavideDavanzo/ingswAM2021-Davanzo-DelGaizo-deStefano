@@ -12,15 +12,19 @@ import java.io.Serializable;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
-@JsonSubTypes({ @JsonSubTypes.Type(value = InfoMessage.class, name = "InfoMessage"),
-                @JsonSubTypes.Type(value = QueryMessage.class, name = "QueryMessage"),
-                @JsonSubTypes.Type(value = LoginRequest.class, name = "LoginRequest"),
-                @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
-                @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
-                @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
-                @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumber"),
-                @JsonSubTypes.Type(value = LeaderRequest.class, name = "LeaderRequest"),
-                @JsonSubTypes.Type(value = ErrorMessage.class, name = "ErrorMessage") })
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = InfoMessage.class, name = "InfoMessage"),
+        @JsonSubTypes.Type(value = QueryMessage.class, name = "QueryMessage"),
+        @JsonSubTypes.Type(value = LoginRequest.class, name = "LoginRequest"),
+        @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
+        @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
+        @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
+        @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumber"),
+        @JsonSubTypes.Type(value = LeaderRequest.class, name = "LeaderRequest"),
+        @JsonSubTypes.Type(value = ErrorMessage.class, name = "ErrorMessage"),
+        @JsonSubTypes.Type(value = ResourceRequest.class, name = "ResourceRequest"),
+        @JsonSubTypes.Type(value = ResourceChoice.class, name = "ResourceChoice")
+})
 public abstract class Message implements Serializable {
 
     protected String msg;

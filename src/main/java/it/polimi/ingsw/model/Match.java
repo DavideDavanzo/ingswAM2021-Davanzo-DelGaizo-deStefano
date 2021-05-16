@@ -14,21 +14,15 @@ public class Match extends Observable {
 
     private LinkedList<Player> players;
     private SharedArea sharedArea;
-    private int turn;
-    private Player currentPlayer;
     private ArrayList<LeaderCard> leaders;
 
     private boolean singlePlayer;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
 
-    private int chosenPlayerNumber;
-
     public Match() {
         this.players = new LinkedList<>();
         this.sharedArea = new SharedArea();
         this.leaders = createLeaders();
-        this.turn = 1;
-        this.chosenPlayerNumber = 0;
     }
 
     public void setToSinglePlayer() {
@@ -44,21 +38,9 @@ public class Match extends Observable {
        return singlePlayer;
    }
 
-
     public void addPlayer(Player p){
        players.add(p);
    }
-
-    public boolean setChosenPlayerNumber(int number) {
-        if(number > 0 && number <= MAX_PLAYERS) {
-            this.chosenPlayerNumber = number;
-            if(chosenPlayerNumber == 1) singlePlayer = true;
-            return true;
-        }
-
-        return false;
-
-    }
 
     public void shufflePlayers(){
          Random random = new Random();
@@ -73,19 +55,8 @@ public class Match extends Observable {
        }
     }
 
-    public void updateQueue() {
-         Player p = players.remove();
-         players.add(p);
-    }
-
-
-
     public LinkedList<Player> getPlayers() {
         return players;
-    }
-
-    public int getTurn() {
-        return turn;
     }
 
     public ArrayList<LeaderCard> getLeaders() {
@@ -108,14 +79,6 @@ public class Match extends Observable {
 
     public SharedArea getSharedArea() {
         return sharedArea;
-    }
-
-    public boolean isFull() {
-        return chosenPlayerNumber != 0 && chosenPlayerNumber == players.size();
-    }
-
-    public void nextTurn() {
-        turn++;
     }
 
 }

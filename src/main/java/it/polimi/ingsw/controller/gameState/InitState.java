@@ -1,56 +1,24 @@
 package it.polimi.ingsw.controller.gameState;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.TurnController;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.*;
+import it.polimi.ingsw.parser.Parser;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
 
 public class InitState extends GameState {
 
-    private Match match;
     private GameController gameController;
 
-    public InitState(Match match, GameController gameController) {
-        this.match = match;
+    public InitState(GameController gameController) {
         this.gameController = gameController;
-    }
-
-    @Override
-    public void process(ReplyMessage message) throws InvalidStateException {
-
-    }
-
-    @Override
-    public void process(ErrorMessage message) throws InvalidStateException {
-
-    }
-
-    @Override
-    public void process(PlayersNumber message) throws InvalidStateException {
-
-    }
-
-    @Override
-    public void process(QueryMessage message) throws InvalidStateException {
-
-    }
-
-    @Override
-    public void process(Command command) throws InvalidStateException {
-
-    }
-
-    @Override
-    public void process(InfoMessage infoMessage) throws InvalidStateException {
-
     }
 
     @Override
@@ -61,7 +29,7 @@ public class InitState extends GameState {
         VirtualView currentView = gameController.getVirtualViewMap().get(leaderRequest.getUsername());
 
         String username = leaderRequest.getUsername();
-        if(!turnController.isValidPlayer(username)) {
+        if(!gameController.isCurrentPlayer(username)) {
             currentView.showError("Not your turn! Invalid command.");
             return;
         }
@@ -73,21 +41,29 @@ public class InitState extends GameState {
         try {
             resourceSupply = turnController.initResourceSupply();
         } catch (Exception e) {
-            turnController.nextTurn();
+            System.out.println(gameController.getTurnController().getTurn());
+            if(!gameController.isSinglePlayer()) nextTurnInit();
+            else {
+                gameController.setGameState(new InGameState(gameController));
+                gameController.getTurnController().nextTurn();
+            }
             return;
         }
-
         currentView.askBlankResources(resourceSupply.toString());
     }
 
     @Override
-    public void process(ResourceRequest resourceRequest) throws InvalidStateException {
-
+    public void process(ResourceChoice resourceChoice) throws InvalidStateException {
+        Resource[] resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        //TODO:Add resource to shelf.
     }
 
-    @Override
-    public void process(ResourceChoice resourceChoice) throws InvalidStateException {
-
+    private void nextTurnInit() {
+        gameController.updateQueue();
+        gameController.getTurnController().updateTurnCounter();
+        String currentPlayer = gameController.getCurrentPlayer().getNickname();
+        gameController.sendBroadcastMessageExclude(currentPlayer + "'s turn started . ." , currentPlayer);
+        gameController.askLeaders();
     }
 
 }

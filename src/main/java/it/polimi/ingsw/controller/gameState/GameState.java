@@ -3,24 +3,42 @@ package it.polimi.ingsw.controller.gameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.network.messages.*;
 
-public abstract class GameState {
+public class GameState {
 
-    public abstract void process(ReplyMessage message) throws InvalidStateException;
+    public void process(ReplyMessage message) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(ErrorMessage message) throws InvalidStateException;
+    public void process(ErrorMessage message) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(PlayersNumber message) throws InvalidStateException;
+    public void process(PlayersNumber message) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(QueryMessage message) throws InvalidStateException;
+    public void process(QueryMessage message) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(Command command) throws InvalidStateException;
+    public void process(Command command) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(InfoMessage infoMessage) throws InvalidStateException;
+    public void process(InfoMessage infoMessage) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(LeaderRequest leaderRequest) throws InvalidStateException;
+    public void process(LeaderRequest leaderRequest) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(ResourceRequest resourceRequest) throws InvalidStateException;
+    public void process(ResourceRequest resourceRequest) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
-    public abstract void process(ResourceChoice resourceChoice) throws InvalidStateException;
+    public void process(ResourceChoice resourceChoice) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
 
 }

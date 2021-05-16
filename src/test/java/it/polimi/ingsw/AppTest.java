@@ -35,6 +35,4 @@ public class AppTest {
         System.out.println(resource.toString());
 
     }
-
-
 }

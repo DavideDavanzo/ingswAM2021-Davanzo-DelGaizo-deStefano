@@ -20,15 +20,17 @@ public class GameController implements Observer, Serializable {
     private Match match;
     private Map<String, VirtualView> virtualViewMap;
 
+    private int chosenPlayerNum;
+
     private GameState gameState;
     private TurnController turnController;
 
     private Stack<ArrayList<LeaderCard>> leaderChoices;
 
     public GameController() {
-        this.match = new Match();
+        this.chosenPlayerNum = 0;
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
-        this.gameState = new LoginState(match, this);
+        this.gameState = new LoginState(this);
         this.leaderChoices = new Stack<>();
     }
 
@@ -53,8 +55,6 @@ public class GameController implements Observer, Serializable {
                 return;
             }
 
-            match.addPlayer(new Player(nickname));
-
             //TO RECEIVE INCOMING MESSAGES
             virtualView.addObserver(this);
             virtualView.start();
@@ -63,7 +63,7 @@ public class GameController implements Observer, Serializable {
             virtualView.askNumberOfPlayers();
 
         }
-        else if(!match.isFull()) {
+        else if(!isFull()) {
 
             try {
                 addVirtualView(nickname, virtualView);
@@ -75,11 +75,9 @@ public class GameController implements Observer, Serializable {
             //TO RECEIVE INCOMING MESSAGES
             virtualView.addObserver(this);
             virtualView.start();
-
-            match.addPlayer(new Player(nickname));
             virtualView.showLogin("You've been logged in successfully", true);
 
-            if(match.isFull()) {
+            if(isFull()) {
                 //TODO: Restore interrupted match ??
                 startMatch();
             }
@@ -94,34 +92,42 @@ public class GameController implements Observer, Serializable {
     }
 
     public void startMatch() {
+        System.out.println("Starting match..."); //Server side message.
 
-        System.out.println("Starting match...");
+        match = new Match();
+        for(Map.Entry<String, VirtualView> entry : virtualViewMap.entrySet()) {
+            match.addPlayer(new Player(entry.getKey()));
+            match.addObserver(entry.getValue());
+        }
 
-        if(match.isSinglePlayer()) match.setToSinglePlayer();
+        if(isSinglePlayer()) match.setToSinglePlayer();
         else match.shufflePlayers();
 
-        setGameState(new InitState(match, this));
-        turnController = new TurnController(this, virtualViewMap, match);
+        setGameState(new InitState(this));
+        turnController = new TurnController(this, virtualViewMap);
+        turnController.updateTurnCounter();
         prepareLeaderChoices();
 
         sendBroadcastMessage("Match started! " + turnController.getCurrentPlayer().getNickname() + " is the first player");
+        askLeaders();
 
+    }
+
+    public void askLeaders() {
         virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
-
     }
 
     private void prepareLeaderChoices() {
 
         ArrayList<LeaderCard> leaderCards = match.getLeaders();
         Collections.shuffle(leaderCards);
-        int playerNum = match.getPlayers().size();
 
-        for(int players = 0; players < playerNum; players++) {
+        for(int players = 0; players < chosenPlayerNum; players++) {
 
             ArrayList<LeaderCard> choice = new ArrayList<>();
 
             for(int i = 0; i < 4; i++) {
-                choice.add(leaderCards.get(i + players * playerNum));
+                choice.add(leaderCards.get(i + players * chosenPlayerNum));
             }
 
             leaderChoices.push(choice);
@@ -131,11 +137,8 @@ public class GameController implements Observer, Serializable {
     }
 
     public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
-
         if(virtualViewMap.containsKey(nickname)) throw new NicknameException();
-
         virtualViewMap.put(nickname, virtualView);
-        match.addObserver(virtualView);
         //TODO: SharedArea Observable? -> addObserver(virtualView)?
     }
 
@@ -158,15 +161,50 @@ public class GameController implements Observer, Serializable {
         }
     }
 
+    public boolean isCurrentPlayer(String username) {
+        return turnController.isCurrentPlayer(username);
+    }
+
+    public Player getCurrentPlayer() {
+        return turnController.getCurrentPlayer();
+    }
+
     public boolean isFull() {
-        return match.isFull();
+        return chosenPlayerNum != 0 && chosenPlayerNum == virtualViewMap.size();
+    }
+
+    public boolean isSinglePlayer() {
+        return chosenPlayerNum == 1 && virtualViewMap.size() == 1;
     }
 
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }
 
+    public boolean setChosenPlayersNum(int number) {
+
+        if(number > 0 && number <= Match.MAX_PLAYERS) {
+            this.chosenPlayerNum = number;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public void updateQueue() {
+        turnController.updateQueue();
+    }
+
+    public LinkedList<Player> getPlayers() {
+        return match.getPlayers();
+    }
+
     public TurnController getTurnController() {
         return turnController;
+    }
+
+    public int getChosenPlayerNum() {
+        return chosenPlayerNum;
     }
 }
