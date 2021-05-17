@@ -79,7 +79,7 @@ public class CliView extends View {
         reply.add(leaderCards.get(secondChoice-1));
 
         try {
-            socketHandler.sendMessage(new LeaderRequest(socketHandler.getObjectMapper().writeValueAsString(reply)));
+            sendMessage(new LeaderRequest(socketHandler.getObjectMapper().writeValueAsString(reply)));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -114,8 +114,7 @@ public class CliView extends View {
 
         stringBuilder.append("]");
 
-        //TODO: ArrayList di risorse non specifica il tipo, problema di serializzazione. Nascondi logica Json in metodo apposito che chiama Parser.
-        socketHandler.sendMessage(new ResourceChoice(stringBuilder.toString()));
+        sendMessage(new ResourceChoice(stringBuilder.toString()));
 
     }
 
@@ -124,14 +123,14 @@ public class CliView extends View {
         Scanner stdIn = new Scanner(System.in);
         socketHandler.setUsername(stdIn.nextLine());
         //TODO: validate username
-        socketHandler.sendMessage(new LoginRequest());
+        sendMessage(new LoginRequest());
         socketHandler.waitServerMessage();      //wait LoginReply
     }
 
     @Override
     public void askQuery(String msg) {
         System.out.println("Server: " + msg);
-        socketHandler.sendMessage(new ReplyMessage(socketHandler.getStdIn().nextLine()));
+        sendMessage(new ReplyMessage(socketHandler.getStdIn().nextLine()));
     }
 
     @Override
@@ -154,6 +153,16 @@ public class CliView extends View {
         showMessage(message.getMsg());
         if(!message.isSuccessful())
             login();
+    }
+
+    @Override
+    public void checkConnection() {
+        System.out.println("Received: Ping");
+        sendMessage(new PingMessage());
+    }
+
+    public void sendMessage(Message message){
+        socketHandler.sendMessage(message);
     }
 
     private void welcome(){

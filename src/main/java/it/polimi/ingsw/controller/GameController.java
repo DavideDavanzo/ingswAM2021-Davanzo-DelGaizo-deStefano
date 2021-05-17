@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.utils.TimeoutCounter;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.controller.gameState.InitState;
 import it.polimi.ingsw.controller.gameState.LoginState;
@@ -24,6 +25,7 @@ public class GameController implements Observer, Serializable {
 
     private GameState gameState;
     private TurnController turnController;
+    private Timer timer;
 
     private Stack<ArrayList<LeaderCard>> leaderChoices;
 
@@ -148,6 +150,25 @@ public class GameController implements Observer, Serializable {
         if(virtualViewMap.containsKey(nickname)) throw new NicknameException();
         virtualViewMap.put(nickname, virtualView);
         //TODO: SharedArea Observable? -> addObserver(virtualView)?
+    }
+
+    public synchronized void checkConnectionOf(VirtualView virtualView){
+        virtualView.checkConnection();
+        startTimer(30);
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return;
+        }
+        timer.cancel();
+    }
+
+    public void startTimer(int timeLimit){
+        timer = new Timer();
+        TimeoutCounter timerTask = new TimeoutCounter(timeLimit);
+        timerTask.addObserver(this);
+        timer.schedule(timerTask, 10, 1000);
     }
 
     @Override

@@ -15,10 +15,8 @@ import java.util.ArrayList;
 
 public class InitState extends GameState {
 
-    private GameController gameController;
-
     public InitState(GameController gameController) {
-        this.gameController = gameController;
+        super(gameController);
     }
 
     @Override

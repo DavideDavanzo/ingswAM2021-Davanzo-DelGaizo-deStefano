@@ -2,7 +2,6 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
-import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
 
@@ -69,9 +68,17 @@ public class VirtualView extends View {
 
     }
 
+    @Override
+    public void checkConnection() {
+        sendMessage(new LoginRequest());
+    }
+
     public ServerClientHandler getClientHandler(){
         return clientHandler;
     }
 
+    public void sendMessage(Message message){
+        clientHandler.sendMessage(message);
+    }
 
 }
