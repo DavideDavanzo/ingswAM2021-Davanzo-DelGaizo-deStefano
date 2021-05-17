@@ -62,10 +62,16 @@ public class SocketHandler extends Observable {
     }
 
     public void waitClientCommand(){
+        System.out.println("waiting command");
         while (!Thread.currentThread().isInterrupted()) {
             String userInput = stdIn.nextLine();
-            //TODO: sendCommand() method
+            switch(userInput){
+                case "exit" :
+                    break;
+                default :
+            }
         }
+        System.out.println("EXIT");
     }
 
     public Scanner getStdIn() {

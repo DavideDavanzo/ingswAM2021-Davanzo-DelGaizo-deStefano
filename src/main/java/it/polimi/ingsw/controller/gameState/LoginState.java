@@ -5,10 +5,8 @@ import it.polimi.ingsw.network.messages.*;
 
 public class LoginState extends GameState {
 
-    private final GameController gameController;
-
     public LoginState(GameController gameController) {
-        this.gameController = gameController;
+        super(gameController);
     }
 
     @Override

@@ -39,6 +39,11 @@ public class GuiView extends View{
     }
 
     @Override
+    public void checkConnection() {
+
+    }
+
+    @Override
     public void askQuery(String msg) {
 
     }

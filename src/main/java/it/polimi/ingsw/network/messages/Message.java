@@ -14,6 +14,7 @@ import java.io.Serializable;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = InfoMessage.class, name = "InfoMessage"),
+        @JsonSubTypes.Type(value = PingMessage.class, name = "PingMessage"),
         @JsonSubTypes.Type(value = QueryMessage.class, name = "QueryMessage"),
         @JsonSubTypes.Type(value = LoginRequest.class, name = "LoginRequest"),
         @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
@@ -25,6 +26,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = ResourceRequest.class, name = "ResourceRequest"),
         @JsonSubTypes.Type(value = ResourceChoice.class, name = "ResourceChoice")
 })
+//TODO: declare each message @JasonSubTypes.Type
 public abstract class Message implements Serializable {
 
     protected String msg;

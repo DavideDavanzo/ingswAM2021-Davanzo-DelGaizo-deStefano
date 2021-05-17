@@ -58,20 +58,38 @@ public class CliView extends View {
 
         System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
 
-        int firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        int firstChoice;
+        try {
+            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        } catch(NumberFormatException e) {
+            firstChoice = 0;
+        }
         while(firstChoice < 1 || firstChoice > 4){
             System.out.println("Error - try again");
             System.out.println("Type (1),(2),(3) or (4) to choose the first one: ");
-            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            try {
+                firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            } catch(NumberFormatException e) {
+                firstChoice = 0;
+            }
         }
 
         System.out.println("Server: Choose the second one (different from the first): ");
 
-        int secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
-        while(firstChoice < 1 || firstChoice > 4 || secondChoice == firstChoice){
+        int secondChoice;
+        try {
+            secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        } catch(NumberFormatException e) {
+            secondChoice = 0;
+        }
+        while(secondChoice < 1 || secondChoice > 4 || secondChoice == firstChoice){
             System.out.println("Error -  try again");
             System.out.println("Choose the second one (different from the first): ");
-            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            try {
+                secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            } catch(NumberFormatException e) {
+                secondChoice = 0;
+            }
         }
 
         ArrayList<LeaderCard> reply = new ArrayList<>();
@@ -79,7 +97,7 @@ public class CliView extends View {
         reply.add(leaderCards.get(secondChoice-1));
 
         try {
-            socketHandler.sendMessage(new LeaderRequest(socketHandler.getObjectMapper().writeValueAsString(reply)));
+            sendMessage(new LeaderRequest(socketHandler.getObjectMapper().writeValueAsString(reply)));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -114,8 +132,7 @@ public class CliView extends View {
 
         stringBuilder.append("]");
 
-        //TODO: ArrayList di risorse non specifica il tipo, problema di serializzazione. Nascondi logica Json in metodo apposito che chiama Parser.
-        socketHandler.sendMessage(new ResourceChoice(stringBuilder.toString()));
+        sendMessage(new ResourceChoice(stringBuilder.toString()));
 
     }
 
@@ -124,14 +141,14 @@ public class CliView extends View {
         Scanner stdIn = new Scanner(System.in);
         socketHandler.setUsername(stdIn.nextLine());
         //TODO: validate username
-        socketHandler.sendMessage(new LoginRequest());
+        sendMessage(new LoginRequest());
         socketHandler.waitServerMessage();      //wait LoginReply
     }
 
     @Override
     public void askQuery(String msg) {
         System.out.println("Server: " + msg);
-        socketHandler.sendMessage(new ReplyMessage(socketHandler.getStdIn().nextLine()));
+        sendMessage(new ReplyMessage(socketHandler.getStdIn().nextLine()));
     }
 
     @Override
@@ -154,6 +171,16 @@ public class CliView extends View {
         showMessage(message.getMsg());
         if(!message.isSuccessful())
             login();
+    }
+
+    @Override
+    public void checkConnection() {
+        System.out.println("Received: Ping");
+        sendMessage(new PingMessage());
+    }
+
+    public void sendMessage(Message message){
+        socketHandler.sendMessage(message);
     }
 
     private void welcome(){
