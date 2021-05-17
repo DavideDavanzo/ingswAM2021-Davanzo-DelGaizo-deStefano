@@ -83,6 +83,7 @@ public class GameController implements Observer, Serializable {
 
             if(isFull()) {
                 //TODO: Restore interrupted match ??
+                gameState.nextState();
                 startMatch();
             }
 
@@ -111,7 +112,6 @@ public class GameController implements Observer, Serializable {
         if(isSinglePlayer()) match.setToSinglePlayer();
         else match.shufflePlayers();
 
-        setGameState(new InitState(this));
         turnController = new TurnController(this, virtualViewMap);
         turnController.updateTurnCounter();
         prepareLeaderChoices();
@@ -214,5 +214,9 @@ public class GameController implements Observer, Serializable {
 
     public int getChosenPlayerNum() {
         return chosenPlayerNum;
+    }
+
+    public Match getMatch() {
+        return match;
     }
 }

@@ -12,6 +12,7 @@ import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 
 import it.polimi.ingsw.model.playerboard.Shelf;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.*;
 
 import java.util.ArrayList;
@@ -207,6 +208,10 @@ public class Player {
 
     public String getNickname() {
         return nickname;
+    }
+
+    public Warehouse getWarehouse() {
+        return this.getPlayerBoard().getWarehouse();
     }
 
 }

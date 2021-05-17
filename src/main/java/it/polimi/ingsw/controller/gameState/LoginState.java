@@ -21,9 +21,16 @@ public class LoginState extends GameState {
                 gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok,waiting for players . .");
                 gameController.notifyAll();
             }
-            if(gameController.isSinglePlayer()) gameController.startMatch(); //Directly starts a singlePlayer match.
+            if(gameController.isSinglePlayer()){
+                nextState();
+                gameController.startMatch(); //Directly starts a singlePlayer match.
+            }
 
         }
     }
 
+    @Override
+    public void nextState() {
+        gameController.setGameState(new InitState(gameController));
+    }
 }
