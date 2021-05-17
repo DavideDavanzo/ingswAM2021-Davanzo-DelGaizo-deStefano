@@ -58,20 +58,38 @@ public class CliView extends View {
 
         System.out.println("Server: Type (1),(2),(3) or (4) to choose the first one: ");
 
-        int firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        int firstChoice;
+        try {
+            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        } catch(NumberFormatException e) {
+            firstChoice = 0;
+        }
         while(firstChoice < 1 || firstChoice > 4){
             System.out.println("Error - try again");
             System.out.println("Type (1),(2),(3) or (4) to choose the first one: ");
-            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            try {
+                firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            } catch(NumberFormatException e) {
+                firstChoice = 0;
+            }
         }
 
         System.out.println("Server: Choose the second one (different from the first): ");
 
-        int secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
-        while(firstChoice < 1 || firstChoice > 4 || secondChoice == firstChoice){
+        int secondChoice;
+        try {
+            secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+        } catch(NumberFormatException e) {
+            secondChoice = 0;
+        }
+        while(secondChoice < 1 || secondChoice > 4 || secondChoice == firstChoice){
             System.out.println("Error -  try again");
             System.out.println("Choose the second one (different from the first): ");
-            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            try {
+                secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            } catch(NumberFormatException e) {
+                secondChoice = 0;
+            }
         }
 
         ArrayList<LeaderCard> reply = new ArrayList<>();
