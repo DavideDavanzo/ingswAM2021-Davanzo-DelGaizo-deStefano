@@ -110,8 +110,6 @@ public class CliView extends View {
 
         int cont = Integer.parseInt(msg);
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Resource> resources = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
 
         System.out.println("Server: Choose " + msg + " resources to start");
 

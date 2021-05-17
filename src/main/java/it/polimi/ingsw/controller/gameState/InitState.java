@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.*;
-import it.polimi.ingsw.parser.Parser;
+import it.polimi.ingsw.utils.Parser;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;

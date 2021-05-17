@@ -1,8 +1,7 @@
-package it.polimi.ingsw.parser;
+package it.polimi.ingsw.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.polimi.ingsw.model.resources.Resource;
 
 public class Parser {
 
