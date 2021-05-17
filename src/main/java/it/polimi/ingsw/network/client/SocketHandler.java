@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class SocketHandler extends Observable {
 
     private String username;
-    private Scanner stdIn;
     private Scanner socketIn;
     private PrintWriter socketOut;
     private final ObjectMapper objectMapper;
@@ -22,8 +21,6 @@ public class SocketHandler extends Observable {
     public SocketHandler(Socket socket){
 
         this.socket = socket;
-
-        stdIn = new Scanner(System.in);
 
         try {
             socketIn = new Scanner(this.socket.getInputStream());
@@ -58,24 +55,6 @@ public class SocketHandler extends Observable {
                 e.printStackTrace();
             }
         }
-
-    }
-
-    public void waitClientCommand(){
-        System.out.println("waiting command");
-        while (!Thread.currentThread().isInterrupted()) {
-            String userInput = stdIn.nextLine();
-            switch(userInput){
-                case "exit" :
-                    break;
-                default :
-            }
-        }
-        System.out.println("EXIT");
-    }
-
-    public Scanner getStdIn() {
-        return stdIn;
     }
 
     public Scanner getSocketIn() {

@@ -10,15 +10,15 @@ import it.polimi.ingsw.network.messages.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class CliView extends View {
 
     private final SocketHandler socketHandler;
+    private final Scanner stdIn;
 
     public CliView(SocketHandler socketHandler){
         this.socketHandler = socketHandler;
+        stdIn = new Scanner(System.in);
     }
 
     @Override
@@ -31,18 +31,17 @@ public class CliView extends View {
         socketHandler.addObserver(this);
         welcome();
         login();
-        ExecutorService executor = Executors.newCachedThreadPool();
-        executor.submit(socketHandler::waitServerMessage);
-        executor.submit(socketHandler::waitClientCommand);
+        Thread thread = new Thread(socketHandler::waitServerMessage);
+        thread.start();
     }
 
     @Override
     public void askNumberOfPlayers() {
         System.out.println("Server: As no other available match already exists, you get to create a new one... ");
         System.out.println("Server: How many players would you like this new match to be composed of? Type a number between 1 and 4");
-        try{
-            socketHandler.sendMessage(new PlayersNumber(Integer.parseInt(socketHandler.getStdIn().nextLine())));
-        } catch(NumberFormatException e) {
+        try {
+            socketHandler.sendMessage(new PlayersNumber(Integer.parseInt(stdIn.nextLine())));
+        } catch (NumberFormatException e) {
             System.out.println("ERROR: wrong format");
             askNumberOfPlayers();
         }
@@ -50,6 +49,7 @@ public class CliView extends View {
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
+
         System.out.println("Choose two of these cards:");
 
         for(LeaderCard card : leaderCards){
@@ -60,7 +60,7 @@ public class CliView extends View {
 
         int firstChoice;
         try {
-            firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            firstChoice = Integer.parseInt(stdIn.nextLine());
         } catch(NumberFormatException e) {
             firstChoice = 0;
         }
@@ -68,7 +68,7 @@ public class CliView extends View {
             System.out.println("Error - try again");
             System.out.println("Type (1),(2),(3) or (4) to choose the first one: ");
             try {
-                firstChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+                firstChoice = Integer.parseInt(stdIn.nextLine());
             } catch(NumberFormatException e) {
                 firstChoice = 0;
             }
@@ -78,7 +78,7 @@ public class CliView extends View {
 
         int secondChoice;
         try {
-            secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+            secondChoice = Integer.parseInt(stdIn.nextLine());
         } catch(NumberFormatException e) {
             secondChoice = 0;
         }
@@ -86,7 +86,7 @@ public class CliView extends View {
             System.out.println("Error -  try again");
             System.out.println("Choose the second one (different from the first): ");
             try {
-                secondChoice = Integer.parseInt(socketHandler.getStdIn().nextLine());
+                secondChoice = Integer.parseInt(stdIn.nextLine());
             } catch(NumberFormatException e) {
                 secondChoice = 0;
             }
@@ -97,7 +97,8 @@ public class CliView extends View {
         reply.add(leaderCards.get(secondChoice-1));
 
         try {
-            sendMessage(new LeaderRequest(socketHandler.getObjectMapper().writeValueAsString(reply)));
+            ObjectMapper objectMapper = new ObjectMapper();
+            sendMessage(new LeaderRequest(objectMapper.writeValueAsString(reply)));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -119,14 +120,14 @@ public class CliView extends View {
 
         for(int i=0; i<cont; i++){
 
-            if(i!=cont-1)
-                stringBuilder.append(",");
-
             System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
 
             String temp = scanner.nextLine();
 
             stringBuilder.append("{\"@type\":" +"\"" + temp.toLowerCase()+ "\"" + ",\"volume\":1}");
+
+            if(i!=cont-1)
+                stringBuilder.append(",");
 
         }
 
@@ -142,13 +143,12 @@ public class CliView extends View {
         socketHandler.setUsername(stdIn.nextLine());
         //TODO: validate username
         sendMessage(new LoginRequest());
-        socketHandler.waitServerMessage();      //wait LoginReply
     }
 
     @Override
     public void askQuery(String msg) {
         System.out.println("Server: " + msg);
-        sendMessage(new ReplyMessage(socketHandler.getStdIn().nextLine()));
+        sendMessage(new ReplyMessage(stdIn.nextLine()));
     }
 
     @Override
