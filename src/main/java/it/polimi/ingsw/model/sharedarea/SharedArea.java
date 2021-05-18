@@ -25,4 +25,6 @@ public class SharedArea {
         return cardMarket;
     }
 
+
+
 }

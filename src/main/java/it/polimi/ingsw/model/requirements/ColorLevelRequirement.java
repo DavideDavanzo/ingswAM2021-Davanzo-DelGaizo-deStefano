@@ -50,7 +50,7 @@ public class ColorLevelRequirement extends Requirement {
     public String print() {
         StringBuilder p = new StringBuilder();
         for (ECardColor color : colorLevel.keySet()) {
-            p.append(color.print() + " lvl:" + colorLevel.get(color));
+            p.append(color.print() + " lvl: " + colorLevel.get(color));
         }
         return p.toString();
 

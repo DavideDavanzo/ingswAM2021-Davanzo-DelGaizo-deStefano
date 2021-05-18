@@ -63,7 +63,7 @@ public class Servant extends Resource {
 
     @Override
     public String print() {
-        return Color.ANSI_PURPLE.escape() + "●" + Color.ANSI_WHITE.escape();
+        return Color.ANSI_PURPLE.escape() + "● " + Color.ANSI_WHITE.escape();
     }
 
     //TODO: Remove

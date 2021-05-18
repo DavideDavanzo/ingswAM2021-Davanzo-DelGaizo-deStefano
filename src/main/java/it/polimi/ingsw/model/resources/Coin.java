@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.resources;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.playerboard.Coffer;
 
 /**
  * Class which represents a general amount of coins
@@ -78,6 +79,8 @@ public class Coin extends Resource {
 
     @Override
     public String print() {
-        return Color.ANSI_YELLOW.escape() + "●" + Color.ANSI_WHITE.escape();
+        return Color.ANSI_YELLOW.escape() + "● " + Color.ANSI_WHITE.escape();
     }
+
+
 }

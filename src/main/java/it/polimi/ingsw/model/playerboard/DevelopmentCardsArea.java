@@ -3,6 +3,7 @@ package it.polimi.ingsw.model.playerboard;
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.*;
 
@@ -11,7 +12,7 @@ import java.util.*;
  * This section of the {@link PlayerBoard} contains three stacks of
  * {@link DevelopmentCard} which are previously purchased by the Player
  */
-public class DevelopmentCardsArea {
+public class DevelopmentCardsArea implements CliPrinter {
 
     private Stack<DevelopmentCard> firstStack = new Stack<>();
     private Stack<DevelopmentCard> secondStack = new Stack<>();
@@ -105,4 +106,24 @@ public class DevelopmentCardsArea {
         return thirdStack;
     }
 
+
+    public String printFirst(){
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for(DevelopmentCard card : firstStack){
+            stringBuilder.append(card.print());
+        }
+        return stringBuilder.toString();
+    }
+
+
+
+    @Override
+    public String print() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        return stringBuilder.append(printFirst()).toString();
+
+
+    }
 }
