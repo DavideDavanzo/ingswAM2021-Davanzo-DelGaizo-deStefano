@@ -14,10 +14,10 @@ import java.util.ArrayList;
  */
 public class PlayerBoard {
 
-    private final Warehouse warehouse;
-    private final Coffer coffer;
-    private final DevelopmentCardsArea developmentCardsArea;
-    private final Path path;
+    private Warehouse warehouse;
+    private Coffer coffer;
+    private DevelopmentCardsArea developmentCardsArea;
+    private Path path;
 
     public PlayerBoard() {
         warehouse = new Warehouse();
@@ -219,4 +219,19 @@ public class PlayerBoard {
         return path;
     }
 
+    public void setWarehouse(Warehouse warehouse){
+        this.warehouse = warehouse;
+    }
+
+    public void setCoffer(Coffer coffer) {
+        this.coffer = coffer;
+    }
+
+    public void setDevelopmentCardsArea(DevelopmentCardsArea developmentCardsArea) {
+        this.developmentCardsArea = developmentCardsArea;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
 }

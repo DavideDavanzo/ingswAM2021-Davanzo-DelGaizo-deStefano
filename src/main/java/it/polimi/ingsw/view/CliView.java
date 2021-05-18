@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
@@ -143,6 +142,131 @@ public class CliView extends View {
         sendMessage(new LoginRequest());
     }
 
+    public void askCommand(){
+        String cmd = stdIn.nextLine();
+        switch(cmd.toLowerCase()){
+            case "prova" :
+                System.out.println("PROVA CMD SWITCH CASE");
+                break;
+            case "b" :
+                System.out.println("buying a card");
+                buyDevCard();
+                break;
+            case "m" :
+                System.out.println("going to the market");
+                getMarketResources();
+                break;
+            case "p" :
+                System.out.println("activating production");
+                activateProduction();
+                break;
+            case "t" :
+                System.out.println("tossing a leader card");
+                break;
+            case "a" :
+                System.out.println("activate a leader card");
+                break;
+            case "i" :
+                System.out.println("asking info");
+                break;
+            default :
+                System.out.println("This command does not exist. Try again");
+                cmd = stdIn.nextLine();
+        }
+
+    }
+
+    public void buyDevCard(){
+        //ask server card market situation
+        System.out.println("Choose color");
+        String user = stdIn.nextLine();
+        Color color = null;
+        switch (user.toLowerCase()){
+            case "green" :
+                color = Color.ANSI_GREEN;
+                break;
+            case "blue" :
+                color = Color.ANSI_BLUE;
+                break;
+            case "yellow" :
+                color = Color.ANSI_YELLOW;
+                break;
+            case "purple" :
+                color = Color.ANSI_PURPLE;
+                break;
+            default :
+                System.out.println("ERROR - this color does not exist... try again");
+        }
+        int level;
+        do{
+            level = Integer.parseInt(stdIn.nextLine());
+        } while(level < 1 || level > 4);
+
+        Command buyCardCmd = new BuyCardCmd(color, level);
+        sendMessage(buyCardCmd);
+
+    }
+
+    public void getMarketResources(){
+        //ask server market situation
+        char line = ' ';
+        while (line != 'r' && line != 'c') {
+            System.out.println("Choose line type: row ('r') or column ('c')?");
+            line = stdIn.nextLine().charAt(0);
+        }
+        int index = 0;
+        while (index < 1 || (line == 'r' && index > 3) || (line == 'c' && index > 4)) {
+            System.out.println("Choose index of " + (line == 'r' ? "row: type a number between 1 and 3" : "column: type a number between 1 and 4"));
+            index = Integer.parseInt(stdIn.nextLine());
+        }
+        Command marketResourcesCmd = new MarketResourcesCmd(line, index);
+        sendMessage(marketResourcesCmd);
+    }
+
+    public void activateProduction(){
+        //ask client's model my dev area
+        String userInput;
+        ArrayList<Integer> choices = new ArrayList<>();
+        int cont = 4;
+        do{
+            System.out.println("Choose the stack of the development card you want to activate");
+            System.out.println("Type its number, or type 'b' to activate base production");
+            System.out.println("type \"activate\" to execute production");
+            userInput = stdIn.nextLine();
+            if(userInput.equals("activate"))
+                break;
+            else if(userInput.equals("b")) {
+                if(!choices.contains(0)) {
+                    choices.add(0);
+                    cont--;
+                }
+                else{
+                    System.out.println("Already chosen... try again");
+                    continue;
+                }
+            }
+            else{
+                try {
+                    int temp = Integer.parseInt(userInput);
+                    if (!choices.contains(temp) && temp>=0 && temp<4) {
+                        choices.add(temp);
+                        cont--;
+                    }
+                    else {
+                        System.out.println("something wrong... try again");
+                        continue;
+                    }
+                } catch (NumberFormatException e){
+                    System.out.println("ERROR - wrong format");
+                    continue;
+                }
+            }
+        } while(cont != 0);
+
+        //TODO: assemble and send correct command
+
+    }
+
     @Override
     public void askQuery(String msg) {
         System.out.println("Server: " + msg);
@@ -179,6 +303,10 @@ public class CliView extends View {
 
     public void sendMessage(Message message){
         socketHandler.sendMessage(message);
+    }
+
+    public void sendMessage(Command command){
+        socketHandler.sendMessage(command);
     }
 
     private void welcome(){

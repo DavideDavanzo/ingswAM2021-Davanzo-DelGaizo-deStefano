@@ -152,25 +152,6 @@ public class GameController implements Observer, Serializable {
         //TODO: SharedArea Observable? -> addObserver(virtualView)?
     }
 
-    public synchronized void checkConnectionOf(VirtualView virtualView){
-        virtualView.checkConnection();
-        startTimer(30);
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            return;
-        }
-        timer.cancel();
-    }
-
-    public void startTimer(int timeLimit){
-        timer = new Timer();
-        TimeoutCounter timerTask = new TimeoutCounter(timeLimit);
-        timerTask.addObserver(this);
-        timer.schedule(timerTask, 10, 1000);
-    }
-
     @Override
     public void update(Message message) {
         onMessage(message);
