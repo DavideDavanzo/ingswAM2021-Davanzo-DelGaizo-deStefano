@@ -10,6 +10,10 @@ public class TimeoutMessage extends Message{
         super();
     }
 
+    public TimeoutMessage(String msg){
+        super(msg);
+    }
+
     @Override
     public void apply(View view) {
 
@@ -17,7 +21,6 @@ public class TimeoutMessage extends Message{
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
     }
 
 }

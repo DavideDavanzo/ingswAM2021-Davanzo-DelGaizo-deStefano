@@ -14,6 +14,8 @@ import java.util.Scanner;
 
 public class ServerClientHandler extends Observable {
 
+    private String username;
+
     private Scanner socketIn;
     private PrintWriter socketOut;
     private final ObjectMapper objectMapper;
@@ -31,51 +33,55 @@ public class ServerClientHandler extends Observable {
             e.printStackTrace();
         }
         objectMapper = new ObjectMapper();
-        pingerThread = new Thread(() ->
-                            {
-                               while (!clientSocket.isClosed()){
-                                   try {
-                                       Thread.sleep(5000);
-                                       sendMessage(new PingMessage());
-                                       timerThread.start();
-                                   } catch (InterruptedException e) {
-                                       e.printStackTrace();
-                                   }
-                               }
-                            });
-        timerThread = new Thread(() ->
-                            {
-                                try {
-                                    Thread.sleep(1000);
-                                    notifyObservers(new TimeoutMessage());
-                                    clientSocket.close();
-                                } catch (InterruptedException | IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
+        pingerThread = null;
+        timerThread = null;
     }
 
     public void startPinger(){
+        pingerThread = new Thread(() ->
+                                {
+                                    while (!clientSocket.isClosed()){
+                                        try {
+                                            Thread.sleep(5000);
+                                            sendMessage(new PingMessage());
+                                            startTimer(5000);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
         pingerThread.start();
+    }
+
+    public void startTimer(int milliseconds){
+        timerThread = new Thread(() ->
+                                {
+                                    try {
+                                        Thread.sleep(milliseconds);
+                                        notifyObservers(new TimeoutMessage(username));
+                                        clientSocket.close();
+                                    } catch (InterruptedException | IOException e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+        timerThread.start();
+    }
+
+    public void stopPinger(){
+        pingerThread.interrupt();
+        pingerThread = null;
     }
 
     public void stopTimer(){
         timerThread.interrupt();
-        timerThread = new Thread(() ->
-                            {
-                                try {
-                                    Thread.sleep(1000);
-                                    notifyObservers(new TimeoutMessage());
-                                    clientSocket.close();
-                                } catch (InterruptedException | IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
+        timerThread = null;
     }
 
     public void sendMessage(Message message){
         String msg;
         try {
+            socketOut.println(objectMapper.writeValueAsString(new PingMessage()));
+            //TODO: start timer to stop if pong arrives
             System.out.println("Sent: " + (msg = objectMapper.writeValueAsString(message)));
             socketOut.println(msg);
         } catch (JsonProcessingException e) {
@@ -122,4 +128,7 @@ public class ServerClientHandler extends Observable {
         return clientSocket;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
