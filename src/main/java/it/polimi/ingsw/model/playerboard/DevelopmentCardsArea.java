@@ -84,7 +84,7 @@ public class DevelopmentCardsArea {
 
     }
 
-    private boolean notValid(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) {
+    public boolean notValid(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) {
 
         if(slot.empty())
             return developmentCard.getLevel() != 1;
