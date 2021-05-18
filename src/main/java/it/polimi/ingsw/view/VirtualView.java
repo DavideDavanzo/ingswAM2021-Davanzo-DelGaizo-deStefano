@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class VirtualView extends View {
 
     private final ServerClientHandler clientHandler;
+    private String username;
 
     public VirtualView(ServerClientHandler clientHandler){
         this.clientHandler = clientHandler;
@@ -25,7 +26,6 @@ public class VirtualView extends View {
         clientHandler.addObserver(this);
         Thread thread = new Thread(clientHandler::waitClientMessage);
         thread.start();
-        clientHandler.startPinger();
     }
 
     @Override
@@ -84,6 +84,10 @@ public class VirtualView extends View {
 
     public void sendMessage(Message message){
         clientHandler.sendMessage(message);
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 
 }

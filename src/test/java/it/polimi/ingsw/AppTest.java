@@ -23,5 +23,7 @@ public class AppTest {
 
         System.out.println(resource.toString());
 
+        System.out.println("\uD83E\uDC17");
     }
+
 }

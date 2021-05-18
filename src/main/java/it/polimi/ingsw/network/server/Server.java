@@ -64,6 +64,8 @@ public class Server {
         while (!Thread.currentThread().isInterrupted()) {
             System.out.println("Waiting login from " + virtualView.getClientHandler().getClientSocket().getLocalAddress());
             Message loginRequest = virtualView.getClientHandler().returnClientMessage();
+            virtualView.setUsername(loginRequest.getUsername());
+            virtualView.getClientHandler().setUsername(loginRequest.getUsername());
             if(gameController.isFull())
                 gameController = new GameController();
             try {
