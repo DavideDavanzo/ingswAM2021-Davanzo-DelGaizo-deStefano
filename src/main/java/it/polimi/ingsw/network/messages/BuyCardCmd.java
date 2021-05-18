@@ -1,11 +1,12 @@
 package it.polimi.ingsw.network.messages;
 
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.view.View;
 
 public class BuyCardCmd extends Command{
 
-    private Color color;
+    private ECardColor color;
 
     private int level;
 
@@ -13,7 +14,7 @@ public class BuyCardCmd extends Command{
         super();
     }
 
-    public BuyCardCmd(Color color, int level){
+    public BuyCardCmd(ECardColor color, int level){
         this.color = color;
         this.level = level;
     }
@@ -23,4 +24,11 @@ public class BuyCardCmd extends Command{
 
     }
 
+    public ECardColor getColor() {
+        return color;
+    }
+
+    public int getLevel() {
+        return level;
+    }
 }

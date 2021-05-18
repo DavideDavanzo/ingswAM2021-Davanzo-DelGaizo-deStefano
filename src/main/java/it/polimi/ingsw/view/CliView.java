@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
@@ -180,19 +181,19 @@ public class CliView extends View {
         //ask server card market situation
         System.out.println("Choose color");
         String user = stdIn.nextLine();
-        Color color = null;
+        ECardColor color = null;
         switch (user.toLowerCase()){
             case "green" :
-                color = Color.ANSI_GREEN;
+                color = ECardColor.GREEN;
                 break;
             case "blue" :
-                color = Color.ANSI_BLUE;
+                color = ECardColor.BLUE;
                 break;
             case "yellow" :
-                color = Color.ANSI_YELLOW;
+                color = ECardColor.YELLOW;
                 break;
             case "purple" :
-                color = Color.ANSI_PURPLE;
+                color = ECardColor.PURPLE;
                 break;
             default :
                 System.out.println("ERROR - this color does not exist... try again");

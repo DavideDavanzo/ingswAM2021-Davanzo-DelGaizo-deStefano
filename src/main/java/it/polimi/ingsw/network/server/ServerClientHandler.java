@@ -46,7 +46,7 @@ public class ServerClientHandler extends Observable {
         timerThread = new Thread(() ->
                             {
                                 try {
-                                    Thread.sleep(1000);
+                                    Thread.sleep(5000);
                                     notifyObservers(new TimeoutMessage());
                                     clientSocket.close();
                                 } catch (InterruptedException | IOException e) {

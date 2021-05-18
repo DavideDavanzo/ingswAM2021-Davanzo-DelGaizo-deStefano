@@ -48,6 +48,10 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
+    public void process(BuyCardCmd buyCardCmd) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
+
     public void process(PingMessage pingMessage){
         gameController.notify();
     }
