@@ -1,0 +1,26 @@
+package it.polimi.ingsw.network.messages;
+
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.view.View;
+
+public class BuyCardCmd extends Command{
+
+    private Color color;
+
+    private int level;
+
+    public BuyCardCmd(){
+        super();
+    }
+
+    public BuyCardCmd(Color color, int level){
+        this.color = color;
+        this.level = level;
+    }
+
+    @Override
+    public void apply(View view) {
+
+    }
+
+}

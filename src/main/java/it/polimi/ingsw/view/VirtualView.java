@@ -25,6 +25,7 @@ public class VirtualView extends View {
         clientHandler.addObserver(this);
         Thread thread = new Thread(clientHandler::waitClientMessage);
         thread.start();
+        clientHandler.startPinger();
     }
 
     @Override
@@ -68,9 +69,13 @@ public class VirtualView extends View {
 
     }
 
+    public void stopTimer(){
+        clientHandler.stopTimer();
+    }
+
     @Override
     public void checkConnection() {
-        sendMessage(new LoginRequest());
+
     }
 
     public ServerClientHandler getClientHandler(){

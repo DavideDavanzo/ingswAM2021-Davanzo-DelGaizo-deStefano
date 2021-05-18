@@ -3,6 +3,8 @@ package it.polimi.ingsw.network.server;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.PingMessage;
+import it.polimi.ingsw.network.messages.TimeoutMessage;
 import it.polimi.ingsw.network.observingPattern.Observable;
 
 import java.io.IOException;
@@ -17,6 +19,9 @@ public class ServerClientHandler extends Observable {
     private final ObjectMapper objectMapper;
     private final Socket clientSocket;
 
+    Thread pingerThread;
+    Thread timerThread;
+
     public ServerClientHandler(Socket clientSocket){
         this.clientSocket = clientSocket;
         try {
@@ -26,6 +31,46 @@ public class ServerClientHandler extends Observable {
             e.printStackTrace();
         }
         objectMapper = new ObjectMapper();
+        pingerThread = new Thread(() ->
+                            {
+                               while (!clientSocket.isClosed()){
+                                   try {
+                                       Thread.sleep(5000);
+                                       sendMessage(new PingMessage());
+                                       timerThread.start();
+                                   } catch (InterruptedException e) {
+                                       e.printStackTrace();
+                                   }
+                               }
+                            });
+        timerThread = new Thread(() ->
+                            {
+                                try {
+                                    Thread.sleep(1000);
+                                    notifyObservers(new TimeoutMessage());
+                                    clientSocket.close();
+                                } catch (InterruptedException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+    }
+
+    public void startPinger(){
+        pingerThread.start();
+    }
+
+    public void stopTimer(){
+        timerThread.interrupt();
+        timerThread = new Thread(() ->
+                            {
+                                try {
+                                    Thread.sleep(1000);
+                                    notifyObservers(new TimeoutMessage());
+                                    clientSocket.close();
+                                } catch (InterruptedException | IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
     }
 
     public void sendMessage(Message message){

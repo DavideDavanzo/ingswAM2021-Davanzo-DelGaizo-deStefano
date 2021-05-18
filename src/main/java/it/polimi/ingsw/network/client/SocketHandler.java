@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.ingsw.network.messages.Command;
 import it.polimi.ingsw.network.observingPattern.Observable;
 import it.polimi.ingsw.network.messages.Message;
 
@@ -39,6 +40,18 @@ public class SocketHandler extends Observable {
 
         try {
             socketOut.println(objectMapper.writeValueAsString(message));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void sendMessage(Command command){
+
+        command.setUsername(username);
+
+        try {
+            socketOut.println(objectMapper.writeValueAsString(command));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
