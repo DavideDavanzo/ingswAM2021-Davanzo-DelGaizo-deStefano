@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.view.CliPrinter;
 
@@ -107,14 +108,6 @@ public class DevelopmentCardsArea implements CliPrinter {
     }
 
 
-    public String printFirst(){
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for(DevelopmentCard card : firstStack){
-            stringBuilder.append(card.print());
-        }
-        return stringBuilder.toString();
-    }
 
 
 
@@ -122,8 +115,35 @@ public class DevelopmentCardsArea implements CliPrinter {
     public String print() {
 
         StringBuilder stringBuilder = new StringBuilder();
-        return stringBuilder.append(printFirst()).toString();
 
+        for(Stack<DevelopmentCard> stack : area) {
+            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
+        }
+            stringBuilder.append("\n");
+        for(Stack<DevelopmentCard> stack : area) {
+            stringBuilder .append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "║ DEV CARD " + "lvl " + stack.peek().getLevel() + "                      ║");
+        }
+        stringBuilder.append("\n");
+        for(Stack<DevelopmentCard> stack : area) {
+            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + stack.peek().printCost() +  ECardColor.getColorMap().get(stack.peek().getColor()).escape() +  "                  ║");
+        }
+        stringBuilder.append("\n");
+        for(Stack<DevelopmentCard> stack : area) {
+            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + stack.peek().printTrade() +  ECardColor.getColorMap().get(stack.peek().getColor()).escape() + " ║");
+        }
+        stringBuilder.append("\n");
+        for(Stack<DevelopmentCard> stack : area) {
+            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() +"║ vp : " + stack.peek().getVictoryPoints() + stack.peek().spaceForPoints() + "                             ║");
+        }
+        stringBuilder.append("\n");
+        for(Stack<DevelopmentCard> stack : area) {
+            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape());
+        }
+        stringBuilder.append("\n");
+
+
+
+        return stringBuilder.toString();
 
     }
 }

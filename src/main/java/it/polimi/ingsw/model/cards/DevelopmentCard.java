@@ -153,27 +153,42 @@ public class DevelopmentCard extends Card {
 
         StringBuilder stringBuilder = new StringBuilder();
         StringBuilder s = new StringBuilder();
-        if(trade.getInput().size() == 1){
-            stringBuilder.append("     ");
-        }
-        else if(trade.getInput().size() == 2){
-            stringBuilder.append("   ");
-        }
+
+
         for(Resource resource : trade.getInput()) {
             stringBuilder.append(resource.getVolume() + " " + resource.print());
         }
         for(Item o : trade.getOutput()){
             s.append(o.getVolume() + " " +o.print());
             }
-        if (trade.getOutput().size() == 1){
+        if (trade.getOutput().size() == 1 && trade.getInput().size() == 1){
+            stringBuilder.append("                 ");
+        }
+        if(trade.getOutput().size() == 1 && trade.getInput().size()== 2){
+            stringBuilder.append("             ");
+        }
+        if(trade.getOutput().size() == 1 && trade.getInput().size() == 3){
             stringBuilder.append("         ");
         }
-        else if(trade.getOutput().size() == 2){
-            stringBuilder.append("       ");
+        if(trade.getOutput().size() == 2 && trade.getInput().size() == 1){
+            stringBuilder.append("             ");
         }
+        if(trade.getOutput().size() == 2 && trade.getInput().size() ==2){
+            stringBuilder.append("         ");
+        }
+        if(trade.getOutput().size() == 2 && trade.getInput().size() == 3){
+            stringBuilder.append("      ");
+        }
+        if(trade.getOutput().size() == 3 && trade.getInput().size() == 2){
+            stringBuilder.append("     ");
+        }
+        if(trade.getOutput().size() == 3 && trade.getInput().size() == 1){
+            stringBuilder.append("         ");
+        }
+
+
         return stringBuilder.toString() + " " +" \u2192 " + " " + s.toString();
     }
-
 
     public String spaceForPoints(){
         StringBuilder stringBuilder = new StringBuilder();
@@ -183,20 +198,17 @@ public class DevelopmentCard extends Card {
         return stringBuilder.toString();
     }
 
-
-
-
     @Override
     public String print() {
         StringBuilder stringBuilder = new StringBuilder();
 
 
-        stringBuilder.append(ECardColor.getColorMap().get(color).escape() + "╔════════════════════════════════════╗\n")
-                     .append("║ DEV CARD " + "lvl " + getLevel() + "                     ║\n")
-                     .append("║ cost  " + Color.ANSI_WHITE.escape() + printCost() +  ECardColor.getColorMap().get(color).escape() +  "                 ║\n")
+        stringBuilder.append(ECardColor.getColorMap().get(color).escape() + "╔═════════════════════════════════════╗\n")
+                     .append("║ DEV CARD " + "lvl " + getLevel() + "                      ║\n")
+                     .append("║ cost  " + Color.ANSI_WHITE.escape() + printCost() +  ECardColor.getColorMap().get(color).escape() +  "                  ║\n")
                      .append("║ trade " + Color.ANSI_WHITE.escape() + printTrade() +  ECardColor.getColorMap().get(color).escape() + "║\n")
-                     .append("║ vp : " + getVictoryPoints() + spaceForPoints() + "                            ║\n")
-                     .append("╚════════════════════════════════════╝\n" + Color.ANSI_WHITE.escape());
+                     .append("║ vp : " + getVictoryPoints() + spaceForPoints() + "                             ║\n")
+                     .append("╚═════════════════════════════════════╝\n" + Color.ANSI_WHITE.escape());
 
             return stringBuilder.toString() + Color.ANSI_WHITE.escape();
         }
