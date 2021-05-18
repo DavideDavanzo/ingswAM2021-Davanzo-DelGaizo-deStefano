@@ -300,6 +300,7 @@ public class CliView extends View {
     public void checkConnection() {
         System.out.println("Received: Ping");
         sendMessage(new PingMessage());
+        System.out.println("Sent: Pong");
     }
 
     public void sendMessage(Message message){
