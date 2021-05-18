@@ -42,7 +42,7 @@ public class GameController implements Observer, Serializable {
         try {
             received.getProcessedBy(gameState);
         } catch (InvalidStateException e) {
-            //TODO: Notify server that the message is invalid in this state.
+            // Handled by GameState
         }
 
     }
