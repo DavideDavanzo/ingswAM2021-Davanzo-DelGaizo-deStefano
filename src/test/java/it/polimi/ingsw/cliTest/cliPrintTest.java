@@ -24,7 +24,7 @@ public class cliPrintTest {
             LeaderCardParser leaderCardParser = new LeaderCardParser();
 
             for(LeaderCard leaderCard :  leaderCardParser.parse()){
-              // System.out.println(leaderCard.print());
+                //System.out.println(leaderCard.print());
             }
 
         }
@@ -106,7 +106,7 @@ public class cliPrintTest {
             developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.PURPLE, 2, cost, trade, 11));
             developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.GREEN, 3, cost, trade, 12));
 
-           // System.out.println((developmentCard.print()));
+            //System.out.println((developmentCard.print()));
         }
 
         @Test
@@ -114,7 +114,7 @@ public class cliPrintTest {
 
             CardMarket cardMarket = new CardMarket();
 
-          //  System.out.println(cardMarket.print());
+          //System.out.println(cardMarket.print());
         }
 
 
