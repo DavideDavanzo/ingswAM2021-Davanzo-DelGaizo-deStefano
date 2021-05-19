@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
@@ -89,8 +90,13 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves) {
-        sendMessage(new StockMarketResourcesReq(resources, numExtraShelves));
+    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
+        sendMessage(new StockMarketResourcesRequest(resources, numExtraShelves));
+    }
+
+    @Override
+    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+        clientHandler.sendMessage(new ChangeWhiteMarbleRequest(items, count));
     }
 
     public void stopTimer(){

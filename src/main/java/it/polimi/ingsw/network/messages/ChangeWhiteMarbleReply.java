@@ -2,24 +2,24 @@ package it.polimi.ingsw.network.messages;
 
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
 
-public class ResourcesToWhCmd extends Message{
+public class ChangeWhiteMarbleReply extends Message {
 
-    private ArrayList<Integer> choices;
+    ArrayList<Item> changedItems;
 
-    public ResourcesToWhCmd(){
-        super();
+    public ChangeWhiteMarbleReply() {
     }
 
-    public ResourcesToWhCmd(String msg){
+    public ChangeWhiteMarbleReply(String msg) {
         super(msg);
     }
 
-    public ResourcesToWhCmd(ArrayList<Integer> choices){
-        this.choices = choices;
+    public ChangeWhiteMarbleReply(ArrayList<Item> changedItems) {
+        this.changedItems = changedItems;
     }
 
     @Override
@@ -29,7 +29,10 @@ public class ResourcesToWhCmd extends Message{
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException {
-        //TODO: gameState.process(this);
+        gameState.process(this);
     }
 
+    public ArrayList<Item> getChangedItems() {
+        return changedItems;
+    }
 }

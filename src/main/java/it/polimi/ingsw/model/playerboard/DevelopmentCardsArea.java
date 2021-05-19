@@ -107,9 +107,9 @@ public class DevelopmentCardsArea implements CliPrinter {
         return thirdStack;
     }
 
-
-
-
+    public Stack<DevelopmentCard>[] getArea() {
+        return area;
+    }
 
     @Override
     public String print() {
