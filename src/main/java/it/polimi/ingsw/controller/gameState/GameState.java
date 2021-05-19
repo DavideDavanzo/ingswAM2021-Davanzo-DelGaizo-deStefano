@@ -53,7 +53,11 @@ public class GameState {
     }
 
     public void process(PingMessage pingMessage){
-        gameController.notify();
+        gameController.getVirtualViewMap().get(pingMessage.getUsername()).stopTimer();
+    }
+
+    public void process(TimeoutMessage timeoutMessage){
+        System.out.println("Got timeout from " + timeoutMessage.getMsg() + " handler");
     }
 
     public void nextState() {

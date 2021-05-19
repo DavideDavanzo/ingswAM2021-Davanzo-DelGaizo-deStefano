@@ -24,6 +24,8 @@ public class ServerClientHandler extends Observable {
     Thread pingerThread;
     Thread timerThread;
 
+    private boolean exit;
+
     public ServerClientHandler(Socket clientSocket){
         this.clientSocket = clientSocket;
         try {
@@ -35,6 +37,7 @@ public class ServerClientHandler extends Observable {
         objectMapper = new ObjectMapper();
         pingerThread = null;
         timerThread = null;
+        exit = false;
     }
 
     public void startPinger(){
@@ -46,7 +49,7 @@ public class ServerClientHandler extends Observable {
                                             sendMessage(new PingMessage());
                                             startTimer(5000);
                                         } catch (InterruptedException e) {
-                                            e.printStackTrace();
+                                            return;
                                         }
                                     }
                                 });
@@ -54,34 +57,43 @@ public class ServerClientHandler extends Observable {
     }
 
     public void startTimer(int milliseconds){
+        exit = false;
         timerThread = new Thread(() ->
                                 {
                                     try {
                                         Thread.sleep(milliseconds);
-                                        notifyObservers(new TimeoutMessage(username));
-                                        clientSocket.close();
+                                        if(!exit) {
+                                            notifyObservers(new TimeoutMessage(username));
+                                            clientSocket.close();
+                                        } else {
+                                            System.out.println("stopping timer");
+                                        }
                                     } catch (InterruptedException | IOException e) {
                                         e.printStackTrace();
                                     }
                                 });
         timerThread.start();
+        System.out.println("timer started");
     }
 
     public void stopPinger(){
         pingerThread.interrupt();
-        pingerThread = null;
     }
 
     public void stopTimer(){
-        timerThread.interrupt();
+        exit = true;
+        System.out.println("exit = true");
         timerThread = null;
+    }
+
+    public void sendPing(){
+        sendMessage(new PingMessage());
+        startTimer(6000);
     }
 
     public void sendMessage(Message message){
         String msg;
         try {
-            socketOut.println(objectMapper.writeValueAsString(new PingMessage()));
-            //TODO: start timer to stop if pong arrives
             System.out.println("Sent: " + (msg = objectMapper.writeValueAsString(message)));
             socketOut.println(msg);
         } catch (JsonProcessingException e) {

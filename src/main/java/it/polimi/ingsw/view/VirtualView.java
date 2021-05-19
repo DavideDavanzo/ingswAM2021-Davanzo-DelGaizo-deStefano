@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
 
@@ -35,17 +36,35 @@ public class VirtualView extends View {
 
     @Override
     public void askNumberOfPlayers() {
+        /*clientHandler.sendPing();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         clientHandler.sendMessage(new PlayersNumRequest());
     }
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
+        /*clientHandler.sendPing();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         LeaderCardParser parser = new LeaderCardParser();
         clientHandler.sendMessage(new LeaderRequest(parser.serialize(leaderCards)));
     }
 
     @Override
     public void askBlankResources(String msg) {
+        /*clientHandler.sendPing();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
         clientHandler.sendMessage(new ResourceRequest(msg));
     }
 
@@ -67,6 +86,11 @@ public class VirtualView extends View {
     @Override
     public void onLoginReply(LoginReply message) {
 
+    }
+
+    @Override
+    public void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves) {
+        sendMessage(new StockMarketResourcesReq(resources, numExtraShelves));
     }
 
     public void stopTimer(){
