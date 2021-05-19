@@ -43,7 +43,7 @@ public class FaithPointsRequirement extends Requirement {
 
     @Override
     public String print() {
-        return "14" + Color.ANSI_RED.escape() + "†" + Color.ANSI_WHITE.escape();
+        return "14 " + Color.ANSI_RED.escape() + "†                                " + Color.ANSI_WHITE.escape();
 
 
     }

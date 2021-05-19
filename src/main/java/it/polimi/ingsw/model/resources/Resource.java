@@ -91,6 +91,6 @@ public class Resource extends Item {
 
     @Override
     public String print() {
-        return null;
+        return "? ";
     }
 }

@@ -62,6 +62,10 @@ public class ColorRequirement extends Requirement {
             p.append(colors.get(color) + " " + color.print() + " ");
         }
         p.append("                ");
+        if(colors.size() == 2){
+            p.append("          ");
+        }
+
         return p.toString();
 
     }
