@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
@@ -174,13 +175,40 @@ public class CliView extends View {
                 System.out.println("activate a leader card");
                 break;
             case "i" :
-                System.out.println("asking info");
+                chooseInfo();
                 break;
             default :
                 System.out.println("This command does not exist. Try again");
                 cmd = stdIn.nextLine();
         }
 
+    }
+
+    public void chooseInfo(){
+        String cmd = stdIn.nextLine();
+        switch(cmd.toLowerCase()){
+            case "w" :
+                System.out.println("checking warehouse");
+                clientModel.getPlayerBoard().getWarehouse().print();
+                break;
+            case "ft":
+                System.out.println("showing fait track");
+                clientModel.getPlayerBoard().getCoffer().print();
+                break;
+            case "c" :
+                System.out.println("coffer:");
+                clientModel.getPlayerBoard().getPath().print();
+                break;
+            case "da" :
+                System.out.println("development card area:");
+                clientModel.getPlayerBoard().getDevelopmentCardsArea().print();
+                break;
+            case "lc" :
+                System.out.println("leader cards:");
+                clientModel.getLeaderCards().get(1).print();
+                clientModel.getLeaderCards().get(2).print();
+                break;
+        }
     }
 
     public void buyDevCard(){
@@ -362,7 +390,7 @@ public class CliView extends View {
             }
         }else if (numExtraShelves == 2) {
             for (Resource resource : resources) {
-                System.out.println("Incomin resource: " + resource.print());
+                System.out.println("Incoming resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\", \"se\" to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");

@@ -94,6 +94,18 @@ public class LeaderCard extends Card {
         return stringBuilder.toString();
     }
 
+    public String printActive(){
+
+        StringBuilder stringBuilder = new StringBuilder();
+        if(isActive()){
+            stringBuilder.append("active     ");
+
+        }
+        else
+            stringBuilder.append("not active");
+        return stringBuilder.toString();
+    }
+
     @Override
     public String print() {
        StringBuilder stringBuilder = new StringBuilder();
@@ -103,6 +115,7 @@ public class LeaderCard extends Card {
                     .append("║ req: "   + requirement.print() + "    ║\n")
                     .append("║ vp: " + getVictoryPoints() +  spaceForPoints() + "                                       ║\n")
                     .append("║ effect: " + effect.print() + "                              ║\n")
+                    .append("║ status: " + printActive() + "                           ║\n")
                     .append("╚══════════════════════════════════════════════╝" );
 
        return stringBuilder.toString();

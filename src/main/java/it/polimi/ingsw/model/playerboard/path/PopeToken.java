@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.playerboard.path;
 
-public class PopeToken {
+import it.polimi.ingsw.view.CliPrinter;
+
+public class PopeToken  {
 
     private boolean faceUp;
     private final int victoryPoints;
@@ -21,5 +23,6 @@ public class PopeToken {
     public int getVictoryPoints() {
         return victoryPoints;
     }
+
 
 }
