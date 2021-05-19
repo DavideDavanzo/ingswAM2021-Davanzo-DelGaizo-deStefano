@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.Discount;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
@@ -230,6 +231,14 @@ public class Player {
 
     public ArrayList<Item> getItemsToArrangeInWarehouse() {
         return itemsToArrangeInWarehouse;
+    }
+
+    public int extraShelvesCount() {
+        int count = 0;
+        for(LeaderCard l : getLeaderCards()) {
+            if(l.getEffect() instanceof ExtraShelfEffect && l.isActive()) count++;
+        }
+        return count;
     }
 
 }

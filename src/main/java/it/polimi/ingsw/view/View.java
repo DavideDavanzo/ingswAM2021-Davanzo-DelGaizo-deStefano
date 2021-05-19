@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.observingPattern.Observable;
@@ -20,6 +21,10 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void askBlankResources(String msg);
 
+    public abstract void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves);
+
+    public abstract void askToChangeWhiteMarbles(ArrayList<Item> items, int count);
+
     public abstract void showLogin(String msg, boolean successful);
 
     public abstract void showError(String msg);
@@ -27,8 +32,6 @@ public abstract class View extends Observable implements Observer {
     public abstract void showMessage(String msg);
 
     public abstract void onLoginReply(LoginReply message);
-
-    public abstract void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves);
 
     public abstract void checkConnection();
 

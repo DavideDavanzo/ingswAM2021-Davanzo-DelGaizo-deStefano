@@ -8,13 +8,14 @@ import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
-import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.BuyCardCmd;
+import it.polimi.ingsw.network.messages.ChangeWhiteMarbleReply;
 import it.polimi.ingsw.network.messages.MarketResourcesCmd;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -81,7 +82,7 @@ public class InGameState extends GameState {
     public void process(MarketResourcesCmd marketResourcesCmd) throws InvalidStateException {
         char line = marketResourcesCmd.getLine();
         int index = marketResourcesCmd.getIndex();
-        ArrayList<Item> resourcesFromMarket = new ArrayList<>();
+        ArrayList<Item> resourcesFromMarket;
 
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(marketResourcesCmd.getUsername());
@@ -116,7 +117,7 @@ public class InGameState extends GameState {
             }
             currentPlayer.setItemsToArrangeInWarehouse(temporaryItems);
             currentView.showMessage("Items taken from the Market successfully!");
-            //TODO: currentView.askToArrangeItemsInWarehouse();
+            currentView.askToStockMarketResources(temporaryItems, currentPlayer.extraShelvesCount());
         }
 
         else {
@@ -139,16 +140,26 @@ public class InGameState extends GameState {
             currentPlayer.setItemsToArrangeInWarehouse(temporaryItems);
 
             if(blankResourcesToSet == 0) {
-                //TODO: currentView.askToArrangeItemsInWarehouse();
+                currentView.showMessage("Items taken from the Market successfully!");
+                currentView.askToStockMarketResources(temporaryItems, currentPlayer.extraShelvesCount());
             }
             else {
-                //TODO: currentView.askToSetBlankResources();
+                ArrayList<Item> obtainableItems = new ArrayList<>();
+                for(Marble m : currentPlayer.getExtraMarbles()) obtainableItems.add(m.returnItem());
+                currentView.askToChangeWhiteMarbles(obtainableItems, blankResourcesToSet);
             }
         }
 
     }
 
-    
+    @Override
+    public void process(ChangeWhiteMarbleReply changeWhiteMarbleReply) throws InvalidStateException {
+        Player currentPlayer = gameController.getCurrentPlayer();
+        ArrayList<Item> itemsToArrange = currentPlayer.getItemsToArrangeInWarehouse();
 
+        itemsToArrange.addAll(changeWhiteMarbleReply.getChangedItems());
+
+        gameController.getVirtualViewMap().get(changeWhiteMarbleReply.getUsername()).askToStockMarketResources(itemsToArrange, currentPlayer.extraShelvesCount());
+    }
 
 }

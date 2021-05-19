@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.Message;
@@ -40,7 +41,7 @@ public class GuiView extends View{
     }
 
     @Override
-    public void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves) {
+    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
 
     }
 

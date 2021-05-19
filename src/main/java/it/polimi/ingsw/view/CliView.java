@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
@@ -303,13 +304,13 @@ public class CliView extends View {
     }
 
     @Override
-    public void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves) {
+    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
         System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
         if(numExtraShelves == 0) {
-            for (Resource resource : resources) {
+            for (Item resource : resources) {
                 System.out.println("Incoming resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't' to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
@@ -333,7 +334,7 @@ public class CliView extends View {
                 }
             }
         } else if(numExtraShelves == 1) {
-            for (Resource resource : resources) {
+            for (Item resource : resources) {
                 System.out.println("Incomin resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\" to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
@@ -361,8 +362,8 @@ public class CliView extends View {
                 }
             }
         }else if (numExtraShelves == 2) {
-            for (Resource resource : resources) {
-                System.out.println("Incomin resource: " + resource.print());
+            for (Item resource : resources) {
+                System.out.println("Incoming resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\", \"se\" to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");
