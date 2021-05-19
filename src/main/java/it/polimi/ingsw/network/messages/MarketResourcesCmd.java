@@ -17,4 +17,12 @@ public class MarketResourcesCmd extends Command{
     public void apply(View view) {
 
     }
+
+    public char getLine() {
+        return line;
+    }
+
+    public int getIndex() {
+        return index;
+    }
 }

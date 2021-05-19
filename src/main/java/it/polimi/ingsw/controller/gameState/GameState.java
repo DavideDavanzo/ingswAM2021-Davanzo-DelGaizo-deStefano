@@ -52,6 +52,10 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
+    public void process(MarketResourcesCmd marketResourcesCmd) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
+
     public void process(PingMessage pingMessage){
         gameController.notify();
     }

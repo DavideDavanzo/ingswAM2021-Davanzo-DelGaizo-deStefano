@@ -40,6 +40,8 @@ public class Player {
     private ArrayList<Trade> extraTrades;
     private boolean activeTrade;
 
+    private ArrayList<Item> itemsToArrangeInWarehouse;
+
     private int victoryPoints;
 
     /**
@@ -149,6 +151,10 @@ public class Player {
         this.victoryPoints =victoryPoints;
     }
 
+    public void setItemsToArrangeInWarehouse(ArrayList<Item> itemsToArrangeInWarehouse) {
+        this.itemsToArrangeInWarehouse = itemsToArrangeInWarehouse;
+    }
+
     public void pay(DevelopmentCard developmentCard) throws NotEnoughResourcesException, InvalidInputException {
 
         ArrayList<Resource> devCost = new ArrayList<>(developmentCard.getCost().size());
@@ -186,6 +192,14 @@ public class Player {
         this.getPlayerBoard().getPath().moveForward(steps);
     }
 
+    public boolean hasTwoWhiteMarblePowers() {
+        int count = 0;
+        for(LeaderCard l : leaderCards) {
+            if(l.isActive() && (l.getEffect() instanceof WhiteMarbleEffect)) count++;
+        }
+        return count==2 ? true : false;
+    }
+
     public PlayerBoard getPlayerBoard() {
         return playerBoard;
     }
@@ -212,6 +226,10 @@ public class Player {
 
     public Warehouse getWarehouse() {
         return this.getPlayerBoard().getWarehouse();
+    }
+
+    public ArrayList<Item> getItemsToArrangeInWarehouse() {
+        return itemsToArrangeInWarehouse;
     }
 
 }

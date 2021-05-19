@@ -105,4 +105,8 @@ public class DevelopmentCardsArea {
         return thirdStack;
     }
 
+    public Stack<DevelopmentCard>[] getArea() {
+        return area;
+    }
+
 }
