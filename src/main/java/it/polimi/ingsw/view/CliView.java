@@ -6,11 +6,12 @@ import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -157,15 +158,12 @@ public class CliView extends View {
                 System.out.println("PROVA CMD SWITCH CASE");
                 break;
             case "b" :
-                System.out.println("buying a card");
                 buyDevCard();
                 break;
             case "m" :
-                System.out.println("going to the market");
                 getMarketResources();
                 break;
             case "p" :
-                System.out.println("activating production");
                 activateProduction();
                 break;
             case "t" :
@@ -175,7 +173,7 @@ public class CliView extends View {
                 System.out.println("activate a leader card");
                 break;
             case "i" :
-                System.out.println("asking info");
+                chooseInfo();
                 break;
             default :
                 System.out.println("This command does not exist. Try again");
@@ -186,7 +184,7 @@ public class CliView extends View {
 
     public void buyDevCard(){
         //ask server card market situation
-        System.out.println("Choose color");
+        System.out.println("Choose color: ");
         String user = stdIn.nextLine();
         ECardColor color = null;
         switch (user.toLowerCase()){
@@ -207,6 +205,7 @@ public class CliView extends View {
         }
         int level;
         do{
+            System.out.println("Choose level: ");
             level = Integer.parseInt(stdIn.nextLine());
         } while(level < 1 || level > 4);
 
@@ -231,7 +230,7 @@ public class CliView extends View {
         sendMessage(marketResourcesCmd);
     }
 
-    public void activateProduction(){
+    private void activateProduction(){
         //ask client's model my dev area
         String userInput;
         ArrayList<Integer> choices = new ArrayList<>();
@@ -273,6 +272,25 @@ public class CliView extends View {
 
         //TODO: assemble and send correct command
 
+    }
+
+    private void chooseInfo(){
+        System.out.println("Which item would you like to see?");
+        System.out.println("p -> my board");
+        System.out.println("w -> my warehouse");
+        System.out.println("c -> my coffer");
+        System.out.println("p -> my faith path");
+        System.out.println("d -> my development cards");
+        System.out.println("l -> my leader cards");
+        System.out.println("rm -> resources market");
+        System.out.println("cm -> cards market");
+        String userInput;
+        switch (userInput = stdIn.nextLine()){
+            case "w" :
+                clientModel.getPlayerBoard().getWarehouse().print();
+                break;
+            default:
+        }
     }
 
     @Override
@@ -395,6 +413,26 @@ public class CliView extends View {
             }
         }
         sendMessage(new ArrangeInWarehouseCmd(choices));
+    }
+
+    @Override
+    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+        System.out.println("Found " + count + " white marble(s), but you have multiple leader effects activated");
+        System.out.println("For each white marble, choose one of this: ");
+        int i=1;
+        for(Item item : items){
+            System.out.println((i++) + " -> " + item.print());
+        }
+        int temp;
+        ArrayList<Item> choices = new ArrayList<>();
+        for(i=0; i<count; i++){
+            do {
+                System.out.println("Choice " + (i+1) + " :");
+                temp = Integer.parseInt(stdIn.nextLine());
+            }while(temp<1 || temp>items.size());
+            choices.add(items.get(temp-1).clone());
+        }
+        sendMessage(new ChangeWhiteMarbleReply(choices));
     }
 
     @Override
