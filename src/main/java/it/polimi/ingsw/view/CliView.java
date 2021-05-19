@@ -306,11 +306,11 @@ public class CliView extends View {
     public void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
-        System.out.println("This is your current wharehouse...");
+        System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
         if(numExtraShelves == 0) {
             for (Resource resource : resources) {
-                System.out.println("Incomin resource: " + resource.print());
+                System.out.println("Incoming resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't' to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");
@@ -393,7 +393,7 @@ public class CliView extends View {
                 }
             }
         }
-        sendMessage(new ResourcesToWhCmd(choices));
+        sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
     @Override

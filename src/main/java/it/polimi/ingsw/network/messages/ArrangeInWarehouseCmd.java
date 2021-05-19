@@ -6,19 +6,19 @@ import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
 
-public class ResourcesToWhCmd extends Message{
+public class ArrangeInWarehouseCmd extends Message{
 
     private ArrayList<Integer> choices;
 
-    public ResourcesToWhCmd(){
+    public ArrangeInWarehouseCmd(){
         super();
     }
 
-    public ResourcesToWhCmd(String msg){
+    public ArrangeInWarehouseCmd(String msg){
         super(msg);
     }
 
-    public ResourcesToWhCmd(ArrayList<Integer> choices){
+    public ArrangeInWarehouseCmd(ArrayList<Integer> choices){
         this.choices = choices;
     }
 

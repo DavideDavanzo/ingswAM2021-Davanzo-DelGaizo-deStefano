@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.network.messages.TurnWakeMessage;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class TurnController {
         updateTurnCounter();
 
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + "'s turn started . ." , currentPlayer.getNickname());
-        virtualViewMap.get(currentPlayer.getNickname()).showMessage("Your turn started . .\n" + "Pick your moves!");
+        virtualViewMap.get(currentPlayer.getNickname()).sendMessage(new TurnWakeMessage());
     }
 
     public void updateTurnCounter() {
