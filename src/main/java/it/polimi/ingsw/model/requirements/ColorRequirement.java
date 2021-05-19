@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.requirements;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.view.CliBuilder;
@@ -57,9 +58,14 @@ public class ColorRequirement extends Requirement {
     @Override
     public String print() {
         StringBuilder p = new StringBuilder();
-        for (ECardColor color : colors.keySet()) {
+        for (ECardColor color : colors.keySet()){
             p.append(colors.get(color) + " " + color.print() + " ");
         }
+        p.append("                ");
+        if(colors.size() == 2){
+            p.append("          ");
+        }
+
         return p.toString();
 
     }

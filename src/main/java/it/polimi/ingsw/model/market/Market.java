@@ -4,13 +4,15 @@ import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.view.CliPrinter;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
-public class Market {
+public class Market implements CliPrinter {
     private Marble[][] marketMatrix;
     private Marble spareMarble;
     private ArrayList<Marble> marbleArrayList = new ArrayList<>();
@@ -46,6 +48,7 @@ public class Market {
                 marketMatrix[i][j] = marbleArrayList.get(i * 4 + j);
             }
         }
+        spareMarble = marbleArrayList.get(12);
     }
 
     public void shuffle (ArrayList<Marble> marbles) {
@@ -154,6 +157,37 @@ public class Market {
         return true;
     }
 
+    @Override
+    public String toString() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 4; j++){
+                stringBuilder.append(marketMatrix[i][j] +"  ");
+            }
+            stringBuilder.append("\n");
+        }
+        stringBuilder.append("\n" + spareMarble.toString());
+
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public String print() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(spareMarble.print() + " ↓ ↓ ↓ ↓");
+        for(int i = 0; i < 3; i++){
+            stringBuilder.append( "\n");
+            stringBuilder.append("→ ");
+            for(int j = 0; j < 4; j++){
+                stringBuilder.append(marketMatrix[i][j].print() + " ");
+            }
+        }
+        return stringBuilder.toString();
+    }
 }
 
 

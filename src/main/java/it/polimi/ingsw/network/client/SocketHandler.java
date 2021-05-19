@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.network.messages.Command;
+import it.polimi.ingsw.network.messages.PingMessage;
 import it.polimi.ingsw.network.observingPattern.Observable;
 import it.polimi.ingsw.network.messages.Message;
 
@@ -20,49 +21,42 @@ public class SocketHandler extends Observable {
     private final Socket socket;
 
     public SocketHandler(Socket socket){
-
         this.socket = socket;
-
         try {
             socketIn = new Scanner(this.socket.getInputStream());
             socketOut = new PrintWriter(this.socket.getOutputStream(), true);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         objectMapper = new ObjectMapper();
-
     }
 
     public void sendMessage(Message message){
-
         message.setUsername(username);
-
         try {
             socketOut.println(objectMapper.writeValueAsString(message));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
+        //System.out.println("Sent: " + objectMapper.writeValueAsString(message));
     }
 
     public void sendMessage(Command command){
-
         command.setUsername(username);
-
         try {
             socketOut.println(objectMapper.writeValueAsString(command));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-
+        //System.out.println("Sent: " + objectMapper.writeValueAsString(command));
     }
 
     public void waitServerMessage(){
         String msg;
         while (!Thread.currentThread().isInterrupted()) {
+            msg = socketIn.nextLine();
+            //System.out.println("Received: " + msg);
             try {
-                System.out.println("Received: " + (msg = socketIn.nextLine()));
                 notifyObservers(objectMapper.readValue(msg , Message.class));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();

@@ -48,7 +48,7 @@ public class ResourceRequirement extends Requirement {
 
     @Override
     public String print() {
-        return resource.print();
+        return resource.getVolume() + " " + resource.print() + "                                ";
     }
 
 }

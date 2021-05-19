@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.effects.*;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,7 +24,7 @@ import java.util.Random;
 /**
  *Abstract class which represents Marble
  */
-public abstract class Marble {
+public abstract class Marble implements CliPrinter {
 
   public Marble(){}
 

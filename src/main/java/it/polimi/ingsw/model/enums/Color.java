@@ -9,6 +9,7 @@ public enum Color {
     ANSI_GREY("\u001B[37m"),
     ANSI_WHITE("\u001B[0m");
 
+
     public static final String RESET = "\u001B[0m";
 
     private String escape;

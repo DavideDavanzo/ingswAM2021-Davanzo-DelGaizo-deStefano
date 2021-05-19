@@ -5,19 +5,24 @@ import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.cards.DevCardParser;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
+import it.polimi.ingsw.view.CliPrinter;
 
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 /**
  * <h1>Card Market</h1>
  * A Card Market contains various {@link Deck Decks} arranged in this order:
  * Green, Blue, Yellow, Purple. The card's level decreases from the top to the bottom.
  */
-public class CardMarket {
+public class CardMarket implements CliPrinter {
 
     private Deck[][] decks = new Deck[3][4];
 
@@ -222,4 +227,50 @@ public class CardMarket {
                 "Available Cards :" + '\n' +
                 s.toString();
     }
+
+
+
+
+    @Override
+    public String print() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(Deck[] line : decks){
+            for(Deck deck : line){
+                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() + "╔═════════════════════════════════════╗" +Color.ANSI_WHITE.escape() );
+            }
+            stringBuilder.append("\n");
+
+            for(Deck deck : line){
+                stringBuilder .append(ECardColor.getColorMap().get(deck.getColor()).escape() + "║ DEV CARD " + "lvl " + deck.getCards().peek().getLevel() + "                      ║");
+            }
+            stringBuilder.append("\n");
+
+            for(Deck deck : line){
+                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + deck.getCards().peek().printCost() +  ECardColor.getColorMap().get(deck.getColor()).escape() +  "                  ║");
+            }
+            stringBuilder.append("\n");
+
+            for(Deck deck : line){
+                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + deck.getCards().peek().printTrade() +  ECardColor.getColorMap().get(deck.getColor()).escape() + "║");
+            }
+            stringBuilder.append("\n");
+
+            for(Deck deck : line){
+                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() +"║ vp : " + deck.getCards().peek().getVictoryPoints() + deck.getCards().peek().spaceForPoints() + "                             ║");
+            }
+            stringBuilder.append("\n");
+
+            for(Deck deck : line){
+                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape());
+            }
+            stringBuilder.append("\n");
+        }
+
+
+        return stringBuilder.toString();
+    }
+
+
 }

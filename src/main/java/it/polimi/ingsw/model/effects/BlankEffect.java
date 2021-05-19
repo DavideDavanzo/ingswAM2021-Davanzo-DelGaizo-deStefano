@@ -26,6 +26,6 @@ public class BlankEffect extends Effect {
 
     @Override
     public String print() {
-        return "No effect";
+        return "None ! ";
     }
 }

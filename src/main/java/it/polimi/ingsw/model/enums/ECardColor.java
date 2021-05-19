@@ -16,7 +16,7 @@ public enum ECardColor implements CliPrinter {
 
 
     public String print(ECardColor color) {
-        return colorMap.get(color).escape() + "█" + Color.RESET;
+        return colorMap.get(color).escape() + " █" + Color.RESET;
     }
 
     @Override

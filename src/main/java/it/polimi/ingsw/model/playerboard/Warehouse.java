@@ -2,14 +2,16 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.ArrayList;
 
 /**
  * Class which represents the player's warehouse, where he stocks incoming resources from the market
  */
-public class Warehouse {
+public class Warehouse implements CliPrinter {
 
     /**
      * It is the upper shelf, which can contain up to one resource
@@ -155,5 +157,25 @@ public class Warehouse {
     }
 
 
+    @Override
+    public String print() {
 
-}
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("      ╔═════╗\n")
+                     .append("      ║ " + getFirstShelf().getDimension() + " " + getFirstShelf().getShelfResource().print() + "║\n")
+                     .append("      ╚═════╝\n")
+                 .append("   ╔═══════════╗\n")
+                 .append("   ║    "  + getSecondShelf().getDimension() + " " +getSecondShelf().getShelfResource().print() + "   ║\n")
+                 .append("   ╚═══════════╝\n")
+             .append("╔══════════════════╗\n")
+             .append("║       "+ getThirdShelf().getDimension() +  " "+ getThirdShelf().getShelfResource().print() + "       ║\n")
+             .append("╚══════════════════╝\n");
+
+        return stringBuilder.toString();
+
+        }
+
+
+
+    }
+

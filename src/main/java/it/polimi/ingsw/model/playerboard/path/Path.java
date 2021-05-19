@@ -1,12 +1,15 @@
 package it.polimi.ingsw.model.playerboard.path;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.ArrayList;
 
-public class Path {
+public class Path implements CliPrinter {
 
     private final Square[] track = new Square[25];
     private final ArrayList<PopeToken> popeTokens = new ArrayList<>();
@@ -100,4 +103,42 @@ public class Path {
         return getCurrentFaithPoints().getVolume();
     }
 
+    public String crossValue(int value){
+        int position = getCurrentPositionAsInt();
+        String box;
+        if(position == value){
+            box = Color.ANSI_RED.escape() + "†" + Color.ANSI_WHITE.escape();
+        }
+        else
+            box = String.valueOf(( value));
+
+        return box;
+    }
+
+    public String popeToken(){
+        String sign = "";
+          if(isVaticanReport(getCurrentPositionAsInt())) {
+              sign = "֍";
+          }
+          else
+              sign = "X";
+
+          return sign;
+    }
+
+    @Override
+    public String print() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("            ┌─────"+ Color.ANSI_RED.escape() +"──────────────"+ Color.ANSI_WHITE.escape() +"─────────┐    ┌─────────┐ "+ Color.ANSI_RED.escape() +"   ┌─────────────────────────────┐"+ Color.ANSI_WHITE.escape() +"\n")
+                     .append("            │  " + crossValue(5) + Color.ANSI_RED.escape() + " │ " + crossValue(6) +  " │ " + crossValue(7) + "  │ " + crossValue(8) + "  │ "+ Color.ANSI_WHITE.escape()+ crossValue(9) +"  │  " + crossValue(10) + " │    │    " + popeToken() +"    │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(19) + " │ "+ crossValue(20) + " │ " + crossValue(21) + " │ " + crossValue(22) +" │ " + crossValue(23) + " │ " + crossValue(24) + " │"+ Color.ANSI_WHITE.escape() + "\n")
+                     .append("            │────"+ Color.ANSI_RED.escape() +"┌──────────────"+ Color.ANSI_WHITE.escape() +"────┐────│    │         │  "+ Color.ANSI_RED.escape() +"  │────┌────────────────────────┘"+ Color.ANSI_WHITE.escape() +"\n")
+                     .append("            │ "+ crossValue(4) + "  │ ┌─────────┐      │ " + crossValue(11) + " │    └─────────┘    │ " + crossValue(18) + " │ ┌─────────┐ \n")
+                     .append("    ┌───────┘────│ │    " + popeToken() + "    │      "+ Color.ANSI_RED.escape() +"│────└───────────────────"+ Color.ANSI_WHITE.escape() +"┘────│ │    " + popeToken() + "    │\n")
+                     .append("    │ " + crossValue(1) + " │ " + crossValue(2) + " │ " + crossValue(3) + "  │ │         │   "+ Color.ANSI_RED.escape() +"   │ " + crossValue(12) + " │ "+ crossValue(13) + " │ " + crossValue(14) +" │ "+ crossValue(15) + " │ " + crossValue(16) + " │ "+ Color.ANSI_WHITE.escape() +crossValue(17) + " │ │         │\n ")
+                     .append("   └────────────┘ └─────────┘"+ Color.ANSI_RED.escape() +"      └────────────────────────"+ Color.ANSI_WHITE.escape() +"─────┘ └─────────┘    ");
+
+
+        return stringBuilder.toString();
+    }
 }

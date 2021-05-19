@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.resources.*;
 
 /**
@@ -109,4 +110,8 @@ public class Shelf {
     public int getDimension() {
         return dimension;
     }
+
+
+
+
 }

@@ -4,14 +4,22 @@ import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
 
-public class TimeoutMessage extends Message{
+import java.util.ArrayList;
 
-    public TimeoutMessage(){
+public class ResourcesToWhCmd extends Message{
+
+    private ArrayList<Integer> choices;
+
+    public ResourcesToWhCmd(){
         super();
     }
 
-    public TimeoutMessage(String msg){
+    public ResourcesToWhCmd(String msg){
         super(msg);
+    }
+
+    public ResourcesToWhCmd(ArrayList<Integer> choices){
+        this.choices = choices;
     }
 
     @Override
@@ -21,7 +29,7 @@ public class TimeoutMessage extends Message{
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException {
-        gameState.process(this);
+        //TODO: gameState.process(this);
     }
 
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.market;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.resources.Coin;
 import it.polimi.ingsw.model.resources.Item;
 
@@ -24,5 +25,10 @@ public class YellowMarble extends Marble implements Serializable {
     @Override
     public String toString() {
         return "Yellow Marble";
+    }
+
+    @Override
+    public String print() {
+        return Color.ANSI_YELLOW.escape() + "●" + Color.ANSI_WHITE.escape();
     }
 }

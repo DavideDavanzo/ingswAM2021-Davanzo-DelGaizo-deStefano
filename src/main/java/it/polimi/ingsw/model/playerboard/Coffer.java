@@ -2,7 +2,9 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.resources.*;
+import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +13,7 @@ import java.util.Collections;
 /**
  * Coffer is the place where the player stores his production resources
  */
-public class Coffer {
+public class Coffer implements CliPrinter {
 
     private Resource coins = new Coin();
     private Resource stones = new Stone();
@@ -53,5 +55,33 @@ public class Coffer {
 
         return totalResources;
     }
+
+    public String printResourceCoffer(){
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Resource resource : getAllCofferResources()){
+            stringBuilder.append(resource.print());
+        }
+        return stringBuilder.toString();
+    }
+
+
+
+    @Override
+    public String print() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+
+        stringBuilder.append("╔════════════════════╗\n")
+                     .append("║ "  + getCoins().getVolume() + " " + getCoins().print() + "           " + getShields().getVolume() + " " + getShields().print() + "║ \n")
+                     .append("║                    ║ \n")
+                     .append("║ " + getServants().getVolume() + " " + getServants().print() + "           "                      + getStones().getVolume() + " " + getStones().print() + "║\n")
+                     .append("╚════════════════════╝");
+
+        Color.ANSI_WHITE.escape();
+        return stringBuilder.toString();
+    }
+
 
 }

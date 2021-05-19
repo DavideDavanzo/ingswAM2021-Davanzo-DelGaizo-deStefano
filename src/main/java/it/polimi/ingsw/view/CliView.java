@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
@@ -15,10 +17,12 @@ public class CliView extends View {
 
     private final SocketHandler socketHandler;
     private final Scanner stdIn;
+    private ClientModel clientModel;
 
     public CliView(SocketHandler socketHandler){
         this.socketHandler = socketHandler;
         stdIn = new Scanner(System.in);
+        clientModel = new ClientModel();
     }
 
     @Override
@@ -109,9 +113,8 @@ public class CliView extends View {
     public void askBlankResources(String msg) {
 
         int cont = Integer.parseInt(msg);
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Server: Choose " + msg + " resources to start");
+        System.out.println("Server: Choose " + msg + " resource(s) to start");
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
@@ -119,8 +122,12 @@ public class CliView extends View {
         for(int i=0; i<cont; i++){
 
             System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
-
-            String temp = scanner.nextLine();
+            String temp = stdIn.nextLine();
+            while (!temp.toLowerCase().equals("coin") && !temp.toLowerCase().equals("shield") && !temp.toLowerCase().equals("stone") && !temp.toLowerCase().equals("servant")){
+                System.out.println("Error - try again");
+                System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
+                temp = stdIn.nextLine();
+            }
 
             stringBuilder.append("{\"@type\":" +"\"" + temp.toLowerCase()+ "\"" + ",\"volume\":1}");
 
@@ -137,7 +144,6 @@ public class CliView extends View {
 
     public void login() {
         System.out.println("Please enter your username: ");
-        Scanner stdIn = new Scanner(System.in);
         socketHandler.setUsername(stdIn.nextLine());
         //TODO: validate username
         sendMessage(new LoginRequest());
@@ -294,6 +300,100 @@ public class CliView extends View {
         showMessage(message.getMsg());
         if(!message.isSuccessful())
             login();
+    }
+
+    @Override
+    public void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves) {
+        ArrayList<Integer> choices = new ArrayList<>();
+        String userInput;
+        System.out.println("This is your current wharehouse...");
+        System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
+        if(numExtraShelves == 0) {
+            for (Resource resource : resources) {
+                System.out.println("Incomin resource: " + resource.print());
+                System.out.println("Where would you want to stock it? Type 'f', 's', 't' to choose warehouse shelf or 'd' to discard");
+                System.out.println("'f' -> first shelf");
+                System.out.println("'s' -> second shelf");
+                System.out.println("'t' -> third shelf");
+                switch (userInput = stdIn.nextLine()) {
+                    case "d":
+                        choices.add(0);
+                        break;
+                    case "f":
+                        choices.add(1);
+                        break;
+                    case "s":
+                        choices.add(2);
+                        break;
+                    case "t":
+                        choices.add(3);
+                        break;
+                    default:
+                        System.out.println("Error - command not accepted, try again");
+                }
+            }
+        } else if(numExtraShelves == 1) {
+            for (Resource resource : resources) {
+                System.out.println("Incomin resource: " + resource.print());
+                System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\" to choose warehouse shelf or 'd' to discard");
+                System.out.println("'f' -> first shelf");
+                System.out.println("'s' -> second shelf");
+                System.out.println("'t' -> third shelf");
+                System.out.println("'fe' -> extra shelf");
+                switch (userInput = stdIn.nextLine()) {
+                    case "d":
+                        choices.add(0);
+                        break;
+                    case "f":
+                        choices.add(1);
+                        break;
+                    case "s":
+                        choices.add(2);
+                        break;
+                    case "t":
+                        choices.add(3);
+                        break;
+                    case "fe":
+                        choices.add(4);
+                        break;
+                    default:
+                        System.out.println("Error - command not accepted, try again");
+                }
+            }
+        }else if (numExtraShelves == 2) {
+            for (Resource resource : resources) {
+                System.out.println("Incomin resource: " + resource.print());
+                System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\", \"se\" to choose warehouse shelf or 'd' to discard");
+                System.out.println("'f' -> first shelf");
+                System.out.println("'s' -> second shelf");
+                System.out.println("'t' -> third shelf");
+                System.out.println("'fe' -> first extra shelf");
+                System.out.println("'se' -> second extra shelf");
+                switch (userInput = stdIn.nextLine()) {
+                    case "d":
+                        choices.add(0);
+                        break;
+                    case "f":
+                        choices.add(1);
+                        break;
+                    case "s":
+                        choices.add(2);
+                        break;
+                    case "t":
+                        choices.add(3);
+                        break;
+                    case "fe":
+                        choices.add(4);
+                        break;
+                    case "se":
+                        choices.add(5);
+                        break;
+                    default:
+                        System.out.println("Error - command not accepted, try again");
+                }
+            }
+        }
+        sendMessage(new ResourcesToWhCmd(choices));
     }
 
     @Override

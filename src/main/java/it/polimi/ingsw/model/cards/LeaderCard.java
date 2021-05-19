@@ -86,16 +86,24 @@ public class LeaderCard extends Card {
         return super.getVictoryPoints();
     }
 
+    public String spaceForPoints(){
+        StringBuilder stringBuilder = new StringBuilder();
+        if(getVictoryPoints() < 10){
+            stringBuilder.append(" ");
+        }
+        return stringBuilder.toString();
+    }
+
     @Override
     public String print() {
        StringBuilder stringBuilder = new StringBuilder();
 
-       stringBuilder.append("╔═════════════════╗\n")
-                    .append("║   LEADER CARD   ║\n")
-                    .append("║ req: "   + requirement.print() + "          ║\n")
-                    .append("║ vp: " + getVictoryPoints() +    "           ║\n")
-                    .append("║ effect: " + effect.print() +  "   ║\n")
-                    .append("╚═════════════════╝" );
+       stringBuilder.append("╔══════════════════════════════════════════════╗\n")
+                    .append("║                  LEADER CARD                 ║\n")
+                    .append("║ req: "   + requirement.print() + "    ║\n")
+                    .append("║ vp: " + getVictoryPoints() +  spaceForPoints() + "                                       ║\n")
+                    .append("║ effect: " + effect.print() + "                              ║\n")
+                    .append("╚══════════════════════════════════════════════╝" );
 
        return stringBuilder.toString();
     }

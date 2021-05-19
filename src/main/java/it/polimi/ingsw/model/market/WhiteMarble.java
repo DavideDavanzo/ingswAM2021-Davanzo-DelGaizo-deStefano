@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.market;
 
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 
@@ -22,5 +23,10 @@ public class WhiteMarble extends Marble {
     @Override
     public String toString() {
         return "White Marble";
+    }
+
+    @Override
+    public String print() {
+        return Color.ANSI_WHITE.escape() + "●";
     }
 }

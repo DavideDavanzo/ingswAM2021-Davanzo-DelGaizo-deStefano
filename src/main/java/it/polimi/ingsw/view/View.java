@@ -1,9 +1,8 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.LoginReply;
-import it.polimi.ingsw.network.messages.PingMessage;
 import it.polimi.ingsw.network.observingPattern.Observable;
 import it.polimi.ingsw.network.observingPattern.Observer;
 
@@ -28,6 +27,8 @@ public abstract class View extends Observable implements Observer {
     public abstract void showMessage(String msg);
 
     public abstract void onLoginReply(LoginReply message);
+
+    public abstract void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves);
 
     public abstract void checkConnection();
 
