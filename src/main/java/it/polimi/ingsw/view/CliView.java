@@ -185,14 +185,22 @@ public class CliView extends View {
     }
 
     public void chooseInfo(){
+
+        System.out.println("which item would you like to see?");
+        System.out.println("w -> warehouse");
+        System.out.println("ft -> faith track");
+        System.out.println("c -> coffer");
+        System.out.println("da -> development card area");
+        System.out.println("lc -> leader cards");
+
         String cmd = stdIn.nextLine();
         switch(cmd.toLowerCase()){
             case "w" :
-                System.out.println("checking warehouse");
+                System.out.println("warehouse:");
                 clientModel.getPlayerBoard().getWarehouse().print();
                 break;
             case "ft":
-                System.out.println("showing fait track");
+                System.out.println("fait track:");
                 clientModel.getPlayerBoard().getCoffer().print();
                 break;
             case "c" :

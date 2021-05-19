@@ -69,10 +69,8 @@ public class cliPrintTest {
         public void printPath() throws InvalidInputException {
             //System.out.println("PATH:\n");
 
-
             Path path = new Path();
 
-            path.getPopeTokens().get(1).isFaceUp();
             path.moveForward(8);
            // System.out.println(path.print());
         }
