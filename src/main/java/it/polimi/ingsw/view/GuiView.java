@@ -46,7 +46,22 @@ public class GuiView extends View{
     }
 
     @Override
+    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+
+    }
+
+    @Override
     public void checkConnection() {
+
+    }
+
+    @Override
+    public void chooseInfo() {
+
+    }
+
+    @Override
+    public void askCommand() {
 
     }
 

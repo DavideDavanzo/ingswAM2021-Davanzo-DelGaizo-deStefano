@@ -16,7 +16,8 @@ public class TurnWakeMessage extends Message {
 
     @Override
     public void apply(View view) {
-
+        System.out.println(msg);
+        view.askCommand();
     }
 
     @Override

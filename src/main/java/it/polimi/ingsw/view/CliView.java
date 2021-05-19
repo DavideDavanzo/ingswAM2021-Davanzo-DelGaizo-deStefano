@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.playerboard.Warehouse;
-import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
@@ -40,6 +39,7 @@ public class CliView extends View {
         thread.start();
     }
 
+    //DONE
     @Override
     public void askNumberOfPlayers() {
         System.out.println("Server: As no other available match already exists, you get to create a new one... ");
@@ -52,6 +52,7 @@ public class CliView extends View {
         }
     }
 
+    //DONE?
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
 
@@ -110,23 +111,33 @@ public class CliView extends View {
 
     }
 
+    //DONE?
     @Override
     public void askBlankResources(String msg) {
 
         int cont = Integer.parseInt(msg);
 
-        System.out.println("Server: Choose " + msg + " resource(s) to start");
+        System.out.println("Choose " + msg + " resource(s) to start");
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
 
         for(int i=0; i<cont; i++){
 
-            System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
+            System.out.println("Choose a resource:");
+            System.out.println("c -> coin");
+            System.out.println("sh -> shield");
+            System.out.println("st -> stone");
+            System.out.println("se -> servant");
+
             String temp = stdIn.nextLine();
-            while (!temp.toLowerCase().equals("coin") && !temp.toLowerCase().equals("shield") && !temp.toLowerCase().equals("stone") && !temp.toLowerCase().equals("servant")){
+            while (!temp.toLowerCase().equals("c") && !temp.toLowerCase().equals("sh") && !temp.toLowerCase().equals("st") && !temp.toLowerCase().equals("se")){
                 System.out.println("Error - try again");
-                System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
+                System.out.println("Choose a resource:");
+                System.out.println("c -> coin");
+                System.out.println("sh -> shield");
+                System.out.println("st -> stone");
+                System.out.println("se -> servant");
                 temp = stdIn.nextLine();
             }
 
@@ -150,73 +161,88 @@ public class CliView extends View {
         sendMessage(new LoginRequest());
     }
 
-    public void askCommand(){
+    //DONE?
+    @Override
+    public void askCommand() {
+        System.out.println("These are the commands allowed:");
+        System.out.println("b -> buy a card");
+        System.out.println("m -> take resources from market");
+        System.out.println("p -> activate production");
+        System.out.println("t -> toss leader card");
+        System.out.println("a -> activate leader card");
+        System.out.println("i -> ask info");
         String cmd = stdIn.nextLine();
-        switch(cmd.toLowerCase()){
-            case "prova" :
-                System.out.println("PROVA CMD SWITCH CASE");
-                break;
-            case "b" :
-                System.out.println("buying a card");
+        switch (cmd.toLowerCase()) {
+            case "b":
                 buyDevCard();
                 break;
-            case "m" :
+            case "m":
                 System.out.println("going to the market");
                 getMarketResources();
                 break;
-            case "p" :
+            case "p":
                 System.out.println("activating production");
                 activateProduction();
                 break;
-            case "t" :
+            case "t":
                 System.out.println("tossing a leader card");
                 break;
-            case "a" :
+            case "a":
                 System.out.println("activate a leader card");
                 break;
-            case "i" :
-                //chooseInfo();
+            case "i":
+                chooseInfo();
                 break;
-            default :
+            default:
                 System.out.println("This command does not exist. Try again");
-                cmd = stdIn.nextLine();
+                askCommand();
         }
-
     }
 
     public void chooseInfo(){
-
         System.out.println("which item would you like to see?");
-        System.out.println("w -> warehouse");
-        System.out.println("ft -> faith track");
-        System.out.println("c -> coffer");
-        System.out.println("da -> development card area");
-        System.out.println("lc -> leader cards");
+        System.out.println("w -> my warehouse");
+        System.out.println("ft -> my faith track");
+        System.out.println("c -> my coffer");
+        System.out.println("da -> my development cards");
+        System.out.println("lc -> my leader cards");
+        System.out.println("m -> market");
+        System.out.println("cm -> card market");
 
         String cmd = stdIn.nextLine();
-        switch(cmd.toLowerCase()){
-            case "w" :
+        switch (cmd.toLowerCase()) {
+            case "w":
                 System.out.println("warehouse:");
-                clientModel.getPlayerBoard().getWarehouse().print();
+                System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
                 break;
             case "ft":
                 System.out.println("fait track:");
-                clientModel.getPlayerBoard().getCoffer().print();
+                System.out.println(clientModel.getPlayerBoard().getPath().print());
                 break;
-            case "c" :
+            case "c":
                 System.out.println("coffer:");
-                clientModel.getPlayerBoard().getPath().print();
+                System.out.println(clientModel.getPlayerBoard().getCoffer().print());
                 break;
-            case "da" :
+            case "da":
                 System.out.println("development card area:");
-                clientModel.getPlayerBoard().getDevelopmentCardsArea().print();
+                System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
                 break;
-            case "lc" :
+            case "lc":
                 System.out.println("leader cards:");
-                clientModel.getLeaderCards().get(1).print();
-                clientModel.getLeaderCards().get(2).print();
+                System.out.println(clientModel.getLeaderCards().get(0).print());
+                System.out.println(clientModel.getLeaderCards().get(1).print());
                 break;
+            case "m" :
+                sendMessage(new MarketInfoRequest());
+                break;
+            case "cm" :
+                sendMessage(new CardsMarketInfoRequest());
+                break;
+            default:
+                System.out.println("Error - wrong format. Try again");
+                chooseInfo();
         }
+        //askCommand();
     }
 
     public void buyDevCard(){
@@ -312,7 +338,7 @@ public class CliView extends View {
 
     @Override
     public void askQuery(String msg) {
-        System.out.println("Server: " + msg);
+        System.out.println(msg);
         sendMessage(new ReplyMessage(stdIn.nextLine()));
     }
 
@@ -328,7 +354,7 @@ public class CliView extends View {
 
     @Override
     public void showMessage(String msg){
-        System.out.println("Server: " + msg);
+        System.out.println(msg);
     }
 
     @Override
@@ -339,13 +365,13 @@ public class CliView extends View {
     }
 
     @Override
-    public void askToStockMarketResources(ArrayList<Resource> resources, int numExtraShelves) {
+    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
         System.out.println("This is your current wharehouse...");
         System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
         if(numExtraShelves == 0) {
-            for (Resource resource : resources) {
+            for (Item resource : resources) {
                 System.out.println("Incomin resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't' to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
@@ -369,7 +395,7 @@ public class CliView extends View {
                 }
             }
         } else if(numExtraShelves == 1) {
-            for (Resource resource : resources) {
+            for (Item resource : resources) {
                 System.out.println("Incomin resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\" to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
@@ -397,7 +423,7 @@ public class CliView extends View {
                 }
             }
         }else if (numExtraShelves == 2) {
-            for (Resource resource : resources) {
+            for (Item resource : resources) {
                 System.out.println("Incoming resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\", \"se\" to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
@@ -429,7 +455,27 @@ public class CliView extends View {
                 }
             }
         }
-        sendMessage(new ResourcesToWhCmd(choices));
+        sendMessage(new ArrangeInWarehouseCmd(choices));
+    }
+
+    @Override
+    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+        System.out.println();
+        System.out.println();
+        int i=1;
+        for (Item item : items){
+            System.out.println();
+        }
+        int temp;
+        ArrayList<Item> choices = new ArrayList<>();
+        for(i=0; i<count; i++){
+            do{
+                System.out.println();
+                temp = Integer.parseInt(stdIn.nextLine());
+            }while(temp<1 || temp>items.size());
+            choices.add(items.get(temp-1).clone());
+        }
+        sendMessage(new ChangeWhiteMarbleReply(choices));
     }
 
     @Override

@@ -162,13 +162,13 @@ public class Warehouse implements CliPrinter {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("      ╔═════╗\n")
-                     .append("      ║ " + getFirstShelf().getDimension() + " " + getFirstShelf().getShelfResource().print() + "║\n")
+                     .append("      ║ " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getDimension():" -") + " " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().print():" ") + "║\n")
                      .append("      ╚═════╝\n")
                  .append("   ╔═══════════╗\n")
-                 .append("   ║    "  + getSecondShelf().getDimension() + " " +getSecondShelf().getShelfResource().print() + "   ║\n")
+                 .append("   ║    "  + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getDimension():" -") + " " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().print():" ") + "   ║\n")
                  .append("   ╚═══════════╝\n")
              .append("╔══════════════════╗\n")
-             .append("║       "+ getThirdShelf().getDimension() +  " "+ getThirdShelf().getShelfResource().print() + "       ║\n")
+             .append("║       "+ (getThirdShelf().getShelfResource()!=null?getThirdShelf().getDimension():" -") +  " "+ (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().print():" ") + "       ║\n")
              .append("╚══════════════════╝\n");
 
         return stringBuilder.toString();

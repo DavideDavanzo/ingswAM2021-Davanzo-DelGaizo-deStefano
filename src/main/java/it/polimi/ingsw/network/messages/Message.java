@@ -28,6 +28,11 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = ArrangeInWarehouseCmd.class, name = "ArrangeInWarehouseCmd"),
         @JsonSubTypes.Type(value = MarketInfoRequest.class, name = "MarketInfoRequest"),
         @JsonSubTypes.Type(value = CardsMarketInfoRequest.class, name = "CardsMarketInfoRequest"),
+        @JsonSubTypes.Type(value = BuyCardCmd.class, name = "BuyCardCmd"),
+        @JsonSubTypes.Type(value = ChangeWhiteMarbleReply.class, name = "ChangeWhiteMarbleReply"),
+        @JsonSubTypes.Type(value = ChangeWhiteMarbleRequest.class, name = "ChangeWhiteMarbleRequest"),
+        @JsonSubTypes.Type(value = MarketResourcesCmd.class, name = "MarketResourcesCmd"),
+        @JsonSubTypes.Type(value = TurnWakeMessage.class, name = "TurnWakeMessage"),
         @JsonSubTypes.Type(value = ResourceChoice.class, name = "ResourceChoice")
 })
 //TODO: declare each message @JasonSubTypes.Type
