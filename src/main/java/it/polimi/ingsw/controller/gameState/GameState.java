@@ -1,8 +1,10 @@
 package it.polimi.ingsw.controller.gameState;
 
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.controller.GameController;
+import it.polimi.ingsw.view.VirtualView;
 
 public class GameState {
 
@@ -66,6 +68,16 @@ public class GameState {
 
     public void process(TimeoutMessage timeoutMessage){
         System.out.println("Got timeout from " + timeoutMessage.getMsg() + " handler");
+    }
+
+    public void process(MarketInfoRequest marketInfoRequest) {
+        VirtualView virtualView = gameController.getVirtualViewMap().get(marketInfoRequest.getUsername());
+        virtualView.sendMessage(new InfoMessage(gameController.getMatch().getSharedArea().getMarket().print()));
+    }
+
+    public void process(CardsMarketInfoRequest cardsMarketInfoRequest) {
+        VirtualView virtualView = gameController.getVirtualViewMap().get(cardsMarketInfoRequest.getUsername());
+        virtualView.sendMessage(new InfoMessage(gameController.getMatch().getSharedArea().getCardMarket().print()));
     }
 
     public void nextState() {

@@ -10,8 +10,6 @@ import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -173,7 +171,7 @@ public class CliView extends View {
                 System.out.println("activate a leader card");
                 break;
             case "i" :
-                chooseInfo();
+                //chooseInfo();
                 break;
             default :
                 System.out.println("This command does not exist. Try again");
@@ -272,25 +270,6 @@ public class CliView extends View {
 
         //TODO: assemble and send correct command
 
-    }
-
-    private void chooseInfo(){
-        System.out.println("Which item would you like to see?");
-        System.out.println("p -> my board");
-        System.out.println("w -> my warehouse");
-        System.out.println("c -> my coffer");
-        System.out.println("p -> my faith path");
-        System.out.println("d -> my development cards");
-        System.out.println("l -> my leader cards");
-        System.out.println("rm -> resources market");
-        System.out.println("cm -> cards market");
-        String userInput;
-        switch (userInput = stdIn.nextLine()){
-            case "w" :
-                clientModel.getPlayerBoard().getWarehouse().print();
-                break;
-            default:
-        }
     }
 
     @Override
