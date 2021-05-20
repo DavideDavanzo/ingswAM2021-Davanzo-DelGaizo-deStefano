@@ -18,13 +18,11 @@ public class CliView extends View {
     private final SocketHandler socketHandler;
     private final Scanner stdIn;
     private ClientModel clientModel;
-    private Object lock;
 
     public CliView(SocketHandler socketHandler){
         this.socketHandler = socketHandler;
         stdIn = new Scanner(System.in);
         clientModel = new ClientModel();
-        lock = new Object();
     }
 
     @Override
@@ -224,9 +222,14 @@ public class CliView extends View {
                 System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
                 break;
             case "lc":
-                System.out.println("Leader cards:");
-                System.out.println(clientModel.getLeaderCards().get(0).print());
-                System.out.println(clientModel.getLeaderCards().get(1).print());
+                System.out.println("leader cards:");
+                if(clientModel.getLeaderCards().size() == 0)
+                    System.out.println("you do not have any leader cards");
+                else{
+                    for(LeaderCard leaderCard : clientModel.getLeaderCards()){
+                        System.out.println(leaderCard.print());
+                    }
+                }
                 break;
             case "m" :
                 sendMessage(new MarketInfoRequest());

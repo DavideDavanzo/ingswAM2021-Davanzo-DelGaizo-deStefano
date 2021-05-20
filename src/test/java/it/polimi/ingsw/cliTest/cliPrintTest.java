@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.view.CliView;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class cliPrintTest {
             }
 
         }
+
 
         @Test
         public void printAllDev(){
@@ -72,7 +74,11 @@ public class cliPrintTest {
             Path path = new Path();
 
             path.moveForward(8);
-           // System.out.println(path.print());
+            path.getPopeTokens().get(0).flip();
+            path.applyVaticanReport(path.getCurrentPositionAsInt());
+
+
+            System.out.println(path.print());
         }
 
         @Test
@@ -101,12 +107,11 @@ public class cliPrintTest {
             Trade trade = new Trade(input,output);
 
             developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.PURPLE, 1, cost, trade, 7));
-            developmentCard.getSecondStack().push(new DevelopmentCard(ECardColor.GREEN, 1, cost, trade, 8));
             developmentCard.getThirdStack().push(new DevelopmentCard(ECardColor.BLUE, 1, cost, trade, 9));
             developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.PURPLE, 2, cost, trade, 11));
             developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.GREEN, 3, cost, trade, 12));
 
-            //System.out.println((developmentCard.print()));
+            System.out.println((developmentCard.print()));
         }
 
         @Test
