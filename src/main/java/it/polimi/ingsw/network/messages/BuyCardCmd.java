@@ -10,13 +10,16 @@ public class BuyCardCmd extends Command{
 
     private int level;
 
+    private int slot;
+
     public BuyCardCmd(){
         super();
     }
 
-    public BuyCardCmd(ECardColor color, int level){
+    public BuyCardCmd(ECardColor color, int level, int slot){
         this.color = color;
         this.level = level;
+        this.slot = slot;
     }
 
     @Override
@@ -30,5 +33,9 @@ public class BuyCardCmd extends Command{
 
     public int getLevel() {
         return level;
+    }
+
+    public int getSlot() {
+        return slot;
     }
 }

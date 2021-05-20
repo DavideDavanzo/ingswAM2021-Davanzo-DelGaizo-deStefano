@@ -11,12 +11,11 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
+import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.network.messages.BuyCardCmd;
-import it.polimi.ingsw.network.messages.ChangeWhiteMarbleReply;
-import it.polimi.ingsw.network.messages.MarketResourcesCmd;
+import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
@@ -30,14 +29,16 @@ public class InGameState extends GameState {
     @Override
     public void process(BuyCardCmd buyCardCmd) throws InvalidStateException {
 
-        ECardColor color = buyCardCmd.getColor();
-        int level = buyCardCmd.getLevel();
-        int slot = 10000; //Change
-
-        DevelopmentCard developmentCard;
-
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(buyCardCmd.getUsername());
+
+        if(bigActionNotAvailable(currentPlayer.hasBigActionToken(), currentView)) return;
+
+        ECardColor color = buyCardCmd.getColor();
+        int level = buyCardCmd.getLevel();
+        int slot = buyCardCmd.getSlot();
+
+        DevelopmentCard developmentCard;
 
         try {
             developmentCard = gameController.getMatch().getSharedArea().getCardMarket().getCard(color.toString(), level);
@@ -74,6 +75,7 @@ public class InGameState extends GameState {
             e.printStackTrace();
         }
 
+        currentPlayer.revokeBigActionToken();
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " bought a level " + level + " " + color + " card", currentPlayer.getNickname());
         currentView.showMessage("You bought the card successfully: can find it in the " + slot + " slot");
     }
@@ -87,6 +89,9 @@ public class InGameState extends GameState {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(marketResourcesCmd.getUsername());
 
+        if(bigActionNotAvailable(currentPlayer.hasBigActionToken(), currentView)) return;
+
+        //////////////////////////////////// Input Error /////////////////////////////////////////////////////
         try {
             resourcesFromMarket = gameController.getMatch().getSharedArea().getMarket().getResources(line, index);
         } catch (IllegalChoiceException e) {
@@ -99,6 +104,7 @@ public class InGameState extends GameState {
 
         ArrayList<Item> temporaryItems = new ArrayList<>();
 
+        /////////////////////////////////// Successful Action  ////////////////////////////////////////////////
         if(!currentPlayer.hasTwoWhiteMarblePowers()) { //If the player doesn't hold the White Marble Power
             for (Item item : resourcesFromMarket) {
                 try {
@@ -120,6 +126,7 @@ public class InGameState extends GameState {
             currentView.askToStockMarketResources(temporaryItems, currentPlayer.extraShelvesCount());
         }
 
+        ////////////////////////////////// Two Extra Marbles //////////////////////////////////////////////////
         else {
             int blankResourcesToSet = 0;
             for (Item item : resourcesFromMarket) {
@@ -150,6 +157,8 @@ public class InGameState extends GameState {
             }
         }
 
+        currentPlayer.revokeBigActionToken();
+
     }
 
     @Override
@@ -162,4 +171,83 @@ public class InGameState extends GameState {
         gameController.getVirtualViewMap().get(changeWhiteMarbleReply.getUsername()).askToStockMarketResources(itemsToArrange, currentPlayer.extraShelvesCount());
     }
 
+    @Override
+    public void process(ArrangeInWarehouseCmd arrangeInWarehouseCmd) throws InvalidStateException {
+        Player currentPlayer = gameController.getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(arrangeInWarehouseCmd.getUsername());
+        ArrayList<Integer> choices = arrangeInWarehouseCmd.getChoices();
+        int counter = 0;
+
+        ArrayList<Shelf> allShelves = currentPlayer.getWarehouse().getAllWarehouseShelves();
+
+        for(Integer i : choices) {
+            if(i.equals(0)) {
+                currentPlayer.getItemsToArrangeInWarehouse().remove(counter);
+                gameController.moveAllExcept(currentPlayer, 1);
+                continue;
+            }
+            if(!(allShelves.get(i-1).isEmpty()) && !(allShelves.get(i-1).getShelfResource().sameType(currentPlayer.getItemsToArrangeInWarehouse().get(counter)))) {
+                counter++;
+                continue;
+            }
+            try {
+                allShelves.get(i-1).updateShelf((Resource) currentPlayer.getItemsToArrangeInWarehouse().get(counter));
+                currentPlayer.getItemsToArrangeInWarehouse().remove(counter);
+            } catch (NotEnoughResourcesException | InvalidInputException e) {
+                counter++;
+            }
+        }
+
+        if(currentPlayer.getItemsToArrangeInWarehouse().size() > 0) { //If there are still resources to arrange...
+            currentView.showMessage("Some resources couldn't be put in the selected shelves. Only same type in the same shelf!");
+            currentView.askToStockMarketResources(currentPlayer.getItemsToArrangeInWarehouse(), currentPlayer.extraShelvesCount());
+        }
+
+    }
+
+    @Override
+    public void process(ActivateLeaderCmd activateLeaderCmd) throws InvalidStateException {
+        Player currentPlayer = gameController.getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(activateLeaderCmd.getUsername());
+
+        for(Integer i : activateLeaderCmd.getChoices()) {
+            try {
+                currentPlayer.getLeaderCards().get(i-1).activateOn(currentPlayer);
+                currentView.showMessage("Activated leader card number " + i);
+                gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " activated a leader card!", currentPlayer.getNickname());
+            } catch (NotEnoughResourcesException e) {
+                currentView.showError("Couldn't activate the leader card number " + i);
+            }
+        }
+    }
+
+    @Override
+    public void process(DiscardLeaderCmd discardLeaderCmd) throws InvalidStateException {
+        Player currentPlayer = gameController.getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(discardLeaderCmd.getUsername());
+
+        for(Integer i : discardLeaderCmd.getChoices()) {
+
+        }
+    }
+
+    public boolean bigActionNotAvailable(boolean token, VirtualView currentView) {
+        if(!token) {
+            currentView.showError("Can't perform a big action in this turn anymore. .");
+            return true;
+        }
+        return false;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+

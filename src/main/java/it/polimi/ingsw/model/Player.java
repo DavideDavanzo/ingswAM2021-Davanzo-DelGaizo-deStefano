@@ -42,6 +42,7 @@ public class Player {
     private boolean activeTrade;
 
     private ArrayList<Item> itemsToArrangeInWarehouse;
+    private boolean bigActionToken;
 
     private int victoryPoints;
 
@@ -54,6 +55,7 @@ public class Player {
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
+        bigActionToken = true;
         victoryPoints = 0;
     }
 
@@ -64,6 +66,7 @@ public class Player {
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
+        bigActionToken = true;
         victoryPoints = 0;
     }
 
@@ -241,4 +244,15 @@ public class Player {
         return count;
     }
 
+    public void giveBigActionToken() {
+        bigActionToken = true;
+    }
+
+    public boolean hasBigActionToken() {
+        return bigActionToken;
+    }
+
+    public void revokeBigActionToken() {
+        bigActionToken = false;
+    }
 }

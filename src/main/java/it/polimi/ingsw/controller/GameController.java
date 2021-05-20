@@ -146,6 +146,10 @@ public class GameController implements Observer, Serializable {
 
     }
 
+    public void moveAllExcept(Player player, int steps) {
+        //TODO
+    }
+
     public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
         if(virtualViewMap.containsKey(nickname)) throw new NicknameException();
         virtualViewMap.put(nickname, virtualView);

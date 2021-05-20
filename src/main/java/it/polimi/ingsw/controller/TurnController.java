@@ -31,6 +31,7 @@ public class TurnController {
 
     public void nextTurn() {
 
+        currentPlayer.giveBigActionToken();
         gameController.updateQueue();
         currentPlayer = players.peek();
         updateTurnCounter();

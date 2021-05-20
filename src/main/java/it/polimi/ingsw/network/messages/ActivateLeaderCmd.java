@@ -6,19 +6,16 @@ import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
 
-public class ArrangeInWarehouseCmd extends Message{
+public class ActivateLeaderCmd extends Message {
 
-    private ArrayList<Integer> choices;
+    ArrayList<Integer> choices;
 
-    public ArrangeInWarehouseCmd(){
+    public ActivateLeaderCmd() {
         super();
     }
 
-    public ArrangeInWarehouseCmd(String msg){
+    public ActivateLeaderCmd(String msg, ArrayList<Integer> choices) {
         super(msg);
-    }
-
-    public ArrangeInWarehouseCmd(ArrayList<Integer> choices){
         this.choices = choices;
     }
 
