@@ -8,6 +8,7 @@ import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
@@ -225,9 +226,24 @@ public class InGameState extends GameState {
     public void process(DiscardLeaderCmd discardLeaderCmd) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(discardLeaderCmd.getUsername());
+        ArrayList<LeaderCard> leadersToDiscard = new ArrayList<>();
 
         for(Integer i : discardLeaderCmd.getChoices()) {
-
+            if(currentPlayer.getLeaderCards().size() != 0 && currentPlayer.getLeaderCards().size() >= i) {
+                leadersToDiscard.add(currentPlayer.getLeaderCards().get(i-1));
+                currentView.showMessage("Discarded leader card number " + i);
+                gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " discarded a leader card!", currentPlayer.getNickname());
+            }
+            else {
+                currentView.showError("Couldn't remove the leader card number " + i);
+            }
+        }
+        currentPlayer.getLeaderCards().removeAll(leadersToDiscard);
+        try {
+            currentPlayer.moveForward(leadersToDiscard.size());
+        } catch (InvalidInputException e) {
+            //Should never reach this situation;
+            e.printStackTrace();
         }
     }
 
