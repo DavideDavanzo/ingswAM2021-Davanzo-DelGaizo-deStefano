@@ -258,7 +258,7 @@ public class CliView extends View {
         askCommand();
     }
 
-    public synchronized void buyDevCard(){
+    private synchronized void buyDevCard(){
         sendMessage(new CardsMarketInfoRequest());
         try {
             wait();
@@ -270,6 +270,7 @@ public class CliView extends View {
         System.out.println("b -> blue");
         System.out.println("y -> yellow");
         System.out.println("p -> purple");
+        System.out.println("exit -> return to main commands");
         String user = stdIn.nextLine();
         ECardColor color = null;
         while (color == null) {
@@ -286,6 +287,8 @@ public class CliView extends View {
                 case "p":
                     color = ECardColor.PURPLE;
                     break;
+                case "exit" :
+                    break;
                 default:
                     System.out.println("ERROR - this color does not exist... try again");
             }
@@ -301,12 +304,12 @@ public class CliView extends View {
             }
         }
 
-        Command buyCardCmd = new BuyCardCmd(color, level);
+        Message buyCardCmd = new BuyCardCmd(color, level);
         sendMessage(buyCardCmd);
 
     }
 
-    public synchronized void getMarketResources(){
+    private synchronized void getMarketResources(){
         sendMessage(new MarketInfoRequest());
         try {
             wait();
@@ -321,13 +324,17 @@ public class CliView extends View {
         int index = 0;
         while (index < 1 || (line == 'r' && index > 3) || (line == 'c' && index > 4)) {
             System.out.println("Choose index of " + (line == 'r' ? "row: type a number between 1 and 3" : "column: type a number between 1 and 4"));
-            index = Integer.parseInt(stdIn.nextLine());
+            try{
+                index = Integer.parseInt(stdIn.nextLine());
+            } catch(NumberFormatException e){
+                System.out.println("Error - wrong format");
+                index = 0;
+            }
         }
-        Command marketResourcesCmd = new MarketResourcesCmd(line, index);
-        sendMessage(marketResourcesCmd);
+        sendMessage(new MarketResourcesCmd(line, index-1));
     }
 
-    public void activateProduction(){
+    private synchronized void activateProduction(){
         //ask client's model my dev area
         String userInput;
         ArrayList<Integer> choices = new ArrayList<>();
@@ -523,10 +530,6 @@ public class CliView extends View {
 
     public void sendMessage(Message message){
         socketHandler.sendMessage(message);
-    }
-
-    public void sendMessage(Command command){
-        socketHandler.sendMessage(command);
     }
 
     private void welcome(){

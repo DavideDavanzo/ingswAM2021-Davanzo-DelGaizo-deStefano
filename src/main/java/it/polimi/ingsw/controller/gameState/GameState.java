@@ -30,10 +30,6 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
-    public void process(Command command) throws InvalidStateException {
-        throw new InvalidStateException("This action cannot be performed during this phase of the game");
-    }
-
     public void process(InfoMessage infoMessage) throws InvalidStateException {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
