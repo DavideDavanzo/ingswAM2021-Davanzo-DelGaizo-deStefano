@@ -66,6 +66,11 @@ public class GuiView extends View{
     }
 
     @Override
+    public void activateLeaderCards() {
+
+    }
+
+    @Override
     public void askQuery(String msg) {
 
     }

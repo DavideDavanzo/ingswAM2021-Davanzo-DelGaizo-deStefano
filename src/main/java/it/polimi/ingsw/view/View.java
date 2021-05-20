@@ -39,4 +39,6 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void askCommand();
 
+    public abstract void activateLeaderCards();
+
 }

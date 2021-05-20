@@ -114,7 +114,7 @@ public class CliView extends View {
 
     //DONE?
     @Override
-    public void askBlankResources(String msg) {
+    public synchronized void askBlankResources(String msg) {
 
         int cont = Integer.parseInt(msg);
 
@@ -181,7 +181,8 @@ public class CliView extends View {
                 System.out.println("tossing a leader card");
                 break;
             case "a":
-                System.out.println("activate a leader card");
+                activateLeaderCards();
+                askCommand();
                 break;
             case "i":
                 chooseInfo();
@@ -189,6 +190,36 @@ public class CliView extends View {
             default:
                 System.out.println("This command does not exist. Try again");
                 askCommand();
+        }
+    }
+
+    @Override
+    public synchronized void activateLeaderCards() {
+        int choice = 0;
+        if(clientModel.getLeaderCards().size() == 0){
+            System.out.println("You have no leader card");
+        } else {
+            System.out.println("These are your inactive leader cards:");
+            for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
+                if(!leaderCard.isActive())
+                    leaderCard.print();
+            }
+            if(clientModel.getLeaderCards().size() == 1){
+                System.out.println("Do yu want to activate it?");
+                System.out.println("y -> yes");
+                System.out.println("n -> no");
+                String userInput = stdIn.nextLine();
+                if(userInput.startsWith("y"))
+                    choice = 1;
+                else
+                    return;
+            } else {
+                while(choice!=1 && choice!=2){
+                    System.out.println("Which one you want to activate? Type 1 or 2");
+                    choice = Integer.parseInt(stdIn.nextLine());
+                }
+            }
+            //TODO: send message of choice
         }
     }
 
@@ -295,7 +326,7 @@ public class CliView extends View {
         }
         int level = 0;
         while(level < 1 || level > 4){
-            System.out.println("Choose the level from 1 to 4");
+            System.out.println("Choose the level from 1 to 3");
             try{
                 level = Integer.parseInt(stdIn.nextLine());
             } catch (NumberFormatException e){
@@ -303,8 +334,21 @@ public class CliView extends View {
                 level = 0;
             }
         }
+        int slot = 0;
+        System.out.println("This are your development cards");
+        System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
+        while(slot < 1 || slot > 3){
+            System.out.println("On top of which stack would you want to put it?");
+            System.out.println("Type a number from 1 to 3");
+            try{
+                slot = Integer.parseInt(stdIn.nextLine());
+            } catch (NumberFormatException e){
+                System.out.println("Error - wrong format");
+                level = 0;
+            }
+        }
 
-        Message buyCardCmd = new BuyCardCmd(color, level);
+        Message buyCardCmd = new BuyCardCmd(color, level, slot);
         sendMessage(buyCardCmd);
 
     }
@@ -334,6 +378,7 @@ public class CliView extends View {
         sendMessage(new MarketResourcesCmd(line, index-1));
     }
 
+    //to review
     private synchronized void activateProduction(){
         //ask client's model my dev area
         String userInput;
@@ -415,7 +460,7 @@ public class CliView extends View {
         System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
         if(numExtraShelves == 0) {
             for (Item resource : resources) {
-                System.out.println("Incomin resource: " + resource.print());
+                System.out.println("Incoming resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't' to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");
@@ -439,7 +484,7 @@ public class CliView extends View {
             }
         } else if(numExtraShelves == 1) {
             for (Item resource : resources) {
-                System.out.println("Incomin resource: " + resource.print());
+                System.out.println("Incoming resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\" to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");
