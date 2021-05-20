@@ -2,16 +2,21 @@ package it.polimi.ingsw.network.messages;
 
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
+import it.polimi.ingsw.view.View;
 
-//TODO: Jackson Subtypes?
-public abstract class Command extends Message {
+public class CardsMarketInfoRequest extends Message{
 
-    public Command(){
+    public CardsMarketInfoRequest(){
         super();
     }
 
-    public Command(String msg){
+    public CardsMarketInfoRequest(String msg){
         super(msg);
+    }
+
+    @Override
+    public void apply(View view) {
+
     }
 
     @Override

@@ -6,7 +6,6 @@ import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
@@ -28,7 +27,8 @@ public class CliView extends View {
 
     @Override
     public void update(Message message) {
-        message.apply(this);
+        Thread thread = new Thread(() -> message.apply(this));
+        thread.start();
     }
 
     @Override
@@ -36,10 +36,11 @@ public class CliView extends View {
         socketHandler.addObserver(this);
         welcome();
         login();
-        Thread thread = new Thread(socketHandler::waitServerMessage);
+        Thread thread = new Thread(socketHandler);
         thread.start();
     }
 
+    //DONE
     @Override
     public void askNumberOfPlayers() {
         System.out.println("Server: As no other available match already exists, you get to create a new one... ");
@@ -52,6 +53,7 @@ public class CliView extends View {
         }
     }
 
+    //DONE?
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
 
@@ -110,23 +112,25 @@ public class CliView extends View {
 
     }
 
+    //DONE?
     @Override
     public void askBlankResources(String msg) {
 
         int cont = Integer.parseInt(msg);
 
-        System.out.println("Server: Choose " + msg + " resource(s) to start");
+        System.out.println("Choose " + msg + " resource(s) to start");
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
 
         for(int i=0; i<cont; i++){
 
-            System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
+            System.out.println("Choose a resource: coin. shield, stone or servant");
+
             String temp = stdIn.nextLine();
             while (!temp.toLowerCase().equals("coin") && !temp.toLowerCase().equals("shield") && !temp.toLowerCase().equals("stone") && !temp.toLowerCase().equals("servant")){
                 System.out.println("Error - try again");
-                System.out.println("Choose a resource: Coin, Shield, Stone or Servant");
+                System.out.println("Choose a resource: coin. shield, stone or servant");
                 temp = stdIn.nextLine();
             }
 
@@ -150,73 +154,168 @@ public class CliView extends View {
         sendMessage(new LoginRequest());
     }
 
-    public void askCommand(){
+    //DONE?
+    @Override
+    public synchronized void askCommand() {
+        System.out.println("These are the commands allowed:");
+        System.out.println("b -> buy a card");
+        System.out.println("m -> take resources from market");
+        System.out.println("p -> activate production");
+        System.out.println("t -> toss leader card");
+        System.out.println("a -> activate leader card");
+        System.out.println("i -> ask info");
         String cmd = stdIn.nextLine();
-        switch(cmd.toLowerCase()){
-            case "prova" :
-                System.out.println("PROVA CMD SWITCH CASE");
-                break;
-            case "b" :
-                System.out.println("buying a card");
+        switch (cmd.toLowerCase()) {
+            case "b":
                 buyDevCard();
                 break;
-            case "m" :
+            case "m":
                 System.out.println("going to the market");
                 getMarketResources();
                 break;
-            case "p" :
+            case "p":
                 System.out.println("activating production");
                 activateProduction();
                 break;
-            case "t" :
+            case "t":
                 System.out.println("tossing a leader card");
                 break;
-            case "a" :
+            case "a":
                 System.out.println("activate a leader card");
                 break;
-            case "i" :
-                System.out.println("asking info");
+            case "i":
+                chooseInfo();
                 break;
-            default :
+            default:
                 System.out.println("This command does not exist. Try again");
-                cmd = stdIn.nextLine();
+                askCommand();
         }
-
     }
 
-    public void buyDevCard(){
-        //ask server card market situation
-        System.out.println("Choose color");
+    public synchronized void chooseInfo(){
+        System.out.println("Which item would you like to see?");
+        System.out.println("w -> my warehouse");
+        System.out.println("ft -> my faith track");
+        System.out.println("c -> my coffer");
+        System.out.println("da -> my development cards");
+        System.out.println("lc -> my leader cards");
+        System.out.println("m -> market");
+        System.out.println("cm -> card market");
+        System.out.println("exit -> return to main commands");
+
+        String cmd = stdIn.nextLine();
+        switch (cmd.toLowerCase()) {
+            case "w":
+                System.out.println("Warehouse:");
+                System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
+                break;
+            case "ft":
+                System.out.println("Faith track:");
+                System.out.println(clientModel.getPlayerBoard().getPath().print());
+                break;
+            case "c":
+                System.out.println("Coffer:");
+                System.out.println(clientModel.getPlayerBoard().getCoffer().print());
+                break;
+            case "da":
+                System.out.println("Development card area:");
+                System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
+                break;
+            case "lc":
+                System.out.println("leader cards:");
+                if(clientModel.getLeaderCards().size() == 0)
+                    System.out.println("you do not have any leader cards");
+                else{
+                    for(LeaderCard leaderCard : clientModel.getLeaderCards()){
+                        System.out.println(leaderCard.print());
+                    }
+                }
+                break;
+            case "m" :
+                sendMessage(new MarketInfoRequest());
+                System.out.println("Market:");
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "cm" :
+                sendMessage(new CardsMarketInfoRequest());
+                System.out.println("Cards market:");
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "exit" :
+                break;
+            default:
+                System.out.println("Error - wrong format. Try again");
+                chooseInfo();
+        }
+        askCommand();
+    }
+
+    private synchronized void buyDevCard(){
+        sendMessage(new CardsMarketInfoRequest());
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Choose color:");
+        System.out.println("g -> green");
+        System.out.println("b -> blue");
+        System.out.println("y -> yellow");
+        System.out.println("p -> purple");
+        System.out.println("exit -> return to main commands");
         String user = stdIn.nextLine();
         ECardColor color = null;
-        switch (user.toLowerCase()){
-            case "green" :
-                color = ECardColor.GREEN;
-                break;
-            case "blue" :
-                color = ECardColor.BLUE;
-                break;
-            case "yellow" :
-                color = ECardColor.YELLOW;
-                break;
-            case "purple" :
-                color = ECardColor.PURPLE;
-                break;
-            default :
-                System.out.println("ERROR - this color does not exist... try again");
+        while (color == null) {
+            switch (user.toLowerCase()) {
+                case "g":
+                    color = ECardColor.GREEN;
+                    break;
+                case "b":
+                    color = ECardColor.BLUE;
+                    break;
+                case "y":
+                    color = ECardColor.YELLOW;
+                    break;
+                case "p":
+                    color = ECardColor.PURPLE;
+                    break;
+                case "exit" :
+                    break;
+                default:
+                    System.out.println("ERROR - this color does not exist... try again");
+            }
         }
-        int level;
-        do{
-            level = Integer.parseInt(stdIn.nextLine());
-        } while(level < 1 || level > 4);
+        int level = 0;
+        while(level < 1 || level > 4){
+            System.out.println("Choose the level from 1 to 4");
+            try{
+                level = Integer.parseInt(stdIn.nextLine());
+            } catch (NumberFormatException e){
+                System.out.println("Error - wrong format");
+                level = 0;
+            }
+        }
 
-        Command buyCardCmd = new BuyCardCmd(color, level);
+        Message buyCardCmd = new BuyCardCmd(color, level);
         sendMessage(buyCardCmd);
 
     }
 
-    public void getMarketResources(){
-        //ask server market situation
+    private synchronized void getMarketResources(){
+        sendMessage(new MarketInfoRequest());
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         char line = ' ';
         while (line != 'r' && line != 'c') {
             System.out.println("Choose line type: row ('r') or column ('c')?");
@@ -225,13 +324,17 @@ public class CliView extends View {
         int index = 0;
         while (index < 1 || (line == 'r' && index > 3) || (line == 'c' && index > 4)) {
             System.out.println("Choose index of " + (line == 'r' ? "row: type a number between 1 and 3" : "column: type a number between 1 and 4"));
-            index = Integer.parseInt(stdIn.nextLine());
+            try{
+                index = Integer.parseInt(stdIn.nextLine());
+            } catch(NumberFormatException e){
+                System.out.println("Error - wrong format");
+                index = 0;
+            }
         }
-        Command marketResourcesCmd = new MarketResourcesCmd(line, index);
-        sendMessage(marketResourcesCmd);
+        sendMessage(new MarketResourcesCmd(line, index-1));
     }
 
-    public void activateProduction(){
+    private synchronized void activateProduction(){
         //ask client's model my dev area
         String userInput;
         ArrayList<Integer> choices = new ArrayList<>();
@@ -277,7 +380,7 @@ public class CliView extends View {
 
     @Override
     public void askQuery(String msg) {
-        System.out.println("Server: " + msg);
+        System.out.println(msg);
         sendMessage(new ReplyMessage(stdIn.nextLine()));
     }
 
@@ -292,8 +395,9 @@ public class CliView extends View {
     }
 
     @Override
-    public void showMessage(String msg){
-        System.out.println("Server: " + msg);
+    public synchronized void showMessage(String msg){
+        System.out.println(msg);
+        notifyAll();
     }
 
     @Override
@@ -307,11 +411,11 @@ public class CliView extends View {
     public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
-        System.out.println("This is your current warehouse...");
+        System.out.println("This is your current wharehouse...");
         System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
         if(numExtraShelves == 0) {
             for (Item resource : resources) {
-                System.out.println("Incoming resource: " + resource.print());
+                System.out.println("Incomin resource: " + resource.print());
                 System.out.println("Where would you want to stock it? Type 'f', 's', 't' to choose warehouse shelf or 'd' to discard");
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");
@@ -398,6 +502,26 @@ public class CliView extends View {
     }
 
     @Override
+    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+        System.out.println();
+        System.out.println();
+        int i=1;
+        for (Item item : items){
+            System.out.println();
+        }
+        int temp;
+        ArrayList<Item> choices = new ArrayList<>();
+        for(i=0; i<count; i++){
+            do{
+                System.out.println();
+                temp = Integer.parseInt(stdIn.nextLine());
+            }while(temp<1 || temp>items.size());
+            choices.add(items.get(temp-1).clone());
+        }
+        sendMessage(new ChangeWhiteMarbleReply(choices));
+    }
+
+    @Override
     public void checkConnection() {
         System.out.println("Received: Ping");
         sendMessage(new PingMessage());
@@ -406,10 +530,6 @@ public class CliView extends View {
 
     public void sendMessage(Message message){
         socketHandler.sendMessage(message);
-    }
-
-    public void sendMessage(Command command){
-        socketHandler.sendMessage(command);
     }
 
     private void welcome(){

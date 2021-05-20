@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.playerboard.path;
 
-public class PopeToken {
+import it.polimi.ingsw.model.resources.FaithPoint;
+import it.polimi.ingsw.view.CliPrinter;
+
+public class PopeToken  {
 
     private boolean faceUp;
     private final int victoryPoints;
@@ -22,4 +25,16 @@ public class PopeToken {
         return victoryPoints;
     }
 
+
+    public String popeToken() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+            if (isFaceUp())
+                stringBuilder.append("VP: " + getVictoryPoints());
+            else
+                stringBuilder.append("  X  ");
+
+        return stringBuilder.toString();
+    }
 }

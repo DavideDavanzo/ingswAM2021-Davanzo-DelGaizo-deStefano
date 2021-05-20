@@ -35,4 +35,8 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void checkConnection();
 
+    public abstract void chooseInfo();
+
+    public abstract void askCommand();
+
 }

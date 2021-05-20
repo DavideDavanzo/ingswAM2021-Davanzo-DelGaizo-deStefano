@@ -2,8 +2,6 @@ package it.polimi.ingsw.network.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import it.polimi.ingsw.network.messages.Command;
-import it.polimi.ingsw.network.messages.PingMessage;
 import it.polimi.ingsw.network.observingPattern.Observable;
 import it.polimi.ingsw.network.messages.Message;
 
@@ -12,7 +10,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class SocketHandler extends Observable {
+public class SocketHandler extends Observable implements Runnable{
 
     private String username;
     private Scanner socketIn;
@@ -41,29 +39,6 @@ public class SocketHandler extends Observable {
         //System.out.println("Sent: " + objectMapper.writeValueAsString(message));
     }
 
-    public void sendMessage(Command command){
-        command.setUsername(username);
-        try {
-            socketOut.println(objectMapper.writeValueAsString(command));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        //System.out.println("Sent: " + objectMapper.writeValueAsString(command));
-    }
-
-    public void waitServerMessage(){
-        String msg;
-        while (!Thread.currentThread().isInterrupted()) {
-            msg = socketIn.nextLine();
-            //System.out.println("Received: " + msg);
-            try {
-                notifyObservers(objectMapper.readValue(msg , Message.class));
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public Scanner getSocketIn() {
         return socketIn;
     }
@@ -88,4 +63,17 @@ public class SocketHandler extends Observable {
         this.username = username;
     }
 
+    @Override
+    public void run() {
+        String msg;
+        while (!Thread.currentThread().isInterrupted()) {
+            msg = socketIn.nextLine();
+            //System.out.println("Received: " + msg);
+            try {
+                notifyObservers(objectMapper.readValue(msg , Message.class));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
