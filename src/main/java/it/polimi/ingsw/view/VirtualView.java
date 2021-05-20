@@ -117,6 +117,11 @@ public class VirtualView extends View {
 
     }
 
+    @Override
+    public void activateLeaderCards() {
+
+    }
+
     public ServerClientHandler getClientHandler(){
         return clientHandler;
     }
