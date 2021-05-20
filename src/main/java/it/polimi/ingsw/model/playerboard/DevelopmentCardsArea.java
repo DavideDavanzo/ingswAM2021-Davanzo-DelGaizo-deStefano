@@ -116,29 +116,89 @@ public class DevelopmentCardsArea implements CliPrinter {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        for(Stack<DevelopmentCard> stack : area) {
-            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
-        }
+
+        stringBuilder.append("this is your first deck: \n" );
+            for(DevelopmentCard card : firstStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
+
             stringBuilder.append("\n");
-        for(Stack<DevelopmentCard> stack : area) {
-            stringBuilder .append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "║ DEV CARD " + "lvl " + stack.peek().getLevel() + "                      ║");
-        }
+            for(DevelopmentCard card : firstStack)
+            stringBuilder .append(ECardColor.getColorMap().get(card.getColor()).escape() + "║ DEV CARD " + "lvl " + card.getLevel() + "                      ║");
+
         stringBuilder.append("\n");
-        for(Stack<DevelopmentCard> stack : area) {
-            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + stack.peek().printCost() +  ECardColor.getColorMap().get(stack.peek().getColor()).escape() +  "                  ║");
-        }
+
+            for(DevelopmentCard card : firstStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + card.printCost() +  ECardColor.getColorMap().get(card.getColor()).escape() +  "                  ║");
         stringBuilder.append("\n");
-        for(Stack<DevelopmentCard> stack : area) {
-            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + stack.peek().printTrade() +  ECardColor.getColorMap().get(stack.peek().getColor()).escape() + " ║");
-        }
+
+            for(DevelopmentCard card :firstStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + card.printTrade() +  ECardColor.getColorMap().get(card.getColor()).escape() + " ║");
         stringBuilder.append("\n");
-        for(Stack<DevelopmentCard> stack : area) {
-            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() +"║ vp : " + stack.peek().getVictoryPoints() + stack.peek().spaceForPoints() + "                             ║");
-        }
+
+            for(DevelopmentCard card : firstStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape()+"║ vp : " + card.getVictoryPoints() + card.spaceForPoints() + "                             ║");
+
         stringBuilder.append("\n");
-        for(Stack<DevelopmentCard> stack : area) {
-            stringBuilder.append(ECardColor.getColorMap().get(stack.peek().getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape());
-        }
+
+            for(DevelopmentCard card : firstStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape());
+
+        stringBuilder.append("\n");
+
+        stringBuilder.append("this is your second deck:\n");
+        for(DevelopmentCard card : secondStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
+
+        stringBuilder.append("\n");
+        for(DevelopmentCard card : secondStack)
+            stringBuilder .append(ECardColor.getColorMap().get(card.getColor()).escape() + "║ DEV CARD " + "lvl " + card.getLevel() + "                      ║");
+
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : secondStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + card.printCost() +  ECardColor.getColorMap().get(card.getColor()).escape() +  "                  ║");
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : secondStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + card.printTrade() +  ECardColor.getColorMap().get(card.getColor()).escape() + " ║");
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : secondStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape()+"║ vp : " + card.getVictoryPoints() + card.spaceForPoints() + "                             ║");
+
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : secondStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape());
+
+        stringBuilder.append("\n");
+
+        stringBuilder.append("this is your third deck:\n");
+        for(DevelopmentCard card : thirdStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
+
+        stringBuilder.append("\n");
+        for(DevelopmentCard card : thirdStack)
+            stringBuilder .append(ECardColor.getColorMap().get(card.getColor()).escape() + "║ DEV CARD " + "lvl " + card.getLevel() + "                      ║");
+
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : thirdStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + card.printCost() +  ECardColor.getColorMap().get(card.getColor()).escape() +  "                  ║");
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : thirdStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + card.printTrade() +  ECardColor.getColorMap().get(card.getColor()).escape() + " ║");
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : thirdStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape()+"║ vp : " + card.getVictoryPoints() + card.spaceForPoints() + "                             ║");
+
+        stringBuilder.append("\n");
+
+        for(DevelopmentCard card : thirdStack)
+            stringBuilder.append(ECardColor.getColorMap().get(card.getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape());
+
         stringBuilder.append("\n");
 
 
