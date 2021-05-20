@@ -203,6 +203,7 @@ public class CliView extends View {
         System.out.println("lc -> my leader cards");
         System.out.println("m -> market");
         System.out.println("cm -> card market");
+        System.out.println("exit -> return to main commands");
 
         String cmd = stdIn.nextLine();
         switch (cmd.toLowerCase()) {
@@ -245,6 +246,8 @@ public class CliView extends View {
                     e.printStackTrace();
                 }
                 break;
+            case "exit" :
+                break;
             default:
                 System.out.println("Error - wrong format. Try again");
                 chooseInfo();
@@ -252,39 +255,61 @@ public class CliView extends View {
         askCommand();
     }
 
-    public void buyDevCard(){
-        //ask server card market situation
-        System.out.println("Choose color");
+    public synchronized void buyDevCard(){
+        sendMessage(new CardsMarketInfoRequest());
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Choose color:");
+        System.out.println("g -> green");
+        System.out.println("b -> blue");
+        System.out.println("y -> yellow");
+        System.out.println("p -> purple");
         String user = stdIn.nextLine();
         ECardColor color = null;
-        switch (user.toLowerCase()){
-            case "green" :
-                color = ECardColor.GREEN;
-                break;
-            case "blue" :
-                color = ECardColor.BLUE;
-                break;
-            case "yellow" :
-                color = ECardColor.YELLOW;
-                break;
-            case "purple" :
-                color = ECardColor.PURPLE;
-                break;
-            default :
-                System.out.println("ERROR - this color does not exist... try again");
+        while (color == null) {
+            switch (user.toLowerCase()) {
+                case "g":
+                    color = ECardColor.GREEN;
+                    break;
+                case "b":
+                    color = ECardColor.BLUE;
+                    break;
+                case "y":
+                    color = ECardColor.YELLOW;
+                    break;
+                case "p":
+                    color = ECardColor.PURPLE;
+                    break;
+                default:
+                    System.out.println("ERROR - this color does not exist... try again");
+            }
         }
-        int level;
-        do{
-            level = Integer.parseInt(stdIn.nextLine());
-        } while(level < 1 || level > 4);
+        int level = 0;
+        while(level < 1 || level > 4){
+            System.out.println("Choose the level from 1 to 4");
+            try{
+                level = Integer.parseInt(stdIn.nextLine());
+            } catch (NumberFormatException e){
+                System.out.println("Error - wrong format");
+                level = 0;
+            }
+        }
 
         Command buyCardCmd = new BuyCardCmd(color, level);
         sendMessage(buyCardCmd);
 
     }
 
-    public void getMarketResources(){
-        //ask server market situation
+    public synchronized void getMarketResources(){
+        sendMessage(new MarketInfoRequest());
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         char line = ' ';
         while (line != 'r' && line != 'c') {
             System.out.println("Choose line type: row ('r') or column ('c')?");
