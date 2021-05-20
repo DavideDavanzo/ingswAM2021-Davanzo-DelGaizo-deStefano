@@ -229,8 +229,13 @@ public class CliView extends View {
                 break;
             case "lc":
                 System.out.println("leader cards:");
-                System.out.println(clientModel.getLeaderCards().get(0).print());
-                System.out.println(clientModel.getLeaderCards().get(1).print());
+                if(clientModel.getLeaderCards().size() == 0)
+                    System.out.println("you do not have any leader cards");
+                else{
+                    for(LeaderCard leaderCard : clientModel.getLeaderCards()){
+                        System.out.println(leaderCard.print());
+                    }
+                }
                 break;
             case "m" :
                 sendMessage(new MarketInfoRequest());
