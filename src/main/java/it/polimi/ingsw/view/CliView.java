@@ -18,16 +18,19 @@ public class CliView extends View {
     private final SocketHandler socketHandler;
     private final Scanner stdIn;
     private ClientModel clientModel;
+    private Object lock;
 
     public CliView(SocketHandler socketHandler){
         this.socketHandler = socketHandler;
         stdIn = new Scanner(System.in);
         clientModel = new ClientModel();
+        lock = new Object();
     }
 
     @Override
     public void update(Message message) {
-        message.apply(this);
+        Thread thread = new Thread(() -> message.apply(this));
+        thread.start();
     }
 
     @Override
@@ -35,7 +38,7 @@ public class CliView extends View {
         socketHandler.addObserver(this);
         welcome();
         login();
-        Thread thread = new Thread(socketHandler::waitServerMessage);
+        Thread thread = new Thread(socketHandler);
         thread.start();
     }
 
@@ -124,20 +127,12 @@ public class CliView extends View {
 
         for(int i=0; i<cont; i++){
 
-            System.out.println("Choose a resource:");
-            System.out.println("c -> coin");
-            System.out.println("sh -> shield");
-            System.out.println("st -> stone");
-            System.out.println("se -> servant");
+            System.out.println("Choose a resource: coin. shield, stone or servant");
 
             String temp = stdIn.nextLine();
-            while (!temp.toLowerCase().equals("c") && !temp.toLowerCase().equals("sh") && !temp.toLowerCase().equals("st") && !temp.toLowerCase().equals("se")){
+            while (!temp.toLowerCase().equals("coin") && !temp.toLowerCase().equals("shield") && !temp.toLowerCase().equals("stone") && !temp.toLowerCase().equals("servant")){
                 System.out.println("Error - try again");
-                System.out.println("Choose a resource:");
-                System.out.println("c -> coin");
-                System.out.println("sh -> shield");
-                System.out.println("st -> stone");
-                System.out.println("se -> servant");
+                System.out.println("Choose a resource: coin. shield, stone or servant");
                 temp = stdIn.nextLine();
             }
 
@@ -163,7 +158,7 @@ public class CliView extends View {
 
     //DONE?
     @Override
-    public void askCommand() {
+    public synchronized void askCommand() {
         System.out.println("These are the commands allowed:");
         System.out.println("b -> buy a card");
         System.out.println("m -> take resources from market");
@@ -199,8 +194,8 @@ public class CliView extends View {
         }
     }
 
-    public void chooseInfo(){
-        System.out.println("which item would you like to see?");
+    public synchronized void chooseInfo(){
+        System.out.println("Which item would you like to see?");
         System.out.println("w -> my warehouse");
         System.out.println("ft -> my faith track");
         System.out.println("c -> my coffer");
@@ -212,37 +207,49 @@ public class CliView extends View {
         String cmd = stdIn.nextLine();
         switch (cmd.toLowerCase()) {
             case "w":
-                System.out.println("warehouse:");
+                System.out.println("Warehouse:");
                 System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
                 break;
             case "ft":
-                System.out.println("fait track:");
+                System.out.println("Faith track:");
                 System.out.println(clientModel.getPlayerBoard().getPath().print());
                 break;
             case "c":
-                System.out.println("coffer:");
+                System.out.println("Coffer:");
                 System.out.println(clientModel.getPlayerBoard().getCoffer().print());
                 break;
             case "da":
-                System.out.println("development card area:");
+                System.out.println("Development card area:");
                 System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
                 break;
             case "lc":
-                System.out.println("leader cards:");
+                System.out.println("Leader cards:");
                 System.out.println(clientModel.getLeaderCards().get(0).print());
                 System.out.println(clientModel.getLeaderCards().get(1).print());
                 break;
             case "m" :
                 sendMessage(new MarketInfoRequest());
+                System.out.println("Market:");
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
             case "cm" :
                 sendMessage(new CardsMarketInfoRequest());
+                System.out.println("Cards market:");
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 System.out.println("Error - wrong format. Try again");
                 chooseInfo();
         }
-        //askCommand();
+        askCommand();
     }
 
     public void buyDevCard(){
@@ -353,8 +360,9 @@ public class CliView extends View {
     }
 
     @Override
-    public void showMessage(String msg){
+    public synchronized void showMessage(String msg){
         System.out.println(msg);
+        notifyAll();
     }
 
     @Override
