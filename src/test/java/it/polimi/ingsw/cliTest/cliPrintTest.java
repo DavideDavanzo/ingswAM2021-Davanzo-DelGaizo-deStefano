@@ -106,12 +106,18 @@ public class cliPrintTest {
             output.add(new Servant(1));
             Trade trade = new Trade(input,output);
 
-            developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.PURPLE, 1, cost, trade, 7));
-            developmentCard.getThirdStack().push(new DevelopmentCard(ECardColor.BLUE, 1, cost, trade, 9));
-            developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.PURPLE, 2, cost, trade, 11));
-            developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.GREEN, 3, cost, trade, 12));
+            developmentCard.getThirdStack().push(new DevelopmentCard(ECardColor.PURPLE, 1, cost, trade, 7));
+            developmentCard.getSecondStack().push(new DevelopmentCard(ECardColor.BLUE, 1, cost, trade, 9));
+            developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.YELLOW, 1, cost, trade, 3));
+            developmentCard.getThirdStack().push(new DevelopmentCard(ECardColor.PURPLE, 2, cost, trade, 11));
+            developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.BLUE, 2, cost, trade, 12));
+            developmentCard.getSecondStack().push(new DevelopmentCard(ECardColor.GREEN, 2, cost, trade, 10));
+            developmentCard.getThirdStack().push(new DevelopmentCard(ECardColor.PURPLE, 3, cost, trade, 9));
+            developmentCard.getFirstStack().push(new DevelopmentCard(ECardColor.YELLOW, 3, cost, trade, 7));
+            developmentCard.getSecondStack().push(new DevelopmentCard(ECardColor.BLUE, 3, cost, trade, 13));
 
-            System.out.println((developmentCard.print()));
+
+            //System.out.println((developmentCard.print()));
         }
 
         @Test
