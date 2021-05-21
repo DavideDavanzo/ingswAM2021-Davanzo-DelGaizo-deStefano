@@ -74,9 +74,9 @@ public class Resource extends Item {
         return volume == resource.volume;
     }
 
-    //TODO: Remove
+    @Override
     public boolean sameType(Object o) {
-        return false;
+        return o instanceof Resource;
     }
 
     @Override

@@ -30,10 +30,6 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
-    public void process(Command command) throws InvalidStateException {
-        throw new InvalidStateException("This action cannot be performed during this phase of the game");
-    }
-
     public void process(InfoMessage infoMessage) throws InvalidStateException {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
@@ -58,7 +54,19 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
+    public void process(ArrangeInWarehouseCmd arrangeInWarehouseCmd) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
+
     public void process(ChangeWhiteMarbleReply changeWhiteMarbleReply) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
+
+    public void process(ActivateLeaderCmd activateLeaderCmd) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
+
+    public void process(DiscardLeaderCmd discardLeaderCmd) throws InvalidStateException {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
