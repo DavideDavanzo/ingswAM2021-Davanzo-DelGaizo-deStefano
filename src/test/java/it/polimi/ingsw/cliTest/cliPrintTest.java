@@ -25,22 +25,11 @@ public class cliPrintTest {
             LeaderCardParser leaderCardParser = new LeaderCardParser();
 
             for(LeaderCard leaderCard :  leaderCardParser.parse()){
-                //System.out.println(leaderCard.print());
+                System.out.println(leaderCard.print());
             }
 
         }
 
-
-        @Test
-        public void printAllDev(){
-
-            DevCardParser devCardParser = new DevCardParser();
-
-            for(DevelopmentCard card : devCardParser.parse()){
-              //  System.out.println(card.print());
-            }
-
-        }
 
         @Test
         public void printCoffer() throws InvalidInputException, NotEnoughResourcesException {
@@ -51,7 +40,7 @@ public class cliPrintTest {
             coffer.updateCoffer(new Shield(1));
             coffer.updateCoffer(new Servant(1));
 
-           // System.out.println(coffer.print());
+           System.out.println(coffer.print());
         }
 
         @Test
@@ -64,7 +53,7 @@ public class cliPrintTest {
             warehouse.addResourcesToShelf(new Stone(3),warehouse.getThirdShelf());
 
 
-          //  System.out.println(warehouse.print());
+           System.out.println(warehouse.print());
         }
 
         @Test
@@ -85,7 +74,7 @@ public class cliPrintTest {
         public void printMarket(){
             Market market = new Market();
 
-            //System.out.println(market.print());
+            System.out.println(market.print());
         }
 
         @Test
@@ -117,7 +106,7 @@ public class cliPrintTest {
             developmentCard.getSecondStack().push(new DevelopmentCard(ECardColor.BLUE, 3, cost, trade, 13));
 
 
-            //System.out.println((developmentCard.print()));
+            System.out.println((developmentCard.print()));
         }
 
         @Test
@@ -125,9 +114,19 @@ public class cliPrintTest {
 
             CardMarket cardMarket = new CardMarket();
 
-          //System.out.println(cardMarket.print());
+          System.out.println(cardMarket.print());
         }
 
 
+    @Test
+    public void printAllDev(){
+
+        DevCardParser devCardParser = new DevCardParser();
+
+        for(DevelopmentCard card : devCardParser.parse()){
+            System.out.println(card.print());
+        }
+
+    }
 
     }
