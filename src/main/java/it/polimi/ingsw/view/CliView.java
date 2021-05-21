@@ -456,7 +456,7 @@ public class CliView extends View {
     public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
-        System.out.println("This is your current wharehouse...");
+        System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
         if(numExtraShelves == 0) {
             for (Item resource : resources) {

@@ -206,6 +206,14 @@ public class GameController implements Observer, Serializable {
 
     }
 
+    public void setMatch(Match match) {
+        this.match = match;
+    }
+
+    public void setTurnController(TurnController turnController) {
+        this.turnController = turnController;
+    }
+
     public void updateQueue() {
         turnController.updateQueue();
     }

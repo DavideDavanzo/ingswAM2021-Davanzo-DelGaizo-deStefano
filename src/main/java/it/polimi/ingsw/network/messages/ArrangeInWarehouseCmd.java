@@ -35,4 +35,8 @@ public class ArrangeInWarehouseCmd extends Message{
     public ArrayList<Integer> getChoices() {
         return choices;
     }
+
+    public void setChoices(ArrayList<Integer> choices) {
+        this.choices = choices;
+    }
 }
