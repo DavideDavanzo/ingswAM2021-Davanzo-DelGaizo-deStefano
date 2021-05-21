@@ -1,6 +1,4 @@
-package it.polimi.ingsw.network.observingPattern;
-
-import it.polimi.ingsw.network.messages.Message;
+package it.polimi.ingsw.observingPattern;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +15,9 @@ public class Observable {
         observers.remove(observer);
     }
 
-    public void notifyObservers(Message message){
+    public void notifyObservers(Object object){
         for(Observer observer : observers){
-            observer.update(message);
+            observer.update(object);
         }
     }
 

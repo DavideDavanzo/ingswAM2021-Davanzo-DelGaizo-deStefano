@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.messages;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
@@ -15,16 +14,10 @@ import java.io.Serializable;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = InfoMessage.class, name = "InfoMessage"),
         @JsonSubTypes.Type(value = PingMessage.class, name = "PingMessage"),
-        @JsonSubTypes.Type(value = QueryMessage.class, name = "QueryMessage"),
         @JsonSubTypes.Type(value = LoginRequest.class, name = "LoginRequest"),
         @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
-        @JsonSubTypes.Type(value = ReplyMessage.class, name = "ReplyMessage"),
-        @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
-        @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumber"),
         @JsonSubTypes.Type(value = LeaderRequest.class, name = "LeaderRequest"),
         @JsonSubTypes.Type(value = ErrorMessage.class, name = "ErrorMessage"),
-        @JsonSubTypes.Type(value = ResourceRequest.class, name = "ResourceRequest"),
-        @JsonSubTypes.Type(value = StockMarketResourcesRequest.class, name = "StockMarketResourcesRequest"),
         @JsonSubTypes.Type(value = ArrangeInWarehouseCmd.class, name = "ArrangeInWarehouseCmd"),
         @JsonSubTypes.Type(value = MarketInfoRequest.class, name = "MarketInfoRequest"),
         @JsonSubTypes.Type(value = CardsMarketInfoRequest.class, name = "CardsMarketInfoRequest"),
@@ -32,8 +25,14 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = ChangeWhiteMarbleReply.class, name = "ChangeWhiteMarbleReply"),
         @JsonSubTypes.Type(value = ChangeWhiteMarbleRequest.class, name = "ChangeWhiteMarbleRequest"),
         @JsonSubTypes.Type(value = MarketResourcesCmd.class, name = "MarketResourcesCmd"),
+        @JsonSubTypes.Type(value = PassTurnMessage.class, name = "PassTurnMessage"),
+        @JsonSubTypes.Type(value = PlayersNumRequest.class, name = "PlayersNumRequest"),
+        @JsonSubTypes.Type(value = PlayersNumber.class, name = "PlayersNumber"),
+        @JsonSubTypes.Type(value = ResourceChoice.class, name = "ResourceChoice"),
+        @JsonSubTypes.Type(value = ResourceRequest.class, name = "ResourceRequest"),
+        @JsonSubTypes.Type(value = StockMarketResourcesRequest.class, name = "StockMarketResourcesRequest"),
         @JsonSubTypes.Type(value = TurnWakeMessage.class, name = "TurnWakeMessage"),
-        @JsonSubTypes.Type(value = ResourceChoice.class, name = "ResourceChoice")
+        @JsonSubTypes.Type(value = WarehouseUpdate.class, name = "WarehouseUpdate")
 })
 //TODO: declare each message @JasonSubTypes.Type
 public abstract class Message implements Serializable {

@@ -1,17 +1,16 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.LoginReply;
-import it.polimi.ingsw.network.messages.Message;
 
 import java.util.ArrayList;
 
 public class GuiView extends View{
 
     @Override
-    public void update(Message message) {
+    public void update(Object object) {
 
     }
 
@@ -71,7 +70,7 @@ public class GuiView extends View{
     }
 
     @Override
-    public void askQuery(String msg) {
+    public void updateWarehouse(Warehouse warehouse) {
 
     }
 

@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
-import it.polimi.ingsw.model.effects.ExtraShelfEffect;
+import it.polimi.ingsw.observingPattern.*;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.view.CliPrinter;
 
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Class which represents the player's warehouse, where he stocks incoming resources from the market
  */
-public class Warehouse implements CliPrinter {
+public class Warehouse extends Observable implements CliPrinter {
 
     /**
      * It is the upper shelf, which can contain up to one resource
@@ -61,6 +61,7 @@ public class Warehouse implements CliPrinter {
             //assigning second shelf's resources to the first one
             shelfOne.setShelfResource(shelfTwo.getShelfResource());
             shelfTwo.setShelfResource(temp);        //assigning first shelf's resources to the second one
+            notifyObservers(this);
         }
 
     }
@@ -117,7 +118,7 @@ public class Warehouse implements CliPrinter {
         if(this.extraShelves == null)
             this.extraShelves = new ArrayList<>();
         this.extraShelves.add(extraShelf);
-
+        notifyObservers(this);
     }
 
     //throws exception if trying to add resources to a shelf while the same type of resource is already in another shelf
@@ -138,6 +139,7 @@ public class Warehouse implements CliPrinter {
             }
         }
         shelf.updateShelf(newResource);
+        notifyObservers(this);
     }
 
     public Shelf getFirstShelf() {

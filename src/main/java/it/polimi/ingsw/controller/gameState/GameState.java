@@ -13,19 +13,11 @@ public class GameState {
         this.gameController = gameController;
     }
 
-    public void process(ReplyMessage message) throws InvalidStateException {
-        throw new InvalidStateException("This action cannot be performed during this phase of the game");
-    }
-
     public void process(ErrorMessage message) throws InvalidStateException {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
     public void process(PlayersNumber message) throws InvalidStateException {
-        throw new InvalidStateException("This action cannot be performed during this phase of the game");
-    }
-
-    public void process(QueryMessage message) throws InvalidStateException {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 

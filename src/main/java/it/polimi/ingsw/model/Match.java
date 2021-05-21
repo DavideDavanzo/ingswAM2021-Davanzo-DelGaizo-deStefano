@@ -4,7 +4,7 @@ import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.sharedarea.SharedArea;
-import it.polimi.ingsw.network.observingPattern.Observable;
+import it.polimi.ingsw.observingPattern.Observable;
 
 import java.util.*;
 

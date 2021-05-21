@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
@@ -26,7 +27,8 @@ public class CliView extends View {
     }
 
     @Override
-    public void update(Message message) {
+    public void update(Object object) {
+        Message message = (Message) object;
         Thread thread = new Thread(() -> message.apply(this));
         thread.start();
     }
@@ -53,7 +55,7 @@ public class CliView extends View {
         }
     }
 
-    //DONE?
+    //DONE
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
 
@@ -110,6 +112,8 @@ public class CliView extends View {
             e.printStackTrace();
         }
 
+        clientModel.setLeaderCards(reply);
+
     }
 
     //DONE?
@@ -118,14 +122,14 @@ public class CliView extends View {
 
         int cont = Integer.parseInt(msg);
 
-        System.out.println("Choose " + msg + " resource(s) to start");
+        System.out.println("You must choose " + msg + " resource(s) to start");
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
 
         for(int i=0; i<cont; i++){
 
-            System.out.println("Choose a resource: coin. shield, stone or servant");
+            System.out.println("Choose a resource: coin, shield, stone or servant");
 
             String temp = stdIn.nextLine();
             while (!temp.toLowerCase().equals("coin") && !temp.toLowerCase().equals("shield") && !temp.toLowerCase().equals("stone") && !temp.toLowerCase().equals("servant")){
@@ -134,7 +138,7 @@ public class CliView extends View {
                 temp = stdIn.nextLine();
             }
 
-            stringBuilder.append("{\"@type\":" +"\"" + temp.toLowerCase()+ "\"" + ",\"volume\":1}");
+            stringBuilder.append("{\"@type\":" +"\"" + temp.toLowerCase() + "\"" + ",\"volume\":1}");
 
             if(i!=cont-1)
                 stringBuilder.append(",");
@@ -164,13 +168,13 @@ public class CliView extends View {
         System.out.println("t -> toss leader card");
         System.out.println("a -> activate leader card");
         System.out.println("i -> ask info");
+        System.out.println("next -> next turn");
         String cmd = stdIn.nextLine();
         switch (cmd.toLowerCase()) {
             case "b":
                 buyDevCard();
                 break;
             case "m":
-                System.out.println("going to the market");
                 getMarketResources();
                 break;
             case "p":
@@ -186,6 +190,11 @@ public class CliView extends View {
                 break;
             case "i":
                 chooseInfo();
+                askCommand();
+                break;
+            case "next":
+                passTurn();
+                System.out.println("Turn completed. Wait for your next turn...");
                 break;
             default:
                 System.out.println("This command does not exist. Try again");
@@ -202,7 +211,7 @@ public class CliView extends View {
             System.out.println("These are your inactive leader cards:");
             for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
                 if(!leaderCard.isActive())
-                    leaderCard.print();
+                    System.out.println(leaderCard.print());
             }
             if(clientModel.getLeaderCards().size() == 1){
                 System.out.println("Do yu want to activate it?");
@@ -219,8 +228,15 @@ public class CliView extends View {
                     choice = Integer.parseInt(stdIn.nextLine());
                 }
             }
-            //TODO: send message of choice
+            ArrayList<Integer> temp = new ArrayList<>();
+            temp.add(choice);
+            sendMessage(new ActivateLeaderCmd(temp));
         }
+    }
+
+    @Override
+    public void updateWarehouse(Warehouse warehouse) {
+        clientModel.updateWarehouse(warehouse);
     }
 
     public synchronized void chooseInfo(){
@@ -232,7 +248,6 @@ public class CliView extends View {
         System.out.println("lc -> my leader cards");
         System.out.println("m -> market");
         System.out.println("cm -> card market");
-        System.out.println("exit -> return to main commands");
 
         String cmd = stdIn.nextLine();
         switch (cmd.toLowerCase()) {
@@ -280,13 +295,10 @@ public class CliView extends View {
                     e.printStackTrace();
                 }
                 break;
-            case "exit" :
-                break;
             default:
                 System.out.println("Error - wrong format. Try again");
                 chooseInfo();
         }
-        askCommand();
     }
 
     private synchronized void buyDevCard(){
@@ -301,7 +313,6 @@ public class CliView extends View {
         System.out.println("b -> blue");
         System.out.println("y -> yellow");
         System.out.println("p -> purple");
-        System.out.println("exit -> return to main commands");
         String user;
         ECardColor color = null;
         while (color == null) {
@@ -318,8 +329,6 @@ public class CliView extends View {
                 case "p":
                     color = ECardColor.PURPLE;
                     break;
-                case "exit" :
-                    break;
                 default:
                     System.out.println("ERROR - this color does not exist... try again");
             }
@@ -335,10 +344,10 @@ public class CliView extends View {
             }
         }
         int slot = 0;
-        System.out.println("This are your development cards");
+        System.out.println("These are your development cards");
         System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
         while(slot < 1 || slot > 3){
-            System.out.println("On top of which stack would you want to put it?");
+            System.out.println("On top of which stack would you like to put it?");
             System.out.println("Type a number from 1 to 3");
             try{
                 slot = Integer.parseInt(stdIn.nextLine());
@@ -378,7 +387,7 @@ public class CliView extends View {
         sendMessage(new MarketResourcesCmd(line, index-1));
     }
 
-    //to review
+    //to fix
     private synchronized void activateProduction(){
         //ask client's model my dev area
         String userInput;
@@ -424,12 +433,6 @@ public class CliView extends View {
     }
 
     @Override
-    public void askQuery(String msg) {
-        System.out.println(msg);
-        sendMessage(new ReplyMessage(stdIn.nextLine()));
-    }
-
-    @Override
     public void showLogin(String msg, boolean successful) {
         showMessage(msg);
     }
@@ -442,7 +445,7 @@ public class CliView extends View {
     @Override
     public synchronized void showMessage(String msg){
         System.out.println(msg);
-        notifyAll();
+        notify();
     }
 
     @Override
@@ -453,7 +456,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
+    public synchronized void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
         System.out.println("This is your current warehouse...");
@@ -544,6 +547,7 @@ public class CliView extends View {
             }
         }
         sendMessage(new ArrangeInWarehouseCmd(choices));
+        askCommand();
     }
 
     @Override
@@ -627,5 +631,9 @@ public class CliView extends View {
         }
         System.out.println();
         System.out.println(Color.ANSI_WHITE.escape());
+    }
+
+    public void passTurn(){
+        sendMessage(new PassTurnMessage());
     }
 }
