@@ -122,6 +122,7 @@ public class DevelopmentCardsArea implements CliPrinter {
         }
         else {
             stringBuilder.append("this is your first deck: \n");
+            stringBuilder.append("\n");
             for (int i = 0; i < firstStack.size() - 1; i++)
                 stringBuilder.append(ECardColor.getColorMap().get(firstStack.get(i).getColor()).escape() + "╔═════════" + Color.ANSI_WHITE.escape());
             stringBuilder.append(ECardColor.getColorMap().get(firstStack.peek().getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
