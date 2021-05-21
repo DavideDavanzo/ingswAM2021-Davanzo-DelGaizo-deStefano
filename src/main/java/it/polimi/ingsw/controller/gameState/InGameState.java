@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.gameState;
 
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.ProductionFailException;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
@@ -9,6 +10,8 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
@@ -255,6 +258,106 @@ public class InGameState extends GameState {
 
     @Override
     public void process(ActivateProductionCmd activateProductionCmd) throws InvalidStateException {
+
+        Player currentPlayer = gameController.getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
+
+        if(!currentPlayer.hasBigActionToken()) {
+            currentView.showError("A main action has already been performed during this turn");
+            return;
+        }
+
+        boolean wantsBaseProduction = activateProductionCmd.hasBaseProduction();
+        ArrayList<Integer> cardsIndex = activateProductionCmd.getProductionCardsIndex();
+        boolean doesntWantCardProduction = cardsIndex.get(0) == 0;
+        Trade baseProduction = new Trade();
+
+        ArrayList<Resource> productionInput = new ArrayList<>();
+        DevelopmentCardsArea area = gameController.getCurrentPlayer().getPlayerBoard().getDevelopmentCardsArea();
+
+        if(wantsBaseProduction) {
+            baseProduction = activateProductionCmd.getBaseProduction();
+            for(Resource r : baseProduction.getInput()) productionInput.add(r.clone());
+        }
+
+        if(!doesntWantCardProduction) {
+            for(Integer i : cardsIndex) {
+                if(i > 0 && i < 4) {
+                    if(!area.getArea()[i-1].isEmpty()) {
+                        for (Resource r : area.getArea()[i-1].peek().getTrade().getInput()) productionInput.add(r.clone());
+                    }
+                }
+                else {
+                    LinkedList<LeaderCard> leaderCards = currentPlayer.getLeaderCards();
+                    if(!leaderCards.isEmpty() && leaderCards.get(i-4).isActive() && leaderCards.get(i-4).getEffect() instanceof ExtraDevEffect) {
+                        for(Resource r : ((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getInput()) productionInput.add(r.clone());
+                    }
+                }
+            }
+        }
+
+        try {
+            if(currentPlayer.getPlayerBoard().possiblePayment(productionInput)) {
+
+                if(wantsBaseProduction) {
+                    try {
+                        currentPlayer.getPlayerBoard().activateBaseProduction(baseProduction.getInput(), baseProduction.createOutput().get(0));
+                    } catch (InvalidInputException e) {
+                        //Shouldn't reach this statement.
+                        e.printStackTrace();
+                    }
+                }
+
+                if(!doesntWantCardProduction) {
+                    ArrayList<DevelopmentCard> developmentCards = new ArrayList<>();
+                    LinkedList<LeaderCard> leaderCards = currentPlayer.getLeaderCards();
+
+                    for (Integer i : cardsIndex) {
+
+                        if (i > 0 && i < 4) {
+                            if (!area.getArea()[i - 1].isEmpty()) {
+                                developmentCards.add(area.getArea()[i-1].peek());
+                            }
+                        }
+
+                        else if(!leaderCards.isEmpty() && leaderCards.get(i-4).isActive() && leaderCards.get(i-4).getEffect() instanceof ExtraDevEffect) {
+
+                            for(Item item : ((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getOutput()) {
+                                try {
+                                    currentPlayer.getPlayerBoard().getCoffer().updateCoffer(item);
+                                } catch (InvalidInputException e) {
+                                    //Shouldn't reach this statement.
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        }
+
+                    }
+                    currentPlayer.getPlayerBoard().activateProduction(developmentCards);
+                }
+            }
+        } catch (NotEnoughResourcesException e) {
+            currentView.showError("Not enough resources for this type of production. Try again. .");
+        } catch (InvalidInputException | ProductionFailException e) {
+            //Shouldn't reach this statement.
+            e.printStackTrace();
+        }
+
+        currentView.showMessage("Successful production!");
+        currentPlayer.revokeBigActionToken();
+
+    }
+
+    @Override
+    public void process(PassTurnMessage passTurnMessage) throws InvalidStateException {
+        Player currentPlayer = gameController.getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
+
+        if(!currentPlayer.hasBigActionToken()) {
+            gameController.getTurnController().nextTurn();
+        }
+        else currentView.showError("You have to perform a main action during your turn.");
 
     }
 

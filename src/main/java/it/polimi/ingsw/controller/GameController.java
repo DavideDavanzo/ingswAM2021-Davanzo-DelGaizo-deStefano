@@ -108,8 +108,7 @@ public class GameController implements Observer, Serializable {
             Player p = new Player(entry.getKey());
             match.addPlayer(p);
             match.addObserver(entry.getValue());
-            //TODO
-
+            p.getPlayerBoard().getWarehouse().addObserver(entry.getValue());
         }
 
         if(isSinglePlayer()) match.setToSinglePlayer();
