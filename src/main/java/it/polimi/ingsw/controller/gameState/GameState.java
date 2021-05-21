@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller.gameState;
 
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.controller.GameController;
 import it.polimi.ingsw.view.VirtualView;
@@ -67,6 +66,10 @@ public class GameState {
     }
 
     public void process(DiscardLeaderCmd discardLeaderCmd) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
+
+    public void process(ActivateProductionCmd activateProductionCmd) throws InvalidStateException {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 

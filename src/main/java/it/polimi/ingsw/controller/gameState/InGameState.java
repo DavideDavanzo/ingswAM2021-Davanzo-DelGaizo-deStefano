@@ -20,6 +20,7 @@ import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class InGameState extends GameState {
 
@@ -44,7 +45,7 @@ public class InGameState extends GameState {
         try {
             developmentCard = gameController.getMatch().getSharedArea().getCardMarket().getCard(color.toString(), level);
         } catch (IllegalArgumentException e) {
-            //TODO: Send no card error;
+            currentView.showError("No such card. .");
             return;
         }
 
@@ -60,7 +61,7 @@ public class InGameState extends GameState {
             try {
                 currentPlayer.pay(developmentCard);
             } catch (NotEnoughResourcesException e) {
-                //TODO: Send not enough resources error;
+                currentView.showError("Not enough resources to buy this card. .");
                 return;
             } catch (InvalidInputException e) {
                 //Shouldn't reach this catch.
@@ -203,22 +204,27 @@ public class InGameState extends GameState {
             currentView.showMessage("Some resources couldn't be put in the selected shelves. Only same type in the same shelf!");
             currentView.askToStockMarketResources(currentPlayer.getItemsToArrangeInWarehouse(), currentPlayer.extraShelvesCount());
         }
-
+        currentView.showMessage("Added to your warehouse!");
     }
 
     @Override
     public void process(ActivateLeaderCmd activateLeaderCmd) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(activateLeaderCmd.getUsername());
+        LinkedList<LeaderCard> leaderCards = currentPlayer.getLeaderCards();
 
         for(Integer i : activateLeaderCmd.getChoices()) {
-            try {
-                currentPlayer.getLeaderCards().get(i-1).activateOn(currentPlayer);
-                currentView.showMessage("Activated leader card number " + i);
-                gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " activated a leader card!", currentPlayer.getNickname());
-            } catch (NotEnoughResourcesException e) {
-                currentView.showError("Couldn't activate the leader card number " + i);
-            }
+            if(leaderCards.size() != 0 && leaderCards.size() >= i) {
+                if(!leaderCards.get(i).isActive()) {
+                    try {
+                        currentPlayer.getLeaderCards().get(i-1).activateOn(currentPlayer);
+                        currentView.showMessage("Activated leader card number " + i);
+                        gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " activated a leader card!", currentPlayer.getNickname());
+                    } catch (NotEnoughResourcesException e) {
+                        currentView.showError("Couldn't activate the leader card number " + i + " because of the resources missing. .");
+                    }
+                } else currentView.showError("Couldn't activate the leader card number " + i + " because it's already active");
+            } else currentView.showError("Couldn't activate the leader card number " + i + " because it doesn't exist");
         }
     }
 
@@ -245,6 +251,11 @@ public class InGameState extends GameState {
             //Should never reach this situation;
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void process(ActivateProductionCmd activateProductionCmd) throws InvalidStateException {
+
     }
 
     public boolean bigActionNotAvailable(boolean token, VirtualView currentView) {

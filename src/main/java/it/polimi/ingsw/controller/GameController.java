@@ -107,8 +107,11 @@ public class GameController implements Observer, Serializable {
 
         match = new Match();
         for(Map.Entry<String, VirtualView> entry : virtualViewMap.entrySet()) {
-            match.addPlayer(new Player(entry.getKey()));
+            Player p = new Player(entry.getKey());
+            match.addPlayer(p);
             match.addObserver(entry.getValue());
+            //TODO
+
         }
 
         if(isSinglePlayer()) match.setToSinglePlayer();
@@ -153,7 +156,6 @@ public class GameController implements Observer, Serializable {
     public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
         if(virtualViewMap.containsKey(nickname)) throw new NicknameException();
         virtualViewMap.put(nickname, virtualView);
-        //TODO: SharedArea Observable? -> addObserver(virtualView)?
     }
 
     @Override
