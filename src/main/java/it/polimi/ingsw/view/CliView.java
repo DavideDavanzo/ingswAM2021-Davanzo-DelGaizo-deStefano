@@ -302,10 +302,10 @@ public class CliView extends View {
         System.out.println("y -> yellow");
         System.out.println("p -> purple");
         System.out.println("exit -> return to main commands");
-        String user = stdIn.nextLine();
+        String user;
         ECardColor color = null;
         while (color == null) {
-            switch (user.toLowerCase()) {
+            switch (user = stdIn.nextLine().toLowerCase()) {
                 case "g":
                     color = ECardColor.GREEN;
                     break;
