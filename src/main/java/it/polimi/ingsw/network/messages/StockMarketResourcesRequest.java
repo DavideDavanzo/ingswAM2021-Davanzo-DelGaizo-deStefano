@@ -57,4 +57,5 @@ public class StockMarketResourcesRequest extends Message {
     public void setNumExtraShelves(int numExtraShelves) {
         this.numExtraShelves = numExtraShelves;
     }
+
 }

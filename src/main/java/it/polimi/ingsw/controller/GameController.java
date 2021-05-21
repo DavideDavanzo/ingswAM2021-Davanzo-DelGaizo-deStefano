@@ -1,8 +1,6 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.utils.TimeoutCounter;
 import it.polimi.ingsw.controller.gameState.GameState;
-import it.polimi.ingsw.controller.gameState.InitState;
 import it.polimi.ingsw.controller.gameState.LoginState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.exceptions.controllerExceptions.NicknameException;
@@ -10,7 +8,7 @@ import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.network.messages.Message;
-import it.polimi.ingsw.network.observingPattern.Observer;
+import it.polimi.ingsw.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.io.Serializable;
@@ -157,8 +155,8 @@ public class GameController implements Observer, Serializable {
     }
 
     @Override
-    public void update(Message message) {
-        onMessage(message);
+    public void update(Object object) {
+        onMessage((Message) object);
     }
 
     public Map<String, VirtualView> getVirtualViewMap() {

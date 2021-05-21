@@ -1,8 +1,8 @@
 package it.polimi.ingsw.utils;
 
 import it.polimi.ingsw.network.messages.TimeoutMessage;
-import it.polimi.ingsw.network.observingPattern.Observable;
-import it.polimi.ingsw.network.observingPattern.Observer;
+import it.polimi.ingsw.observingPattern.Observable;
+import it.polimi.ingsw.observingPattern.Observer;
 
 import java.util.TimerTask;
 

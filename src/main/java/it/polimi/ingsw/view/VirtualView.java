@@ -2,6 +2,7 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
@@ -18,20 +19,19 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void update(Message message) {
-        notifyObservers(message);
+    public void update(Object object) {
+        notifyObservers(object);
+    }
+
+    public void update(Warehouse warehouse){
+        updateWarehouse(warehouse);
     }
 
     @Override
     public void start() {
         clientHandler.addObserver(this);
-        Thread thread = new Thread(clientHandler::waitClientMessage);
+        Thread thread = new Thread(clientHandler);
         thread.start();
-    }
-
-    @Override
-    public void askQuery(String msg) {
-        clientHandler.sendMessage(new QueryMessage(msg));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
+    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves){
         sendMessage(new StockMarketResourcesRequest(resources, numExtraShelves));
     }
 
@@ -120,6 +120,11 @@ public class VirtualView extends View {
     @Override
     public void activateLeaderCards() {
 
+    }
+
+    @Override
+    public void updateWarehouse(Warehouse warehouse) {
+        sendMessage(new WarehouseUpdate(warehouse));
     }
 
     public ServerClientHandler getClientHandler(){

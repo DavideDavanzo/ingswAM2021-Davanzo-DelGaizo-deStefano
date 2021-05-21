@@ -2,8 +2,6 @@ package it.polimi.ingsw.model.resources;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.playerboard.Coffer;
 
 /**
  * Class which represents a general amount of coins

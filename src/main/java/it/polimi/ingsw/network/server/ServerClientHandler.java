@@ -5,14 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.network.messages.PingMessage;
 import it.polimi.ingsw.network.messages.TimeoutMessage;
-import it.polimi.ingsw.network.observingPattern.Observable;
+import it.polimi.ingsw.observingPattern.Observable;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ServerClientHandler extends Observable {
+public class ServerClientHandler extends Observable implements Runnable{
 
     private String username;
 
@@ -38,6 +38,19 @@ public class ServerClientHandler extends Observable {
         pingerThread = null;
         timerThread = null;
         exit = false;
+    }
+
+    @Override
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                Message message = objectMapper.readValue(socketIn.nextLine(), Message.class);
+                System.out.println("Received: " + objectMapper.writeValueAsString(message));
+                notifyObservers(message);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void startPinger(){
@@ -101,18 +114,6 @@ public class ServerClientHandler extends Observable {
         }
     }
 
-    public void waitClientMessage(){
-        while (!Thread.currentThread().isInterrupted()) {
-            try {
-                Message message = objectMapper.readValue(socketIn.nextLine(), Message.class);
-                System.out.println("Received: " + objectMapper.writeValueAsString(message));
-                notifyObservers(message);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public Message returnClientMessage(){
         Message message = null;
         try {
@@ -143,4 +144,5 @@ public class ServerClientHandler extends Observable {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }

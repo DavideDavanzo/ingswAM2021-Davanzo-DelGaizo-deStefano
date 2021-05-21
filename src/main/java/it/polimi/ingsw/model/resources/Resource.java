@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Coin.class, name = "coin"),
         @JsonSubTypes.Type(value = Servant.class, name = "servant"),

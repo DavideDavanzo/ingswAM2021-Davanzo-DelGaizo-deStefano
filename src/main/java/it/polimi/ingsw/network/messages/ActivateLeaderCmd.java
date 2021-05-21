@@ -14,8 +14,11 @@ public class ActivateLeaderCmd extends Message {
         super();
     }
 
-    public ActivateLeaderCmd(String msg, ArrayList<Integer> choices) {
+    public ActivateLeaderCmd(String msg){
         super(msg);
+    }
+
+    public ActivateLeaderCmd(ArrayList<Integer> choices) {
         this.choices = choices;
     }
 

@@ -32,6 +32,8 @@ public class ClientModel {
 
     public void updateWarehouse(Warehouse warehouse){
         playerBoard.setWarehouse(warehouse);
+        System.out.println("Warehouse updated:");
+        System.out.println(playerBoard.getWarehouse().print());
     }
 
     public void updateCoffer(Coffer coffer){
