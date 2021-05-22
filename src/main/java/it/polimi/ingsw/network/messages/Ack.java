@@ -34,6 +34,10 @@ public class Ack extends Message {
         return ack;
     }
 
+    public boolean isNack() {
+        return !ack;
+    }
+
     public void setAck(boolean ack) {
         this.ack = ack;
     }
