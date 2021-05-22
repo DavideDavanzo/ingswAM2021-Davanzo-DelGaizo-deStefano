@@ -16,6 +16,7 @@ import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.market.Marble;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Shelf;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
@@ -183,6 +184,7 @@ public class InGameState extends GameState {
         ArrayList<Integer> choices = arrangeInWarehouseCmd.getChoices();
         int counter = 0;
 
+        Warehouse wH = currentPlayer.getWarehouse();
         ArrayList<Shelf> allShelves = currentPlayer.getWarehouse().getAllWarehouseShelves();
 
         for(Integer i : choices) {
@@ -191,12 +193,12 @@ public class InGameState extends GameState {
                 gameController.moveAllExcept(currentPlayer, 1);
                 continue;
             }
-            if(!(allShelves.get(i-1).isEmpty()) && !(allShelves.get(i-1).getShelfResource().sameType(currentPlayer.getItemsToArrangeInWarehouse().get(counter)))) {
-                counter++;
-                continue;
-            }
             try {
-                allShelves.get(i-1).updateShelf((Resource) currentPlayer.getItemsToArrangeInWarehouse().get(counter));
+                if((i > 3 && currentPlayer.extraShelvesCount() < i - 3)) {
+                    counter++;
+                    continue;
+                }
+                wH.addResourcesToShelf((Resource) currentPlayer.getItemsToArrangeInWarehouse().get(counter), allShelves.get(i-1));
                 currentPlayer.getItemsToArrangeInWarehouse().remove(counter);
             } catch (NotEnoughResourcesException | InvalidInputException e) {
                 counter++;
@@ -204,7 +206,7 @@ public class InGameState extends GameState {
         }
 
         if(currentPlayer.getItemsToArrangeInWarehouse().size() > 0) { //If there are still resources to arrange...
-            currentView.showMessage("Some resources couldn't be put in the selected shelves. Only same type in the same shelf!");
+            currentView.showError("Some resources couldn't be put in the selected shelves. Only same type in the same shelf and prefixed size 1-2-3. 2 for extra shelves. .");
             currentView.askToStockMarketResources(currentPlayer.getItemsToArrangeInWarehouse(), currentPlayer.extraShelvesCount());
         }
         currentView.showMessage("Added to your warehouse!");
@@ -218,7 +220,7 @@ public class InGameState extends GameState {
 
         for(Integer i : activateLeaderCmd.getChoices()) {
             if(leaderCards.size() != 0 && leaderCards.size() >= i) {
-                if(!leaderCards.get(i).isActive()) {
+                if(!leaderCards.get(i-1).isActive()) {
                     try {
                         currentPlayer.getLeaderCards().get(i-1).activateOn(currentPlayer);
                         currentView.showMessage("Activated leader card number " + i);

@@ -139,7 +139,7 @@ public class Warehouse extends Observable implements CliPrinter {
             }
         }
         shelf.updateShelf(newResource);
-        notifyObservers(this);
+        //notifyObservers(this);
     }
 
     public Shelf getFirstShelf() {

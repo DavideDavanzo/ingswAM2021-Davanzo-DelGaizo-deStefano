@@ -21,6 +21,6 @@ public class PassTurnMessage extends Message{
 
     @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException {
-        //TODO: process this message
+        gameState.process(this);
     }
 }
