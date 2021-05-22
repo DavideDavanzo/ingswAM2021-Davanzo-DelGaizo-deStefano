@@ -50,6 +50,7 @@ public class InGameState extends GameState {
             developmentCard = gameController.getMatch().getSharedArea().getCardMarket().getCard(color.toString(), level);
         } catch (IllegalArgumentException e) {
             currentView.showError("No such card. .");
+            currentView.sendMessage(new Ack(false));
             return;
         }
 
@@ -59,6 +60,7 @@ public class InGameState extends GameState {
             currentView.showError("Cannot place the selected card into the slot you've chosen.\n" +
                     "You can only place cards on empty spaces or on top of lower level cards\n" +
                     "Select a different card or slot . .");
+            currentView.sendMessage(new Ack(false));
             return;
         }
         else {
@@ -66,6 +68,7 @@ public class InGameState extends GameState {
                 currentPlayer.pay(developmentCard);
             } catch (NotEnoughResourcesException e) {
                 currentView.showError("Not enough resources to buy this card. .");
+                currentView.sendMessage(new Ack(false));
                 return;
             } catch (InvalidInputException e) {
                 //Shouldn't reach this catch.
@@ -84,6 +87,8 @@ public class InGameState extends GameState {
         currentPlayer.revokeBigActionToken();
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " bought a level " + level + " " + color + " card", currentPlayer.getNickname());
         currentView.showMessage("You bought the card successfully: can find it in the " + slot + " slot");
+        currentView.sendMessage(new Ack(true));
+
     }
 
     @Override
@@ -102,9 +107,11 @@ public class InGameState extends GameState {
             resourcesFromMarket = gameController.getMatch().getSharedArea().getMarket().getResources(line, index);
         } catch (IllegalChoiceException e) {
             currentView.showError("You must choose r: row or c: column . .");
+            currentView.sendMessage(new Ack(false));
             return;
         } catch (IllegalArgumentException e) {
             currentView.showError("Chosen index out of Market. Choose between 1 and 4 . .");
+            currentView.sendMessage(new Ack(false));
             return;
         }
 
@@ -210,6 +217,7 @@ public class InGameState extends GameState {
             currentView.askToStockMarketResources(currentPlayer.getItemsToArrangeInWarehouse(), currentPlayer.extraShelvesCount());
         }
         currentView.showMessage("Added to your warehouse!");
+        currentView.sendMessage(new Ack(true));
     }
 
     @Override
@@ -226,11 +234,14 @@ public class InGameState extends GameState {
                         currentView.showMessage("Activated leader card number " + i);
                         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " activated a leader card!", currentPlayer.getNickname());
                     } catch (NotEnoughResourcesException e) {
-                        currentView.showError("Couldn't activate the leader card number " + i + " because of the resources missing. .");
+                        currentView.showError("Couldn't activate the leader card number " + i + " because you don't match requirements. .");
                     }
-                } else currentView.showError("Couldn't activate the leader card number " + i + " because it's already active");
-            } else currentView.showError("Couldn't activate the leader card number " + i + " because it doesn't exist");
+                } else
+                    currentView.showError("Couldn't activate the leader card number " + i + " because it's already active");
+            } else
+                currentView.showError("Couldn't activate the leader card number " + i + " because it doesn't exist");
         }
+        currentView.sendMessage(new Ack(true));
     }
 
     @Override
@@ -256,6 +267,7 @@ public class InGameState extends GameState {
             //Should never reach this situation;
             e.printStackTrace();
         }
+        currentView.sendMessage(new Ack(true));
     }
 
     @Override
@@ -264,10 +276,8 @@ public class InGameState extends GameState {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
 
-        if(!currentPlayer.hasBigActionToken()) {
-            currentView.showError("A main action has already been performed during this turn");
-            return;
-        }
+
+        if(bigActionNotAvailable(currentPlayer.hasBigActionToken(), currentView)) return;
 
         boolean wantsBaseProduction = activateProductionCmd.hasBaseProduction();
         ArrayList<Integer> cardsIndex = activateProductionCmd.getProductionCardsIndex();
@@ -341,6 +351,7 @@ public class InGameState extends GameState {
             }
         } catch (NotEnoughResourcesException e) {
             currentView.showError("Not enough resources for this type of production. Try again. .");
+            currentView.sendMessage(new Ack(false));
         } catch (InvalidInputException | ProductionFailException e) {
             //Shouldn't reach this statement.
             e.printStackTrace();
@@ -348,7 +359,7 @@ public class InGameState extends GameState {
 
         currentView.showMessage("Successful production!");
         currentPlayer.revokeBigActionToken();
-
+        currentView.sendMessage(new Ack(true));
     }
 
     @Override
@@ -358,14 +369,19 @@ public class InGameState extends GameState {
 
         if(!currentPlayer.hasBigActionToken()) {
             gameController.getTurnController().nextTurn();
+            currentView.sendMessage(new Ack(true));
         }
-        else currentView.showError("You have to perform a main action during your turn.");
+        else {
+            currentView.showError("You have to perform a main action during your turn.");
+            currentView.sendMessage(new Ack(false));
+        }
 
     }
 
     public boolean bigActionNotAvailable(boolean token, VirtualView currentView) {
         if(!token) {
             currentView.showError("Can't perform a big action in this turn anymore. .");
+            currentView.sendMessage(new Ack(false));
             return true;
         }
         return false;
