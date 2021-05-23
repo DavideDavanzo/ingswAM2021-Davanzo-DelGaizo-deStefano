@@ -33,8 +33,8 @@ public class ClientModel {
 
     public void updateWarehouse(Warehouse warehouse){
         playerBoard.setWarehouse(warehouse);
-        System.out.println("Warehouse updated:");
-        System.out.println(playerBoard.getWarehouse().print());
+        //System.out.println("Warehouse updated:");
+        //System.out.println(playerBoard.getWarehouse().print());
     }
 
     public void updateCoffer(Coffer coffer){
@@ -43,6 +43,8 @@ public class ClientModel {
 
     public void updateDevCardsArea(DevelopmentCardsArea developmentCardsArea){
         playerBoard.setDevelopmentCardsArea(developmentCardsArea);
+        //System.out.println("Development cards updated:");
+        //System.out.println(playerBoard.getDevelopmentCardsArea().print());
     }
 
     public void updateFaithTrack(Path path){
