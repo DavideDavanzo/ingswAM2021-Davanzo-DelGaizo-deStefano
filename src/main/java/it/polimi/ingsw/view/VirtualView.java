@@ -19,10 +19,11 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void update(Object object) {
-        notifyObservers(object);
+    public void update(Message message) {
+        notifyObservers(message);
     }
 
+    @Override
     public void update(Warehouse warehouse){
         updateWarehouse(warehouse);
     }
@@ -125,6 +126,11 @@ public class VirtualView extends View {
     @Override
     public void updateWarehouse(Warehouse warehouse) {
         sendMessage(new WarehouseUpdate(warehouse));
+    }
+
+    @Override
+    public void processAck(Ack ack) {
+
     }
 
     public ServerClientHandler getClientHandler(){

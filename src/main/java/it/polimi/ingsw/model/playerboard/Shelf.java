@@ -12,7 +12,7 @@ public class Shelf {
 
     private boolean empty;
 
-    private final int dimension;
+    private int dimension;
 
     private boolean extraShelf;
 
@@ -25,6 +25,9 @@ public class Shelf {
      * Dynamic attribute that keeps track of the space left in the shelf
      */
     private int availableVolume;
+
+    public Shelf(){
+    }
 
     public Shelf(int dimension) {
         extraShelf = false;
@@ -89,6 +92,8 @@ public class Shelf {
 
     public void setShelfResource(Resource resource) throws IllegalArgumentException {
 
+        if(resource == null)
+            return;
         int volume = resource.getVolume();
 
         if(volume < 0 || volume > dimension)

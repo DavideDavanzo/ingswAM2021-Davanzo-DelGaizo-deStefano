@@ -32,7 +32,9 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = ResourceRequest.class, name = "ResourceRequest"),
         @JsonSubTypes.Type(value = StockMarketResourcesRequest.class, name = "StockMarketResourcesRequest"),
         @JsonSubTypes.Type(value = TurnWakeMessage.class, name = "TurnWakeMessage"),
-        @JsonSubTypes.Type(value = WarehouseUpdate.class, name = "WarehouseUpdate")
+        @JsonSubTypes.Type(value = ActivateLeaderCmd.class, name = "ActivateLeaderCmd"),
+        @JsonSubTypes.Type(value = WarehouseUpdate.class, name = "WarehouseUpdate"),
+        @JsonSubTypes.Type(value = Ack.class, name = "Ack")
 })
 //TODO: declare each message @JasonSubTypes.Type
 public abstract class Message implements Serializable {

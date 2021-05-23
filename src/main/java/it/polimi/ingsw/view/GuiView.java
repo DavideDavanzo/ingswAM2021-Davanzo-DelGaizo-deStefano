@@ -3,16 +3,13 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
+import it.polimi.ingsw.network.messages.Message;
 
 import java.util.ArrayList;
 
 public class GuiView extends View{
-
-    @Override
-    public void update(Object object) {
-
-    }
 
     @Override
     public void start() {
@@ -75,6 +72,11 @@ public class GuiView extends View{
     }
 
     @Override
+    public void processAck(Ack ack) {
+
+    }
+
+    @Override
     public void showLogin(String msg, boolean successful) {
 
     }
@@ -86,6 +88,11 @@ public class GuiView extends View{
 
     @Override
     public void showMessage(String msg) {
+
+    }
+
+    @Override
+    public void update(Message message) {
 
     }
 

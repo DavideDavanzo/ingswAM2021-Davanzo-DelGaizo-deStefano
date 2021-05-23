@@ -1,5 +1,8 @@
 package it.polimi.ingsw.observingPattern;
 
+import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.network.messages.Message;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +18,15 @@ public class Observable {
         observers.remove(observer);
     }
 
-    public void notifyObservers(Object object){
+    public void notifyObservers(Message message){
         for(Observer observer : observers){
-            observer.update(object);
+            observer.update(message);
+        }
+    }
+
+    public void notifyObservers(Warehouse warehouse){
+        for(Observer observer : observers){
+            observer.update(warehouse);
         }
     }
 
