@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.network.messages.TurnWakeMessage;
 import it.polimi.ingsw.view.VirtualView;
@@ -36,7 +37,13 @@ public class TurnController {
         currentPlayer = players.peek();
         updateTurnCounter();
 
-        if(gameController.isSinglePlayer()) gameController.flipActionToken();
+        if(gameController.isSinglePlayer()) {
+            try {
+                gameController.flipActionToken();
+            } catch (LossException e) {
+                return;
+            }
+        }
 
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + "'s turn started . ." , currentPlayer.getNickname());
         virtualViewMap.get(currentPlayer.getNickname()).sendMessage(new TurnWakeMessage());

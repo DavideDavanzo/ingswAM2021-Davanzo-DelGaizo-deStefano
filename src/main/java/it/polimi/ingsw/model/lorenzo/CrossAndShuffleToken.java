@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.lorenzo;
 
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
+
 import java.util.Random;
 
 /**
@@ -10,6 +12,7 @@ public class CrossAndShuffleToken extends CrossToken {
     private int steps;
 
     public CrossAndShuffleToken(){
+        super();
         steps = 1;
     }
 
@@ -19,17 +22,13 @@ public class CrossAndShuffleToken extends CrossToken {
      */
 
     @Override
-    public void activate(LorenzoIlMagnifico lorenzo){
+    public void activate(LorenzoIlMagnifico lorenzo) throws LossException {
         lorenzo.move(steps);
         lorenzo.shuffleToken();
     }
 
-
-
-
-
-
-
-
-
+    @Override
+    public String toString() {
+        return "Cross & Shuffle Token: moves Lorenzo 1 position forward and shuffles the token stack.";
+    }
 }

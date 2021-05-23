@@ -21,6 +21,10 @@ public abstract class LorenzoToken {
 
     private boolean flipped;
 
+    public LorenzoToken() {
+        this.flipped = false;
+    }
+
     public void flip(){
         flipped = !flipped;
     }

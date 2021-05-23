@@ -29,7 +29,7 @@ public class LorenzoIlMagnifico {
     }
 
     /**
-     * method flips the tokens used to play a solo match
+     * Method flips the tokens used to play a solo match.
      */
     public void flipActionToken() throws LossException {
         LorenzoToken token = lorenzoList.remove();
@@ -37,6 +37,16 @@ public class LorenzoIlMagnifico {
         token.activate(this);
         token.flip();
         lorenzoList.add(token);
+    }
+
+    public String flipTokenReadAction() throws LossException {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Lorenzo activated ").append(lorenzoList.peek().toString()).append('\n');
+
+        flipActionToken();
+
+        builder.append("Current Lorenzo position: ").append(blackCrossPosition);
+        return builder.toString();
     }
 
     public void setLorenzoList(LinkedList<LorenzoToken> lorenzoList) {
@@ -55,8 +65,16 @@ public class LorenzoIlMagnifico {
      * This method increases Lorenzo's position
      * @param step is used to set the value of the increment
      */
-    public void move(int step){
-        blackCrossPosition = blackCrossPosition + step;
+    public void move(int step) throws LossException {
+        if(blackCrossPosition + step > 19) {
+            blackCrossPosition = 20;
+            //TODO: notify observers if any
+            throw new LossException("You lost to Lorenzo. He reached the end before you " + "🙁 🙁 🙁");
+        }
+        else {
+            blackCrossPosition = blackCrossPosition + step;
+            //TODO: notify observers if any
+        }
     }
 
     /**

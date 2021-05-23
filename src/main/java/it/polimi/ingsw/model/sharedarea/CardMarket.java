@@ -194,7 +194,7 @@ public class CardMarket implements CliPrinter {
             return;
         }
 
-        throw new LossException("You Lost!");
+        throw new LossException("You lost to Lorenzo because he discarded all the Dev Cards of the same color before you reached the end...");
     }
 
     /**

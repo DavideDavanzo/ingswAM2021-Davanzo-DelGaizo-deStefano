@@ -13,9 +13,11 @@ public class TossDevCardsToken extends LorenzoToken {
     public ECardColor color;
 
     public TossDevCardsToken() {
+        super();
     }
 
     public TossDevCardsToken(ECardColor color) {
+        super();
         this.color = color;
     }
 
@@ -31,6 +33,10 @@ public class TossDevCardsToken extends LorenzoToken {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Toss Dev Card Token: tosses 2 of the lowest level " + color.toString() + " cards.";
+    }
 }
 
 

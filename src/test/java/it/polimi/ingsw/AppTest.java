@@ -24,6 +24,8 @@ public class AppTest {
         System.out.println(resource.toString());
 
         System.out.println("\uD83E\uDC17");
+        System.out.println("\uD83D\uDE14");
+        System.out.println("You lost to Lorenzo. He reached the end before you " + "🙁 🙁 🙁");
     }
 
 }

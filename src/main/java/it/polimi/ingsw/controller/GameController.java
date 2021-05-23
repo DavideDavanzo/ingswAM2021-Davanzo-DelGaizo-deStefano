@@ -129,12 +129,20 @@ public class GameController implements Observer, Serializable {
         virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
     }
 
-    public void flipActionToken() {
+    public void flipActionToken() throws LossException {
         try {
-            match.getLorenzoIlMagnifico().flipActionToken();
+            String action = match.getLorenzoIlMagnifico().flipTokenReadAction();
+            virtualViewMap.get(getCurrentPlayer().getNickname()).showMessage(action);
         } catch (LossException e) {
-            e.printStackTrace();
+            lorenzoWins(e.toString());
+            throw new LossException("");
         }
+    }
+
+    private void lorenzoWins(String lossMessage) {
+        VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
+        currentView.showMessage(lossMessage); //TODO: Use a message for loss ??
+        currentView.showMessage("Your Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Your Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
     }
 
     private void prepareLeaderChoices() {
