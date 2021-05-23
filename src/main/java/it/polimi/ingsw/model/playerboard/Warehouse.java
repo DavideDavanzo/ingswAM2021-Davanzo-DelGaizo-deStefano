@@ -139,7 +139,7 @@ public class Warehouse extends Observable implements CliPrinter {
             }
         }
         shelf.updateShelf(newResource);
-        //notifyObservers(this);
+        notifyObservers(this);
     }
 
     public Shelf getFirstShelf() {
@@ -158,26 +158,21 @@ public class Warehouse extends Observable implements CliPrinter {
         return extraShelves;
     }
 
-
     @Override
     public String print() {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("      ╔═════╗\n")
-                     .append("      ║ " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getDimension():" -") + " " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().print():" ") + "║\n")
+                     .append("      ║ " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().getVolume():" -") + " " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().print():" ") + "║\n")
                      .append("      ╚═════╝\n")
-                 .append("   ╔═══════════╗\n")
-                 .append("   ║    "  + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getDimension():" -") + " " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().print():" ") + "   ║\n")
-                 .append("   ╚═══════════╝\n")
-             .append("╔══════════════════╗\n")
-             .append("║       "+ (getThirdShelf().getShelfResource()!=null?getThirdShelf().getDimension():" -") +  " "+ (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().print():" ") + "       ║\n")
-             .append("╚══════════════════╝\n");
+                     .append("   ╔═══════════╗\n")
+                     .append("   ║    " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().getVolume():" -") + " " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().print():" ") + "   ║\n")
+                     .append("   ╚═══════════╝\n")
+                     .append("╔══════════════════╗\n")
+                     .append("║       " + (getThirdShelf().getShelfResource()!=null?getThirdShelf().getShelfResource().getVolume():" -") +  " "+ (getThirdShelf().getShelfResource()!=null?getThirdShelf().getShelfResource().print():" ") + "       ║\n")
+                     .append("╚══════════════════╝\n");
 
         return stringBuilder.toString();
 
         }
-
-
-
     }
-

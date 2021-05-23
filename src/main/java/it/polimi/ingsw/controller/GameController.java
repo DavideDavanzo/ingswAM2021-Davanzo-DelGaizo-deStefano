@@ -8,6 +8,7 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.Loss
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
@@ -165,8 +166,13 @@ public class GameController implements Observer, Serializable {
     }
 
     @Override
-    public void update(Object object) {
-        onMessage((Message) object);
+    public void update(Message message) {
+        onMessage(message);
+    }
+
+    @Override
+    public void update(Warehouse warehouse) {
+
     }
 
     public Map<String, VirtualView> getVirtualViewMap() {

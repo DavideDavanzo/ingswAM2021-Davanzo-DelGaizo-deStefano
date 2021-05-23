@@ -22,7 +22,7 @@ public class Ack extends Message {
 
     @Override
     public void apply(View view) {
-
+        view.processAck(this);
     }
 
     @Override

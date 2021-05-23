@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
@@ -40,5 +41,12 @@ public abstract class View extends Observable implements Observer {
     public abstract void activateLeaderCards();
 
     public abstract void updateWarehouse(Warehouse warehouse);
+
+    public abstract void processAck(Ack ack);
+
+    @Override
+    public void update(Warehouse warehouse){
+        //do nothing
+    }
 
 }
