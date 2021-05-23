@@ -80,14 +80,14 @@ public class InitState extends GameState {
     private void addToShelfInit(ArrayList<Resource> resources) throws InvalidInputException, NotEnoughResourcesException {
         Warehouse warehouse = gameController.getCurrentPlayer().getWarehouse();
 
-        if(resources.size() == 1) warehouse.getFirstShelf().updateShelf(resources.get(0));
+        if(resources.size() == 1) warehouse.addResourcesToShelf(resources.get(0), warehouse.getFirstShelf());
 
         else if(resources.get(0).sameType(resources.get(1)))
-            for (Resource r : resources) warehouse.getSecondShelf().updateShelf(r);
+            for (Resource r : resources) warehouse.addResourcesToShelf(r, warehouse.getSecondShelf());
 
         else {
-            warehouse.getFirstShelf().updateShelf(resources.get(0));
-            warehouse.getSecondShelf().updateShelf(resources.get(1));
+            warehouse.addResourcesToShelf(resources.get(0), warehouse.getFirstShelf());
+            warehouse.addResourcesToShelf(resources.get(1), warehouse.getSecondShelf());
         }
     }
 

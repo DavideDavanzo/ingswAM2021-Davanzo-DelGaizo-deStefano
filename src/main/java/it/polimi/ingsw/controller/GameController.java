@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.controller.gameState.LoginState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.exceptions.controllerExceptions.NicknameException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
@@ -132,6 +133,22 @@ public class GameController implements Observer, Serializable {
 
     public void askLeaders() {
         virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
+    }
+
+    public void flipActionToken() throws LossException {
+        try {
+            String action = match.getLorenzoIlMagnifico().flipTokenReadAction();
+            virtualViewMap.get(getCurrentPlayer().getNickname()).showMessage(action);
+        } catch (LossException e) {
+            lorenzoWins(e.toString());
+            throw new LossException("");
+        }
+    }
+
+    private void lorenzoWins(String lossMessage) {
+        VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
+        currentView.showMessage(lossMessage); //TODO: Use a message for loss ??
+        currentView.showMessage("Your Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Your Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
     }
 
     private void prepareLeaderChoices() {

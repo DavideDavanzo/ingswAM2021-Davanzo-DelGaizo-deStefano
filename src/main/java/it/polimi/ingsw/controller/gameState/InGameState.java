@@ -368,8 +368,8 @@ public class InGameState extends GameState {
         VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
 
         if(!currentPlayer.hasBigActionToken()) {
+            currentView.sendMessage(new PassTurnMessage());
             gameController.getTurnController().nextTurn();
-            currentView.sendMessage(new Ack(true));
         }
         else {
             currentView.showError("You have to perform a main action during your turn.");
