@@ -24,7 +24,7 @@ public class FaithPathUpdate extends Message{
 
     @Override
     public void apply(View view) {
-
+        view.updateFaithTrack(path);
     }
 
     @Override

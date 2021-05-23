@@ -24,7 +24,7 @@ public class CofferUpdate extends Message{
 
     @Override
     public void apply(View view) {
-
+        view.updateCoffer(coffer);
     }
 
     @Override

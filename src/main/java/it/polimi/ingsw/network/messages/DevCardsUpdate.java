@@ -20,7 +20,7 @@ public class DevCardsUpdate extends Message{
 
     @Override
     public void apply(View view) {
-
+        view.updateDevCards(developmentCardsArea);
     }
 
     @Override
