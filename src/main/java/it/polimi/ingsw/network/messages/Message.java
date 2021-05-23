@@ -34,6 +34,9 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = TurnWakeMessage.class, name = "TurnWakeMessage"),
         @JsonSubTypes.Type(value = ActivateLeaderCmd.class, name = "ActivateLeaderCmd"),
         @JsonSubTypes.Type(value = WarehouseUpdate.class, name = "WarehouseUpdate"),
+        @JsonSubTypes.Type(value = CofferUpdate.class, name = "CofferUpdate"),
+        @JsonSubTypes.Type(value = FaithPathUpdate.class, name = "FaithPathUpdate"),
+        @JsonSubTypes.Type(value = DevCardsUpdate.class, name = "DevCardsUpdate"),
         @JsonSubTypes.Type(value = Ack.class, name = "Ack")
 })
 //TODO: declare each message @JasonSubTypes.Type

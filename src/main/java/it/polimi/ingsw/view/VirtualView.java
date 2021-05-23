@@ -2,7 +2,10 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.LeaderCardParser;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
@@ -29,6 +32,21 @@ public class VirtualView extends View {
     }
 
     @Override
+    public void update(Path path) {
+        updateFaithTrack(path);
+    }
+
+    @Override
+    public void update(Coffer coffer) {
+        updateCoffer(coffer);
+    }
+
+    @Override
+    public void update(DevelopmentCardsArea developmentCardsArea) {
+        updateDevCards(developmentCardsArea);
+    }
+
+    @Override
     public void start() {
         clientHandler.addObserver(this);
         Thread thread = new Thread(clientHandler);
@@ -37,35 +55,17 @@ public class VirtualView extends View {
 
     @Override
     public void askNumberOfPlayers() {
-        /*clientHandler.sendPing();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         clientHandler.sendMessage(new PlayersNumRequest());
     }
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
-        /*clientHandler.sendPing();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         LeaderCardParser parser = new LeaderCardParser();
         clientHandler.sendMessage(new LeaderRequest(parser.serialize(leaderCards)));
     }
 
     @Override
     public void askBlankResources(String msg) {
-        /*clientHandler.sendPing();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
         clientHandler.sendMessage(new ResourceRequest(msg));
     }
 
@@ -126,6 +126,21 @@ public class VirtualView extends View {
     @Override
     public void updateWarehouse(Warehouse warehouse) {
         sendMessage(new WarehouseUpdate(warehouse));
+    }
+
+    @Override
+    public void updateCoffer(Coffer coffer) {
+        sendMessage(new CofferUpdate(coffer));
+    }
+
+    @Override
+    public void updateFaithTrack(Path path) {
+        sendMessage(new FaithPathUpdate(path));
+    }
+
+    @Override
+    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+        sendMessage(new DevCardsUpdate(developmentCardsArea));
     }
 
     @Override

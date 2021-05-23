@@ -5,7 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
@@ -633,7 +636,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void processAck(Ack ack) {
+    public synchronized void processAck(Ack ack) {
         if(ack.isAck())
             System.out.println("Command executed correctly!");
         else if(ack.isNack())
@@ -665,8 +668,23 @@ public class CliView extends View {
     }
 
     @Override
-    public void updateWarehouse(Warehouse warehouse) {
+    public synchronized void updateWarehouse(Warehouse warehouse) {
         clientModel.updateWarehouse(warehouse);
+    }
+
+    @Override
+    public synchronized void updateCoffer(Coffer coffer) {
+        clientModel.updateCoffer(coffer);
+    }
+
+    @Override
+    public synchronized void updateFaithTrack(Path path) {
+        clientModel.updateFaithTrack(path);
+    }
+
+    @Override
+    public synchronized void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+        clientModel.updateDevCardsArea(developmentCardsArea);
     }
 
     private void welcome(){

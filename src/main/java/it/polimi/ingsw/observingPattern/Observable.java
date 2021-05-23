@@ -1,6 +1,9 @@
 package it.polimi.ingsw.observingPattern;
 
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.network.messages.Message;
 
 import java.util.ArrayList;
@@ -27,6 +30,24 @@ public class Observable {
     public void notifyObservers(Warehouse warehouse){
         for(Observer observer : observers){
             observer.update(warehouse);
+        }
+    }
+
+    public void notifyObservers(Coffer coffer){
+        for(Observer observer : observers){
+            observer.update(coffer);
+        }
+    }
+
+    public void notifyObservers(Path path){
+        for(Observer observer : observers){
+            observer.update(path);
+        }
+    }
+
+    public void notifyObservers(DevelopmentCardsArea developmentCardsArea){
+        for(Observer observer : observers){
+            observer.update(developmentCardsArea);
         }
     }
 

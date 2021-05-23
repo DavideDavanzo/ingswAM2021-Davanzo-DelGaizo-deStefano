@@ -7,7 +7,10 @@ import it.polimi.ingsw.exceptions.controllerExceptions.NicknameException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
@@ -110,6 +113,9 @@ public class GameController implements Observer, Serializable {
             match.addPlayer(p);
             match.addObserver(entry.getValue());
             p.getPlayerBoard().getWarehouse().addObserver(entry.getValue());
+            p.getPlayerBoard().getCoffer().addObserver(entry.getValue());
+            p.getPlayerBoard().getDevelopmentCardsArea().addObserver(entry.getValue());
+            p.getPlayerBoard().getPath().addObserver(entry.getValue());
         }
 
         if(isSinglePlayer()) match.setToSinglePlayer();
@@ -154,16 +160,6 @@ public class GameController implements Observer, Serializable {
     public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
         if(virtualViewMap.containsKey(nickname)) throw new NicknameException();
         virtualViewMap.put(nickname, virtualView);
-    }
-
-    @Override
-    public void update(Message message) {
-        onMessage(message);
-    }
-
-    @Override
-    public void update(Warehouse warehouse) {
-
     }
 
     public Map<String, VirtualView> getVirtualViewMap() {
@@ -211,16 +207,41 @@ public class GameController implements Observer, Serializable {
 
     }
 
+    public void updateQueue() {
+        turnController.updateQueue();
+    }
+
+    @Override
+    public void update(Message message) {
+        onMessage(message);
+    }
+
+    @Override
+    public void update(Warehouse warehouse) {
+        //do nothing
+    }
+
+    @Override
+    public void update(Path path) {
+        //do nothing
+    }
+
+    @Override
+    public void update(Coffer coffer) {
+        //do nothing
+    }
+
+    @Override
+    public void update(DevelopmentCardsArea developmentCardsArea) {
+        //do nothing
+    }
+
     public void setMatch(Match match) {
         this.match = match;
     }
 
     public void setTurnController(TurnController turnController) {
         this.turnController = turnController;
-    }
-
-    public void updateQueue() {
-        turnController.updateQueue();
     }
 
     public LinkedList<Player> getPlayers() {

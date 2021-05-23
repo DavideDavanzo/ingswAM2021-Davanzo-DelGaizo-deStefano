@@ -5,11 +5,12 @@ import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.ArrayList;
 
-public class Path implements CliPrinter {
+public class Path extends Observable implements CliPrinter {
 
     private final Square[] track = new Square[25];
     private final ArrayList<PopeToken> popeTokens = new ArrayList<>();
@@ -68,6 +69,8 @@ public class Path implements CliPrinter {
     public void moveForward(int totSteps) throws InvalidInputException {
         for(int i=0; i<totSteps; i++)
             currentFaithPoints.update(new FaithPoint(1));
+        if(totSteps != 0)
+            notifyObservers(this);
     }
 
     //returns if the player is currently in a Vatican report section
@@ -80,6 +83,7 @@ public class Path implements CliPrinter {
         if(isVaticanReport(position))
             track[getCurrentPositionAsInt()].getPopeToken().flip();
         track[position].setPopeSquare(false);       //at the end disable the Pope space
+        //notifyObservers(this);
     }
 
     //returns the sum between the points given by the position and the points given by the papal tokens if face up

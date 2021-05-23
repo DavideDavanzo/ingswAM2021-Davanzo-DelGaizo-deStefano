@@ -4,6 +4,7 @@ import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.*;
@@ -13,7 +14,7 @@ import java.util.*;
  * This section of the {@link PlayerBoard} contains three stacks of
  * {@link DevelopmentCard} which are previously purchased by the Player
  */
-public class DevelopmentCardsArea implements CliPrinter {
+public class DevelopmentCardsArea extends Observable implements CliPrinter {
 
     private Stack<DevelopmentCard> firstStack = new Stack<>();
     private Stack<DevelopmentCard> secondStack = new Stack<>();
@@ -33,6 +34,7 @@ public class DevelopmentCardsArea implements CliPrinter {
             throw new InvalidInputException("Development card must be placed over other ones of a lesser level");
         } else {
             slot.push(developmentCard);
+            notifyObservers(this);
         }
 
     }

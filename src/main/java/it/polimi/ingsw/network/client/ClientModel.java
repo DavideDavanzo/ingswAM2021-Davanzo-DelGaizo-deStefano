@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,10 @@ public class ClientModel {
 
     public void updateDevCardsArea(DevelopmentCardsArea developmentCardsArea){
         playerBoard.setDevelopmentCardsArea(developmentCardsArea);
+    }
+
+    public void updateFaithTrack(Path path){
+        playerBoard.setPath(path);
     }
 
 }

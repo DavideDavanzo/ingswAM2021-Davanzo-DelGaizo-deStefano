@@ -1,7 +1,10 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
@@ -68,6 +71,21 @@ public class GuiView extends View{
 
     @Override
     public void updateWarehouse(Warehouse warehouse) {
+
+    }
+
+    @Override
+    public void updateCoffer(Coffer coffer) {
+
+    }
+
+    @Override
+    public void updateFaithTrack(Path path) {
+
+    }
+
+    @Override
+    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
 
     }
 
