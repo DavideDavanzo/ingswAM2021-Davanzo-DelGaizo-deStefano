@@ -6,6 +6,7 @@ import java.util.Stack;
  * The class represents a specific kind of token
  */
 public class CrossToken extends LorenzoToken{
+
     private int steps;
 
     public CrossToken(){

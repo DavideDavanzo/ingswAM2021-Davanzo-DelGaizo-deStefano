@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.controller.gameState.LoginState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.exceptions.controllerExceptions.NicknameException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.Match;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
@@ -125,6 +126,14 @@ public class GameController implements Observer, Serializable {
 
     public void askLeaders() {
         virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
+    }
+
+    public void flipActionToken() {
+        try {
+            match.getLorenzoIlMagnifico().flipActionToken();
+        } catch (LossException e) {
+            e.printStackTrace();
+        }
     }
 
     private void prepareLeaderChoices() {

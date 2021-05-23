@@ -26,7 +26,7 @@ public class Match extends Observable {
     }
 
     public void setToSinglePlayer() {
-        this.lorenzoIlMagnifico = new LorenzoIlMagnifico();
+        this.lorenzoIlMagnifico = new LorenzoIlMagnifico(sharedArea.getCardMarket());
         this.singlePlayer = true;
     }
 

@@ -6,6 +6,7 @@ import java.util.Random;
  * The class represents a specific kind of token
  */
 public class CrossAndShuffleToken extends CrossToken {
+
     private int steps;
 
     public CrossAndShuffleToken(){

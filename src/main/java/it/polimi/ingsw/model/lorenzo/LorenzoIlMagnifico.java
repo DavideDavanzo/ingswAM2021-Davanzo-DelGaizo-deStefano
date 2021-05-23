@@ -1,36 +1,49 @@
 package it.polimi.ingsw.model.lorenzo;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
+import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
-import it.polimi.ingsw.model.sharedarea.SharedArea;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
-import java.util.Stack;
 
 /**
  * Class that represents Lorenzo during a solo match
  */
 public class LorenzoIlMagnifico {
+
     private int blackCrossPosition;
-    private Stack<LorenzoToken> lorenzoList = new Stack<LorenzoToken>();
-    private SharedArea sharedArea;
+    private LinkedList<LorenzoToken> lorenzoList;
     private CardMarket cardMarket;
 
+    public LorenzoIlMagnifico() {
+        this.blackCrossPosition = 0;
+        this.lorenzoList = initTokens();
+    }
+
+    public LorenzoIlMagnifico(CardMarket cardMarket) {
+        this.blackCrossPosition = 0;
+        this.lorenzoList = initTokens();
+        this.cardMarket = cardMarket;
+    }
 
     /**
      * method flips the tokens used to play a solo match
      */
     public void flipActionToken() throws LossException {
-        LorenzoToken token = lorenzoList.remove(0);
+        LorenzoToken token = lorenzoList.remove();
         token.flip();
         token.activate(this);
+        token.flip();
+        lorenzoList.add(token);
     }
 
-    public void setLorenzoList(Stack<LorenzoToken> lorenzoList) {
+    public void setLorenzoList(LinkedList<LorenzoToken> lorenzoList) {
         this.lorenzoList = lorenzoList;
     }
 
-    public Stack<LorenzoToken> getLorenzoList() {
+    public LinkedList<LorenzoToken> getLorenzoList() {
         return lorenzoList;
     }
 
@@ -63,9 +76,18 @@ public class LorenzoIlMagnifico {
 
     }
 
-    public SharedArea getSharedArea() {
-        return sharedArea;
+    public LinkedList<LorenzoToken> initTokens() {
+        LinkedList<LorenzoToken> list = new LinkedList<>();
+        list.push(new TossDevCardsToken(ECardColor.GREEN));
+        list.push(new TossDevCardsToken(ECardColor.YELLOW));
+        list.push(new TossDevCardsToken(ECardColor.BLUE));
+        list.push(new TossDevCardsToken(ECardColor.PURPLE));
+        list.push(new CrossToken());
+        list.push(new CrossToken());
+        list.push(new CrossAndShuffleToken());
+        return list;
     }
+
 
     public CardMarket getCardMarket() {
         return cardMarket;

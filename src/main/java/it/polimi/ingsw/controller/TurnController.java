@@ -36,6 +36,8 @@ public class TurnController {
         currentPlayer = players.peek();
         updateTurnCounter();
 
+        if(gameController.isSinglePlayer()) gameController.flipActionToken();
+
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + "'s turn started . ." , currentPlayer.getNickname());
         virtualViewMap.get(currentPlayer.getNickname()).sendMessage(new TurnWakeMessage());
     }

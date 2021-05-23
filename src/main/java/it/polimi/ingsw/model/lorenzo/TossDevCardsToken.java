@@ -9,7 +9,15 @@ import it.polimi.ingsw.model.sharedarea.SharedArea;
  */
 
 public class TossDevCardsToken extends LorenzoToken {
+
     public ECardColor color;
+
+    public TossDevCardsToken() {
+    }
+
+    public TossDevCardsToken(ECardColor color) {
+        this.color = color;
+    }
 
     /**
      * This method removes two cards of color ECardColor color from the development card area
