@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.Discount;
 import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.market.Marble;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 
@@ -200,12 +201,16 @@ public class Player {
         return this.getPlayerBoard().getPath().moveForward(steps);
     }
 
+    public int devCardCount() {
+        return playerBoard.getDevelopmentCardsArea().getCardCount();
+    }
+
     public boolean hasTwoWhiteMarblePowers() {
         int count = 0;
         for(LeaderCard l : leaderCards) {
             if(l.isActive() && (l.getEffect() instanceof WhiteMarbleEffect)) count++;
         }
-        return count==2 ? true : false;
+        return count == 2;
     }
 
     public PlayerBoard getPlayerBoard() {

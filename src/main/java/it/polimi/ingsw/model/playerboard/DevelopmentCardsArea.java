@@ -19,6 +19,7 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
     private Stack<DevelopmentCard> firstStack = new Stack<>();
     private Stack<DevelopmentCard> secondStack = new Stack<>();
     private Stack<DevelopmentCard> thirdStack = new Stack<>();
+    int cardCount;
 
     private Stack<DevelopmentCard>[] area = new Stack[3];
 
@@ -26,6 +27,7 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
         area[0] = firstStack;
         area[1] = secondStack;
         area[2] = thirdStack;
+        cardCount = 0;
     }
 
     public void addDevCard(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) throws InvalidInputException {
@@ -34,6 +36,7 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
             throw new InvalidInputException("Development card must be placed over other ones of a lesser level");
         } else {
             slot.push(developmentCard);
+            cardCount++;
             notifyObservers(this);
         }
 
@@ -113,6 +116,13 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
         return area;
     }
 
+    public int getCardCount() {
+        return cardCount;
+    }
+
+    public void setCardCount(int cardCount) {
+        this.cardCount = cardCount;
+    }
 
     @Override
     public String print() {

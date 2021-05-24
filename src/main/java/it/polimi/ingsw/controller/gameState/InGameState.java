@@ -83,6 +83,7 @@ public class InGameState extends GameState {
             //Shouldn't reach this catch.
             e.printStackTrace();
         }
+        if(currentPlayer.devCardCount() == 7) gameController.setEndGame(true);
 
         currentPlayer.revokeBigActionToken();
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " bought a level " + level + " " + color + " card", currentPlayer.getNickname());
