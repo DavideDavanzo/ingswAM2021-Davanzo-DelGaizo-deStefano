@@ -7,6 +7,7 @@ public enum Color {
     ANSI_BLUE("\u001B[34m"),
     ANSI_PURPLE("\u001B[35m"),
     ANSI_GREY("\u001B[37m"),
+    ANSI_BLACK("\033[1;30m"),
     ANSI_WHITE("\u001B[0m");
 
 

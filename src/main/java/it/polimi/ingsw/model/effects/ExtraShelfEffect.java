@@ -74,6 +74,6 @@ public class ExtraShelfEffect extends Effect {
 
     @Override
     public String print() {
-        return shelfResource.print() + " " + shelfResource.print() + "  ";
+        return shelfResource.print() + " " + shelfResource.print() + "   ";
     }
 }

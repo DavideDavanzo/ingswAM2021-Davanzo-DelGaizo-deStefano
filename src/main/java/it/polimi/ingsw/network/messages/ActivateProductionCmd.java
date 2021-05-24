@@ -16,8 +16,7 @@ public class ActivateProductionCmd extends Message {
     public ActivateProductionCmd() {
     }
 
-    public ActivateProductionCmd(String msg, Trade baseProduction, boolean hasBaseProduction, ArrayList<Integer> productionCardsIndex) {
-        super(msg);
+    public ActivateProductionCmd(Trade baseProduction, boolean hasBaseProduction, ArrayList<Integer> productionCardsIndex) {
         this.baseProduction = baseProduction;
         this.hasBaseProduction = hasBaseProduction;
         this.productionCardsIndex = productionCardsIndex;

@@ -38,7 +38,7 @@ public class Warehouse extends Observable implements CliPrinter {
     /**
      * Default Constructor
      */
-    public Warehouse(){
+    public Warehouse() {
         firstShelf = new Shelf(1);
         secondShelf = new Shelf(2);
         thirdShelf = new Shelf(3);
@@ -83,7 +83,7 @@ public class Warehouse extends Observable implements CliPrinter {
                 || (shelfOne == secondShelf && shelfTwo.getResourceVolume() > 2)     //case 3
                 || (shelfTwo == secondShelf && shelfOne.getResourceVolume() > 2)     //case 4
                 // case 5
-                || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) && !shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()) );
+                || (extraShelves != null && (extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo)) && !shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()));
 
     }
 
@@ -163,16 +163,24 @@ public class Warehouse extends Observable implements CliPrinter {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("      ╔═════╗\n")
-                     .append("      ║ " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().getVolume():" -") + " " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().print():" ") + "║\n")
+                     .append("      ║ " + (getFirstShelf().getShelfResource() != null ? getFirstShelf().getShelfResource().getVolume() : " -") + " " + (getFirstShelf().getShelfResource() != null ? getFirstShelf().getShelfResource().print() : " ") + "║\n")
                      .append("      ╚═════╝\n")
                      .append("   ╔═══════════╗\n")
-                     .append("   ║    " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().getVolume():" -") + " " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().print():" ") + "   ║\n")
+                     .append("   ║    " + (getSecondShelf().getShelfResource() != null ? getSecondShelf().getShelfResource().getVolume() : " -") + " " + (getSecondShelf().getShelfResource() != null ? getSecondShelf().getShelfResource().print() : " ") + "   ║\n")
                      .append("   ╚═══════════╝\n")
                      .append("╔══════════════════╗\n")
-                     .append("║       " + (getThirdShelf().getShelfResource()!=null?getThirdShelf().getShelfResource().getVolume():" -") +  " "+ (getThirdShelf().getShelfResource()!=null?getThirdShelf().getShelfResource().print():" ") + "       ║\n")
+                     .append("║       " + (getThirdShelf().getShelfResource() != null ? getThirdShelf().getShelfResource().getVolume() : " -") + " " + (getThirdShelf().getShelfResource() != null ? getThirdShelf().getShelfResource().print() : " ") + "       ║\n")
                      .append("╚══════════════════╝\n");
 
+        if (extraShelves != null) {
+            for (int i = 0; i < extraShelves.size() - 1; i++) {
+                stringBuilder.append("   ╔═══════════╗\n")
+                        .append("   ║ " + (extraShelves.get(i).getShelfResource().getVolume()) + " " + extraShelves.get(i).getShelfResource().print() + "   ║\n")
+                        .append("   ╚═══════════╝\n");
+            }
+        }
         return stringBuilder.toString();
 
-        }
     }
+
+}

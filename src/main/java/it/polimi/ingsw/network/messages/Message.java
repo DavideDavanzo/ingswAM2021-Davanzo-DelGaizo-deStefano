@@ -33,6 +33,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = StockMarketResourcesRequest.class, name = "StockMarketResourcesRequest"),
         @JsonSubTypes.Type(value = TurnWakeMessage.class, name = "TurnWakeMessage"),
         @JsonSubTypes.Type(value = ActivateLeaderCmd.class, name = "ActivateLeaderCmd"),
+        @JsonSubTypes.Type(value = DiscardLeaderCmd.class, name = "DiscardLeaderCmd"),
         @JsonSubTypes.Type(value = WarehouseUpdate.class, name = "WarehouseUpdate"),
         @JsonSubTypes.Type(value = CofferUpdate.class, name = "CofferUpdate"),
         @JsonSubTypes.Type(value = FaithPathUpdate.class, name = "FaithPathUpdate"),

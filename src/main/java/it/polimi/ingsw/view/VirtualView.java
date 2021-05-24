@@ -85,11 +85,6 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void onLoginReply(LoginReply message) {
-
-    }
-
-    @Override
     public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves){
         sendMessage(new StockMarketResourcesRequest(resources, numExtraShelves));
     }
@@ -105,21 +100,6 @@ public class VirtualView extends View {
 
     @Override
     public void checkConnection() {
-
-    }
-
-    @Override
-    public void chooseInfo() {
-
-    }
-
-    @Override
-    public void askCommand() {
-
-    }
-
-    @Override
-    public void activateLeaderCards() {
 
     }
 
@@ -141,11 +121,6 @@ public class VirtualView extends View {
     @Override
     public void updateDevCards(String developmentCardsArea) {
         sendMessage(new DevCardsUpdate(developmentCardsArea));
-    }
-
-    @Override
-    public void processAck(Ack ack) {
-
     }
 
     public ServerClientHandler getClientHandler(){
