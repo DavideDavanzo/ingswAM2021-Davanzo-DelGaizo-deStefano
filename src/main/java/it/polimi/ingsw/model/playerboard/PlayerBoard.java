@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.ProductionFailException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.playerboard.path.Path;
@@ -28,7 +29,7 @@ public class PlayerBoard {
 
     //given an arraylist of development cards, check if there are enough resource iun the player's warehouse and coffer.
     // If so take input resources starting from the main shelves and sequentially towards the coffer if needed
-    public void activateProduction(ArrayList<DevelopmentCard> chosenDevCards) throws ProductionFailException, NotEnoughResourcesException, InvalidInputException {
+    public boolean activateProduction(ArrayList<DevelopmentCard> chosenDevCards) throws ProductionFailException, NotEnoughResourcesException, InvalidInputException {
 
         ArrayList<Resource> totalInputRequired = new ArrayList<>();
         ArrayList<Item> totalProductionOutput = new ArrayList<>();
@@ -42,19 +43,20 @@ public class PlayerBoard {
             throw new ProductionFailException("Resources chosen do not match with production requirements");
         else {
             payRequiredResources(totalInputRequired);
-            produce(totalProductionOutput);
+            return produce(totalProductionOutput);
         }
 
     }
 
     //put all the incoming resource in the coffer and update the player's faith points
-    public void produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
-
+    public boolean produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
+        boolean cantMove = false;
         for(Item product : totalProductionOutput) {
-            path.moveForward(product.pathSteps());
-            coffer.updateCoffer(product);
-        }
+                cantMove = path.moveForward(product.pathSteps());
+                coffer.updateCoffer(product);
 
+        }
+        return cantMove;
     }
 
     //take from the player's warehouse and coffer the resources needed by the transaction
@@ -175,13 +177,10 @@ public class PlayerBoard {
 
     }
 
-    public void activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
-
+    public boolean activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
         payRequiredResources(input);
-
-        path.moveForward(output.pathSteps());
         coffer.updateCoffer(output);
-
+        return path.moveForward(output.pathSteps());
     }
 
     public int calculateVictoryPoints() {

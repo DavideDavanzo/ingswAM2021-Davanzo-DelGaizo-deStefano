@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cliTest;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.enums.ECardColor;
@@ -57,7 +58,7 @@ public class cliPrintTest {
         }
 
         @Test
-        public void printPath() throws InvalidInputException {
+        public void printPath() throws InvalidInputException, EndGameException {
             //System.out.println("PATH:\n");
 
             Path path = new Path();

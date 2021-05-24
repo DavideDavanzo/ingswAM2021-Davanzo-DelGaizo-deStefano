@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
@@ -29,6 +30,7 @@ public class Player {
     private String nickname;
 
     private PlayerBoard playerBoard;
+    private boolean inkwell;
 
     private LinkedList<LeaderCard> leaderCards;
 
@@ -52,6 +54,7 @@ public class Player {
     public Player() {
         playerBoard = new PlayerBoard();
         leaderCards = new LinkedList<>();
+        inkwell = false;
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
@@ -63,6 +66,7 @@ public class Player {
         playerBoard = new PlayerBoard();
         leaderCards = new LinkedList<>();
         this.nickname = nickname;
+        inkwell = false;
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
@@ -192,8 +196,8 @@ public class Player {
         playerBoard.getWarehouse().addResourcesToShelf(newResource, warehouseShelf);
     }
 
-    public void moveForward(int steps) throws InvalidInputException {
-        this.getPlayerBoard().getPath().moveForward(steps);
+    public boolean moveForward(int steps) throws InvalidInputException {
+        return this.getPlayerBoard().getPath().moveForward(steps);
     }
 
     public boolean hasTwoWhiteMarblePowers() {
@@ -254,5 +258,17 @@ public class Player {
 
     public void revokeBigActionToken() {
         bigActionToken = false;
+    }
+
+    public boolean hasInkwell() {
+        return inkwell;
+    }
+
+    public void giveInkwell() {
+        inkwell = true;
+    }
+
+    public void setInkwell(boolean inkwell) {
+        this.inkwell = inkwell;
     }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.controller.gameState.LoginState;
+import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.exceptions.controllerExceptions.NicknameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
@@ -25,16 +26,17 @@ public class GameController implements Observer, Serializable {
     private Map<String, VirtualView> virtualViewMap;
 
     private int chosenPlayerNum;
+    private boolean endGame;
 
     private GameState gameState;
     private TurnController turnController;
-    private Timer timer;
 
     private Stack<ArrayList<LeaderCard>> leaderChoices;
 
 
     public GameController() {
         this.chosenPlayerNum = 0;
+        this.endGame = false;
         this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
         this.gameState = new LoginState(this);
         this.leaderChoices = new Stack<>();
@@ -121,6 +123,7 @@ public class GameController implements Observer, Serializable {
 
         if(isSinglePlayer()) match.setToSinglePlayer();
         else match.shufflePlayers();
+        getPlayers().peek().giveInkwell(); //Gives the inkwell to the first player
 
         turnController = new TurnController(this, virtualViewMap);
         turnController.updateTurnCounter();
@@ -140,7 +143,7 @@ public class GameController implements Observer, Serializable {
             String action = match.getLorenzoIlMagnifico().flipTokenReadAction();
             virtualViewMap.get(getCurrentPlayer().getNickname()).showMessage(action);
         } catch (LossException e) {
-            lorenzoWins(e.toString());
+            lorenzoWins(e.getMessage());
             throw new LossException("");
         }
     }
@@ -148,7 +151,7 @@ public class GameController implements Observer, Serializable {
     private void lorenzoWins(String lossMessage) {
         VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
         currentView.showMessage(lossMessage); //TODO: Use a message for loss ??
-        currentView.showMessage("Your Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Your Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        currentView.showMessage("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
     }
 
     private void prepareLeaderChoices() {
@@ -170,8 +173,45 @@ public class GameController implements Observer, Serializable {
 
     }
 
-    public void moveAllExcept(Player player, int steps) {
-        //TODO
+    public void handleEndGame() {
+
+        if(isSinglePlayer()) {
+            VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
+            currentView.showMessage("You Won!");
+            currentView.showMessage("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+            return;
+        }
+
+        LinkedList<Player> ranking = match.getRanking();
+        Player winner = ranking.peek();
+        VirtualView winnerView = virtualViewMap.get(winner.getNickname());
+        HashMap<String, Integer> completeRanking = new HashMap<>();
+
+        for(Player p : ranking) completeRanking.put(p.getNickname(), p.getVictoryPoints());
+        for(int i = 0; i < 20; i++) winnerView.showMessage("YOU WON !!!");
+
+        sendBroadcastMessageExclude(winner.getNickname() + " Won!", winner.getNickname());
+        sendBroadcastMessage(completeRanking.toString());
+
+    }
+
+    public boolean moveAllExcept(Player player, int steps) {
+
+        String nickname = player.getNickname();
+        boolean maxMovement = false;
+
+        for(Player other : getPlayers()) {
+            if(!other.getNickname().equals(nickname)) {
+                try {
+                    if(other.moveForward(steps)) maxMovement = true;
+                } catch (InvalidInputException e) {
+                    //Should never reach this statement
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return maxMovement;
     }
 
     public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
@@ -261,6 +301,10 @@ public class GameController implements Observer, Serializable {
         this.turnController = turnController;
     }
 
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
+
     public LinkedList<Player> getPlayers() {
         return match.getPlayers();
     }
@@ -275,5 +319,9 @@ public class GameController implements Observer, Serializable {
 
     public Match getMatch() {
         return match;
+    }
+
+    public boolean isEndGame() {
+        return endGame;
     }
 }

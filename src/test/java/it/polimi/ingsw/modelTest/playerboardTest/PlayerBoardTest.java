@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.ProductionFailException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
@@ -98,7 +99,7 @@ public class PlayerBoardTest {
     }
 
     @Test
-    void testProduce() throws InvalidInputException, NotEnoughResourcesException {
+    void testProduce() throws InvalidInputException, NotEnoughResourcesException, EndGameException {
 
         PlayerBoard test = new PlayerBoard();
         ArrayList<Item> output = new ArrayList<>();
@@ -121,7 +122,7 @@ public class PlayerBoardTest {
     }
 
     @Test
-    void testActivateProduction() throws NotEnoughResourcesException, InvalidInputException, ProductionFailException {
+    void testActivateProduction() throws NotEnoughResourcesException, InvalidInputException, ProductionFailException, EndGameException {
 
         Player player = new Player();
         Effect effect = new ExtraShelfEffect(new Servant());
@@ -186,7 +187,7 @@ public class PlayerBoardTest {
     }
 
     @Test
-    void testCalculateVictoryPoints() throws InvalidInputException {
+    void testCalculateVictoryPoints() throws InvalidInputException, EndGameException {
 
         PlayerBoard tested = new PlayerBoard();
 
@@ -208,7 +209,7 @@ public class PlayerBoardTest {
     }
 
     @Test
-    void testBaseProduction() throws NotEnoughResourcesException, InvalidInputException {
+    void testBaseProduction() throws NotEnoughResourcesException, InvalidInputException, EndGameException {
 
         PlayerBoard underTest = new PlayerBoard();
 

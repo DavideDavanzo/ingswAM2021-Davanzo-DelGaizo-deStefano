@@ -35,6 +35,12 @@ public class TurnController {
         currentPlayer.giveBigActionToken();
         gameController.updateQueue();
         currentPlayer = players.peek();
+
+        if(gameController.isEndGame() && currentPlayer.hasInkwell()) {
+            gameController.handleEndGame();
+            return;
+        }
+
         updateTurnCounter();
 
         if(gameController.isSinglePlayer()) {

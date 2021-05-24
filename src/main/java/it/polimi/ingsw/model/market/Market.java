@@ -114,9 +114,9 @@ public class Market implements CliPrinter {
 
         }
         else if(line == 'c'){
-            spareMarble = marketMatrix[index][2];
+            spareMarble = marketMatrix[2][index];
 
-            for(int i = 2; i > 0; i--){
+            for(int i = 2; i > 0; i--) {
                 marketMatrix[i][index] = marketMatrix[i-1][index];
             }
 

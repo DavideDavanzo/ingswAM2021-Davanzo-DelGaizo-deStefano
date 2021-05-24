@@ -20,11 +20,13 @@ public class LorenzoIlMagnifico {
     public LorenzoIlMagnifico() {
         this.blackCrossPosition = 0;
         this.lorenzoList = initTokens();
+        shuffleTokens();
     }
 
     public LorenzoIlMagnifico(CardMarket cardMarket) {
         this.blackCrossPosition = 0;
         this.lorenzoList = initTokens();
+        shuffleTokens();
         this.cardMarket = cardMarket;
     }
 
@@ -66,8 +68,8 @@ public class LorenzoIlMagnifico {
      * @param step is used to set the value of the increment
      */
     public void move(int step) throws LossException {
-        if(blackCrossPosition + step > 19) {
-            blackCrossPosition = 20;
+        if(blackCrossPosition + step > 23) {
+            blackCrossPosition = 24;
             //TODO: notify observers if any
             throw new LossException("You lost to Lorenzo. He reached the end before you " + "🙁 🙁 🙁");
         }
@@ -80,7 +82,7 @@ public class LorenzoIlMagnifico {
     /**
      * This method shuffles randomly all the tokens
      */
-    public void shuffleToken(){
+    public void shuffleTokens(){
 
         Random random = new Random();
 

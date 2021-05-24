@@ -121,7 +121,7 @@ public class InGameState extends GameState {
         if(!currentPlayer.hasTwoWhiteMarblePowers()) { //If the player doesn't hold the White Marble Power
             for (Item item : resourcesFromMarket) {
                 try {
-                    currentPlayer.moveForward(item.pathSteps());
+                    if(currentPlayer.moveForward(item.pathSteps())) gameController.setEndGame(true);
                 } catch (InvalidInputException e) {
                     //Shouldn't reach this catch.
                     e.printStackTrace();
@@ -144,7 +144,7 @@ public class InGameState extends GameState {
             int blankResourcesToSet = 0;
             for (Item item : resourcesFromMarket) {
                 try {
-                    currentPlayer.moveForward(item.pathSteps());
+                    if(currentPlayer.moveForward(item.pathSteps())) gameController.setEndGame(true);
                 } catch (InvalidInputException e) {
                     //Shouldn't reach this catch.
                     e.printStackTrace();
@@ -197,7 +197,7 @@ public class InGameState extends GameState {
         for(Integer i : choices) {
             if(i.equals(0)) {
                 currentPlayer.getItemsToArrangeInWarehouse().remove(counter);
-                gameController.moveAllExcept(currentPlayer, 1);
+                if(gameController.moveAllExcept(currentPlayer, 1)) gameController.setEndGame(true);
                 continue;
             }
             try {
@@ -262,11 +262,12 @@ public class InGameState extends GameState {
         }
         currentPlayer.getLeaderCards().removeAll(leadersToDiscard);
         try {
-            currentPlayer.moveForward(leadersToDiscard.size());
+            if(currentPlayer.moveForward(leadersToDiscard.size())) gameController.setEndGame(true);
         } catch (InvalidInputException e) {
             //Should never reach this situation;
             e.printStackTrace();
         }
+
         currentView.sendMessage(new Ack(true));
     }
 
@@ -313,7 +314,7 @@ public class InGameState extends GameState {
 
                 if(wantsBaseProduction) {
                     try {
-                        currentPlayer.getPlayerBoard().activateBaseProduction(baseProduction.getInput(), baseProduction.createOutput().get(0));
+                        if(currentPlayer.getPlayerBoard().activateBaseProduction(baseProduction.getInput(), baseProduction.createOutput().get(0))) gameController.setEndGame(true);
                     } catch (InvalidInputException e) {
                         //Shouldn't reach this statement.
                         e.printStackTrace();
@@ -346,7 +347,7 @@ public class InGameState extends GameState {
                         }
 
                     }
-                    currentPlayer.getPlayerBoard().activateProduction(developmentCards);
+                    if(currentPlayer.getPlayerBoard().activateProduction(developmentCards)) gameController.setEndGame(true);
                 }
             }
         } catch (NotEnoughResourcesException e) {

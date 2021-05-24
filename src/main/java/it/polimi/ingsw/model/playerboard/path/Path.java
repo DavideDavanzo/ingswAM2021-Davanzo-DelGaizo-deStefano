@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.playerboard.path;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.FaithPoint;
@@ -66,11 +67,18 @@ public class Path extends Observable implements CliPrinter {
     }
 
     //add one by one incoming faith points
-    public void moveForward(int totSteps) throws InvalidInputException {
-        for(int i=0; i<totSteps; i++)
+    public boolean moveForward(int totSteps) throws InvalidInputException {
+        for(int i=0; i<totSteps; i++) {
+            if(getCurrentPositionAsInt() == 24) return true;
             currentFaithPoints.update(new FaithPoint(1));
+            if(getCurrentPositionAsInt() == 24) {
+                notifyObservers(this);
+                return true;
+            }
+        }
         if(totSteps != 0)
             notifyObservers(this);
+        return false;
     }
 
     //returns if the player is currently in a Vatican report section
