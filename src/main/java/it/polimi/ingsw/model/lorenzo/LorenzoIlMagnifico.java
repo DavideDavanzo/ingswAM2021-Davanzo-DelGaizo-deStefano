@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model.lorenzo;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.view.CliPrinter;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -11,7 +13,7 @@ import java.util.Random;
 /**
  * Class that represents Lorenzo during a solo match
  */
-public class LorenzoIlMagnifico {
+public class LorenzoIlMagnifico implements CliPrinter {
 
     private int blackCrossPosition;
     private LinkedList<LorenzoToken> lorenzoList;
@@ -109,5 +111,10 @@ public class LorenzoIlMagnifico {
 
     public CardMarket getCardMarket() {
         return cardMarket;
+    }
+
+    @Override
+    public String print() {
+        return getBlackCrossPosition() + Color.ANSI_BLACK.escape() + " †";
     }
 }

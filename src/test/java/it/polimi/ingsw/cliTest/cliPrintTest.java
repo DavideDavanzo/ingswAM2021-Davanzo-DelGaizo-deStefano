@@ -4,9 +4,11 @@ import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.market.Market;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
+import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.*;
@@ -62,7 +64,7 @@ public class cliPrintTest {
 
             Path path = new Path();
 
-            path.moveForward(8);
+            path.moveForward(0);
             path.getPopeTokens().get(0).flip();
             path.applyVaticanReport(path.getCurrentPositionAsInt());
 
@@ -126,7 +128,14 @@ public class cliPrintTest {
         for(DevelopmentCard card : devCardParser.parse()){
             System.out.println(card.print());
         }
+    }
 
+    @Test
+    public void printLorenzo(){
+
+        LorenzoIlMagnifico lorenzoIlMagnifico = new LorenzoIlMagnifico();
+
+        System.out.println(lorenzoIlMagnifico.print());
     }
 
     }

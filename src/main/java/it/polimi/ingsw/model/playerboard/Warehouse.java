@@ -38,7 +38,7 @@ public class Warehouse extends Observable implements CliPrinter {
     /**
      * Default Constructor
      */
-    public Warehouse(){
+    public Warehouse() {
         firstShelf = new Shelf(1);
         secondShelf = new Shelf(2);
         thirdShelf = new Shelf(3);
@@ -46,13 +46,14 @@ public class Warehouse extends Observable implements CliPrinter {
 
     /**
      * Method to switch two of the three warehouse's main shelves
+     *
      * @param shelfOne
      * @param shelfTwo
      * @throws InvalidInputException
      */
     public void switchShelves(Shelf shelfOne, Shelf shelfTwo) throws InvalidInputException {
 
-        if(notValid(shelfOne, shelfTwo))
+        if (notValid(shelfOne, shelfTwo))
             throw new InvalidInputException("These shelves cannot be switched");
         else {
             //local variable used to not loose the shelf resources during the switch
@@ -68,22 +69,23 @@ public class Warehouse extends Observable implements CliPrinter {
 
     /**
      * Assures that the given shelves are able to be switched
+     *
      * @param shelfOne
      * @param shelfTwo
      * @return
      */
-    private boolean notValid(Shelf shelfOne, Shelf shelfTwo){
+    private boolean notValid(Shelf shelfOne, Shelf shelfTwo) {
 
         //if one of these cases => not valid
         //case 1 and 2: one of the shelves is the warehouse's firstShelf, which means can contain one resource max
         //case 3 and 4: one of the shelves is the warehouse's firstShelf, which means can contain two resource max
         //case 5: one of the shelves is an extraShelf given by the leader card, these type of shelves cannot be switched
-        return  (shelfOne == firstShelf && shelfTwo.getShelfResource().getVolume() > 1)      //case 1
+        return (shelfOne == firstShelf && shelfTwo.getShelfResource().getVolume() > 1)      //case 1
                 || (shelfTwo == firstShelf && shelfOne.getShelfResource().getVolume() > 1)      //case 2
                 || (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2)     //case 3
                 || (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2)     //case 4
                 // case 5
-                || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) && !shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()) );
+                || (extraShelves != null && (extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo)) && !shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()));
 
     }
 
@@ -97,7 +99,7 @@ public class Warehouse extends Observable implements CliPrinter {
         warehouseShelves.add(firstShelf);
         warehouseShelves.add(secondShelf);
         warehouseShelves.add(thirdShelf);
-        if(extraShelves != null)
+        if (extraShelves != null)
             warehouseShelves.addAll(extraShelves);
 
         return warehouseShelves;
@@ -115,7 +117,7 @@ public class Warehouse extends Observable implements CliPrinter {
     public void addExtraShelf(Shelf extraShelf) {
 
         extraShelf.setAsExtraShelf();
-        if(this.extraShelves == null)
+        if (this.extraShelves == null)
             this.extraShelves = new ArrayList<>();
         this.extraShelves.add(extraShelf);
         notifyObservers(this);
@@ -124,16 +126,14 @@ public class Warehouse extends Observable implements CliPrinter {
     //throws exception if trying to add resources to a shelf while the same type of resource is already in another shelf
     public void addResourcesToShelf(Resource newResource, Shelf shelf) throws NotEnoughResourcesException, InvalidInputException {
         //case: ADDING resources to the MAIN SHELVES only
-        if(newResource.getVolume() > 0 && !shelf.isExtraShelf()) {
-            if(shelf == firstShelf) {
+        if (newResource.getVolume() > 0 && !shelf.isExtraShelf()) {
+            if (shelf == firstShelf) {
                 if ((!secondShelf.isEmpty() && getSecondShelf().getShelfResource().sameType(newResource)) || (!thirdShelf.isEmpty() && getThirdShelf().getShelfResource().sameType(newResource)))
                     throw new InvalidInputException("Different shelves cannot stock the same type of resource");
-            }
-            else if(shelf == secondShelf) {
+            } else if (shelf == secondShelf) {
                 if ((!firstShelf.isEmpty() && getFirstShelf().getShelfResource().sameType(newResource)) || (!thirdShelf.isEmpty() && getThirdShelf().getShelfResource().sameType(newResource)))
                     throw new InvalidInputException("Different shelves cannot stock the same type of resource");
-            }
-            else if(shelf == thirdShelf) {
+            } else if (shelf == thirdShelf) {
                 if ((!firstShelf.isEmpty() && getFirstShelf().getShelfResource().sameType(newResource)) || (!secondShelf.isEmpty() && getSecondShelf().getShelfResource().sameType(newResource)))
                     throw new InvalidInputException("Different shelves cannot stock the same type of resource");
             }
@@ -163,16 +163,24 @@ public class Warehouse extends Observable implements CliPrinter {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("      ╔═════╗\n")
-                     .append("      ║ " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().getVolume():" -") + " " + (getFirstShelf().getShelfResource()!=null?getFirstShelf().getShelfResource().print():" ") + "║\n")
-                     .append("      ╚═════╝\n")
-                     .append("   ╔═══════════╗\n")
-                     .append("   ║    " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().getVolume():" -") + " " + (getSecondShelf().getShelfResource()!=null?getSecondShelf().getShelfResource().print():" ") + "   ║\n")
-                     .append("   ╚═══════════╝\n")
-                     .append("╔══════════════════╗\n")
-                     .append("║       " + (getThirdShelf().getShelfResource()!=null?getThirdShelf().getShelfResource().getVolume():" -") +  " "+ (getThirdShelf().getShelfResource()!=null?getThirdShelf().getShelfResource().print():" ") + "       ║\n")
-                     .append("╚══════════════════╝\n");
+                .append("      ║ " + (getFirstShelf().getShelfResource() != null ? getFirstShelf().getShelfResource().getVolume() : " -") + " " + (getFirstShelf().getShelfResource() != null ? getFirstShelf().getShelfResource().print() : " ") + "║\n")
+                .append("      ╚═════╝\n")
+                .append("   ╔═══════════╗\n")
+                .append("   ║    " + (getSecondShelf().getShelfResource() != null ? getSecondShelf().getShelfResource().getVolume() : " -") + " " + (getSecondShelf().getShelfResource() != null ? getSecondShelf().getShelfResource().print() : " ") + "   ║\n")
+                .append("   ╚═══════════╝\n")
+                .append("╔══════════════════╗\n")
+                .append("║       " + (getThirdShelf().getShelfResource() != null ? getThirdShelf().getShelfResource().getVolume() : " -") + " " + (getThirdShelf().getShelfResource() != null ? getThirdShelf().getShelfResource().print() : " ") + "       ║\n")
+                .append("╚══════════════════╝\n");
 
+        if (extraShelves != null) {
+            for (int i = 0; i < extraShelves.size() - 1; i++) {
+                stringBuilder.append("   ╔═══════════╗\n")
+                        .append("   ║ " + (extraShelves.get(i).getShelfResource().getVolume()) + " " + extraShelves.get(i).getShelfResource().print() + "   ║\n")
+                        .append("   ╚═══════════╝\n");
+            }
+        }
         return stringBuilder.toString();
 
-        }
     }
+
+}

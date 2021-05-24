@@ -111,11 +111,11 @@ public class Path extends Observable implements CliPrinter {
         int position = getCurrentPositionAsInt();
         String box;
         if(position == value && position < 10){
-            box = Color.ANSI_RED.escape() + "†";
+            box = Color.ANSI_RED.escape() + "†" + Color.ANSI_WHITE.escape();
         }
         else
             if(position == value){
-                box = Color.ANSI_RED.escape() + "† ";
+                box = Color.ANSI_RED.escape() + "† " + Color.ANSI_WHITE.escape();
         }
         else
             box = String.valueOf(( value));
@@ -130,13 +130,13 @@ public class Path extends Observable implements CliPrinter {
     public String print() {
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("            ┌─────"+ Color.ANSI_RED.escape() +"───────────────"+ Color.ANSI_WHITE.escape() +"─────────┐    ┌─────────┐ "+ Color.ANSI_RED.escape() +"   ┌─────────────────────────────┐"+ Color.ANSI_WHITE.escape() +"\n")
-                     .append("            │  " + crossValue(5) + Color.ANSI_RED.escape() + "  │ " + crossValue(6) +  " │ " + crossValue(7) + "  │ " + crossValue(8) + "  │ "+ Color.ANSI_WHITE.escape()+ crossValue(9) +"  │ " + crossValue(10) + " │    │  " + popeTokens.get(2).popeToken() +"  │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(19) + " │ "+ crossValue(20) + " │ " + crossValue(21) + " │ " + crossValue(22) +" │ " + crossValue(23) + " │ " + crossValue(24) + " │"+ Color.ANSI_WHITE.escape() + "\n")
-                     .append("            │────"+ Color.ANSI_RED.escape() +"┌───────────────"+ Color.ANSI_WHITE.escape() +"────┐────│    │         │  "+ Color.ANSI_RED.escape() +"  │────┌────────────────────────┘"+ Color.ANSI_WHITE.escape() +"\n")
-                     .append("            │ "+ crossValue(4) + "  │    ┌─────────┐    │ " + crossValue(11) + " │    └─────────┘    │ " + crossValue(18) + " │      ┌─────────┐ \n")
-                     .append("    ┌───────┘────│    │  " + popeTokens.get(0).popeToken() + "  │"+ Color.ANSI_RED.escape() +"    │────└───────────────────"+ Color.ANSI_WHITE.escape() +"┘────│      │  " + popeTokens.get(1).popeToken() + "  │\n")
-                     .append("    │ " + crossValue(1) + " │ " + crossValue(2) + " │ " + crossValue(3) + "  │    │         │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(12) + " │ "+ crossValue(13) + " │ " + crossValue(14) +" │ "+ crossValue(15) + " │ " + crossValue(16) + " │ "+ Color.ANSI_WHITE.escape() +crossValue(17) + " │      │         │\n ")
-                     .append("   └────────────┘    └─────────┘"+ Color.ANSI_RED.escape() +"    └────────────────────────"+ Color.ANSI_WHITE.escape() +"─────┘      └─────────┘    ");
+        stringBuilder.append("                 ┌─────"+ Color.ANSI_RED.escape() +"───────────────"+ Color.ANSI_WHITE.escape() +"─────────┐    ┌─────────┐ "+ Color.ANSI_RED.escape() +"   ┌─────────────────────────────┐"+ Color.ANSI_WHITE.escape() +"\n")
+                     .append("                 │  " + crossValue(5) + Color.ANSI_RED.escape() + "  │ " + crossValue(6) +  " │ " + crossValue(7) + "  │ " + crossValue(8) + "  │ "+ Color.ANSI_WHITE.escape()+ crossValue(9) +"  │ " + crossValue(10) + " │    │  " + popeTokens.get(2).popeToken() +"  │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(19) + " │ "+ crossValue(20) + " │ " + crossValue(21) + " │ " + crossValue(22) +" │ " + crossValue(23) + " │ " + crossValue(24) + " │"+ Color.ANSI_WHITE.escape() + "\n")
+                     .append("                 │────"+ Color.ANSI_RED.escape() +"┌───────────────"+ Color.ANSI_WHITE.escape() +"────┐────│    │         │  "+ Color.ANSI_RED.escape() +"  │────┌────────────────────────┘"+ Color.ANSI_WHITE.escape() +"\n")
+                     .append("                 │ "+ crossValue(4) + "  │    ┌─────────┐    │ " + crossValue(11) + " │    └─────────┘    │ " + crossValue(18) + " │      ┌─────────┐ \n")
+                     .append("     ┌───────────┘────│    │  " + popeTokens.get(0).popeToken() + "  │"+ Color.ANSI_RED.escape() +"    │────└───────────────────"+ Color.ANSI_WHITE.escape() +"┘────│      │  " + popeTokens.get(1).popeToken() + "  │\n")
+                     .append("     │ " + crossValue(0) +" │ "    + crossValue(1) + " │ " + crossValue(2) + " │ " + crossValue(3) + "  │    │         │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(12) + " │ "+ crossValue(13) + " │ " + crossValue(14) +" │ "+ crossValue(15) + " │ " + crossValue(16) + " │ "+ Color.ANSI_WHITE.escape() +crossValue(17) + " │      │         │\n ")
+                     .append("    └────────────────┘    └─────────┘"+ Color.ANSI_RED.escape() +"    └────────────────────────"+ Color.ANSI_WHITE.escape() +"─────┘      └─────────┘    ");
 
 
         return stringBuilder.toString();

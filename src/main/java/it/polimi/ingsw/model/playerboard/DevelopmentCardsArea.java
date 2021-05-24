@@ -183,7 +183,7 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
                 stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "╚═════════════════════════════════════╝\n" + Color.ANSI_WHITE.escape());
                 stringBuilder.append("\n");
             }
-        stringBuilder.append("\n");
+
             if (thirdStack.isEmpty())
                 stringBuilder.append("this is your third deck: there are no cards in this deck\n");
             else {

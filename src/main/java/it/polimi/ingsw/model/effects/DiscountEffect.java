@@ -59,6 +59,6 @@ public class DiscountEffect extends Effect {
 
     @Override
     public String print() {
-        return discount.getDiscountResource().print() + " - 1 ";
+        return discount.getDiscountResource().print() + " - 1  ";
     }
 }
