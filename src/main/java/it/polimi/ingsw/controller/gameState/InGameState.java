@@ -216,6 +216,7 @@ public class InGameState extends GameState {
         if(currentPlayer.getItemsToArrangeInWarehouse().size() > 0) { //If there are still resources to arrange...
             currentView.showError("Some resources couldn't be put in the selected shelves. Only same type in the same shelf and prefixed size 1-2-3. 2 for extra shelves. .");
             currentView.askToStockMarketResources(currentPlayer.getItemsToArrangeInWarehouse(), currentPlayer.extraShelvesCount());
+            return;
         }
         currentView.showMessage("Added to your warehouse!");
         currentView.sendMessage(new Ack(true));

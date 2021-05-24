@@ -31,6 +31,7 @@ public class Shelf {
 
     public Shelf(int dimension) {
         extraShelf = false;
+        shelfResource = new Resource(0);
         this.dimension = dimension;
         availableVolume = dimension;
         empty = true;
@@ -38,7 +39,7 @@ public class Shelf {
 
     public void emptyThisShelf() {
         empty = true;
-        shelfResource = null;
+        shelfResource = new Resource(0);
         availableVolume = dimension;
     }
 
@@ -94,6 +95,7 @@ public class Shelf {
 
         if(resource == null) {
             emptyThisShelf();
+            return;
         }
 
         int volume = resource.getVolume();
