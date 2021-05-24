@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Item;
@@ -166,12 +167,10 @@ public class CliView extends View {
                     getMarketResources();
                     break;
                 case "p":
-                    System.out.println("activating production");
                     activateProduction();
                     break;
                 case "t":
-                    System.out.println("tossing a leader card");
-                    askCommand();
+                    tossLeaderCards();
                     break;
                 case "a":
                     activateLeaderCards();
@@ -342,7 +341,51 @@ public class CliView extends View {
         }
     }
 
+    @Override
+    public synchronized void tossLeaderCards() {
+        int choice = 0;
+        if(clientModel.getLeaderCards().size() == 0){
+            System.out.println("You have no leader card");
+        } else {
+            System.out.println("These are your leader cards:");
+            for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
+                if(!leaderCard.isActive())
+                    System.out.println(leaderCard.print());
+            }
+            if(clientModel.getLeaderCards().size() == 1){
+                System.out.println("Do you want to discard it?");
+                System.out.println("y -> yes");
+                System.out.println("n -> no");
+                String userInput = null;
+                try {
+                    userInput = stdIn.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(userInput.startsWith("y"))
+                    choice = 1;
+                else
+                    return;
+            } else {
+                while(choice!=1 && choice!=2){
+                    System.out.println("Which one you want to discard? Type 1 or 2");
+                    try {
+                        choice = Integer.parseInt(stdIn.readLine());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            ArrayList<Integer> temp = new ArrayList<>();
+            temp.add(choice);
+            sendMessage(new DiscardLeaderCmd(temp));
+        }
+    }
+
     private synchronized void buyDevCard(){
+        System.out.println("These are your available resources");
+        System.out.println(clientModel.getWarehouse());
+        System.out.println(clientModel.getCoffer());
         sendMessage(new CardsMarketInfoRequest());
         try {
             wait();
@@ -413,6 +456,8 @@ public class CliView extends View {
     }
 
     private synchronized void getMarketResources(){
+        System.out.println("This is your current warehouse:");
+        System.out.println(clientModel.getWarehouse());
         sendMessage(new MarketInfoRequest());
         try {
             wait();
@@ -447,11 +492,20 @@ public class CliView extends View {
     private synchronized void activateProduction(){
         System.out.println("These are your development cards:");
         System.out.println(clientModel.getDevelopmentCardsArea());
+        for(LeaderCard leaderCard : clientModel.getLeaderCards()){
+            if(leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
+                System.out.println(leaderCard.print());
+        }
         String userInput = null;
         ArrayList<Integer> choices = new ArrayList<>();
         int cont = 4;
         do{
             System.out.println("Choose the stack of the development card you want to activate");
+            long num = clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).count();
+            if(num != 0) {
+                System.out.println("or a leader card with extra trade effect");
+                cont += num;
+            }
             System.out.println("Type its number, or type 'b' to activate base production");
             System.out.println("type \"activate\" to execute production");
             try {
@@ -462,19 +516,12 @@ public class CliView extends View {
             if(userInput.equals("activate"))
                 break;
             else if(userInput.equals("b")) {
-                if(!choices.contains(0)) {
-                    choices.add(0);
-                    cont--;
-                }
-                else{
-                    System.out.println("Already chosen... try again");
-                    continue;
-                }
+                //ask and compose base trade
             }
             else{
                 try {
                     int temp = Integer.parseInt(userInput);
-                    if (!choices.contains(temp) && temp>=0 && temp<4) {
+                    if (!choices.contains(temp) && temp>0 && temp<4+num) {
                         choices.add(temp);
                         cont--;
                     }
@@ -489,7 +536,7 @@ public class CliView extends View {
             }
         } while(cont != 0);
 
-        //TODO: assemble and send correct command
+        //TODO: sendMessage(new ActivateLeaderCmd( , , choices));
 
     }
 
@@ -600,7 +647,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+    public synchronized void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
         System.out.println();
         System.out.println();
         int i=1;
@@ -625,6 +672,11 @@ public class CliView extends View {
 
     public void passTurn(){
         sendMessage(new PassTurnMessage());
+    }
+
+    @Override
+    public void waitTurn(){
+        System.out.println("Wait for your next turn...");
     }
 
     public void sendMessage(Message message){
