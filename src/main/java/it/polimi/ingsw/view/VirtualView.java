@@ -28,22 +28,22 @@ public class VirtualView extends View {
 
     @Override
     public void update(Warehouse warehouse){
-        updateWarehouse(warehouse);
+        updateWarehouse(warehouse.print());
     }
 
     @Override
     public void update(Path path) {
-        updateFaithTrack(path);
+        updateFaithTrack(path.print());
     }
 
     @Override
     public void update(Coffer coffer) {
-        updateCoffer(coffer);
+        updateCoffer(coffer.print());
     }
 
     @Override
     public void update(DevelopmentCardsArea developmentCardsArea) {
-        updateDevCards(developmentCardsArea);
+        updateDevCards(developmentCardsArea.print());
     }
 
     @Override
@@ -124,22 +124,22 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void updateWarehouse(Warehouse warehouse) {
+    public void updateWarehouse(String warehouse) {
         sendMessage(new WarehouseUpdate(warehouse));
     }
 
     @Override
-    public void updateCoffer(Coffer coffer) {
+    public void updateCoffer(String coffer) {
         sendMessage(new CofferUpdate(coffer));
     }
 
     @Override
-    public void updateFaithTrack(Path path) {
+    public void updateFaithTrack(String path) {
         sendMessage(new FaithPathUpdate(path));
     }
 
     @Override
-    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+    public void updateDevCards(String developmentCardsArea) {
         sendMessage(new DevCardsUpdate(developmentCardsArea));
     }
 

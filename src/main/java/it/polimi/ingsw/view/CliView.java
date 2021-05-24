@@ -5,10 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.playerboard.Coffer;
-import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
-import it.polimi.ingsw.model.playerboard.Warehouse;
-import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
@@ -211,19 +207,19 @@ public class CliView extends View {
             switch (cmd = stdIn.readLine().toLowerCase()) {
                 case "w":
                     System.out.println("Warehouse:");
-                    System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
+                    System.out.println(clientModel.getWarehouse());
                     break;
                 case "ft":
                     System.out.println("Faith track:");
-                    System.out.println(clientModel.getPlayerBoard().getPath().print());
+                    System.out.println(clientModel.getFaithTrack());
                     break;
                 case "c":
                     System.out.println("Coffer:");
-                    System.out.println(clientModel.getPlayerBoard().getCoffer().print());
+                    System.out.println(clientModel.getCoffer());
                     break;
                 case "da":
                     System.out.println("Development card area:");
-                    System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
+                    System.out.println(clientModel.getDevelopmentCardsArea());
                     break;
                 case "lc":
                     System.out.println("leader cards:");
@@ -397,7 +393,7 @@ public class CliView extends View {
         }
         int slot = 0;
         System.out.println("These are your development cards");
-        System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
+        System.out.println(clientModel.getDevelopmentCardsArea());
         while(slot < 1 || slot > 3){
             System.out.println("On top of which stack would you like to put it?");
             System.out.println("Type a number from 1 to 3");
@@ -450,7 +446,7 @@ public class CliView extends View {
     //to fix/finish I guess
     private synchronized void activateProduction(){
         System.out.println("These are your development cards:");
-        System.out.println(clientModel.getPlayerBoard().getDevelopmentCardsArea().print());
+        System.out.println(clientModel.getDevelopmentCardsArea());
         String userInput = null;
         ArrayList<Integer> choices = new ArrayList<>();
         int cont = 4;
@@ -502,7 +498,7 @@ public class CliView extends View {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
         System.out.println("This is your current warehouse...");
-        System.out.println(clientModel.getPlayerBoard().getWarehouse().print());
+        System.out.println(clientModel.getWarehouse());
         if(numExtraShelves == 0) {
             for (Item resource : resources) {
                 System.out.println("Incoming resource: " + resource.print());
@@ -668,22 +664,22 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void updateWarehouse(Warehouse warehouse) {
+    public synchronized void updateWarehouse(String warehouse) {
         clientModel.updateWarehouse(warehouse);
     }
 
     @Override
-    public synchronized void updateCoffer(Coffer coffer) {
+    public synchronized void updateCoffer(String coffer) {
         clientModel.updateCoffer(coffer);
     }
 
     @Override
-    public synchronized void updateFaithTrack(Path path) {
+    public synchronized void updateFaithTrack(String path) {
         clientModel.updateFaithTrack(path);
     }
 
     @Override
-    public synchronized void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+    public synchronized void updateDevCards(String developmentCardsArea) {
         clientModel.updateDevCardsArea(developmentCardsArea);
     }
 

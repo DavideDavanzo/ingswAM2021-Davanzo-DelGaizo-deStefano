@@ -1,15 +1,10 @@
 package it.polimi.ingsw.network.messages;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.view.View;
 
 public class CofferUpdate extends Message{
-
-    @JsonSerialize(as = Coffer.class)
-    private Coffer coffer;
 
     public CofferUpdate() {
     }
@@ -18,13 +13,9 @@ public class CofferUpdate extends Message{
         super(msg);
     }
 
-    public CofferUpdate(Coffer coffer){
-        this.coffer = coffer;
-    }
-
     @Override
     public void apply(View view) {
-        view.updateCoffer(coffer);
+        view.updateCoffer(msg);
     }
 
     @Override
@@ -32,7 +23,4 @@ public class CofferUpdate extends Message{
 
     }
 
-    public void setCoffer(Coffer coffer) {
-        this.coffer = coffer;
-    }
 }
