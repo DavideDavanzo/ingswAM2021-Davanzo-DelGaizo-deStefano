@@ -152,6 +152,7 @@ public class CliView extends View {
         System.out.println("b -> buy a card");
         System.out.println("m -> take resources from market");
         System.out.println("p -> activate production");
+        System.out.println("s -> switch shelves");
         System.out.println("t -> toss leader card");
         System.out.println("a -> activate leader card");
         System.out.println("i -> ask info");
@@ -168,6 +169,9 @@ public class CliView extends View {
                 case "p":
                     System.out.println("activating production");
                     activateProduction();
+                    break;
+                case "s":
+                    switchShelves();
                     break;
                 case "t":
                     System.out.println("tossing a leader card");
@@ -342,7 +346,7 @@ public class CliView extends View {
         }
     }
 
-    private synchronized void buyDevCard(){
+    private synchronized void buyDevCard() {
         sendMessage(new CardsMarketInfoRequest());
         try {
             wait();
@@ -412,7 +416,7 @@ public class CliView extends View {
 
     }
 
-    private synchronized void getMarketResources(){
+    private synchronized void getMarketResources() {
         sendMessage(new MarketInfoRequest());
         try {
             wait();
@@ -621,6 +625,59 @@ public class CliView extends View {
             choices.add(items.get(temp-1).clone());
         }
         sendMessage(new ChangeWhiteMarbleReply(choices));
+    }
+
+    private synchronized void switchShelves() {
+        String userInput;
+        System.out.println("This is your current warehouse...");
+        System.out.println(clientModel.getWarehouse());
+        System.out.println("Which shelves do you want to swap? Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+
+        int firstShelf = 0;
+
+        try {
+            firstShelf = Integer.parseInt(stdIn.readLine());
+        } catch(NumberFormatException e) {
+            firstShelf = 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while(firstShelf < 1 || firstShelf > 5) {
+            System.out.println("Invalid shelf index");
+            System.out.println("Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+            try {
+                firstShelf = Integer.parseInt(stdIn.readLine());
+            } catch(NumberFormatException e) {
+                firstShelf = 0;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Choose the second one (different from the first): ");
+
+        int secondShelf = 0;
+        try {
+            secondShelf = Integer.parseInt(stdIn.readLine());
+        } catch(NumberFormatException e) {
+            secondShelf = 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while(secondShelf < 1 || secondShelf > 5 || secondShelf == firstShelf) {
+            System.out.println("Invalid shelf index");
+            System.out.println("Choose the second one (different from the first): ");
+            try {
+                secondShelf = Integer.parseInt(stdIn.readLine());
+            } catch(NumberFormatException e) {
+                secondShelf = 0;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        sendMessage(new SwitchShelvesCmd(firstShelf, secondShelf));
+
     }
 
     public void passTurn(){

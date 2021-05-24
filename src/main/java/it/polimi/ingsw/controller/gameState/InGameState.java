@@ -365,6 +365,26 @@ public class InGameState extends GameState {
     }
 
     @Override
+    public void process(SwitchShelvesCmd switchShelvesCmd) throws InvalidStateException {
+
+        Player currentPlayer = gameController.getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
+        int firstIndex = switchShelvesCmd.getFirst();
+        int secondIndex = switchShelvesCmd.getSecond();
+        ArrayList<Shelf> shelves = currentPlayer.getWarehouse().getAllWarehouseShelves();
+
+        try {
+            currentPlayer.getPlayerBoard().getWarehouse().switchShelves(shelves.get(firstIndex-1), shelves.get(secondIndex-1));
+        } catch (InvalidInputException e) {
+            currentView.showError("These shelves cannot be switched. . try again");
+            currentView.sendMessage(new Ack(false));
+            return;
+        }
+
+        currentView.sendMessage(new Ack(true));
+    }
+
+    @Override
     public void process(PassTurnMessage passTurnMessage) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());

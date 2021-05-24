@@ -69,6 +69,10 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
+    public void process(SwitchShelvesCmd switchShelvesCmd) throws InvalidStateException {
+        throw new InvalidStateException("This action cannot be performed during this phase of the game");
+    }
+
     public void process(PingMessage pingMessage){
         gameController.getVirtualViewMap().get(pingMessage.getUsername()).stopTimer();
     }

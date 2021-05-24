@@ -55,7 +55,7 @@ public class Warehouse extends Observable implements CliPrinter {
         if(notValid(shelfOne, shelfTwo))
             throw new InvalidInputException("These shelves cannot be switched");
         else {
-            //local variable used to not loose the shelf resources during the switch
+            //local variable used not to lose the shelf resources during the switch
             Resource temp = shelfOne.getShelfResource();
 
             //assigning second shelf's resources to the first one
@@ -72,16 +72,16 @@ public class Warehouse extends Observable implements CliPrinter {
      * @param shelfTwo
      * @return
      */
-    private boolean notValid(Shelf shelfOne, Shelf shelfTwo){
+    private boolean notValid(Shelf shelfOne, Shelf shelfTwo) {
 
         //if one of these cases => not valid
         //case 1 and 2: one of the shelves is the warehouse's firstShelf, which means can contain one resource max
-        //case 3 and 4: one of the shelves is the warehouse's firstShelf, which means can contain two resource max
+        //case 3 and 4: one of the shelves is the warehouse's secondShelf, which means can contain two resource max
         //case 5: one of the shelves is an extraShelf given by the leader card, these type of shelves cannot be switched
-        return  (shelfOne == firstShelf && shelfTwo.getShelfResource().getVolume() > 1)      //case 1
-                || (shelfTwo == firstShelf && shelfOne.getShelfResource().getVolume() > 1)      //case 2
-                || (shelfOne == secondShelf && shelfTwo.getShelfResource().getVolume() > 2)     //case 3
-                || (shelfTwo == secondShelf && shelfOne.getShelfResource().getVolume() > 2)     //case 4
+        return  (shelfOne == firstShelf && shelfTwo.getResourceVolume() > 1)      //case 1
+                || (shelfTwo == firstShelf && shelfOne.getResourceVolume() > 1)      //case 2
+                || (shelfOne == secondShelf && shelfTwo.getResourceVolume() > 2)     //case 3
+                || (shelfTwo == secondShelf && shelfOne.getResourceVolume() > 2)     //case 4
                 // case 5
                 || (extraShelves != null && ( extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo) ) && !shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()) );
 
