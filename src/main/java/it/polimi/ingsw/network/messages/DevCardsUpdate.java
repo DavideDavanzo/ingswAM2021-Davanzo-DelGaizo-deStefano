@@ -1,26 +1,21 @@
 package it.polimi.ingsw.network.messages;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.view.View;
 
 public class DevCardsUpdate extends Message{
 
-    @JsonSerialize(as = DevelopmentCardsArea.class)
-    private DevelopmentCardsArea developmentCardsArea;
-
     public DevCardsUpdate() {
     }
 
-    public DevCardsUpdate(DevelopmentCardsArea developmentCardsArea) {
-        this.developmentCardsArea = developmentCardsArea;
+    public DevCardsUpdate(String msg){
+        super(msg);
     }
 
     @Override
     public void apply(View view) {
-        view.updateDevCards(developmentCardsArea);
+        view.updateDevCards(msg);
     }
 
     @Override
@@ -28,7 +23,4 @@ public class DevCardsUpdate extends Message{
 
     }
 
-    public void setDevelopmentCardsArea(DevelopmentCardsArea developmentCardsArea) {
-        this.developmentCardsArea = developmentCardsArea;
-    }
 }
