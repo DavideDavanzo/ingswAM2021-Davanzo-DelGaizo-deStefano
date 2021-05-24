@@ -3,6 +3,7 @@ package it.polimi.ingsw.modelTest.playerboardTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.GameOverException;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.FaithPoint;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.Test;
 public class PathTest {
 
     @Test
-    void testStandingOnPopeSpace() throws InvalidInputException {
+    void testStandingOnPopeSpace() throws InvalidInputException, EndGameException {
 
         Path tested = new Path();
         //move to first Pope space
@@ -41,7 +42,7 @@ public class PathTest {
     }
 
     @Test
-    void testStandingInVaticanReportArea() throws InvalidInputException {
+    void testStandingInVaticanReportArea() throws InvalidInputException, EndGameException {
 
         Path tested = new Path();
         tested.moveForward(6);
@@ -55,7 +56,7 @@ public class PathTest {
     }
 
     @Test
-    void testStandingBeforeVaticanReportArea() throws InvalidInputException {
+    void testStandingBeforeVaticanReportArea() throws InvalidInputException, EndGameException {
 
         Path tested = new Path();
 
@@ -70,7 +71,7 @@ public class PathTest {
     }
 
     @Test
-    void testGetPathVictoryPoints() throws InvalidInputException {
+    void testGetPathVictoryPoints() throws InvalidInputException, EndGameException {
 
         Path tested = new Path();
 

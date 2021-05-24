@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
@@ -9,6 +10,7 @@ import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.Discount;
 import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.market.Marble;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 
@@ -29,6 +31,7 @@ public class Player {
     private String nickname;
 
     private PlayerBoard playerBoard;
+    private boolean inkwell;
 
     private LinkedList<LeaderCard> leaderCards;
 
@@ -52,6 +55,7 @@ public class Player {
     public Player() {
         playerBoard = new PlayerBoard();
         leaderCards = new LinkedList<>();
+        inkwell = false;
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
@@ -63,6 +67,7 @@ public class Player {
         playerBoard = new PlayerBoard();
         leaderCards = new LinkedList<>();
         this.nickname = nickname;
+        inkwell = false;
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
@@ -192,8 +197,12 @@ public class Player {
         playerBoard.getWarehouse().addResourcesToShelf(newResource, warehouseShelf);
     }
 
-    public void moveForward(int steps) throws InvalidInputException {
-        this.getPlayerBoard().getPath().moveForward(steps);
+    public boolean moveForward(int steps) throws InvalidInputException {
+        return this.getPlayerBoard().getPath().moveForward(steps);
+    }
+
+    public int devCardCount() {
+        return playerBoard.getDevelopmentCardsArea().getCardCount();
     }
 
     public boolean hasTwoWhiteMarblePowers() {
@@ -201,7 +210,7 @@ public class Player {
         for(LeaderCard l : leaderCards) {
             if(l.isActive() && (l.getEffect() instanceof WhiteMarbleEffect)) count++;
         }
-        return count==2 ? true : false;
+        return count == 2;
     }
 
     public PlayerBoard getPlayerBoard() {
@@ -254,5 +263,17 @@ public class Player {
 
     public void revokeBigActionToken() {
         bigActionToken = false;
+    }
+
+    public boolean hasInkwell() {
+        return inkwell;
+    }
+
+    public void giveInkwell() {
+        inkwell = true;
+    }
+
+    public void setInkwell(boolean inkwell) {
+        this.inkwell = inkwell;
     }
 }

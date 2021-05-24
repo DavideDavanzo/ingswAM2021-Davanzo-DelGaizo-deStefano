@@ -3,6 +3,7 @@ package it.polimi.ingsw.modelTest.cardTest.leaderTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
@@ -32,7 +33,7 @@ public class RequirementTest {
     }
 
     @Test
-    void testFaithPoints() throws InvalidInputException {
+    void testFaithPoints() throws InvalidInputException, EndGameException {
 
         FaithPoint points = new FaithPoint(14);
         underTest = new FaithPointsRequirement(points);

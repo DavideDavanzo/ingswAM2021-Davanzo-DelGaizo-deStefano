@@ -70,24 +70,25 @@ public class GuiView extends View{
     }
 
     @Override
-    public void updateWarehouse(Warehouse warehouse) {
+    public void updateWarehouse(String warehouse) {
 
     }
 
     @Override
-    public void updateCoffer(Coffer coffer) {
+    public void updateCoffer(String coffer) {
 
     }
 
     @Override
-    public void updateFaithTrack(Path path) {
+    public void updateFaithTrack(String path) {
 
     }
 
     @Override
-    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+    public void updateDevCards(String developmentCardsArea) {
 
     }
+
 
     @Override
     public void processAck(Ack ack) {

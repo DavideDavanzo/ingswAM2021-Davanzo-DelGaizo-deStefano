@@ -24,7 +24,7 @@ public class CrossAndShuffleToken extends CrossToken {
     @Override
     public void activate(LorenzoIlMagnifico lorenzo) throws LossException {
         lorenzo.move(steps);
-        lorenzo.shuffleToken();
+        lorenzo.shuffleTokens();
     }
 
     @Override

@@ -22,11 +22,13 @@ public class LorenzoIlMagnifico implements CliPrinter {
     public LorenzoIlMagnifico() {
         this.blackCrossPosition = 0;
         this.lorenzoList = initTokens();
+        shuffleTokens();
     }
 
     public LorenzoIlMagnifico(CardMarket cardMarket) {
         this.blackCrossPosition = 0;
         this.lorenzoList = initTokens();
+        shuffleTokens();
         this.cardMarket = cardMarket;
     }
 
@@ -68,8 +70,8 @@ public class LorenzoIlMagnifico implements CliPrinter {
      * @param step is used to set the value of the increment
      */
     public void move(int step) throws LossException {
-        if(blackCrossPosition + step > 19) {
-            blackCrossPosition = 20;
+        if(blackCrossPosition + step > 23) {
+            blackCrossPosition = 24;
             //TODO: notify observers if any
             throw new LossException("You lost to Lorenzo. He reached the end before you " + "🙁 🙁 🙁");
         }
@@ -82,7 +84,7 @@ public class LorenzoIlMagnifico implements CliPrinter {
     /**
      * This method shuffles randomly all the tokens
      */
-    public void shuffleToken(){
+    public void shuffleTokens(){
 
         Random random = new Random();
 
