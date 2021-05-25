@@ -7,6 +7,7 @@ import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.Coin;
+import it.polimi.ingsw.model.resources.Resource;
 import org.junit.jupiter.api.Test;
 
 public class ShelfTest {
@@ -16,7 +17,7 @@ public class ShelfTest {
 
         Shelf underTest = new Shelf(3);
 
-        assertNull(underTest.getShelfResource());
+        assertEquals(underTest.getShelfResource(), new Resource(0));
 
         underTest.updateShelf(new Coin(2));
 
