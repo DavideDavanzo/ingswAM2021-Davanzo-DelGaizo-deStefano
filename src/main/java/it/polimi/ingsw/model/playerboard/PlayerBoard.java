@@ -77,7 +77,7 @@ public class PlayerBoard {
                     if (previousVolume >= newResource.getVolume()) {
 
                         newResource.setVolume(-newResource.getVolume());
-                        s.updateShelf(newResource);
+                        warehouse.addResourcesToShelf(newResource, s);
                         newResource.setVolume(-newResource.getVolume());
 
                         if(s.isEmpty() || s.getShelfResource().getVolume() != previousVolume) {
@@ -90,7 +90,7 @@ public class PlayerBoard {
                         try {
 
                             newResource.setVolume(-newResource.getVolume());
-                            s.updateShelf(newResource);
+                            warehouse.addResourcesToShelf(newResource, s);
                             newResource.setVolume(-newResource.getVolume());
 
                         } catch(NotEnoughResourcesException e) {

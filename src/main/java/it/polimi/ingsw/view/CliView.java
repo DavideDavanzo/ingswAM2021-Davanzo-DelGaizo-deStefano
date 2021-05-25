@@ -520,7 +520,8 @@ public class CliView extends View {
             if(userInput.equals("activate"))
                 break;
             else if(userInput.equals("b")) {
-                //ask and compose base trade
+                //ask and compose
+                // base trade
             }
             else{
                 try {
