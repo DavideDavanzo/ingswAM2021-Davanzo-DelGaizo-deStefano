@@ -3,13 +3,8 @@ package it.polimi.ingsw.model.market;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.effects.*;
 import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.view.CliPrinter;
-
-import java.util.ArrayList;
-import java.util.Random;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)

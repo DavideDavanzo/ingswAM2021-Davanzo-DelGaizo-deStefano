@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 
-import it.polimi.ingsw.view.CliView;
+import it.polimi.ingsw.view.cli.CliView;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;

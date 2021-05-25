@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.enums;
 
-import it.polimi.ingsw.view.CliPrinter;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.HashMap;
 

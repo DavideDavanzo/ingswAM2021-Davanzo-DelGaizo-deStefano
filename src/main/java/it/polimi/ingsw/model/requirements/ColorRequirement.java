@@ -1,15 +1,11 @@
 package it.polimi.ingsw.model.requirements;
 
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.view.CliBuilder;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
 public class ColorRequirement extends Requirement {
 
