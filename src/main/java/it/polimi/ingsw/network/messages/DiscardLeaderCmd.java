@@ -17,6 +17,10 @@ public class DiscardLeaderCmd extends Message{
         super(msg);
     }
 
+    public DiscardLeaderCmd(ArrayList<Integer> choices){
+        this.choices = choices;
+    }
+
     @Override
     public void apply(View view) {
 

@@ -216,6 +216,7 @@ public class InGameState extends GameState {
         if(currentPlayer.getItemsToArrangeInWarehouse().size() > 0) { //If there are still resources to arrange...
             currentView.showError("Some resources couldn't be put in the selected shelves. Only same type in the same shelf and prefixed size 1-2-3. 2 for extra shelves. .");
             currentView.askToStockMarketResources(currentPlayer.getItemsToArrangeInWarehouse(), currentPlayer.extraShelvesCount());
+            return;
         }
         currentView.showMessage("Added to your warehouse!");
         currentView.sendMessage(new Ack(true));
@@ -278,12 +279,11 @@ public class InGameState extends GameState {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
 
-
         if(bigActionNotAvailable(currentPlayer.hasBigActionToken(), currentView)) return;
 
         boolean wantsBaseProduction = activateProductionCmd.hasBaseProduction();
         ArrayList<Integer> cardsIndex = activateProductionCmd.getProductionCardsIndex();
-        boolean doesntWantCardProduction = cardsIndex.get(0) == 0;
+        boolean doesntWantCardProduction = cardsIndex.isEmpty();
         Trade baseProduction = new Trade();
 
         ArrayList<Resource> productionInput = new ArrayList<>();
@@ -361,6 +361,26 @@ public class InGameState extends GameState {
 
         currentView.showMessage("Successful production!");
         currentPlayer.revokeBigActionToken();
+        currentView.sendMessage(new Ack(true));
+    }
+
+    @Override
+    public void process(SwitchShelvesCmd switchShelvesCmd) throws InvalidStateException {
+
+        Player currentPlayer = gameController.getCurrentPlayer();
+        VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
+        int firstIndex = switchShelvesCmd.getFirst();
+        int secondIndex = switchShelvesCmd.getSecond();
+        ArrayList<Shelf> shelves = currentPlayer.getWarehouse().getAllWarehouseShelves();
+
+        try {
+            currentPlayer.getPlayerBoard().getWarehouse().switchShelves(shelves.get(firstIndex-1), shelves.get(secondIndex-1));
+        } catch (InvalidInputException e) {
+            currentView.showError("These shelves cannot be switched. . try again");
+            currentView.sendMessage(new Ack(false));
+            return;
+        }
+
         currentView.sendMessage(new Ack(true));
     }
 

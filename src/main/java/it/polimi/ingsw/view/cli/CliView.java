@@ -1,13 +1,16 @@
-package it.polimi.ingsw.view.cli;
+package it.polimi.ingsw.view;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
+import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.cli.CliBuilder;
@@ -155,6 +158,7 @@ public class CliView extends View {
         System.out.println("b -> buy a card");
         System.out.println("m -> take resources from market");
         System.out.println("p -> activate production");
+        System.out.println("s -> switch shelves");
         System.out.println("t -> toss leader card");
         System.out.println("a -> activate leader card");
         System.out.println("i -> ask info");
@@ -172,9 +176,11 @@ public class CliView extends View {
                     System.out.println("activating production");
                     activateProduction();
                     break;
+                case "s":
+                    switchShelves();
+                    break;
                 case "t":
-                    System.out.println("tossing a leader card");
-                    askCommand();
+                    tossLeaderCards();
                     break;
                 case "a":
                     activateLeaderCards();
@@ -345,7 +351,51 @@ public class CliView extends View {
         }
     }
 
+    @Override
+    public synchronized void tossLeaderCards() {
+        int choice = 0;
+        if(clientModel.getLeaderCards().size() == 0){
+            System.out.println("You have no leader card");
+        } else {
+            System.out.println("These are your leader cards:");
+            for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
+                if(!leaderCard.isActive())
+                    System.out.println(leaderCard.print());
+            }
+            if(clientModel.getLeaderCards().size() == 1){
+                System.out.println("Do you want to discard it?");
+                System.out.println("y -> yes");
+                System.out.println("n -> no");
+                String userInput = null;
+                try {
+                    userInput = stdIn.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(userInput.startsWith("y"))
+                    choice = 1;
+                else
+                    return;
+            } else {
+                while(choice!=1 && choice!=2){
+                    System.out.println("Which one you want to discard? Type 1 or 2");
+                    try {
+                        choice = Integer.parseInt(stdIn.readLine());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            ArrayList<Integer> temp = new ArrayList<>();
+            temp.add(choice);
+            sendMessage(new DiscardLeaderCmd(temp));
+        }
+    }
+
     private synchronized void buyDevCard(){
+        System.out.println("These are your available resources");
+        System.out.println(clientModel.getWarehouse());
+        System.out.println(clientModel.getCoffer());
         sendMessage(new CardsMarketInfoRequest());
         try {
             wait();
@@ -415,7 +465,9 @@ public class CliView extends View {
 
     }
 
-    private synchronized void getMarketResources(){
+    private synchronized void getMarketResources() {
+        System.out.println("This is your current warehouse:");
+        System.out.println(clientModel.getWarehouse());
         sendMessage(new MarketInfoRequest());
         try {
             wait();
@@ -450,11 +502,21 @@ public class CliView extends View {
     private synchronized void activateProduction(){
         System.out.println("These are your development cards:");
         System.out.println(clientModel.getDevelopmentCardsArea());
+        for(LeaderCard leaderCard : clientModel.getLeaderCards()){
+            if(leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
+                System.out.println(leaderCard.print());
+        }
         String userInput = null;
         ArrayList<Integer> choices = new ArrayList<>();
+        Trade baseTrade = null;
         int cont = 4;
         do{
             System.out.println("Choose the stack of the development card you want to activate");
+            long num = clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).count();
+            if(num != 0) {
+                System.out.println("or a leader card with extra trade effect");
+                cont += num;
+            }
             System.out.println("Type its number, or type 'b' to activate base production");
             System.out.println("type \"activate\" to execute production");
             try {
@@ -465,19 +527,12 @@ public class CliView extends View {
             if(userInput.equals("activate"))
                 break;
             else if(userInput.equals("b")) {
-                if(!choices.contains(0)) {
-                    choices.add(0);
-                    cont--;
-                }
-                else{
-                    System.out.println("Already chosen... try again");
-                    continue;
-                }
+                baseTrade = composeBaseTrade();
             }
             else{
                 try {
                     int temp = Integer.parseInt(userInput);
-                    if (!choices.contains(temp) && temp>=0 && temp<4) {
+                    if (!choices.contains(temp) && temp>0 && temp<4+num) {
                         choices.add(temp);
                         cont--;
                     }
@@ -492,8 +547,108 @@ public class CliView extends View {
             }
         } while(cont != 0);
 
-        //TODO: assemble and send correct command
+        sendMessage(new ActivateProductionCmd(baseTrade, baseTrade!=null, choices));
 
+    }
+
+    private Trade composeBaseTrade(){
+        ArrayList<Resource> input = new ArrayList<>();
+        ArrayList<Item> output = new ArrayList<>();
+        System.out.println("Choose the first input resource you want to trade");
+        System.out.println("c -> coin");
+        System.out.println("sh -> shield");
+        System.out.println("st -> stone");
+        System.out.println("se -> servant");
+        String userInput;
+        try {
+            userInput = stdIn.readLine();
+            while(!userInput.equals("c") && !userInput.equals("sh") && !userInput.equals("st") && !userInput.equals("se")){
+                System.out.println("Error - wrong format. Try again");
+                userInput = stdIn.readLine();
+            }
+            switch (userInput){
+                case "c" :
+                    input.add(new Coin(1));
+                    break;
+                case "sh" :
+                    input.add(new Shield(1));
+                    break;
+                case "st" :
+                    input.add(new Stone(1));
+                    break;
+                case "se" :
+                    input.add(new Servant(1));
+                    break;
+                default :
+                    System.out.println("Something wrong happened");
+                    System.exit(1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Choose the second input resource you want to trade");
+        System.out.println("c -> coin");
+        System.out.println("sh -> shield");
+        System.out.println("st -> stone");
+        System.out.println("se -> servant");
+        try {
+            userInput = stdIn.readLine();
+            while(!userInput.equals("c") && !userInput.equals("sh") && !userInput.equals("st") && !userInput.equals("se")){
+                System.out.println("Error - wrong format. Try again");
+                userInput = stdIn.readLine();
+            }
+            switch (userInput){
+                case "c" :
+                    input.add(new Coin(1));
+                    break;
+                case "sh" :
+                    input.add(new Shield(1));
+                    break;
+                case "st" :
+                    input.add(new Stone(1));
+                    break;
+                case "se" :
+                    input.add(new Servant(1));
+                    break;
+                default :
+                    System.out.println("Something wrong happened");
+                    System.exit(1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Choose the output resource you want to produce");
+        System.out.println("c -> coin");
+        System.out.println("sh -> shield");
+        System.out.println("st -> stone");
+        System.out.println("se -> servant");
+        try {
+            userInput = stdIn.readLine();
+            while(!userInput.equals("c") && !userInput.equals("sh") && !userInput.equals("st") && !userInput.equals("se")){
+                System.out.println("Error - wrong format. Try again");
+                userInput = stdIn.readLine();
+            }
+            switch (userInput){
+                case "c" :
+                    output.add(new Coin(1));
+                    break;
+                case "sh" :
+                    output.add(new Shield(1));
+                    break;
+                case "st" :
+                    output.add(new Stone(1));
+                    break;
+                case "se" :
+                    output.add(new Servant(1));
+                    break;
+                default :
+                    System.out.println("Something wrong happened");
+                    System.exit(1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Trade(input, output);
     }
 
     @Override
@@ -603,7 +758,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+    public synchronized void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
         System.out.println();
         System.out.println();
         int i=1;
@@ -626,8 +781,66 @@ public class CliView extends View {
         sendMessage(new ChangeWhiteMarbleReply(choices));
     }
 
+    private synchronized void switchShelves() {
+        String userInput;
+        System.out.println("This is your current warehouse...");
+        System.out.println(clientModel.getWarehouse());
+        System.out.println("Which shelves do you want to swap? Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+
+        int firstShelf = 0;
+
+        try {
+            firstShelf = Integer.parseInt(stdIn.readLine());
+        } catch(NumberFormatException e) {
+            firstShelf = 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while(firstShelf < 1 || firstShelf > 5) {
+            System.out.println("Invalid shelf index");
+            System.out.println("Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+            try {
+                firstShelf = Integer.parseInt(stdIn.readLine());
+            } catch(NumberFormatException e) {
+                firstShelf = 0;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Choose the second one (different from the first): ");
+
+        int secondShelf = 0;
+        try {
+            secondShelf = Integer.parseInt(stdIn.readLine());
+        } catch(NumberFormatException e) {
+            secondShelf = 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        while(secondShelf < 1 || secondShelf > 5 || secondShelf == firstShelf) {
+            System.out.println("Invalid shelf index");
+            System.out.println("Choose the second one (different from the first): ");
+            try {
+                secondShelf = Integer.parseInt(stdIn.readLine());
+            } catch(NumberFormatException e) {
+                secondShelf = 0;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        sendMessage(new SwitchShelvesCmd(firstShelf, secondShelf));
+
+    }
+
     public void passTurn(){
         sendMessage(new PassTurnMessage());
+    }
+
+    @Override
+    public void waitTurn(){
+        System.out.println("Wait for your next turn...");
     }
 
     public void sendMessage(Message message){
@@ -636,9 +849,7 @@ public class CliView extends View {
 
     @Override
     public synchronized void processAck(Ack ack) {
-        if(ack.isAck())
-            System.out.println("Command executed correctly!");
-        else if(ack.isNack())
+        if(ack.isNack())
             System.out.println("Choose other command or try with other parameters");
         askCommand();
     }

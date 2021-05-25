@@ -31,6 +31,7 @@ public class Shelf {
 
     public Shelf(int dimension) {
         extraShelf = false;
+        shelfResource = new Resource(0);
         this.dimension = dimension;
         availableVolume = dimension;
         empty = true;
@@ -38,7 +39,7 @@ public class Shelf {
 
     public void emptyThisShelf() {
         empty = true;
-        shelfResource.setVolume(0);
+        shelfResource = new Resource(0);
         availableVolume = dimension;
     }
 
@@ -92,8 +93,11 @@ public class Shelf {
 
     public void setShelfResource(Resource resource) throws IllegalArgumentException {
 
-        if(resource == null)
+        if(resource == null) {
+            emptyThisShelf();
             return;
+        }
+
         int volume = resource.getVolume();
 
         if(volume < 0 || volume > dimension)
@@ -110,6 +114,14 @@ public class Shelf {
 
     public int getAvailableVolume() {
         return availableVolume;
+    }
+
+    /**
+     * Special volume getter.
+     * @return 0 if the shelf is empty, resource's volume otherwise.
+     */
+    public int getResourceVolume() {
+        return shelfResource == null ? 0 : shelfResource.getVolume();
     }
 
     public int getDimension() {

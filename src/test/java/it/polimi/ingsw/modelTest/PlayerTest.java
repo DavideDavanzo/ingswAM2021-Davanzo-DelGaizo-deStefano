@@ -47,8 +47,8 @@ public class PlayerTest {
 
         //@TestedMethod
         underTest.pay(developmentCard);
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource().getVolume(), 1);
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getShelfResource().getVolume(),0);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getResourceVolume(), 1);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getResourceVolume(),0);
 
         //@TestedMethod
         assertThrows(NotEnoughResourcesException.class, () -> underTest.pay(developmentCard));
@@ -59,8 +59,8 @@ public class PlayerTest {
 
         //@TestedMethod
         underTest.pay(developmentCard);
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource().getVolume(), 0);
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getShelfResource().getVolume(),0);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getResourceVolume(), 0);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getResourceVolume(),0);
 
         assertThrows(NotEnoughResourcesException.class, () -> underTest.pay(developmentCard));
 
@@ -74,16 +74,16 @@ public class PlayerTest {
         //@TestedMethod
         underTest.pay(developmentCard);
 
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource().getVolume(), 1);
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getShelfResource().getVolume(),1);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getResourceVolume(), 1);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getResourceVolume(),1);
 
         Effect discount2 = new DiscountEffect(new Discount(new Servant(-2)));
         discount2.applyOn(underTest);
 
         //@TestedMethod
         underTest.pay(developmentCard);
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getShelfResource().getVolume(), 1);
-        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getShelfResource().getVolume(),1);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getSecondShelf().getResourceVolume(), 1);
+        assertEquals(underTest.getPlayerBoard().getWarehouse().getThirdShelf().getResourceVolume(),1);
 
     }
 

@@ -35,15 +35,17 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void showMessage(String msg);
 
-    public abstract void onLoginReply(LoginReply message);
+    public void onLoginReply(LoginReply message){}
 
     public abstract void checkConnection();
 
-    public abstract void chooseInfo();
+    public void chooseInfo(){}
 
-    public abstract void askCommand();
+    public void askCommand(){}
 
-    public abstract void activateLeaderCards();
+    public void activateLeaderCards(){}
+
+    public void tossLeaderCards(){}
 
     public abstract void updateWarehouse(String warehouse);
 
@@ -53,7 +55,11 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void updateDevCards(String developmentCardsArea);
 
-    public abstract void processAck(Ack ack);
+    public void processAck(Ack ack){}
+
+    public void waitTurn(){
+
+    }
 
     @Override
     public void update(Warehouse warehouse){
