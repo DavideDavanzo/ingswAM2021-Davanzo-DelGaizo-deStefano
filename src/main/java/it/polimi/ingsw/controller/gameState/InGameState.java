@@ -279,12 +279,11 @@ public class InGameState extends GameState {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
 
-
         if(bigActionNotAvailable(currentPlayer.hasBigActionToken(), currentView)) return;
 
         boolean wantsBaseProduction = activateProductionCmd.hasBaseProduction();
         ArrayList<Integer> cardsIndex = activateProductionCmd.getProductionCardsIndex();
-        boolean doesntWantCardProduction = cardsIndex.get(0) == 0;
+        boolean doesntWantCardProduction = cardsIndex.isEmpty();
         Trade baseProduction = new Trade();
 
         ArrayList<Resource> productionInput = new ArrayList<>();

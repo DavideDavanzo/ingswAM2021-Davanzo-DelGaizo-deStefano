@@ -3,10 +3,11 @@ package it.polimi.ingsw.view;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
@@ -502,6 +503,7 @@ public class CliView extends View {
         }
         String userInput = null;
         ArrayList<Integer> choices = new ArrayList<>();
+        Trade baseTrade = null;
         int cont = 4;
         do{
             System.out.println("Choose the stack of the development card you want to activate");
@@ -520,8 +522,7 @@ public class CliView extends View {
             if(userInput.equals("activate"))
                 break;
             else if(userInput.equals("b")) {
-                //ask and compose
-                // base trade
+                baseTrade = composeBaseTrade();
             }
             else{
                 try {
@@ -541,8 +542,108 @@ public class CliView extends View {
             }
         } while(cont != 0);
 
-        //TODO: sendMessage(new ActivateLeaderCmd( , , choices));
+        sendMessage(new ActivateProductionCmd(baseTrade, baseTrade!=null, choices));
 
+    }
+
+    private Trade composeBaseTrade(){
+        ArrayList<Resource> input = new ArrayList<>();
+        ArrayList<Item> output = new ArrayList<>();
+        System.out.println("Choose the first input resource you want to trade");
+        System.out.println("c -> coin");
+        System.out.println("sh -> shield");
+        System.out.println("st -> stone");
+        System.out.println("se -> servant");
+        String userInput;
+        try {
+            userInput = stdIn.readLine();
+            while(!userInput.equals("c") && !userInput.equals("sh") && !userInput.equals("st") && !userInput.equals("se")){
+                System.out.println("Error - wrong format. Try again");
+                userInput = stdIn.readLine();
+            }
+            switch (userInput){
+                case "c" :
+                    input.add(new Coin(1));
+                    break;
+                case "sh" :
+                    input.add(new Shield(1));
+                    break;
+                case "st" :
+                    input.add(new Stone(1));
+                    break;
+                case "se" :
+                    input.add(new Servant(1));
+                    break;
+                default :
+                    System.out.println("Something wrong happened");
+                    System.exit(1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Choose the second input resource you want to trade");
+        System.out.println("c -> coin");
+        System.out.println("sh -> shield");
+        System.out.println("st -> stone");
+        System.out.println("se -> servant");
+        try {
+            userInput = stdIn.readLine();
+            while(!userInput.equals("c") && !userInput.equals("sh") && !userInput.equals("st") && !userInput.equals("se")){
+                System.out.println("Error - wrong format. Try again");
+                userInput = stdIn.readLine();
+            }
+            switch (userInput){
+                case "c" :
+                    input.add(new Coin(1));
+                    break;
+                case "sh" :
+                    input.add(new Shield(1));
+                    break;
+                case "st" :
+                    input.add(new Stone(1));
+                    break;
+                case "se" :
+                    input.add(new Servant(1));
+                    break;
+                default :
+                    System.out.println("Something wrong happened");
+                    System.exit(1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Choose the output resource you want to produce");
+        System.out.println("c -> coin");
+        System.out.println("sh -> shield");
+        System.out.println("st -> stone");
+        System.out.println("se -> servant");
+        try {
+            userInput = stdIn.readLine();
+            while(!userInput.equals("c") && !userInput.equals("sh") && !userInput.equals("st") && !userInput.equals("se")){
+                System.out.println("Error - wrong format. Try again");
+                userInput = stdIn.readLine();
+            }
+            switch (userInput){
+                case "c" :
+                    output.add(new Coin(1));
+                    break;
+                case "sh" :
+                    output.add(new Shield(1));
+                    break;
+                case "st" :
+                    output.add(new Stone(1));
+                    break;
+                case "se" :
+                    output.add(new Servant(1));
+                    break;
+                default :
+                    System.out.println("Something wrong happened");
+                    System.exit(1);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Trade(input, output);
     }
 
     @Override
@@ -743,9 +844,7 @@ public class CliView extends View {
 
     @Override
     public synchronized void processAck(Ack ack) {
-        if(ack.isAck())
-            System.out.println("Command executed correctly!");
-        else if(ack.isNack())
+        if(ack.isNack())
             System.out.println("Choose other command or try with other parameters");
         askCommand();
     }
