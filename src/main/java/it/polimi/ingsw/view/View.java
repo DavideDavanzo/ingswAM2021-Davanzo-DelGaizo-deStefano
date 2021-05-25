@@ -17,6 +17,8 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void start();
 
+    public abstract void login();
+
     public abstract void askNumberOfPlayers();
 
     public abstract void askLeaders(ArrayList<LeaderCard> leaderCards);

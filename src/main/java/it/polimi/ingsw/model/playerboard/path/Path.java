@@ -1,13 +1,10 @@
 package it.polimi.ingsw.model.playerboard.path;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
-import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.FaithPoint;
-import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.observingPattern.Observable;
-import it.polimi.ingsw.view.CliPrinter;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.ArrayList;
 

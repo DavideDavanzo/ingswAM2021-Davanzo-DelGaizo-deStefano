@@ -3,9 +3,7 @@ package it.polimi.ingsw.model.cards;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.effects.Effect;
-import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.requirements.Requirement;
-import it.polimi.ingsw.view.CliBuilder;
 
 /**
  * <h1>Leader Cards</h1>

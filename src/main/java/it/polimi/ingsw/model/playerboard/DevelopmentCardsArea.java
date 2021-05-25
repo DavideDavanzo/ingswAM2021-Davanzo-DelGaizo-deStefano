@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.observingPattern.Observable;
-import it.polimi.ingsw.view.CliPrinter;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.*;
 

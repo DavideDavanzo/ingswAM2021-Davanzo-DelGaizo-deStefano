@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.playerboard.Coffer;
@@ -9,13 +9,20 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.view.View;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 
-public class GuiView extends View{
+public class GuiView extends View {
 
     @Override
     public void start() {
+
+    }
+
+    @Override
+    public void login(){
 
     }
 

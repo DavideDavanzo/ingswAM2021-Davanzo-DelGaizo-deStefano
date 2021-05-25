@@ -54,6 +54,11 @@ public class VirtualView extends View {
     }
 
     @Override
+    public void login() {
+
+    }
+
+    @Override
     public void askNumberOfPlayers() {
         clientHandler.sendMessage(new PlayersNumRequest());
     }

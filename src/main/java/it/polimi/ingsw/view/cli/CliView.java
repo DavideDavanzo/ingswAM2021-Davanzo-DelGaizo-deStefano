@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.cli;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +9,8 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
+import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.cli.CliBuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -45,6 +47,7 @@ public class CliView extends View {
         thread.start();
     }
 
+    @Override
     public void login() {
         System.out.println("Please enter your username: ");
         //socketHandler.setUsername(stdIn.nextLine());

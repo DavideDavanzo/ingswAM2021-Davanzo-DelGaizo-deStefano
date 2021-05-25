@@ -1,8 +1,5 @@
 package it.polimi.ingsw.model.playerboard.path;
 
-import it.polimi.ingsw.model.resources.FaithPoint;
-import it.polimi.ingsw.view.CliPrinter;
-
 public class PopeToken  {
 
     private boolean faceUp;

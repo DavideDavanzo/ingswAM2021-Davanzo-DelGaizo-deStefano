@@ -4,9 +4,8 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.Loss
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
-import it.polimi.ingsw.view.CliPrinter;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Random;
 

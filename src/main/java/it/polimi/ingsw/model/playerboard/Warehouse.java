@@ -4,7 +4,7 @@ import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.observingPattern.*;
 import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.view.CliPrinter;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.ArrayList;
 

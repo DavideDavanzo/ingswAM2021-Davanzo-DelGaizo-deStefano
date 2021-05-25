@@ -4,12 +4,10 @@ import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.view.CliPrinter;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Random;
 
 public class Market implements CliPrinter {
