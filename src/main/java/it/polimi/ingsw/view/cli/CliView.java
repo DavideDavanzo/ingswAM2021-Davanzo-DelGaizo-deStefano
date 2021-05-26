@@ -1,4 +1,4 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.cli;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +13,6 @@ import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.cli.CliBuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
