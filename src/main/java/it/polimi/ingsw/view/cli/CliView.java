@@ -28,7 +28,7 @@ public class CliView extends View {
     private ClientModel clientModel;
     ExecutorService executor;
 
-    public CliView(SocketHandler socketHandler){
+    public CliView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;
         stdIn = new BufferedReader(new InputStreamReader(System.in));
         clientModel = new ClientModel();

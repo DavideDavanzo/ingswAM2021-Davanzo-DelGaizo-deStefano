@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class SocketHandler extends Observable implements Runnable{
+public class SocketHandler extends Observable implements Runnable {
 
     private String username;
     private BufferedReader socketIn;

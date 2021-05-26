@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 
 public class SceneController extends Observable {
 
-    public static Scene activeScene;
-    public static GenericSceneController activeSceneController;
+    private static Scene activeScene;
+    private static GenericSceneController activeSceneController;
 
 
 
