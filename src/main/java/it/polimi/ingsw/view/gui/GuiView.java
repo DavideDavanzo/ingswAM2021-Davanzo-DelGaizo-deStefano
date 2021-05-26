@@ -1,17 +1,11 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.model.playerboard.Coffer;
-import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
-import it.polimi.ingsw.model.playerboard.Warehouse;
-import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.Message;
-import it.polimi.ingsw.view.View;
-import javafx.application.Platform;
 import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
