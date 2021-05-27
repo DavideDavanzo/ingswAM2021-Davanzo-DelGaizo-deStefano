@@ -17,6 +17,7 @@ import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.*;
+import it.polimi.ingsw.observingPattern.Observable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ import java.util.Stack;
  * <h1>Player</h1>
  * Represents a player in a {@link Match}.
  */
-public class Player {
+public class Player extends Observable {
 
     private String nickname;
 

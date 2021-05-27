@@ -190,6 +190,7 @@ public class InGameState extends GameState {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(arrangeInWarehouseCmd.getUsername());
         ArrayList<Integer> choices = arrangeInWarehouseCmd.getChoices();
+
         int counter = 0;
 
         Warehouse wH = currentPlayer.getWarehouse();
@@ -243,6 +244,7 @@ public class InGameState extends GameState {
                     try {
                         currentPlayer.getLeaderCards().get(i-1).activateOn(currentPlayer);
                         currentView.showMessage("Activated leader card number " + i);
+                        currentView.updateActiveLeader(i-1);
                         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " activated a leader card!", currentPlayer.getNickname());
                     } catch (NotEnoughResourcesException e) {
                         currentView.showError("Couldn't activate the leader card number " + i + " because you don't match requirements. .");

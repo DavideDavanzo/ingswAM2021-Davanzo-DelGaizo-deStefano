@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.LoginRequest;
+import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 
@@ -87,5 +88,7 @@ public abstract class View extends Observable implements Observer {
     public void update(DevelopmentCardsArea developmentCardsArea) {
         //do nothing
     }
+
+    public abstract void updateActiveLeader(int index);
 
 }

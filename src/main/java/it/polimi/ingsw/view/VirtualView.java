@@ -128,6 +128,11 @@ public class VirtualView extends View {
         sendMessage(new DevCardsUpdate(developmentCardsArea));
     }
 
+    @Override
+    public void updateActiveLeader(int index) {
+        sendMessage(new LeaderCardUpdate(index));
+    }
+
     public ServerClientHandler getClientHandler(){
         return clientHandler;
     }

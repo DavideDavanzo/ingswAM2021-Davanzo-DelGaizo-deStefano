@@ -14,7 +14,6 @@ public class Client {
 
     public String username;
     private Socket socket;
-    private View clientView;
 
     private static final String CLI = "-cli";
 
@@ -45,7 +44,7 @@ public class Client {
         System.out.println("Connection established");
 
         SocketHandler socketHandler = new SocketHandler(socket);
-        clientView = new CliView(socketHandler);
+        View clientView = new CliView(socketHandler);
         clientView.start();
 
     }

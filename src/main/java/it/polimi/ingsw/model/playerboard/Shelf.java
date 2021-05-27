@@ -53,28 +53,21 @@ public class Shelf {
 
         if(newResource.getVolume() > availableVolume)   //Trying to introduce more resources than available spaces
             throw new InvalidInputException("Not enough spaces available in this shelf");
-
         else {
-
             if (isEmpty() && newResource.getVolume() > 0 && !isExtraShelf()) {
                 setShelfResource(newResource);   //Empty case, just sets.
                 empty = false;
             }
-
             else {
-
                 shelfResource.update(newResource);
-
                 if(shelfResource.getVolume() == 0 && !isExtraShelf()) {
                     emptyThisShelf();   //Empties the shelf.
                     return;
                 }
-
             }
 
             empty = false;
             availableVolume = dimension - shelfResource.getVolume();
-
         }
 
     }
