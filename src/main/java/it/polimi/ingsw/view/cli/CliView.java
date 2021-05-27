@@ -53,6 +53,8 @@ public class CliView extends View {
     public void login() {
         System.out.println("Please enter your username: ");
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             socketHandler.setUsername(stdIn.readLine());
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,6 +75,8 @@ public class CliView extends View {
         System.out.println("Server: As no other available match already exists, you get to create a new one... ");
         System.out.println("Server: How many players would you like this new match to be composed of? Type a number between 1 and 4");
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             socketHandler.sendMessage(new PlayersNumber(Integer.parseInt(stdIn.readLine())));
         } catch (NumberFormatException e) {
             System.out.println("ERROR: wrong format");
@@ -95,6 +99,8 @@ public class CliView extends View {
 
         int firstChoice = 0;
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             firstChoice = Integer.parseInt(stdIn.readLine());
         } catch(NumberFormatException e) {
             firstChoice = 0;
@@ -163,6 +169,8 @@ public class CliView extends View {
         System.out.println("next -> pass turn");
         String cmd;
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             switch (cmd = stdIn.readLine().toLowerCase()) {
                 case "b":
                     buyDevCard();
@@ -281,6 +289,8 @@ public class CliView extends View {
 
             String temp = null;
             try {
+                while(stdIn.ready())
+                    stdIn.readLine();
                 temp = stdIn.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -497,7 +507,6 @@ public class CliView extends View {
         sendMessage(new MarketResourcesCmd(line, index-1));
     }
 
-    //to fix/finish I guess
     private void activateProduction(){
         System.out.println("These are your available resources");
         System.out.println(clientModel.getWarehouse());
@@ -668,6 +677,8 @@ public class CliView extends View {
                 System.out.println("'s' -> second shelf");
                 System.out.println("'t' -> third shelf");
                 try {
+                    while(stdIn.ready())
+                        stdIn.readLine();
                     switch (userInput = stdIn.readLine()) {
                         case "d":
                             choices.add(0);
@@ -774,6 +785,8 @@ public class CliView extends View {
             do{
                 System.out.println();
                 try {
+                    while(stdIn.ready())
+                        stdIn.readLine();
                     temp = Integer.parseInt(stdIn.readLine());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -788,7 +801,7 @@ public class CliView extends View {
         String userInput;
         System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getWarehouse());
-        System.out.println("Which shelves do you want to swap? Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+        System.out.println("Which shelves do you want to swap? Choose as follow: (1) (2) (3) for main shelves, (4) (5) for extra shelves");
 
         int firstShelf = 0;
 
@@ -801,7 +814,7 @@ public class CliView extends View {
         }
         while(firstShelf < 1 || firstShelf > 5) {
             System.out.println("Invalid shelf index");
-            System.out.println("Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+            System.out.println("Choose as follow: (1) (2) (3) for main shelves, (4) (5) for extra shelves");
             try {
                 firstShelf = Integer.parseInt(stdIn.readLine());
             } catch(NumberFormatException e) {
@@ -837,7 +850,7 @@ public class CliView extends View {
 
     }
 
-    public void passTurn(){
+    private void passTurn(){
         sendMessage(new PassTurnMessage());
     }
 
@@ -846,12 +859,12 @@ public class CliView extends View {
         System.out.println("Wait for your next turn...");
     }
 
-    public void sendMessage(Message message){
+    private void sendMessage(Message message){
         socketHandler.sendMessage(message);
     }
 
     @Override
-    public void processAck(Ack ack) {
+    public synchronized void processAck(Ack ack) {
         if(ack.isNack())
             System.out.println("Choose other command or try with other parameters");
         askCommand();
