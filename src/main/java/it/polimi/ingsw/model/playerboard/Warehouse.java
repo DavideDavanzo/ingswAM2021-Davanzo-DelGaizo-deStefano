@@ -94,9 +94,9 @@ public class Warehouse extends Observable implements CliPrinter {
 
         ArrayList<Shelf> warehouseShelves = new ArrayList<>();
 
-        warehouseShelves.add(firstShelf);
-        warehouseShelves.add(secondShelf);
-        warehouseShelves.add(thirdShelf);
+        warehouseShelves.add(0, firstShelf);
+        warehouseShelves.add(1, secondShelf);
+        warehouseShelves.add(2, thirdShelf);
         if(extraShelves != null)
             warehouseShelves.addAll(extraShelves);
 

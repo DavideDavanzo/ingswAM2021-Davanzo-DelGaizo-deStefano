@@ -16,7 +16,7 @@ public class LoginRequest extends Message {
 
     @Override
     public void apply(View view) {
-
+        view.onLoginRequest(this);
     }
 
     @Override

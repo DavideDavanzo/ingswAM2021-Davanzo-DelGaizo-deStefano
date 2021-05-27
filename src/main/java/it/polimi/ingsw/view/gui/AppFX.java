@@ -20,7 +20,7 @@ public class AppFX extends Application {
     public void start(Stage primaryStage) {
 
         List<String> parameters = getParameters().getRaw();
-        GuiView guiView;
+        GuiView guiView = null;
 
         try {
             Socket socket = new Socket(parameters.get(0), Integer.parseInt(parameters.get(1)));
@@ -42,13 +42,9 @@ public class AppFX extends Application {
             System.exit(1);
         }
 
-        MenuSceneController controller = loader.getController();
-
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setWidth(1280d);
-        primaryStage.setHeight(720d);
-        primaryStage.setFullScreen(true);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Maestri Del Rinascimento");
         primaryStage.show();
 

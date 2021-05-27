@@ -5,14 +5,17 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
+import it.polimi.ingsw.network.messages.LoginRequest;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.view.View;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
 
 public class GuiView extends View {
 
     private SocketHandler socketHandler;
+    ExecutorService executor;
 
     public GuiView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;
@@ -40,6 +43,11 @@ public class GuiView extends View {
 
     @Override
     public void askBlankResources(String msg) {
+
+    }
+
+    @Override
+    public void onLoginRequest(LoginRequest message) {
 
     }
 

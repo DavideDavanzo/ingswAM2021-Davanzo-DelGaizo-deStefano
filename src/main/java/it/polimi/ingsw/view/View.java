@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
+import it.polimi.ingsw.network.messages.LoginRequest;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 
@@ -35,7 +36,13 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void showMessage(String msg);
 
-    public void onLoginReply(LoginReply message){}
+    public void onLoginReply(LoginReply message){
+
+    }
+
+    public void onLoginRequest(LoginRequest message){
+
+    }
 
     public abstract void checkConnection();
 

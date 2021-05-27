@@ -202,12 +202,21 @@ public class InGameState extends GameState {
                 continue;
             }
             try {
+
                 if((i > 3 && currentPlayer.extraShelvesCount() < i - 3)) {
                     counter++;
                     continue;
                 }
-                wH.addResourcesToShelf((Resource) currentPlayer.getItemsToArrangeInWarehouse().get(counter), allShelves.get(i-1));
-                currentPlayer.getItemsToArrangeInWarehouse().remove(counter);
+
+                if(allShelves.get(i - 1).isEmpty() ||
+                    !allShelves.get(i - 1).isEmpty() &&
+                    currentPlayer.getItemsToArrangeInWarehouse().get(counter).sameType(allShelves.get(i-1).getShelfResource())) {
+
+                    wH.addResourcesToShelf((Resource) currentPlayer.getItemsToArrangeInWarehouse().get(counter), allShelves.get(i - 1));
+                    currentPlayer.getItemsToArrangeInWarehouse().remove(counter);
+
+                } else counter++;
+
             } catch (NotEnoughResourcesException | InvalidInputException e) {
                 counter++;
             }
@@ -253,14 +262,26 @@ public class InGameState extends GameState {
         ArrayList<LeaderCard> leadersToDiscard = new ArrayList<>();
 
         for(Integer i : discardLeaderCmd.getChoices()) {
+
             if(currentPlayer.getLeaderCards().size() != 0 && currentPlayer.getLeaderCards().size() >= i) {
-                leadersToDiscard.add(currentPlayer.getLeaderCards().get(i-1));
-                currentView.showMessage("Discarded leader card number " + i);
-                gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " discarded a leader card!", currentPlayer.getNickname());
+
+                LeaderCard toDiscard = currentPlayer.getLeaderCards().get(i-1);
+
+                if(toDiscard.isActive()) {
+                    currentView.showError("Couldn't remove the leader card number " + i + " because it's active.");
+                }
+
+                else {
+                    leadersToDiscard.add(currentPlayer.getLeaderCards().get(i - 1));
+                    currentView.showMessage("Discarded leader card number " + i);
+                    gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " discarded a leader card!", currentPlayer.getNickname());
+                }
+
             }
-            else {
+
+            else
                 currentView.showError("Couldn't remove the leader card number " + i);
-            }
+
         }
         currentPlayer.getLeaderCards().removeAll(leadersToDiscard);
         try {
