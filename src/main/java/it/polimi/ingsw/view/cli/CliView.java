@@ -700,43 +700,47 @@ public class CliView extends View {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }while(userInput == null);
+                } while(userInput == null);
             }
         } else if(numExtraShelves == 1) {
             for (Item resource : resources) {
-                try {
                     System.out.println("Incoming resource: " + resource.print());
                     System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\" to choose warehouse shelf or 'd' to discard");
                     System.out.println("'f' -> first shelf");
                     System.out.println("'s' -> second shelf");
                     System.out.println("'t' -> third shelf");
                     System.out.println("'fe' -> extra shelf");
-                    switch (userInput = stdIn.readLine()) {
-                        case "d":
-                            choices.add(0);
-                            break;
-                        case "f":
-                            choices.add(1);
-                            break;
-                        case "s":
-                            choices.add(2);
-                            break;
-                        case "t":
-                            choices.add(3);
-                            break;
-                        case "fe":
-                            choices.add(4);
-                            break;
-                        default:
-                            System.out.println("Error - command not accepted, try again");
-                    }
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
+                    do {
+                        try{
+                            while (stdIn.ready())
+                                stdIn.readLine();
+                            switch (userInput = stdIn.readLine()) {
+                                case "d":
+                                    choices.add(0);
+                                    break;
+                                case "f":
+                                    choices.add(1);
+                                    break;
+                                case "s":
+                                    choices.add(2);
+                                    break;
+                                case "t":
+                                    choices.add(3);
+                                    break;
+                                case "fe":
+                                    choices.add(4);
+                                    break;
+                                default:
+                                    System.out.println("Error - command not accepted, try again");
+                                    userInput = null;
+                            }
+                        }catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    } while(userInput == null);
             }
         }else if (numExtraShelves == 2) {
             for (Item resource : resources) {
-                try {
                     System.out.println("Incoming resource: " + resource.print());
                     System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\", \"se\" to choose warehouse shelf or 'd' to discard");
                     System.out.println("'f' -> first shelf");
@@ -744,31 +748,37 @@ public class CliView extends View {
                     System.out.println("'t' -> third shelf");
                     System.out.println("'fe' -> first extra shelf");
                     System.out.println("'se' -> second extra shelf");
-                    switch (userInput = stdIn.readLine()) {
-                        case "d":
-                            choices.add(0);
-                            break;
-                        case "f":
-                            choices.add(1);
-                            break;
-                        case "s":
-                            choices.add(2);
-                            break;
-                        case "t":
-                            choices.add(3);
-                            break;
-                        case "fe":
-                            choices.add(4);
-                            break;
-                        case "se":
-                            choices.add(5);
-                            break;
-                        default:
-                            System.out.println("Error - command not accepted, try again");
-                    }
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
+                    do {
+                        try {
+                            while (stdIn.ready())
+                                stdIn.readLine();
+                            switch (userInput = stdIn.readLine()) {
+                                case "d":
+                                    choices.add(0);
+                                    break;
+                                case "f":
+                                    choices.add(1);
+                                    break;
+                                case "s":
+                                    choices.add(2);
+                                    break;
+                                case "t":
+                                    choices.add(3);
+                                    break;
+                                case "fe":
+                                    choices.add(4);
+                                    break;
+                                case "se":
+                                    choices.add(5);
+                                    break;
+                                default:
+                                    System.out.println("Error - command not accepted, try again");
+                                    userInput = null;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } while(userInput == null);
             }
         }
         sendMessage(new ArrangeInWarehouseCmd(choices));
