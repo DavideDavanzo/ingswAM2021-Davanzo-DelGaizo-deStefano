@@ -397,7 +397,15 @@ public class InGameState extends GameState {
         ArrayList<Shelf> shelves = currentPlayer.getWarehouse().getAllWarehouseShelves();
 
         try {
+
+            if(currentPlayer.extraShelvesCount() < firstIndex - 3 || currentPlayer.extraShelvesCount() < secondIndex - 3) {
+                currentView.showError("You selected one or two extra shelves given by leader cards that are not active / you don't have. .");
+                currentView.sendMessage(new Ack(false));
+                return;
+            }
+
             currentPlayer.getPlayerBoard().getWarehouse().switchShelves(shelves.get(firstIndex-1), shelves.get(secondIndex-1));
+
         } catch (InvalidInputException e) {
             currentView.showError("These shelves cannot be switched. . try again");
             currentView.sendMessage(new Ack(false));
