@@ -190,6 +190,7 @@ public class InGameState extends GameState {
         Player currentPlayer = gameController.getCurrentPlayer();
         VirtualView currentView = gameController.getVirtualViewMap().get(arrangeInWarehouseCmd.getUsername());
         ArrayList<Integer> choices = arrangeInWarehouseCmd.getChoices();
+
         int counter = 0;
 
         Warehouse wH = currentPlayer.getWarehouse();

@@ -36,7 +36,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void update(Message message) {
+    public synchronized void update(Message message) {
         executor.submit(() -> message.apply(this));
     }
 
@@ -199,6 +199,7 @@ public class CliView extends View {
     }
 
     public synchronized void chooseInfo(){
+
         System.out.println("Which item would you like to see?");
         System.out.println("w -> my warehouse");
         System.out.println("ft -> my faith track");
@@ -265,7 +266,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void askBlankResources(String msg) {
+    public void askBlankResources(String msg) {
 
         int cont = Integer.parseInt(msg);
 
@@ -308,7 +309,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void activateLeaderCards() {
+    public void activateLeaderCards() {
         int choice = 0;
         if(clientModel.getLeaderCards().size() == 0){
             System.out.println("You have no leader card");
@@ -349,7 +350,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void tossLeaderCards() {
+    public void tossLeaderCards() {
         int choice = 0;
         if(clientModel.getLeaderCards().size() == 0){
             System.out.println("You have no leader card");
@@ -497,7 +498,10 @@ public class CliView extends View {
     }
 
     //to fix/finish I guess
-    private synchronized void activateProduction(){
+    private void activateProduction(){
+        System.out.println("These are your available resources");
+        System.out.println(clientModel.getWarehouse());
+        System.out.println(clientModel.getCoffer());
         System.out.println("These are your development cards:");
         System.out.println(clientModel.getDevelopmentCardsArea());
         for(LeaderCard leaderCard : clientModel.getLeaderCards()){
@@ -552,6 +556,7 @@ public class CliView extends View {
     private Trade composeBaseTrade(){
         ArrayList<Resource> input = new ArrayList<>();
         ArrayList<Item> output = new ArrayList<>();
+        System.out.println("Compose base production...");
         System.out.println("Choose the first input resource you want to trade");
         System.out.println("c -> coin");
         System.out.println("sh -> shield");
@@ -650,7 +655,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
+    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput;
         System.out.println("This is your current warehouse...");
@@ -756,7 +761,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
         System.out.println();
         System.out.println();
         int i=1;
@@ -779,7 +784,7 @@ public class CliView extends View {
         sendMessage(new ChangeWhiteMarbleReply(choices));
     }
 
-    private synchronized void switchShelves() {
+    private void switchShelves() {
         String userInput;
         System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getWarehouse());
@@ -846,7 +851,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void processAck(Ack ack) {
+    public void processAck(Ack ack) {
         if(ack.isNack())
             System.out.println("Choose other command or try with other parameters");
         askCommand();
@@ -858,7 +863,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void showError(String msg) {
+    public synchronized void showError(String msg) {
         System.out.println(msg);
     }
 
