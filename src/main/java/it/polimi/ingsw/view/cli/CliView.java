@@ -666,7 +666,7 @@ public class CliView extends View {
     @Override
     public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
-        String userInput;
+        String userInput = null;
         System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getWarehouse());
         if(numExtraShelves == 0) {
@@ -676,28 +676,31 @@ public class CliView extends View {
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");
                 System.out.println("'t' -> third shelf");
-                try {
-                    while(stdIn.ready())
-                        stdIn.readLine();
-                    switch (userInput = stdIn.readLine()) {
-                        case "d":
-                            choices.add(0);
-                            break;
-                        case "f":
-                            choices.add(1);
-                            break;
-                        case "s":
-                            choices.add(2);
-                            break;
-                        case "t":
-                            choices.add(3);
-                            break;
-                        default:
-                            System.out.println("Error - command not accepted, try again");
+                do {
+                    try {
+                        while (stdIn.ready())
+                            stdIn.readLine();
+                        switch (userInput = stdIn.readLine()) {
+                            case "d":
+                                choices.add(0);
+                                break;
+                            case "f":
+                                choices.add(1);
+                                break;
+                            case "s":
+                                choices.add(2);
+                                break;
+                            case "t":
+                                choices.add(3);
+                                break;
+                            default:
+                                System.out.println("Error - command not accepted, try again");
+                                userInput = null;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
+                }while(userInput == null);
             }
         } else if(numExtraShelves == 1) {
             for (Item resource : resources) {
