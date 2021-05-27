@@ -96,7 +96,7 @@ public class LeaderCard extends Card {
 
         StringBuilder stringBuilder = new StringBuilder();
         if(isActive()){
-            stringBuilder.append("active     ");
+            stringBuilder.append("active    ");
 
         }
         else

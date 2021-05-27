@@ -173,10 +173,11 @@ public class Warehouse extends Observable implements CliPrinter {
                      .append("╚══════════════════╝\n");
 
         if (extraShelves != null) {
-            for (int i = 0; i < extraShelves.size() - 1; i++) {
-                stringBuilder.append("   ╔═══════════╗\n")
-                        .append("   ║ " + (extraShelves.get(i).getShelfResource().getVolume()) + " " + extraShelves.get(i).getShelfResource().print() + "   ║\n")
-                        .append("   ╚═══════════╝\n");
+            stringBuilder.append("Extra shelves:\n");
+            for (Shelf extraShelf : extraShelves) {
+                stringBuilder.append("   ╔═══════════════╗\n")
+                             .append("   ║      " + (extraShelf.getShelfResource().getVolume()) + " " + extraShelf.getShelfResource().print() + "     ║\n")
+                             .append("   ╚═══════════════╝\n");
             }
         }
         return stringBuilder.toString();

@@ -105,6 +105,11 @@ public class GuiView extends View {
     }
 
     @Override
+    public void updateActiveLeader(int index) {
+
+    }
+
+    @Override
     public void showLogin(String msg, boolean successful) {
 
     }

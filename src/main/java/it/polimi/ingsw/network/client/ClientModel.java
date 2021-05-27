@@ -49,19 +49,19 @@ public class ClientModel {
         this.leaderCards = leaderCards;
     }
 
-    public void updateWarehouse(String warehouse){
+    public synchronized void updateWarehouse(String warehouse){
         this.warehouse = warehouse;
     }
 
-    public void updateCoffer(String coffer){
+    public synchronized void updateCoffer(String coffer){
         this.coffer = coffer;
     }
 
-    public void updateDevCardsArea(String developmentCardsArea){
+    public synchronized void updateDevCardsArea(String developmentCardsArea){
         this.developmentCardsArea = developmentCardsArea;
     }
 
-    public void updateFaithTrack(String path){
+    public synchronized void updateFaithTrack(String path){
         this.faithTrack = path;
     }
 

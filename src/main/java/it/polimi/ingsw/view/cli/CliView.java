@@ -52,7 +52,6 @@ public class CliView extends View {
     @Override
     public void login() {
         System.out.println("Please enter your username: ");
-        //socketHandler.setUsername(stdIn.nextLine());
         try {
             socketHandler.setUsername(stdIn.readLine());
         } catch (IOException e) {
@@ -161,7 +160,7 @@ public class CliView extends View {
         System.out.println("t -> toss leader card");
         System.out.println("a -> activate leader card");
         System.out.println("i -> ask info");
-        System.out.println("next -> next turn");
+        System.out.println("next -> pass turn");
         String cmd;
         try {
             switch (cmd = stdIn.readLine().toLowerCase()) {
@@ -172,7 +171,6 @@ public class CliView extends View {
                     getMarketResources();
                     break;
                 case "p":
-                    System.out.println("activating production");
                     activateProduction();
                     break;
                 case "s":
@@ -184,7 +182,7 @@ public class CliView extends View {
                 case "a":
                     activateLeaderCards();
                     break;
-                case "i":
+                case "i" :
                     chooseInfo();
                     askCommand();
                     break;
@@ -361,7 +359,7 @@ public class CliView extends View {
                 if(!leaderCard.isActive())
                     System.out.println(leaderCard.print());
             }
-            if(clientModel.getLeaderCards().size() == 1){
+            if(clientModel.getLeaderCards().stream().filter(l -> !l.isActive()).count() == 1){
                 System.out.println("Do you want to discard it?");
                 System.out.println("y -> yes");
                 System.out.println("n -> no");
@@ -388,6 +386,7 @@ public class CliView extends View {
             ArrayList<Integer> temp = new ArrayList<>();
             temp.add(choice);
             sendMessage(new DiscardLeaderCmd(temp));
+            clientModel.getLeaderCards().remove(choice-1);
         }
     }
 
@@ -855,12 +854,12 @@ public class CliView extends View {
 
     @Override
     public void showLogin(String msg, boolean successful) {
-        showMessage(msg);
+        System.out.println(msg);
     }
 
     @Override
     public void showError(String msg) {
-        showMessage(msg);
+        System.out.println(msg);
     }
 
     @Override
@@ -877,23 +876,28 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void updateWarehouse(String warehouse) {
+    public void updateWarehouse(String warehouse) {
         clientModel.updateWarehouse(warehouse);
     }
 
     @Override
-    public synchronized void updateCoffer(String coffer) {
+    public void updateCoffer(String coffer) {
         clientModel.updateCoffer(coffer);
     }
 
     @Override
-    public synchronized void updateFaithTrack(String path) {
+    public void updateFaithTrack(String path) {
         clientModel.updateFaithTrack(path);
     }
 
     @Override
-    public synchronized void updateDevCards(String developmentCardsArea) {
+    public void updateDevCards(String developmentCardsArea) {
         clientModel.updateDevCardsArea(developmentCardsArea);
+    }
+
+    @Override
+    public void updateActiveLeader(int index) {
+        clientModel.getLeaderCards().get(index).setActive(true);
     }
 
     private void welcome(){

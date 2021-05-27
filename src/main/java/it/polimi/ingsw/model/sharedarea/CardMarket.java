@@ -236,32 +236,32 @@ public class CardMarket implements CliPrinter {
 
         for(Deck[] line : decks){
             for(Deck deck : line){
-                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() + "╔═════════════════════════════════════╗" +Color.ANSI_WHITE.escape() );
+                stringBuilder.append(!deck.isEmpty()? ECardColor.getColorMap().get(deck.getColor()).escape() + "╔═════════════════════════════════════╗" +Color.ANSI_WHITE.escape() : " -------------------------------------- " );
             }
             stringBuilder.append("\n");
 
             for(Deck deck : line){
-                stringBuilder .append(ECardColor.getColorMap().get(deck.getColor()).escape() + "║ DEV CARD " + "lvl " + deck.getCards().peek().getLevel() + "                      ║");
+                stringBuilder.append(!deck.isEmpty()? ECardColor.getColorMap().get(deck.getColor()).escape() + "║ DEV CARD " + "lvl " + deck.getCards().peek().getLevel() + "                      ║" : "|                                     |");
             }
             stringBuilder.append("\n");
 
             for(Deck deck : line){
-                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + deck.getCards().peek().printCost() +  ECardColor.getColorMap().get(deck.getColor()).escape() +  "                  ║");
+                stringBuilder.append(!deck.isEmpty()? ECardColor.getColorMap().get(deck.getColor()).escape() +"║ cost  " + Color.ANSI_WHITE.escape() + deck.getCards().peek().printCost() +  ECardColor.getColorMap().get(deck.getColor()).escape() +  "                  ║" : "|                                     |");
             }
             stringBuilder.append("\n");
 
             for(Deck deck : line){
-                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + deck.getCards().peek().printTrade() +  ECardColor.getColorMap().get(deck.getColor()).escape() + "║");
+                stringBuilder.append(!deck.isEmpty()? ECardColor.getColorMap().get(deck.getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + deck.getCards().peek().printTrade() +  ECardColor.getColorMap().get(deck.getColor()).escape() + "║" : "|                                     |");
             }
             stringBuilder.append("\n");
 
             for(Deck deck : line){
-                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() +"║ vp : " + deck.getCards().peek().getVictoryPoints() + deck.getCards().peek().spaceForPoints() + "                             ║");
+                stringBuilder.append(!deck.isEmpty()? ECardColor.getColorMap().get(deck.getColor()).escape() +"║ vp : " + deck.getCards().peek().getVictoryPoints() + deck.getCards().peek().spaceForPoints() + "                             ║" : "|                                     |");
             }
             stringBuilder.append("\n");
 
             for(Deck deck : line){
-                stringBuilder.append(ECardColor.getColorMap().get(deck.getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape());
+                stringBuilder.append(!deck.isEmpty()? ECardColor.getColorMap().get(deck.getColor()).escape() + "╚═════════════════════════════════════╝" + Color.ANSI_WHITE.escape() : " -------------------------------------- " );
             }
             stringBuilder.append("\n");
         }
