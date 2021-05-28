@@ -17,6 +17,7 @@ import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 

@@ -206,7 +206,7 @@ public class CliView extends View {
         }
     }
 
-    public synchronized void chooseInfo(){
+    public void chooseInfo(){
 
         System.out.println("Which item would you like to see?");
         System.out.println("w -> my warehouse");
@@ -216,6 +216,7 @@ public class CliView extends View {
         System.out.println("lc -> my leader cards");
         System.out.println("m -> market");
         System.out.println("cm -> card market");
+        System.out.println("exit -> return to main commands");
 
         String cmd;
         try {
@@ -263,6 +264,8 @@ public class CliView extends View {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    break;
+                case "exit" :
                     break;
                 default:
                     System.out.println("Error - wrong format. Try again");
@@ -346,11 +349,14 @@ public class CliView extends View {
             } else {
                 while(choice!=1 && choice!=2){
                     System.out.println("Which one you want to activate? Type 1 or 2");
+                    System.out.println("Type 0 to return to main commands");
                     try {
                         choice = Integer.parseInt(stdIn.readLine());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    if(choice == 0)
+                        return;
                 }
             }
             ArrayList<Integer> temp = new ArrayList<>();
@@ -416,6 +422,7 @@ public class CliView extends View {
         System.out.println("b -> blue");
         System.out.println("y -> yellow");
         System.out.println("p -> purple");
+        System.out.println("Or type \"exit\" to return to main commands");
         String userInput = null;
         ECardColor color = null;
         while (color == null) {
@@ -437,6 +444,9 @@ public class CliView extends View {
                 case "p":
                     color = ECardColor.PURPLE;
                     break;
+                case "exit" :
+                    askCommand();
+                    return;
                 default:
                     System.out.println("ERROR - this color does not exist... try again");
             }
@@ -485,11 +495,18 @@ public class CliView extends View {
         }
         char line = ' ';
         while (line != 'r' && line != 'c') {
-            System.out.println("Choose line type: row ('r') or column ('c')?");
+            System.out.println("Choose:");
+            System.out.println("r -> row");
+            System.out.println("c -> column");
+            System.out.println("e -> exit, return to main commands");
             try {
                 line = stdIn.readLine().charAt(0);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if(line == 'e'){
+                askCommand();
+                return;
             }
         }
         int index = 0;
@@ -512,6 +529,7 @@ public class CliView extends View {
         System.out.println(clientModel.getWarehouse());
         System.out.println(clientModel.getCoffer());
         System.out.println("These are your development cards:");
+        System.out.println();
         System.out.println(clientModel.getDevelopmentCardsArea());
         for(LeaderCard leaderCard : clientModel.getLeaderCards()){
             if(leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
@@ -528,8 +546,15 @@ public class CliView extends View {
                 System.out.println("or a leader card with extra trade effect");
                 cont += num;
             }
-            System.out.println("Type its number, or type 'b' to activate base production");
-            System.out.println("type \"activate\" to execute production");
+            System.out.println("b -> base production");
+            System.out.println("1 -> first stack");
+            System.out.println("2 -> second stack");
+            System.out.println("3 -> third stack");
+            for(int i=0; i<num; i++)
+                System.out.println((4+i) + " -> " + (i==0?"first":"second") + " extra shelf");
+            System.out.println();
+            System.out.println("Type \"activate\" to execute production");
+            System.out.println("exit -> return to main commands");
             try {
                 userInput = stdIn.readLine();
             } catch (IOException e) {
@@ -539,15 +564,19 @@ public class CliView extends View {
                 break;
             else if(userInput.equals("b")) {
                 baseTrade = composeBaseTrade();
-            }
-            else{
+            } else if(userInput.equals("exit")){
+                askCommand();
+                return;
+            } else{
                 try {
                     int temp = Integer.parseInt(userInput);
                     if (!choices.contains(temp) && temp>0 && temp<4+num) {
                         choices.add(temp);
                         cont--;
-                    }
-                    else {
+                    } else if(temp == 0){
+                        askCommand();
+                        return;
+                    } else {
                         System.out.println("something wrong... try again");
                         continue;
                     }
@@ -900,13 +929,6 @@ public class CliView extends View {
     }
 
     @Override
-    public void checkConnection() {
-        System.out.println("Received: Ping");
-        sendMessage(new PingMessage());
-        System.out.println("Sent: Pong");
-    }
-
-    @Override
     public void updateWarehouse(String warehouse) {
         clientModel.updateWarehouse(warehouse);
     }
@@ -929,6 +951,11 @@ public class CliView extends View {
     @Override
     public void updateActiveLeader(int index) {
         clientModel.getLeaderCards().get(index).setActive(true);
+    }
+
+    @Override
+    public void disconnect() {
+        //close socket?
     }
 
     private void welcome(){

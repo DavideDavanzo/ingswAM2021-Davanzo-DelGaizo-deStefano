@@ -45,8 +45,6 @@ public abstract class View extends Observable implements Observer {
 
     }
 
-    public abstract void checkConnection();
-
     public void chooseInfo(){}
 
     public void askCommand(){}
@@ -63,11 +61,11 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void updateDevCards(String developmentCardsArea);
 
-    public void processAck(Ack ack){}
+    public void processAck(Ack ack){ }
 
-    public void waitTurn(){
+    public void waitTurn(){ }
 
-    }
+    public abstract void disconnect();
 
     @Override
     public void update(Warehouse warehouse){

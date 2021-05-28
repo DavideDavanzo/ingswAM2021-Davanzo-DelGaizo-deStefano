@@ -13,7 +13,7 @@ import java.io.Serializable;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = InfoMessage.class, name = "InfoMessage"),
-        @JsonSubTypes.Type(value = PingMessage.class, name = "PingMessage"),
+        @JsonSubTypes.Type(value = Disconnection.class, name = "Disconnection"),
         @JsonSubTypes.Type(value = LoginRequest.class, name = "LoginRequest"),
         @JsonSubTypes.Type(value = LoginReply.class, name = "LoginReply"),
         @JsonSubTypes.Type(value = LeaderRequest.class, name = "LeaderRequest"),

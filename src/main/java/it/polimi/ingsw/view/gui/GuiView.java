@@ -67,11 +67,6 @@ public class GuiView extends View {
     }
 
     @Override
-    public void checkConnection() {
-
-    }
-
-    @Override
     public void chooseInfo() {
 
     }
@@ -109,6 +104,11 @@ public class GuiView extends View {
 
     @Override
     public void processAck(Ack ack) {
+
+    }
+
+    @Override
+    public void disconnect() {
 
     }
 

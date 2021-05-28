@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 
 public class SocketHandler extends Observable implements Runnable {
 
@@ -67,7 +68,7 @@ public class SocketHandler extends Observable implements Runnable {
     @Override
     public void run() {
         String msg = null;
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!socket.isClosed()) {
             try {
                 msg = socketIn.readLine();
             } catch (IOException e) {
