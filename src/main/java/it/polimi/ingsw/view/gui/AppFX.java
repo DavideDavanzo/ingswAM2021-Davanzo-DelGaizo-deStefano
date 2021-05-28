@@ -22,8 +22,12 @@ public class AppFX extends Application {
         GuiView guiView = null;
 
         try {
+
             Socket socket = new Socket(parameters.get(0), Integer.parseInt(parameters.get(1)));
-            guiView = new GuiView(new SocketHandler(socket));
+            SocketHandler handler = new SocketHandler(socket);
+            guiView = new GuiView(handler);
+            handler.addObserver(guiView);
+
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
