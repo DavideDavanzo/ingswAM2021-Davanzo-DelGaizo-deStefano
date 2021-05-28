@@ -8,10 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class LoginSceneController implements GenericSceneController {
 
-    GuiView gui;
+    private GuiView gui;
 
     @FXML
     private Button loginButton;
@@ -26,6 +27,8 @@ public class LoginSceneController implements GenericSceneController {
     public void loginButtonClick(Event event) {
         loginButton.setDisable(true);
         String nickname = usernameTextField.getText();
+        gui.onLoginRequest(new LoginRequest(nickname));
+        System.out.println("quante volte stampi");
     }
 
     @Override

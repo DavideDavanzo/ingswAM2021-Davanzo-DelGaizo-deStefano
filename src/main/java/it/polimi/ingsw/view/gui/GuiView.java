@@ -8,7 +8,13 @@ import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.LoginRequest;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.view.View;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 
@@ -48,12 +54,16 @@ public class GuiView extends View {
 
     @Override
     public void onLoginRequest(LoginRequest message) {
-
+        socketHandler.sendMessage(message);
     }
 
     @Override
     public void onLoginReply(LoginReply message) {
-
+        System.out.println("bbbbbbbbbbbbbb");
+        if(message.isSuccessful()) {
+            System.out.println("aaaaaaaaaaaaaa");
+            Platform.runLater(() -> SceneController.changeScene(this, "playersNumber_scene.fxml"));
+        }
     }
 
     @Override
@@ -134,7 +144,8 @@ public class GuiView extends View {
 
     @Override
     public void update(Message message) {
-
+        executor.submit(() -> message.apply(this));
     }
+
 
 }

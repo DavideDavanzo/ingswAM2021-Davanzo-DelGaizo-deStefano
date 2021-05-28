@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.input.KeyCombination;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -30,24 +29,12 @@ public class AppFX extends Application {
             System.exit(1);
         }
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/menu_scene.fxml"));
+        SceneController.stage = primaryStage;
+        SceneController.changeScene(guiView, "menu_scene.fxml");
 
-        Parent root = null;
-
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Maestri Del Rinascimento");
         primaryStage.show();
-
     }
 
     @Override

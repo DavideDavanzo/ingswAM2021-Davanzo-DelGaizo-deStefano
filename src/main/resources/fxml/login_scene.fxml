@@ -23,7 +23,7 @@
          <effect>
             <Glow level="0.24" />
          </effect></TextField>
-      <Button fx:id="loginButton" layoutX="278.0" layoutY="263.0" mnemonicParsing="false" onAction="#loginButtonClick" text="login">
+      <Button fx:id="loginButton" layoutX="277.0" layoutY="254.0" mnemonicParsing="false" onAction="#loginButtonClick" text="Login">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
