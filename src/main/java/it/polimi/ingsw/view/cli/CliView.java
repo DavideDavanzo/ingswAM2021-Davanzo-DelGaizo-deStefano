@@ -53,6 +53,8 @@ public class CliView extends View {
     public void login() {
         System.out.println("Please enter your username: ");
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             socketHandler.setUsername(stdIn.readLine());
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,6 +75,8 @@ public class CliView extends View {
         System.out.println("Server: As no other available match already exists, you get to create a new one... ");
         System.out.println("Server: How many players would you like this new match to be composed of? Type a number between 1 and 4");
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             socketHandler.sendMessage(new PlayersNumber(Integer.parseInt(stdIn.readLine())));
         } catch (NumberFormatException e) {
             System.out.println("ERROR: wrong format");
@@ -95,6 +99,8 @@ public class CliView extends View {
 
         int firstChoice = 0;
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             firstChoice = Integer.parseInt(stdIn.readLine());
         } catch(NumberFormatException e) {
             firstChoice = 0;
@@ -163,6 +169,8 @@ public class CliView extends View {
         System.out.println("next -> pass turn");
         String cmd;
         try {
+            while(stdIn.ready())
+                stdIn.readLine();
             switch (cmd = stdIn.readLine().toLowerCase()) {
                 case "b":
                     buyDevCard();
@@ -198,7 +206,7 @@ public class CliView extends View {
         }
     }
 
-    public synchronized void chooseInfo(){
+    public void chooseInfo(){
 
         System.out.println("Which item would you like to see?");
         System.out.println("w -> my warehouse");
@@ -208,6 +216,7 @@ public class CliView extends View {
         System.out.println("lc -> my leader cards");
         System.out.println("m -> market");
         System.out.println("cm -> card market");
+        System.out.println("exit -> return to main commands");
 
         String cmd;
         try {
@@ -256,6 +265,8 @@ public class CliView extends View {
                         e.printStackTrace();
                     }
                     break;
+                case "exit" :
+                    break;
                 default:
                     System.out.println("Error - wrong format. Try again");
                     chooseInfo();
@@ -281,6 +292,8 @@ public class CliView extends View {
 
             String temp = null;
             try {
+                while(stdIn.ready())
+                    stdIn.readLine();
                 temp = stdIn.readLine();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -336,11 +349,14 @@ public class CliView extends View {
             } else {
                 while(choice!=1 && choice!=2){
                     System.out.println("Which one you want to activate? Type 1 or 2");
+                    System.out.println("Type 0 to return to main commands");
                     try {
                         choice = Integer.parseInt(stdIn.readLine());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    if(choice == 0)
+                        return;
                 }
             }
             ArrayList<Integer> temp = new ArrayList<>();
@@ -406,6 +422,7 @@ public class CliView extends View {
         System.out.println("b -> blue");
         System.out.println("y -> yellow");
         System.out.println("p -> purple");
+        System.out.println("Or type \"exit\" to return to main commands");
         String userInput = null;
         ECardColor color = null;
         while (color == null) {
@@ -427,6 +444,9 @@ public class CliView extends View {
                 case "p":
                     color = ECardColor.PURPLE;
                     break;
+                case "exit" :
+                    askCommand();
+                    return;
                 default:
                     System.out.println("ERROR - this color does not exist... try again");
             }
@@ -475,11 +495,18 @@ public class CliView extends View {
         }
         char line = ' ';
         while (line != 'r' && line != 'c') {
-            System.out.println("Choose line type: row ('r') or column ('c')?");
+            System.out.println("Choose:");
+            System.out.println("r -> row");
+            System.out.println("c -> column");
+            System.out.println("e -> exit, return to main commands");
             try {
                 line = stdIn.readLine().charAt(0);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if(line == 'e'){
+                askCommand();
+                return;
             }
         }
         int index = 0;
@@ -497,12 +524,12 @@ public class CliView extends View {
         sendMessage(new MarketResourcesCmd(line, index-1));
     }
 
-    //to fix/finish I guess
     private void activateProduction(){
         System.out.println("These are your available resources");
         System.out.println(clientModel.getWarehouse());
         System.out.println(clientModel.getCoffer());
         System.out.println("These are your development cards:");
+        System.out.println();
         System.out.println(clientModel.getDevelopmentCardsArea());
         for(LeaderCard leaderCard : clientModel.getLeaderCards()){
             if(leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
@@ -519,8 +546,15 @@ public class CliView extends View {
                 System.out.println("or a leader card with extra trade effect");
                 cont += num;
             }
-            System.out.println("Type its number, or type 'b' to activate base production");
-            System.out.println("type \"activate\" to execute production");
+            System.out.println("b -> base production");
+            System.out.println("1 -> first stack");
+            System.out.println("2 -> second stack");
+            System.out.println("3 -> third stack");
+            for(int i=0; i<num; i++)
+                System.out.println((4+i) + " -> " + (i==0?"first":"second") + " extra shelf");
+            System.out.println();
+            System.out.println("Type \"activate\" to execute production");
+            System.out.println("exit -> return to main commands");
             try {
                 userInput = stdIn.readLine();
             } catch (IOException e) {
@@ -530,15 +564,19 @@ public class CliView extends View {
                 break;
             else if(userInput.equals("b")) {
                 baseTrade = composeBaseTrade();
-            }
-            else{
+            } else if(userInput.equals("exit")){
+                askCommand();
+                return;
+            } else{
                 try {
                     int temp = Integer.parseInt(userInput);
                     if (!choices.contains(temp) && temp>0 && temp<4+num) {
                         choices.add(temp);
                         cont--;
-                    }
-                    else {
+                    } else if(temp == 0){
+                        askCommand();
+                        return;
+                    } else {
                         System.out.println("something wrong... try again");
                         continue;
                     }
@@ -657,7 +695,7 @@ public class CliView extends View {
     @Override
     public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
         ArrayList<Integer> choices = new ArrayList<>();
-        String userInput;
+        String userInput = null;
         System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getWarehouse());
         if(numExtraShelves == 0) {
@@ -667,62 +705,71 @@ public class CliView extends View {
                 System.out.println("'f' -> first shelf");
                 System.out.println("'s' -> second shelf");
                 System.out.println("'t' -> third shelf");
-                try {
-                    switch (userInput = stdIn.readLine()) {
-                        case "d":
-                            choices.add(0);
-                            break;
-                        case "f":
-                            choices.add(1);
-                            break;
-                        case "s":
-                            choices.add(2);
-                            break;
-                        case "t":
-                            choices.add(3);
-                            break;
-                        default:
-                            System.out.println("Error - command not accepted, try again");
+                do {
+                    try {
+                        while (stdIn.ready())
+                            stdIn.readLine();
+                        switch (userInput = stdIn.readLine()) {
+                            case "d":
+                                choices.add(0);
+                                break;
+                            case "f":
+                                choices.add(1);
+                                break;
+                            case "s":
+                                choices.add(2);
+                                break;
+                            case "t":
+                                choices.add(3);
+                                break;
+                            default:
+                                System.out.println("Error - command not accepted, try again");
+                                userInput = null;
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
+                } while(userInput == null);
             }
         } else if(numExtraShelves == 1) {
             for (Item resource : resources) {
-                try {
                     System.out.println("Incoming resource: " + resource.print());
                     System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\" to choose warehouse shelf or 'd' to discard");
                     System.out.println("'f' -> first shelf");
                     System.out.println("'s' -> second shelf");
                     System.out.println("'t' -> third shelf");
                     System.out.println("'fe' -> extra shelf");
-                    switch (userInput = stdIn.readLine()) {
-                        case "d":
-                            choices.add(0);
-                            break;
-                        case "f":
-                            choices.add(1);
-                            break;
-                        case "s":
-                            choices.add(2);
-                            break;
-                        case "t":
-                            choices.add(3);
-                            break;
-                        case "fe":
-                            choices.add(4);
-                            break;
-                        default:
-                            System.out.println("Error - command not accepted, try again");
-                    }
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
+                    do {
+                        try{
+                            while (stdIn.ready())
+                                stdIn.readLine();
+                            switch (userInput = stdIn.readLine()) {
+                                case "d":
+                                    choices.add(0);
+                                    break;
+                                case "f":
+                                    choices.add(1);
+                                    break;
+                                case "s":
+                                    choices.add(2);
+                                    break;
+                                case "t":
+                                    choices.add(3);
+                                    break;
+                                case "fe":
+                                    choices.add(4);
+                                    break;
+                                default:
+                                    System.out.println("Error - command not accepted, try again");
+                                    userInput = null;
+                            }
+                        }catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    } while(userInput == null);
             }
         }else if (numExtraShelves == 2) {
             for (Item resource : resources) {
-                try {
                     System.out.println("Incoming resource: " + resource.print());
                     System.out.println("Where would you want to stock it? Type 'f', 's', 't', \"fe\", \"se\" to choose warehouse shelf or 'd' to discard");
                     System.out.println("'f' -> first shelf");
@@ -730,31 +777,37 @@ public class CliView extends View {
                     System.out.println("'t' -> third shelf");
                     System.out.println("'fe' -> first extra shelf");
                     System.out.println("'se' -> second extra shelf");
-                    switch (userInput = stdIn.readLine()) {
-                        case "d":
-                            choices.add(0);
-                            break;
-                        case "f":
-                            choices.add(1);
-                            break;
-                        case "s":
-                            choices.add(2);
-                            break;
-                        case "t":
-                            choices.add(3);
-                            break;
-                        case "fe":
-                            choices.add(4);
-                            break;
-                        case "se":
-                            choices.add(5);
-                            break;
-                        default:
-                            System.out.println("Error - command not accepted, try again");
-                    }
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
+                    do {
+                        try {
+                            while (stdIn.ready())
+                                stdIn.readLine();
+                            switch (userInput = stdIn.readLine()) {
+                                case "d":
+                                    choices.add(0);
+                                    break;
+                                case "f":
+                                    choices.add(1);
+                                    break;
+                                case "s":
+                                    choices.add(2);
+                                    break;
+                                case "t":
+                                    choices.add(3);
+                                    break;
+                                case "fe":
+                                    choices.add(4);
+                                    break;
+                                case "se":
+                                    choices.add(5);
+                                    break;
+                                default:
+                                    System.out.println("Error - command not accepted, try again");
+                                    userInput = null;
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } while(userInput == null);
             }
         }
         sendMessage(new ArrangeInWarehouseCmd(choices));
@@ -774,6 +827,8 @@ public class CliView extends View {
             do{
                 System.out.println();
                 try {
+                    while(stdIn.ready())
+                        stdIn.readLine();
                     temp = Integer.parseInt(stdIn.readLine());
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -788,7 +843,7 @@ public class CliView extends View {
         String userInput;
         System.out.println("This is your current warehouse...");
         System.out.println(clientModel.getWarehouse());
-        System.out.println("Which shelves do you want to swap? Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+        System.out.println("Which shelves do you want to swap? Choose as follow: (1) (2) (3) for main shelves, (4) (5) for extra shelves");
 
         int firstShelf = 0;
 
@@ -801,7 +856,7 @@ public class CliView extends View {
         }
         while(firstShelf < 1 || firstShelf > 5) {
             System.out.println("Invalid shelf index");
-            System.out.println("Choose as follow: (1) (2) (3) for normal shelves, (4) (5) for extra shelves");
+            System.out.println("Choose as follow: (1) (2) (3) for main shelves, (4) (5) for extra shelves");
             try {
                 firstShelf = Integer.parseInt(stdIn.readLine());
             } catch(NumberFormatException e) {
@@ -837,7 +892,7 @@ public class CliView extends View {
 
     }
 
-    public void passTurn(){
+    private void passTurn(){
         sendMessage(new PassTurnMessage());
     }
 
@@ -846,12 +901,12 @@ public class CliView extends View {
         System.out.println("Wait for your next turn...");
     }
 
-    public void sendMessage(Message message){
+    private void sendMessage(Message message){
         socketHandler.sendMessage(message);
     }
 
     @Override
-    public void processAck(Ack ack) {
+    public synchronized void processAck(Ack ack) {
         if(ack.isNack())
             System.out.println("Choose other command or try with other parameters");
         askCommand();
@@ -871,13 +926,6 @@ public class CliView extends View {
     public synchronized void showMessage(String msg){
         System.out.println(msg);
         notify();
-    }
-
-    @Override
-    public void checkConnection() {
-        System.out.println("Received: Ping");
-        sendMessage(new PingMessage());
-        System.out.println("Sent: Pong");
     }
 
     @Override
@@ -903,6 +951,11 @@ public class CliView extends View {
     @Override
     public void updateActiveLeader(int index) {
         clientModel.getLeaderCards().get(index).setActive(true);
+    }
+
+    @Override
+    public void disconnect() {
+        //close socket?
     }
 
     private void welcome(){

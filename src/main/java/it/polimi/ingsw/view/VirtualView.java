@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.network.server.ServerClientHandler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class VirtualView extends View {
@@ -23,6 +24,8 @@ public class VirtualView extends View {
 
     @Override
     public void update(Message message) {
+        if(message.getUsername() == null)
+            message.setUsername(username);
         notifyObservers(message);
     }
 
@@ -104,8 +107,12 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void checkConnection() {
-
+    public void disconnect() {
+        try {
+            clientHandler.getClientSocket().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

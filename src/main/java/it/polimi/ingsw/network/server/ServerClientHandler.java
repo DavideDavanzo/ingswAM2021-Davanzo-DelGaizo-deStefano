@@ -2,14 +2,15 @@ package it.polimi.ingsw.network.server;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.polimi.ingsw.network.messages.Disconnection;
 import it.polimi.ingsw.network.messages.Message;
-import it.polimi.ingsw.network.messages.PingMessage;
 import it.polimi.ingsw.network.messages.TimeoutMessage;
 import it.polimi.ingsw.observingPattern.Observable;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ServerClientHandler extends Observable implements Runnable{
@@ -21,7 +22,6 @@ public class ServerClientHandler extends Observable implements Runnable{
     private final ObjectMapper objectMapper;
     private final Socket clientSocket;
 
-    Thread pingerThread;
     Thread timerThread;
 
     private boolean exit;
@@ -35,7 +35,6 @@ public class ServerClientHandler extends Observable implements Runnable{
             e.printStackTrace();
         }
         objectMapper = new ObjectMapper();
-        pingerThread = null;
         timerThread = null;
         exit = false;
     }
@@ -49,24 +48,12 @@ public class ServerClientHandler extends Observable implements Runnable{
                 notifyObservers(message);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
+            } catch (NoSuchElementException e){
+                System.out.println("Client disconnected");
+                notifyObservers(new Disconnection());
+                break;
             }
         }
-    }
-
-    public void startPinger(){
-        pingerThread = new Thread(() ->
-                                {
-                                    while (!clientSocket.isClosed()){
-                                        try {
-                                            Thread.sleep(5000);
-                                            sendMessage(new PingMessage());
-                                            startTimer(5000);
-                                        } catch (InterruptedException e) {
-                                            return;
-                                        }
-                                    }
-                                });
-        pingerThread.start();
     }
 
     public void startTimer(int milliseconds){
@@ -89,9 +76,6 @@ public class ServerClientHandler extends Observable implements Runnable{
         System.out.println("timer started");
     }
 
-    public void stopPinger(){
-        pingerThread.interrupt();
-    }
 
     public void stopTimer(){
         exit = true;
@@ -99,10 +83,6 @@ public class ServerClientHandler extends Observable implements Runnable{
         timerThread = null;
     }
 
-    public void sendPing(){
-        sendMessage(new PingMessage());
-        startTimer(6000);
-    }
 
     public void sendMessage(Message message){
         String msg;

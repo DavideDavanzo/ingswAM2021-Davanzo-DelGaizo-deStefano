@@ -73,10 +73,6 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
-    public void process(PingMessage pingMessage){
-        gameController.getVirtualViewMap().get(pingMessage.getUsername()).stopTimer();
-    }
-
     public void process(TimeoutMessage timeoutMessage){
         System.out.println("Got timeout from " + timeoutMessage.getMsg() + " handler");
     }
@@ -89,6 +85,11 @@ public class GameState {
     public void process(CardsMarketInfoRequest cardsMarketInfoRequest) {
         VirtualView virtualView = gameController.getVirtualViewMap().get(cardsMarketInfoRequest.getUsername());
         virtualView.sendMessage(new InfoMessage(gameController.getMatch().getSharedArea().getCardMarket().print()));
+    }
+
+    public void process(Disconnection disconnection){
+        gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
+        gameController.getVirtualViewMap().get(disconnection.getUsername()).disconnect();
     }
 
     public void nextState() {
