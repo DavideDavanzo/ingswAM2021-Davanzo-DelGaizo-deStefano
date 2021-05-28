@@ -21,14 +21,13 @@ public class LoginSceneController implements GenericSceneController {
 
     @FXML
     public void initialize() {
-        loginButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::loginButtonClick);
+        loginButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::loginButtonClick);
     }
 
     public void loginButtonClick(Event event) {
         loginButton.setDisable(true);
         String nickname = usernameTextField.getText();
         gui.onLoginRequest(new LoginRequest(nickname));
-        System.out.println("quante volte stampi");
     }
 
     @Override

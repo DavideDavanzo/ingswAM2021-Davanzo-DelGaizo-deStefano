@@ -1,12 +1,10 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.network.client.SocketHandler;
+import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.MenuSceneController;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,6 +25,7 @@ public class AppFX extends Application {
             SocketHandler handler = new SocketHandler(socket);
             guiView = new GuiView(handler);
             handler.addObserver(guiView);
+            new Thread(handler).start();
 
         } catch (IOException e) {
             e.printStackTrace();

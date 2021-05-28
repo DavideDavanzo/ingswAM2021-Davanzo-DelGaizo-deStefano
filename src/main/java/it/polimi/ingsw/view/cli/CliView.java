@@ -32,7 +32,7 @@ public class CliView extends View {
         this.socketHandler = socketHandler;
         stdIn = new BufferedReader(new InputStreamReader(System.in));
         clientModel = new ClientModel();
-        executor = executor = Executors.newCachedThreadPool();
+        executor = Executors.newCachedThreadPool();
     }
 
     @Override
