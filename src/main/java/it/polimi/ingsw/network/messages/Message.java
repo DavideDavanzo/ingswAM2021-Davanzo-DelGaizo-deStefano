@@ -46,7 +46,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = Ack.class, name = "Ack")
 })
 //TODO: declare each message @JasonSubTypes.Type
-public abstract class Message implements Serializable {
+public abstract class Message {
 
     protected String msg;
 

@@ -78,7 +78,7 @@ public class Coffer extends Observable implements CliPrinter {
                      .append("║ "  + getCoins().getVolume() + " " + getCoins().print() + "           " + getShields().getVolume() + " " + getShields().print() + "║ \n")
                      .append("║                    ║ \n")
                      .append("║ " + getServants().getVolume() + " " + getServants().print() + "           "                      + getStones().getVolume() + " " + getStones().print() + "║\n")
-                     .append("╚════════════════════╝");
+                     .append("╚════════════════════╝\n");
 
         Color.ANSI_WHITE.escape();
         return stringBuilder.toString();

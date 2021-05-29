@@ -215,6 +215,7 @@ public class CliView extends View {
     public void chooseInfo(){
 
         System.out.println("Which item would you like to see?");
+        System.out.println("pb -> my entire player board");
         System.out.println("w -> my warehouse");
         System.out.println("ft -> my faith track");
         System.out.println("c -> my coffer");
@@ -227,6 +228,24 @@ public class CliView extends View {
         String cmd;
         try {
             switch (cmd = stdIn.readLine().toLowerCase()) {
+                case "pb":
+                    System.out.println("Leader cards:");
+                    if (clientModel.getLeaderCards().size() == 0)
+                        System.out.println("you do not have any leader card");
+                    else {
+                        for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
+                            System.out.println(leaderCard.print());
+                        }
+                    }
+                    System.out.println("Faith track:");
+                    System.out.println(clientModel.getFaithTrack());
+                    System.out.println("Development card area:");
+                    System.out.println(clientModel.getDevelopmentCardsArea());
+                    System.out.println("Warehouse:");
+                    System.out.println(clientModel.getWarehouse());
+                    System.out.println("Coffer:");
+                    System.out.println(clientModel.getCoffer());
+                    break;
                 case "w":
                     System.out.println("Warehouse:");
                     System.out.println(clientModel.getWarehouse());
@@ -244,7 +263,7 @@ public class CliView extends View {
                     System.out.println(clientModel.getDevelopmentCardsArea());
                     break;
                 case "lc":
-                    System.out.println("leader cards:");
+                    System.out.println("Leader cards:");
                     if (clientModel.getLeaderCards().size() == 0)
                         System.out.println("you do not have any leader cards");
                     else {

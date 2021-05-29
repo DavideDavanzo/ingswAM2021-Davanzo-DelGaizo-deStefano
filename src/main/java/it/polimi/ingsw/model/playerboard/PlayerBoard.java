@@ -177,7 +177,8 @@ public class PlayerBoard {
 
     }
 
-    public boolean activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
+    public boolean activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException
+    {
         payRequiredResources(input);
         coffer.updateCoffer(output);
         return path.moveForward(output.pathSteps());
