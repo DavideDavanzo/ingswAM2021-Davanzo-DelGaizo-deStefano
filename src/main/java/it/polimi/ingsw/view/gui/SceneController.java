@@ -10,8 +10,9 @@ import java.io.IOException;
 
 public class SceneController {
 
-    public static GenericSceneController activeSceneController;
-    public static Stage stage;
+    private static GenericSceneController activeSceneController;
+    private static Stage stage;
+    private static Scene activeScene;
 
     public static void changeScene(GuiView gui, String fxml) {
         GenericSceneController controller;
@@ -26,11 +27,36 @@ public class SceneController {
             activeSceneController = controller;
             activeSceneController.setGui(gui);
 
-            stage.setScene(new Scene(root));
+            activeScene = new Scene(root);
+
+            stage.setScene(activeScene);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public static GenericSceneController getActiveSceneController() {
+        return activeSceneController;
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static Scene getActiveScene() {
+        return activeScene;
+    }
+
+    public static void setActiveSceneController(GenericSceneController activeSceneController) {
+        SceneController.activeSceneController = activeSceneController;
+    }
+
+    public static void setStage(Stage stage) {
+        SceneController.stage = stage;
+    }
+
+    public static void setActiveScene(Scene activeScene) {
+        SceneController.activeScene = activeScene;
+    }
 }

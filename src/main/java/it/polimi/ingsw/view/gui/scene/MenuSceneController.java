@@ -22,8 +22,8 @@ public class MenuSceneController implements GenericSceneController {
 
     @FXML
     public void initialize() {
-        playButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::playButtonClick);
-        quitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, this::quitButtonClick);
+        playButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::playButtonClick);
+        quitButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::quitButtonClick);
     }
 
     public void playButtonClick(Event event) {

@@ -35,10 +35,10 @@ public class SocketHandler extends Observable implements Runnable {
         message.setUsername(username);
         try {
             socketOut.println(objectMapper.writeValueAsString(message));
+            System.out.println("Sent: " + objectMapper.writeValueAsString(message));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        //System.out.println("Sent: " + objectMapper.writeValueAsString(message));
     }
 
     public BufferedReader getSocketIn() {
@@ -74,7 +74,7 @@ public class SocketHandler extends Observable implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //System.out.println("Received: " + msg);
+            System.out.println("Received: " + msg);
             try {
                 notifyObservers(objectMapper.readValue(msg , Message.class));
             } catch (JsonProcessingException e) {
