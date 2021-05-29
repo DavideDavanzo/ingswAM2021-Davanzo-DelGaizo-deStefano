@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.market;
+package it.polimi.ingsw.model.sharedarea.market;
 
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
@@ -6,16 +6,14 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.view.cli.CliPrinter;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Market implements CliPrinter {
+
     private Marble[][] marketMatrix;
     private Marble spareMarble;
     private ArrayList<Marble> marbleArrayList = new ArrayList<>();
-
-
 
     public Market() {
         marketMatrix = new Marble[3][4];
@@ -123,8 +121,12 @@ public class Market implements CliPrinter {
         }
     }
 
-    public Marble[][] getMatrix(){
+    public Marble[][] getMarketMatrix(){
         return marketMatrix;
+    }
+
+    public Marble getSpareMarble(){
+        return spareMarble;
     }
 
     public void setMarketMatrix(Marble[][] marketMatrix) {

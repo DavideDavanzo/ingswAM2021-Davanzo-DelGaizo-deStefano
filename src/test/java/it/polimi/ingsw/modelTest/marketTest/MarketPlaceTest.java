@@ -2,20 +2,14 @@ package it.polimi.ingsw.modelTest.marketTest;
 
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.market.*;
+import it.polimi.ingsw.model.sharedarea.market.*;
 import it.polimi.ingsw.model.resources.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class MarketPlaceTest {
 

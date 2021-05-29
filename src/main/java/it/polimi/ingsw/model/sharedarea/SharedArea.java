@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.sharedarea;
 
-import it.polimi.ingsw.model.market.Market;
-import it.polimi.ingsw.model.market.PurpleMarble;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 
 /**
  * <h1>Shared Area</h1>

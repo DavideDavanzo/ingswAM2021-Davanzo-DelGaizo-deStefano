@@ -1,4 +1,4 @@
-package it.polimi.ingsw.model.market;
+package it.polimi.ingsw.model.sharedarea.market;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;

@@ -1,7 +1,5 @@
-package it.polimi.ingsw.model.market;
+package it.polimi.ingsw.model.sharedarea.market;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.resources.Coin;
 import it.polimi.ingsw.model.resources.Item;

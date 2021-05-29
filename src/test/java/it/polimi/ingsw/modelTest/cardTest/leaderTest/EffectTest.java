@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.*;
-import it.polimi.ingsw.model.market.BlueMarble;
+import it.polimi.ingsw.model.sharedarea.market.BlueMarble;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.BeforeEach;

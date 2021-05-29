@@ -1,15 +1,16 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.LoginRequest;
-import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 
@@ -53,17 +54,21 @@ public abstract class View extends Observable implements Observer {
 
     public void tossLeaderCards(){}
 
-    public abstract void updateWarehouse(String warehouse);
+    public abstract void updateWarehouse(Warehouse warehouse);
 
-    public abstract void updateCoffer(String coffer);
+    public abstract void updateCoffer(Coffer coffer);
 
-    public abstract void updateFaithTrack(String path);
+    public abstract void updateFaithTrack(Path path);
 
-    public abstract void updateDevCards(String developmentCardsArea);
+    public abstract void updateDevCards(DevelopmentCardsArea developmentCardsArea);
 
     public void processAck(Ack ack){ }
 
     public void waitTurn(){ }
+
+    public abstract void showMarket(Market market);
+
+    public abstract void showCardsMarket(CardMarket cardMarket);
 
     public abstract void disconnect();
 

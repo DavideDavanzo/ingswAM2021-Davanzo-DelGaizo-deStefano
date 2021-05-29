@@ -7,7 +7,13 @@ import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.sharedarea.market.Market;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
+import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.model.resources.*;
@@ -32,7 +38,7 @@ public class CliView extends View {
         this.socketHandler = socketHandler;
         stdIn = new BufferedReader(new InputStreamReader(System.in));
         clientModel = new ClientModel();
-        executor = executor = Executors.newCachedThreadPool();
+        executor = Executors.newCachedThreadPool();
     }
 
     @Override
@@ -901,12 +907,29 @@ public class CliView extends View {
         System.out.println("Wait for your next turn...");
     }
 
+    @Override
+    public synchronized void showMarket(Market market) {
+        System.out.println(market.print());
+        notify();
+    }
+
+    @Override
+    public synchronized void showCardsMarket(CardMarket cardMarket) {
+        System.out.println(cardMarket.print());
+        notify();
+    }
+
     private void sendMessage(Message message){
         socketHandler.sendMessage(message);
     }
 
     @Override
     public synchronized void processAck(Ack ack) {
+        try {
+            wait(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if(ack.isNack())
             System.out.println("Choose other command or try with other parameters");
         askCommand();
@@ -925,27 +948,26 @@ public class CliView extends View {
     @Override
     public synchronized void showMessage(String msg){
         System.out.println(msg);
-        notify();
     }
 
     @Override
-    public void updateWarehouse(String warehouse) {
-        clientModel.updateWarehouse(warehouse);
+    public synchronized void updateWarehouse(Warehouse warehouse) {
+        clientModel.updateWarehouse(warehouse.print());
     }
 
     @Override
-    public void updateCoffer(String coffer) {
-        clientModel.updateCoffer(coffer);
+    public synchronized void updateCoffer(Coffer coffer) {
+        clientModel.updateCoffer(coffer.print());
     }
 
     @Override
-    public void updateFaithTrack(String path) {
-        clientModel.updateFaithTrack(path);
+    public synchronized void updateFaithTrack(Path path) {
+        clientModel.updateFaithTrack(path.print());
     }
 
     @Override
-    public void updateDevCards(String developmentCardsArea) {
-        clientModel.updateDevCardsArea(developmentCardsArea);
+    public synchronized void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+        clientModel.updateDevCardsArea(developmentCardsArea.print());
     }
 
     @Override

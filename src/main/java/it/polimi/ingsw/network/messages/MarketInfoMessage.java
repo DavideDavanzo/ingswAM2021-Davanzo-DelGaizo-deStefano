@@ -3,24 +3,23 @@ package it.polimi.ingsw.network.messages;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.model.playerboard.path.Path;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.view.View;
 
-public class FaithPathUpdate extends Message{
+public class MarketInfoMessage extends Message{
 
-    @JsonSerialize(as = Path.class)
-    private Path path;
+    @JsonSerialize(as = Market.class)
+    Market market;
 
-    public FaithPathUpdate() {
-    }
+    public MarketInfoMessage(){}
 
-    public FaithPathUpdate(Path path) {
-        this.path = path;
+    public MarketInfoMessage(Market market){
+        this.market = market;
     }
 
     @Override
     public void apply(View view) {
-        view.updateFaithTrack(path);
+        view.showMarket(market);
     }
 
     @Override
@@ -28,11 +27,11 @@ public class FaithPathUpdate extends Message{
 
     }
 
-    public Path getPath() {
-        return path;
+    public Market getMarket() {
+        return market;
     }
 
-    public void setPath(Path path) {
-        this.path = path;
+    public void setMarket(Market market) {
+        this.market = market;
     }
 }

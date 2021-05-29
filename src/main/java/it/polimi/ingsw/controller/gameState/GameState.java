@@ -79,12 +79,12 @@ public class GameState {
 
     public void process(MarketInfoRequest marketInfoRequest) {
         VirtualView virtualView = gameController.getVirtualViewMap().get(marketInfoRequest.getUsername());
-        virtualView.sendMessage(new InfoMessage(gameController.getMatch().getSharedArea().getMarket().print()));
+        virtualView.showMarket(gameController.getMatch().getSharedArea().getMarket());
     }
 
     public void process(CardsMarketInfoRequest cardsMarketInfoRequest) {
         VirtualView virtualView = gameController.getVirtualViewMap().get(cardsMarketInfoRequest.getUsername());
-        virtualView.sendMessage(new InfoMessage(gameController.getMatch().getSharedArea().getCardMarket().print()));
+        virtualView.showCardsMarket(gameController.getMatch().getSharedArea().getCardMarket());
     }
 
     public void process(Disconnection disconnection){

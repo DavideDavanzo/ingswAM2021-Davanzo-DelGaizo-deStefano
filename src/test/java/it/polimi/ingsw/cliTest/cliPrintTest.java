@@ -6,7 +6,7 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
-import it.polimi.ingsw.model.market.Market;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;

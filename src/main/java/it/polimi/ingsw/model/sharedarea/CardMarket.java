@@ -1,6 +1,9 @@
 package it.polimi.ingsw.model.sharedarea;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.cards.DevCardParser;
@@ -40,6 +43,7 @@ public class CardMarket implements CliPrinter {
      *
      * @return True if and only if <b>every</b> deck is empty.
      */
+    @JsonIgnore
     public boolean isEmpty() {
 
         for(Deck[] line : decks) {
@@ -50,8 +54,6 @@ public class CardMarket implements CliPrinter {
 
         return true;
     }
-
-
 
     //TODO: Simplify when number - color association is created
     /**
@@ -225,9 +227,6 @@ public class CardMarket implements CliPrinter {
                 "Available Cards :" + '\n' +
                 s.toString();
     }
-
-
-
 
     @Override
     public String print() {
