@@ -32,7 +32,7 @@ public class AppFX extends Application {
             System.exit(1);
         }
 
-        SceneController.stage = primaryStage;
+        SceneController.setStage(primaryStage);
         SceneController.changeScene(guiView, "menu_scene.fxml");
 
         primaryStage.setResizable(false);

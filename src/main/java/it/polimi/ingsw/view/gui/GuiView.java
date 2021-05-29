@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.LoginRequest;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scene.LoginSceneController;
 import javafx.application.Platform;
 
 import java.util.ArrayList;
@@ -58,6 +59,10 @@ public class GuiView extends View {
     public void onLoginReply(LoginReply message) {
         if(message.isSuccessful()) {
             Platform.runLater(() -> SceneController.changeScene(this, "playersNumber_scene.fxml"));
+        }
+        else {
+            LoginSceneController loginSceneController = (LoginSceneController) SceneController.getActiveSceneController();
+            loginSceneController.reAskLogin();
         }
     }
 
