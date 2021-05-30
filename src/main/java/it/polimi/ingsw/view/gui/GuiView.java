@@ -1,7 +1,13 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
+import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.View;
@@ -94,28 +100,37 @@ public class GuiView extends View {
     }
 
     @Override
-    public void updateWarehouse(String warehouse) {
+    public void updateWarehouse(Warehouse warehouse) {
 
     }
 
     @Override
-    public void updateCoffer(String coffer) {
+    public void updateCoffer(Coffer coffer) {
 
     }
 
     @Override
-    public void updateFaithTrack(String path) {
+    public void updateFaithTrack(Path path) {
 
     }
 
     @Override
-    public void updateDevCards(String developmentCardsArea) {
+    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
 
     }
-
 
     @Override
     public void processAck(Ack ack) {
+
+    }
+
+    @Override
+    public void showMarket(Market market) {
+
+    }
+
+    @Override
+    public void showCardsMarket(CardMarket cardMarket) {
 
     }
 

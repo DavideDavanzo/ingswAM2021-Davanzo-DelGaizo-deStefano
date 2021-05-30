@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.playerboard;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.effects.ExtraShelfEffect;
@@ -113,6 +114,7 @@ public class Shelf {
      * Special volume getter.
      * @return 0 if the shelf is empty, resource's volume otherwise.
      */
+    @JsonIgnore
     public int getResourceVolume() {
         return shelfResource == null ? 0 : shelfResource.getVolume();
     }

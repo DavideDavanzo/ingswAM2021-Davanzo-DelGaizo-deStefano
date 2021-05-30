@@ -10,6 +10,7 @@ import it.polimi.ingsw.view.cli.CliPrinter;
  */
 public abstract class Card implements CliPrinter {
 
+    private int id;
     private int victoryPoints;
 
     /**
@@ -23,6 +24,13 @@ public abstract class Card implements CliPrinter {
      */
     public Card(int victoryPoints) {
         this.victoryPoints = victoryPoints;
+
+    }
+
+    public Card(int victoryPoints, int id) {
+        this.victoryPoints = victoryPoints;
+        this.id = id;
+
     }
 
     /**

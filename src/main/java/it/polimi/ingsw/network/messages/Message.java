@@ -41,10 +41,12 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = LeaderCardUpdate.class, name = "LeaderCardUpdate"),
         @JsonSubTypes.Type(value = SwitchShelvesCmd.class, name = "SwitchShelvesCmd"),
         @JsonSubTypes.Type(value = ActivateProductionCmd.class, name = "ActivateProductionCmd"),
+        @JsonSubTypes.Type(value = MarketInfoMessage.class, name = "MarketInfoMessage"),
+        @JsonSubTypes.Type(value = CardsMarketInfoMessage.class, name = "CardsMarketInfoMessage"),
         @JsonSubTypes.Type(value = Ack.class, name = "Ack")
 })
 //TODO: declare each message @JasonSubTypes.Type
-public abstract class Message implements Serializable {
+public abstract class Message {
 
     protected String msg;
 

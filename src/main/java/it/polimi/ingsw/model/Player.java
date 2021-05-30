@@ -1,16 +1,13 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
-import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
-import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.Discount;
 import it.polimi.ingsw.model.effects.ExtraShelfEffect;
-import it.polimi.ingsw.model.market.Marble;
-import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
+import it.polimi.ingsw.model.sharedarea.market.Marble;
 import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.playerboard.path;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.resources.FaithPoint;
@@ -49,15 +50,18 @@ public class Path extends Observable implements CliPrinter {
 
         //for all positions of a "report to the Vatican" section, set the pointers to the Pope space and to the papal token
         for(int i=5; i<=8; i++){
-            track[i].setVaticanReport(track[8]);        //positions from 5 to 8 link to the Pope space in 8th position
+            if(i!=8)
+                track[i].setVaticanReport(track[8]);        //positions from 5 to 7 link to the Pope space in 8th position
             track[i].setPopeToken(popeTokens.get(0));   //and to the first papal token
         }
         for(int i=12; i<=16; i++){
-            track[i].setVaticanReport(track[16]);       //positions from 12 to 16 link to the Pope space in 16th position
+            if(i!=16)
+                track[i].setVaticanReport(track[16]);       //positions from 12 to 15 link to the Pope space in 16th position
             track[i].setPopeToken(popeTokens.get(1));   //and to the second papal token
         }
         for(int i=19; i<=24; i++){
-            track[i].setVaticanReport(track[24]);       //positions from 19 to 24 link to the Pope space in 24th position (the finish line)
+            if(i!=24)
+                track[i].setVaticanReport(track[24]);       //positions from 19 to 23 link to the Pope space in 24th position (the finish line)
             track[i].setPopeToken(popeTokens.get(2));   //and to the third papal token
         }
 
@@ -80,11 +84,11 @@ public class Path extends Observable implements CliPrinter {
 
     //returns if the player is currently in a Vatican report section
     private boolean isVaticanReport(int position) {
-        return track[getCurrentPositionAsInt()].getVaticanReport() == track[position];
+        return track[getCurrentPositionAsInt()].getVaticanReport() == track[position] || (track[getCurrentPositionAsInt()] == track[position] && track[getCurrentPositionAsInt()].isPopeSquare());
     }
 
     //if in the right position, flip the player's papal token
-    public void applyVaticanReport(int position){
+    public void applyVaticanReport(int position) {
         if(isVaticanReport(position))
             track[getCurrentPositionAsInt()].getPopeToken().flip();
         track[position].setPopeSquare(false);       //at the end disable the Pope space
@@ -92,6 +96,7 @@ public class Path extends Observable implements CliPrinter {
     }
 
     //returns the sum between the points given by the position and the points given by the papal tokens if face up
+    @JsonIgnore
     public int getPathVictoryPoints() {
         return popeTokens.stream().filter(PopeToken::isFaceUp).mapToInt(PopeToken::getVictoryPoints).sum() + track[getCurrentPositionAsInt()].getVictoryPoints();
     }
@@ -108,6 +113,7 @@ public class Path extends Observable implements CliPrinter {
         return currentFaithPoints;
     }
 
+    @JsonIgnore
     public int getCurrentPositionAsInt() {
         return getCurrentFaithPoints().getVolume();
     }
@@ -128,20 +134,17 @@ public class Path extends Observable implements CliPrinter {
         return box;
     }
 
-    
-
-
     @Override
     public String print() {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("                 ┌─────"+ Color.ANSI_RED.escape() +"───────────────"+ Color.ANSI_WHITE.escape() +"─────────┐    ┌─────────┐ "+ Color.ANSI_RED.escape() +"   ┌─────────────────────────────┐"+ Color.ANSI_WHITE.escape() +"\n")
-                     .append("                 │  " + crossValue(5) + Color.ANSI_RED.escape() + "  │ " + crossValue(6) +  " │ " + crossValue(7) + "  │ " + crossValue(8) + "  │ "+ Color.ANSI_WHITE.escape()+ crossValue(9) +"  │ " + crossValue(10) + " │    │  " + popeTokens.get(2).popeToken() +"  │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(19) + " │ "+ crossValue(20) + " │ " + crossValue(21) + " │ " + crossValue(22) +" │ " + crossValue(23) + " │ " + crossValue(24) + " │"+ Color.ANSI_WHITE.escape() + "\n")
+                     .append("                 │  " + crossValue(5) + Color.ANSI_RED.escape() + " │ " + crossValue(6) +  "  │ " + crossValue(7) + "  │ " + crossValue(8) + "  │ "+ Color.ANSI_WHITE.escape()+ crossValue(9) +"  │ " + crossValue(10) + " │    │  " + popeTokens.get(2).popeToken() +"  │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(19) + " │ "+ crossValue(20) + " │ " + crossValue(21) + " │ " + crossValue(22) +" │ " + crossValue(23) + " │ " + crossValue(24) + " │"+ Color.ANSI_WHITE.escape() + "\n")
                      .append("                 │────"+ Color.ANSI_RED.escape() +"┌───────────────"+ Color.ANSI_WHITE.escape() +"────┐────│    │         │  "+ Color.ANSI_RED.escape() +"  │────┌────────────────────────┘"+ Color.ANSI_WHITE.escape() +"\n")
                      .append("                 │ "+ crossValue(4) + "  │    ┌─────────┐    │ " + crossValue(11) + " │    └─────────┘    │ " + crossValue(18) + " │      ┌─────────┐ \n")
                      .append("     ┌───────────┘────│    │  " + popeTokens.get(0).popeToken() + "  │"+ Color.ANSI_RED.escape() +"    │────└───────────────────"+ Color.ANSI_WHITE.escape() +"┘────│      │  " + popeTokens.get(1).popeToken() + "  │\n")
                      .append("     │ " + crossValue(0) +" │ "    + crossValue(1) + " │ " + crossValue(2) + " │ " + crossValue(3) + "  │    │         │ "+ Color.ANSI_RED.escape() +"   │ " + crossValue(12) + " │ "+ crossValue(13) + " │ " + crossValue(14) +" │ "+ crossValue(15) + " │ " + crossValue(16) + " │ "+ Color.ANSI_WHITE.escape() +crossValue(17) + " │      │         │\n ")
-                     .append("    └────────────────┘    └─────────┘"+ Color.ANSI_RED.escape() +"    └────────────────────────"+ Color.ANSI_WHITE.escape() +"─────┘      └─────────┘    ");
+                     .append("    └────────────────┘    └─────────┘"+ Color.ANSI_RED.escape() +"    └────────────────────────"+ Color.ANSI_WHITE.escape() +"─────┘      └─────────┘    \n");
 
 
         return stringBuilder.toString();

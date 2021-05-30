@@ -1,6 +1,5 @@
-package it.polimi.ingsw.model.market;
+package it.polimi.ingsw.model.sharedarea.market;
 
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Servant;

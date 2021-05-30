@@ -1,11 +1,8 @@
-package it.polimi.ingsw.model.market;
+package it.polimi.ingsw.model.sharedarea.market;
 
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Stone;
 import  it.polimi.ingsw.model.enums.Color;
-
-import static java.awt.Color.*;
 
 /**
  * This class represents a grey Marble and returns a Stone

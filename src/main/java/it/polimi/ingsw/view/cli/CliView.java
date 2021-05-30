@@ -7,7 +7,13 @@ import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
+import it.polimi.ingsw.model.sharedarea.market.Market;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
+import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.model.resources.*;
@@ -209,6 +215,7 @@ public class CliView extends View {
     public void chooseInfo(){
 
         System.out.println("Which item would you like to see?");
+        System.out.println("pb -> my entire player board");
         System.out.println("w -> my warehouse");
         System.out.println("ft -> my faith track");
         System.out.println("c -> my coffer");
@@ -221,6 +228,24 @@ public class CliView extends View {
         String cmd;
         try {
             switch (cmd = stdIn.readLine().toLowerCase()) {
+                case "pb":
+                    System.out.println("Leader cards:");
+                    if (clientModel.getLeaderCards().size() == 0)
+                        System.out.println("you do not have any leader card");
+                    else {
+                        for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
+                            System.out.println(leaderCard.print());
+                        }
+                    }
+                    System.out.println("Faith track:");
+                    System.out.println(clientModel.getFaithTrack());
+                    System.out.println("Development card area:");
+                    System.out.println(clientModel.getDevelopmentCardsArea());
+                    System.out.println("Warehouse:");
+                    System.out.println(clientModel.getWarehouse());
+                    System.out.println("Coffer:");
+                    System.out.println(clientModel.getCoffer());
+                    break;
                 case "w":
                     System.out.println("Warehouse:");
                     System.out.println(clientModel.getWarehouse());
@@ -238,7 +263,7 @@ public class CliView extends View {
                     System.out.println(clientModel.getDevelopmentCardsArea());
                     break;
                 case "lc":
-                    System.out.println("leader cards:");
+                    System.out.println("Leader cards:");
                     if (clientModel.getLeaderCards().size() == 0)
                         System.out.println("you do not have any leader cards");
                     else {
@@ -901,12 +926,29 @@ public class CliView extends View {
         System.out.println("Wait for your next turn...");
     }
 
+    @Override
+    public synchronized void showMarket(Market market) {
+        System.out.println(market.print());
+        notify();
+    }
+
+    @Override
+    public synchronized void showCardsMarket(CardMarket cardMarket) {
+        System.out.println(cardMarket.print());
+        notify();
+    }
+
     private void sendMessage(Message message){
         socketHandler.sendMessage(message);
     }
 
     @Override
     public synchronized void processAck(Ack ack) {
+        try {
+            wait(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if(ack.isNack())
             System.out.println("Choose other command or try with other parameters");
         askCommand();
@@ -925,27 +967,26 @@ public class CliView extends View {
     @Override
     public synchronized void showMessage(String msg){
         System.out.println(msg);
-        notify();
     }
 
     @Override
-    public void updateWarehouse(String warehouse) {
-        clientModel.updateWarehouse(warehouse);
+    public synchronized void updateWarehouse(Warehouse warehouse) {
+        clientModel.updateWarehouse(warehouse.print());
     }
 
     @Override
-    public void updateCoffer(String coffer) {
-        clientModel.updateCoffer(coffer);
+    public synchronized void updateCoffer(Coffer coffer) {
+        clientModel.updateCoffer(coffer.print());
     }
 
     @Override
-    public void updateFaithTrack(String path) {
-        clientModel.updateFaithTrack(path);
+    public synchronized void updateFaithTrack(Path path) {
+        clientModel.updateFaithTrack(path.print());
     }
 
     @Override
-    public void updateDevCards(String developmentCardsArea) {
-        clientModel.updateDevCardsArea(developmentCardsArea);
+    public synchronized void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+        clientModel.updateDevCardsArea(developmentCardsArea.print());
     }
 
     @Override
@@ -960,54 +1001,30 @@ public class CliView extends View {
 
     private void welcome(){
 
-        String rectangle[][] = new String[5][25];
-        CliBuilder.shape(rectangle, 25, 5);
+        System.out.println(Color.ANSI_BLUE.escape() + "#     # \n" +
+                            "#  #  # ###### #       ####   ####  #    # ######    #####  ####\n" +
+                             "#  #  # #      #      #    # #    # ##  ## #           #   #    #\n" +
+                             "#  #  # #####  #      #      #    # # ## # #####       #   #    #\n" +
+                             "#  #  # #      #      #      #    # #    # #           #   #    #\n" +
+                             "#  #  # #      #      #    # #    # #    # #           #   #    #\n" +
+                              "## ##  ###### ######  ####   ####  #    # ######      #    ####\n"+
 
-        rectangle[1][7] = "W";
-        rectangle[1][8] = "e";
-        rectangle[1][9] = "l";
-        rectangle[1][10] = "c";
-        rectangle[1][11] = "o";
-        rectangle[1][12] = "m";
-        rectangle[1][13] = "e";
+                             "#     #\n"+
+                             "##   ##   ##    ####  ##### ###### #####   ####      ####  ######\n"+
+                             "# # # #  #  #  #        #   #      #    # #         #    # #\n"+
+                             "#  #  # #    #  ####    #   #####  #    #  ####     #    # #####\n"+
+                             "#     # ######      #   #   #      #####       #    #    # #\n"+
+                             "#     # #    # #    #   #   #      #   #  #    #    #    # #\n"+
+                             "#     # #    #  ####    #   ###### #    #  ####      ####  #\n"+
 
-        rectangle[1][15] = "t";
-        rectangle[1][16] = "o";
+                             "######\n"+
+                             "#     # ###### #    #   ##   #  ####   ####    ##   #    #  ####  ######\n"+
+                             "#     # #      ##   #  #  #  # #      #       #  #  ##   # #    # #\n"+
+                             "######  #####  # #  # #    # #  ####   ####  #    # # #  # #      #####\n"+
+                             "#   #   #      #  # # ###### #      #      # ###### #  # # #      #\n"+
+                             "#    #  #      #   ## #    # # #    # #    # #    # #   ## #    # #\n"+
+                             "#     # ###### #    # #    # #  ####   ####  #    # #    #  ####  ######\n" + Color.ANSI_WHITE.escape());
 
-        rectangle[2][7] = "M";
-        rectangle[2][8] = "a";
-        rectangle[2][9] = "e";
-        rectangle[2][10] = "s";
-        rectangle[2][11] = "t";
-        rectangle[2][12] = "r";
-        rectangle[2][13] = "i";
-
-        rectangle[2][15] = "d";
-        rectangle[2][16] = "e";
-        rectangle[2][17] = "l";
-
-        rectangle[3][7] = "R";
-        rectangle[3][8] = "i";
-        rectangle[3][9] = "n";
-        rectangle[3][10] = "a";
-        rectangle[3][11] = "s";
-        rectangle[3][12] = "c";
-        rectangle[3][13] = "i";
-        rectangle[3][14] = "m";
-        rectangle[3][15] = "e";
-        rectangle[3][16] = "n";
-        rectangle[3][17] = "t";
-        rectangle[3][18] = "o";
-
-        System.out.print(Color.ANSI_BLUE.escape());
-        for (int r = 0; r < 5; r++) {
-            System.out.println();
-            for (int c = 0; c < 25; c++) {
-                System.out.print(rectangle[r][c]);
-            }
-        }
-        System.out.println();
-        System.out.println(Color.ANSI_WHITE.escape());
     }
 
 }

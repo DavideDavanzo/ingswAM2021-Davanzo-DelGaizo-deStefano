@@ -1,13 +1,10 @@
 package it.polimi.ingsw.model.effects;
 
-import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enums.Color;
-import it.polimi.ingsw.model.market.Marble;
-import it.polimi.ingsw.model.market.Market;
-import it.polimi.ingsw.model.market.WhiteMarble;
-import it.polimi.ingsw.model.market.YellowMarble;
+import it.polimi.ingsw.model.sharedarea.market.Marble;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 
 /**
  * Gives the {@link Player} an extra colored {@link Marble} that

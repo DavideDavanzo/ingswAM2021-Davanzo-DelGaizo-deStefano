@@ -3,7 +3,9 @@ package it.polimi.ingsw.model.playerboard.path;
 public class PopeToken  {
 
     private boolean faceUp;
-    private final int victoryPoints;
+    private int victoryPoints;
+
+    public PopeToken(){}
 
     public PopeToken(int victoryPoints) {
         this.victoryPoints = victoryPoints;
@@ -22,6 +24,13 @@ public class PopeToken  {
         return victoryPoints;
     }
 
+    public void setVictoryPoints(int victoryPoints) {
+        this.victoryPoints = victoryPoints;
+    }
+
+    public void setFaceUp(boolean faceUp) {
+        this.faceUp = faceUp;
+    }
 
     public String popeToken() {
 
