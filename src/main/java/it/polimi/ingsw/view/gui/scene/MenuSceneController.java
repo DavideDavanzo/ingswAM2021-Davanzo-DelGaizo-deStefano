@@ -24,7 +24,7 @@ public class MenuSceneController implements GenericSceneController {
 
     public void playButtonClick(Event event) {
         playButton.setDisable(true);
-        SceneController.changeScene(gui, "login_scene.fxml");
+        gui.login();
     }
 
     public void quitButtonClick(Event event) {
