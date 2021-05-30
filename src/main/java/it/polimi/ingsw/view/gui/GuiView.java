@@ -3,10 +3,7 @@ package it.polimi.ingsw.view.gui;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.client.SocketHandler;
-import it.polimi.ingsw.network.messages.Ack;
-import it.polimi.ingsw.network.messages.LoginReply;
-import it.polimi.ingsw.network.messages.LoginRequest;
-import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.LoginSceneController;
 import javafx.application.Platform;
@@ -27,17 +24,22 @@ public class GuiView extends View {
 
     @Override
     public void start() {
-
+        socketHandler.addObserver(this);
+        new Thread(socketHandler).start();
     }
 
     @Override
     public void login(){
-
+        Platform.runLater(() -> SceneController.changeScene(this, "login_scene.fxml"));
     }
 
     @Override
     public void askNumberOfPlayers() {
+        Platform.runLater(() -> SceneController.changeScene(this, "playersNumber_scene.fxml"));
+    }
 
+    public void askNumberOfPlayers(int num) {
+        sendMessage(new PlayersNumber(num));
     }
 
     @Override
@@ -52,13 +54,13 @@ public class GuiView extends View {
 
     @Override
     public void onLoginRequest(LoginRequest message) {
-        socketHandler.sendMessage(message);
+        sendMessage(message);
     }
 
     @Override
     public void onLoginReply(LoginReply message) {
         if(message.isSuccessful()) {
-            Platform.runLater(() -> SceneController.changeScene(this, "playersNumber_scene.fxml"));
+            askNumberOfPlayers();
         }
         else {
             LoginSceneController loginSceneController = (LoginSceneController) SceneController.getActiveSceneController();
@@ -130,6 +132,10 @@ public class GuiView extends View {
     @Override
     public void showLogin(String msg, boolean successful) {
 
+    }
+
+    private void sendMessage(Message message){
+        socketHandler.sendMessage(message);
     }
 
     @Override

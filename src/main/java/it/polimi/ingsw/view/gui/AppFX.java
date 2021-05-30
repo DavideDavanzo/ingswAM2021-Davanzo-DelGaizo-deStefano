@@ -24,8 +24,7 @@ public class AppFX extends Application {
             Socket socket = new Socket(parameters.get(0), Integer.parseInt(parameters.get(1)));
             SocketHandler handler = new SocketHandler(socket);
             guiView = new GuiView(handler);
-            handler.addObserver(guiView);
-            new Thread(handler).start();
+            guiView.start();
 
         } catch (IOException e) {
             e.printStackTrace();
