@@ -1001,54 +1001,30 @@ public class CliView extends View {
 
     private void welcome(){
 
-        String rectangle[][] = new String[5][25];
-        CliBuilder.shape(rectangle, 25, 5);
+        System.out.println(Color.ANSI_BLUE.escape() + "#     # \n" +
+                            "#  #  # ###### #       ####   ####  #    # ######    #####  ####\n" +
+                             "#  #  # #      #      #    # #    # ##  ## #           #   #    #\n" +
+                             "#  #  # #####  #      #      #    # # ## # #####       #   #    #\n" +
+                             "#  #  # #      #      #      #    # #    # #           #   #    #\n" +
+                             "#  #  # #      #      #    # #    # #    # #           #   #    #\n" +
+                              "## ##  ###### ######  ####   ####  #    # ######      #    ####\n"+
 
-        rectangle[1][7] = "W";
-        rectangle[1][8] = "e";
-        rectangle[1][9] = "l";
-        rectangle[1][10] = "c";
-        rectangle[1][11] = "o";
-        rectangle[1][12] = "m";
-        rectangle[1][13] = "e";
+                             "#     #\n"+
+                             "##   ##   ##    ####  ##### ###### #####   ####      ####  ######\n"+
+                             "# # # #  #  #  #        #   #      #    # #         #    # #\n"+
+                             "#  #  # #    #  ####    #   #####  #    #  ####     #    # #####\n"+
+                             "#     # ######      #   #   #      #####       #    #    # #\n"+
+                             "#     # #    # #    #   #   #      #   #  #    #    #    # #\n"+
+                             "#     # #    #  ####    #   ###### #    #  ####      ####  #\n"+
 
-        rectangle[1][15] = "t";
-        rectangle[1][16] = "o";
+                             "######\n"+
+                             "#     # ###### #    #   ##   #  ####   ####    ##   #    #  ####  ######\n"+
+                             "#     # #      ##   #  #  #  # #      #       #  #  ##   # #    # #\n"+
+                             "######  #####  # #  # #    # #  ####   ####  #    # # #  # #      #####\n"+
+                             "#   #   #      #  # # ###### #      #      # ###### #  # # #      #\n"+
+                             "#    #  #      #   ## #    # # #    # #    # #    # #   ## #    # #\n"+
+                             "#     # ###### #    # #    # #  ####   ####  #    # #    #  ####  ######\n" + Color.ANSI_WHITE.escape());
 
-        rectangle[2][7] = "M";
-        rectangle[2][8] = "a";
-        rectangle[2][9] = "e";
-        rectangle[2][10] = "s";
-        rectangle[2][11] = "t";
-        rectangle[2][12] = "r";
-        rectangle[2][13] = "i";
-
-        rectangle[2][15] = "d";
-        rectangle[2][16] = "e";
-        rectangle[2][17] = "l";
-
-        rectangle[3][7] = "R";
-        rectangle[3][8] = "i";
-        rectangle[3][9] = "n";
-        rectangle[3][10] = "a";
-        rectangle[3][11] = "s";
-        rectangle[3][12] = "c";
-        rectangle[3][13] = "i";
-        rectangle[3][14] = "m";
-        rectangle[3][15] = "e";
-        rectangle[3][16] = "n";
-        rectangle[3][17] = "t";
-        rectangle[3][18] = "o";
-
-        System.out.print(Color.ANSI_BLUE.escape());
-        for (int r = 0; r < 5; r++) {
-            System.out.println();
-            for (int c = 0; c < 25; c++) {
-                System.out.print(rectangle[r][c]);
-            }
-        }
-        System.out.println();
-        System.out.println(Color.ANSI_WHITE.escape());
     }
 
 }

@@ -29,6 +29,14 @@ public class LeaderCard extends Card {
         this.active = false;
     }
 
+
+    public LeaderCard(Requirement requirement, Effect effect, int victoryPoints, int id) {
+        super(victoryPoints,id);
+        this.requirement = requirement;
+        this.effect = effect;
+        this.active = false;
+    }
+
     //TODO: Create a new exception?
     public void activateOn(Player p) throws NotEnoughResourcesException {
 

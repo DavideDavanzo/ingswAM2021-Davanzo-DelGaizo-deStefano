@@ -62,6 +62,14 @@ public class DevelopmentCard extends Card {
         this.trade = trade;
     }
 
+    public DevelopmentCard(ECardColor color,  int level, ArrayList<Resource> cost, Trade trade, int victoryPoints, int id) {
+        super(victoryPoints, id);
+        this.level = level;
+        this.color = color;
+        this.cost = cost;
+        this.trade = trade;
+    }
+
     public void setColor(ECardColor color) {
         this.color = color;
     }

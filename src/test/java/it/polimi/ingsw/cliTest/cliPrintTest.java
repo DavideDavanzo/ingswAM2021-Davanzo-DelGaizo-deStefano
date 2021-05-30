@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
+import it.polimi.ingsw.model.requirements.Requirement;
 import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
 import org.junit.jupiter.api.Test;

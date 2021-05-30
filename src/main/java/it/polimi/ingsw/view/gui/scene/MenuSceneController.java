@@ -1,15 +1,11 @@
 package it.polimi.ingsw.view.gui.scene;
 
-import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 
 public class MenuSceneController implements GenericSceneController {
 
