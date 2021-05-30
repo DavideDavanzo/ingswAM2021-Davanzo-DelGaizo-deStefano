@@ -10,23 +10,31 @@ import it.polimi.ingsw.view.cli.CliPrinter;
  */
 public abstract class Card implements CliPrinter {
 
-    private int id;
+    private final int id;
     private int victoryPoints;
 
     /**
      * Default Constructor
      */
-    public Card() { }
+    public Card() {
+        id = 0;
+    }
 
     /**
-     * Main Constructor
-     * @param victoryPoints sets the card's Victory Points
+     * Points-Only Constructor
+     * @param victoryPoints the card's Victory Points
      */
     public Card(int victoryPoints) {
+        id = 0;
         this.victoryPoints = victoryPoints;
 
     }
 
+    /**
+     * Main Constructor
+     * @param victoryPoints card's Victory Points
+     * @param id is a unique id that links the card to an image
+     */
     public Card(int victoryPoints, int id) {
         this.victoryPoints = victoryPoints;
         this.id = id;
@@ -41,5 +49,12 @@ public abstract class Card implements CliPrinter {
         return victoryPoints;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setVictoryPoints(int victoryPoints) {
+        this.victoryPoints = victoryPoints;
+    }
 }
 

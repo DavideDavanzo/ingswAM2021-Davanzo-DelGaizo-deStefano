@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.Item;
@@ -47,7 +48,7 @@ public class DevelopmentCard extends Card {
     }
 
     /**
-     * Complete Constructor
+     * Complete Constructor - no ID
      * @param victoryPoints refers to the card's Victory Points
      * @param level goes from 1 up to 3
      * @param color is a {@link ECardColor}
@@ -62,6 +63,15 @@ public class DevelopmentCard extends Card {
         this.trade = trade;
     }
 
+    /**
+     * Complete Constructor
+     * @param victoryPoints refers to the card's Victory Points
+     * @param level goes from 1 up to 3
+     * @param color is a {@link ECardColor}
+     * @param cost indicates the {@link Resource} the Player spends to buy the Card
+     * @param trade indicates the {@link Trade} of the Card
+     * @param id is the card's ID number
+     */
     public DevelopmentCard(ECardColor color,  int level, ArrayList<Resource> cost, Trade trade, int victoryPoints, int id) {
         super(victoryPoints, id);
         this.level = level;
