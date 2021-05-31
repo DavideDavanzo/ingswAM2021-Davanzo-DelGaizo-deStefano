@@ -51,4 +51,10 @@ public class Observable {
         }
     }
 
+    public void notifyObservers(int pathPosition){
+        for(Observer observer : observers){
+            observer.update(pathPosition);
+        }
+    }
+
 }

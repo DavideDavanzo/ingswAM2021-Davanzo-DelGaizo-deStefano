@@ -19,4 +19,6 @@ public interface Observer {
 
     void update(DevelopmentCardsArea developmentCardsArea);
 
+    void update(int pathPosition);
+
 }
