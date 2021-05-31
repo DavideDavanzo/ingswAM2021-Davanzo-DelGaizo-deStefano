@@ -72,6 +72,10 @@ public class Path extends Observable implements CliPrinter {
         for(int i=0; i<totSteps; i++) {
             if(getCurrentPositionAsInt() == 24) return true;
             currentFaithPoints.update(new FaithPoint(1));
+
+            if(track[getCurrentPositionAsInt()].isPopeSquare())
+                notifyObservers(getCurrentPositionAsInt());         //vatican report
+
             if(getCurrentPositionAsInt() == 24) {
                 notifyObservers(this);
                 return true;
@@ -92,7 +96,7 @@ public class Path extends Observable implements CliPrinter {
         if(isVaticanReport(position))
             track[getCurrentPositionAsInt()].getPopeToken().flip();
         track[position].setPopeSquare(false);       //at the end disable the Pope space
-        //notifyObservers(this);
+        notifyObservers(this);
     }
 
     //returns the sum between the points given by the position and the points given by the papal tokens if face up

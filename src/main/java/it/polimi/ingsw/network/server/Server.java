@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.*;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -14,10 +15,15 @@ public class Server {
 
     private final int socketPort;
     private ServerSocket serverSocket;
+    private ArrayList<GameController> gameControllers;
     private GameController gameController;
+    ExecutorService executor = Executors.newCachedThreadPool();
 
     public Server(int port){
         socketPort = port;
+        gameControllers = new ArrayList<>();
+        gameController = new GameController();
+        gameControllers.add(gameController);
     }
 
     public static void main(String[] args){
@@ -27,8 +33,6 @@ public class Server {
 
     public void start(){
 
-        ExecutorService executor = Executors.newCachedThreadPool();
-
         System.out.println("Server started");
 
         try {
@@ -36,8 +40,6 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        gameController = new GameController();
 
         try{
             while(true) {
@@ -61,13 +63,15 @@ public class Server {
 
     public void waitLogin(VirtualView virtualView){
 
-        while (!Thread.currentThread().isInterrupted()) {
+        while (true) {
             System.out.println("Waiting login from " + virtualView.getClientHandler().getClientSocket().getLocalAddress());
             Message loginRequest = virtualView.getClientHandler().returnClientMessage();
             virtualView.setUsername(loginRequest.getUsername());
             virtualView.getClientHandler().setUsername(loginRequest.getUsername());
-            if(gameController.isFull())
+            if(gameController.isFull()) {
                 gameController = new GameController();
+                gameControllers.add(gameController);
+            }
             try {
                 gameController.logPlayer(loginRequest.getUsername(), virtualView);
             } catch (Exception e) {

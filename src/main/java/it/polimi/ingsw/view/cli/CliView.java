@@ -48,11 +48,10 @@ public class CliView extends View {
 
     @Override
     public void start() {
-        socketHandler.addObserver(this);
         welcome();
+        socketHandler.addObserver(this);
+        executor.submit(socketHandler);
         login();
-        Thread thread = new Thread(socketHandler);
-        thread.start();
     }
 
     @Override
@@ -173,6 +172,7 @@ public class CliView extends View {
         System.out.println("a -> activate leader card");
         System.out.println("i -> ask info");
         System.out.println("next -> pass turn");
+        System.out.println("quit -> leave match");
         String cmd;
         try {
             while(stdIn.ready())
@@ -202,6 +202,9 @@ public class CliView extends View {
                     break;
                 case "next":
                     passTurn();
+                    break;
+                case "quit":
+                    socketHandler.disconnect();
                     break;
                 default:
                     System.out.println("This command does not exist. Try again");

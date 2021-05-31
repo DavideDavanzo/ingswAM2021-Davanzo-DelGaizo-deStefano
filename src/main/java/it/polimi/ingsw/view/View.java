@@ -92,6 +92,11 @@ public abstract class View extends Observable implements Observer {
         //do nothing
     }
 
+    @Override
+    public void update(int pathPosition) {
+        //do nothing
+    }
+
     public abstract void updateActiveLeader(int index);
 
 }

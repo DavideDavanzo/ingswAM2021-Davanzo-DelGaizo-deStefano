@@ -120,6 +120,7 @@ public class GameController implements Observer, Serializable {
             p.getPlayerBoard().getCoffer().addObserver(entry.getValue());
             p.getPlayerBoard().getDevelopmentCardsArea().addObserver(entry.getValue());
             p.getPlayerBoard().getPath().addObserver(entry.getValue());
+            p.getPlayerBoard().getPath().addObserver(this);
         }
 
         if(isSinglePlayer()) match.setToSinglePlayer();
@@ -292,6 +293,11 @@ public class GameController implements Observer, Serializable {
     @Override
     public void update(DevelopmentCardsArea developmentCardsArea) {
         //do nothing
+    }
+
+    @Override
+    public void update(int pathPosition) {
+        match.getPlayers().forEach(p -> p.getPlayerBoard().getPath().applyVaticanReport(pathPosition));
     }
 
     public void setMatch(Match match) {

@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.NoSuchElementException;
 
 public class SocketHandler extends Observable implements Runnable {
 
@@ -29,6 +28,24 @@ public class SocketHandler extends Observable implements Runnable {
             e.printStackTrace();
         }
         objectMapper = new ObjectMapper();
+    }
+
+    @Override
+    public void run() {
+        String msg = null;
+        while (!socket.isClosed()) {
+            try {
+                msg = socketIn.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //System.out.println("Received: " + msg);
+            try {
+                notifyObservers(objectMapper.readValue(msg , Message.class));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void sendMessage(Message message){
@@ -65,21 +82,13 @@ public class SocketHandler extends Observable implements Runnable {
         this.username = username;
     }
 
-    @Override
-    public void run() {
-        String msg = null;
-        while (!socket.isClosed()) {
-            try {
-                msg = socketIn.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            //System.out.println("Received: " + msg);
-            try {
-                notifyObservers(objectMapper.readValue(msg , Message.class));
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
+    public void disconnect(){
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        System.exit(1);
     }
+
 }
