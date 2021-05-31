@@ -14,6 +14,7 @@ import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.GenericSceneController;
 import it.polimi.ingsw.view.gui.scene.LeaderSceneController;
 import it.polimi.ingsw.view.gui.scene.LoginSceneController;
+import it.polimi.ingsw.view.gui.scene.ResourcePopupController;
 import javafx.application.Platform;
 
 import javax.swing.*;
@@ -60,7 +61,9 @@ public class GuiView extends View {
 
     @Override
     public void askBlankResources(String msg) {
-
+        ResourcePopupController rpc = new ResourcePopupController();
+        rpc.setResourceImages();
+        Platform.runLater(() -> SceneController.changeScene(this, rpc, "resource_popup.fxml"));
     }
 
     @Override

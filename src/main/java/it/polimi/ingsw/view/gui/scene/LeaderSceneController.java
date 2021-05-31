@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.view.gui.GuiView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -8,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+
 
 import java.util.ArrayList;
 
@@ -69,6 +70,7 @@ public class LeaderSceneController implements GenericSceneController {
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
             fourthCard.setDisable(true);
+
         }
     }
 
