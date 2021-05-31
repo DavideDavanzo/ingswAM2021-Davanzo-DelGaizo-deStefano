@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 public class DevCardParser {
 
     public ArrayList<DevelopmentCard> parse() {
