@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.LeaderSceneController">
    <children>
-      <HBox layoutY="53.0" prefHeight="295.0" prefWidth="600.0" />
+      <HBox fx:id="hbox" layoutY="53.0" prefHeight="295.0" prefWidth="600.0">
+         <children>
+            <ImageView fx:id="firstLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="5.0" right="5.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="secondLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets right="5.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="thirdLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets right="5.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <ImageView fx:id="fourthLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets right="5.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
+         </children></HBox>
       <Label layoutX="204.0" layoutY="31.0" text="Choose 2 cards among these:">
          <font>
             <Font name="System Bold" size="14.0" />

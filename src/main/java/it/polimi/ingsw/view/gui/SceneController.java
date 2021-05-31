@@ -36,6 +36,11 @@ public class SceneController {
         }
     }
 
+    public static void changeScene(GuiView gui, String fxml, Runnable r) {
+        changeScene(gui, fxml);
+        r.run();
+    }
+
     public static GenericSceneController getActiveSceneController() {
         return activeSceneController;
     }
