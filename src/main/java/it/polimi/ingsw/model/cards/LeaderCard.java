@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.cards;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.effects.Effect;
@@ -29,9 +30,8 @@ public class LeaderCard extends Card {
         this.active = false;
     }
 
-
     public LeaderCard(Requirement requirement, Effect effect, int victoryPoints, int id) {
-        super(victoryPoints,id);
+        super(victoryPoints, id);
         this.requirement = requirement;
         this.effect = effect;
         this.active = false;
