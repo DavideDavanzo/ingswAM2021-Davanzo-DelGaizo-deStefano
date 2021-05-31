@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class LeaderSceneController implements GenericSceneController {
 
@@ -31,13 +32,13 @@ public class LeaderSceneController implements GenericSceneController {
     private Button fourthCard;
 
     @FXML
-    private ImageView firstLeader = new ImageView();
+    private ImageView firstLeader;
     @FXML
-    private ImageView secondLeader = new ImageView();
+    private ImageView secondLeader;
     @FXML
-    private ImageView thirdLeader = new ImageView();
+    private ImageView thirdLeader;
     @FXML
-    private ImageView fourthLeader = new ImageView();
+    private ImageView fourthLeader;
 
     public void initialize() {
         setLeaderImages();
@@ -48,10 +49,10 @@ public class LeaderSceneController implements GenericSceneController {
     }
 
     private void setLeaderImages() {
-        firstLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(0).getId() + ".png")));
-        secondLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(1).getId() + ".png")));
-        thirdLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(2).getId() + ".png")));
-        fourthLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(3).getId() + ".png")));
+        firstLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(0).getId() + ".png"))));
+        secondLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(1).getId() + ".png"))));
+        thirdLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(2).getId() + ".png"))));
+        fourthLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(3).getId() + ".png"))));
     }
 
     @Override
