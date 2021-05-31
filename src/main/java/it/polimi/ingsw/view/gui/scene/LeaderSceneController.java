@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
@@ -37,22 +38,20 @@ public class LeaderSceneController implements GenericSceneController {
     private ImageView thirdLeader = new ImageView();
     @FXML
     private ImageView fourthLeader = new ImageView();
-    @FXML
-    public HBox hbox;
-
-    private ImageView[] images = {firstLeader, secondLeader, thirdLeader,fourthLeader};
 
     public void initialize() {
         setLeaderImages();
+        firstCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstCardButton);
+        secondCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondCardButton);
+        thirdCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdCardButton);
+        fourthCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::fourthCardButton);
     }
 
     private void setLeaderImages() {
-        int last = 0;
-        for (ImageView imageView : images) {
-            Image img = new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(last).getId() + ".png"));
-            imageView.setImage(img);
-            last++;
-        }
+        firstLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(0).getId() + ".png")));
+        secondLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(1).getId() + ".png")));
+        thirdLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(2).getId() + ".png")));
+        fourthLeader.setImage(new Image(getClass().getResourceAsStream("/images/cardsFront/" + leaderCards.get(3).getId() + ".png")));
     }
 
     @Override
