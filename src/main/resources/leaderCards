@@ -231,7 +231,8 @@
     "effect" : {
       "@type" : "blankEff"
     },
-    "victoryPoints" : 7
+    "victoryPoints" : 7,
+    "id": 65
   },
   {
     "requirement" : {
@@ -241,6 +242,7 @@
     "effect" : {
       "@type" : "blankEff"
     },
-    "victoryPoints" : 8
+    "victoryPoints" : 8,
+    "id" : 66
   }
 ]

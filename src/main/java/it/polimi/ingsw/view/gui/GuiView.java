@@ -11,9 +11,12 @@ import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.scene.GenericSceneController;
+import it.polimi.ingsw.view.gui.scene.LeaderSceneController;
 import it.polimi.ingsw.view.gui.scene.LoginSceneController;
 import javafx.application.Platform;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -50,7 +53,11 @@ public class GuiView extends View {
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
-
+        Platform.runLater(() -> SceneController.changeScene(this, "leader_scene.fxml",
+                () -> {
+                    LeaderSceneController activeController = (LeaderSceneController) SceneController.getActiveSceneController();
+                    activeController.showLeaders(leaderCards);
+                }));
     }
 
     @Override
