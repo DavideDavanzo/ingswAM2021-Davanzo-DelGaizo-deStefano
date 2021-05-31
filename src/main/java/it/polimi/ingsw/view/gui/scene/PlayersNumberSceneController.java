@@ -40,6 +40,7 @@ public class PlayersNumberSceneController implements GenericSceneController{
     public void singlePlayerButtonClick(Event event) {
         singlePlayerButton.setDisable(true);
         multiPlayerButton.setDisable(true);
+        numChoice.setDisable(true);
 
         gui.askNumberOfPlayers(1);
     }
