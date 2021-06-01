@@ -53,11 +53,9 @@ public class GuiView extends View {
 
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
-        Platform.runLater(() -> SceneController.changeScene(this, "leader_scene.fxml",
-                () -> {
-                    LeaderSceneController activeController = (LeaderSceneController) SceneController.getActiveSceneController();
-                    activeController.showLeaders(leaderCards);
-                }));
+        LeaderSceneController lsc = new LeaderSceneController();
+        lsc.setLeaderCards(leaderCards);
+        Platform.runLater(() -> SceneController.changeScene(this, lsc, "leader_scene.fxml"));
     }
 
     @Override

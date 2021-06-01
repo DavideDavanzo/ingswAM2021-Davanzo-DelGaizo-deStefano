@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.view.gui.scene.GenericSceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -38,7 +39,27 @@ public class SceneController {
 
     public static void changeScene(GuiView gui, String fxml, Runnable r) {
         changeScene(gui, fxml);
-        r.run();
+        Platform.runLater(r);
+    }
+
+    public static void changeScene(GuiView gui, GenericSceneController controller, String fxml) {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
+
+            loader.setController(controller);
+            activeSceneController = controller;
+            activeSceneController.setGui(gui);
+            Parent root = loader.load();
+
+            activeScene = new Scene(root);
+            stage.setScene(activeScene);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static GenericSceneController getActiveSceneController() {
