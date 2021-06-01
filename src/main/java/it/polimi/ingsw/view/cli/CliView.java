@@ -383,8 +383,10 @@ public class CliView extends View {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    if(choice == 0)
+                    if(choice == 0) {
+                        askCommand();
                         return;
+                    }
                 }
             }
             ArrayList<Integer> temp = new ArrayList<>();
