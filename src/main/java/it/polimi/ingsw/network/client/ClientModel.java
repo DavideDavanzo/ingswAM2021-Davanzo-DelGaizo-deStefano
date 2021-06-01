@@ -13,6 +13,7 @@ public class ClientModel {
     private String warehouse;
     private String coffer;
     private String faithTrack;
+    private String playerboard;
     private String developmentCardsArea;
     private ArrayList<LeaderCard> leaderCards;
 
@@ -38,6 +39,11 @@ public class ClientModel {
 
     public String getFaithTrack() {
         return faithTrack;
+    }
+
+
+    public String getPlayerboard() {
+        return playerboard;
     }
 
     public String getDevelopmentCardsArea() {

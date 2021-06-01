@@ -240,14 +240,8 @@ public class CliView extends View {
                             System.out.println(leaderCard.print());
                         }
                     }
-                    System.out.println("Faith track:");
-                    System.out.println(clientModel.getFaithTrack());
-                    System.out.println("Development card area:");
+                    System.out.println(clientModel.getPlayerboard());
                     System.out.println(clientModel.getDevelopmentCardsArea());
-                    System.out.println("Warehouse:");
-                    System.out.println(clientModel.getWarehouse());
-                    System.out.println("Coffer:");
-                    System.out.println(clientModel.getCoffer());
                     break;
                 case "w":
                     System.out.println("Warehouse:");
