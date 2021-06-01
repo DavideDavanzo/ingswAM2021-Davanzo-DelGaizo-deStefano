@@ -68,15 +68,13 @@ public class GuiView extends View {
 
     @Override
     public void onLoginRequest(LoginRequest message) {
+        socketHandler.setUsername(message.getMsg());
         sendMessage(message);
     }
 
     @Override
     public void onLoginReply(LoginReply message) {
-        if(message.isSuccessful()) {
-            askNumberOfPlayers();
-        }
-        else {
+        if(!message.isSuccessful()) {
             LoginSceneController loginSceneController = (LoginSceneController) SceneController.getActiveSceneController();
             loginSceneController.reAskLogin();
         }

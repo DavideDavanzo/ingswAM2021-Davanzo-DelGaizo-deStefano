@@ -182,7 +182,7 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "coin", "volume" : 2}
+      "shelfResource" : {"@type" : "coin", "volume" : 0}
     },
     "victoryPoints" : 3,
     "id" : 13
@@ -194,7 +194,7 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "stone", "volume" : 2}
+      "shelfResource" : {"@type" : "stone", "volume" : 0}
     },
     "victoryPoints" : 3,
     "id" : 14
@@ -206,7 +206,7 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "shield", "volume" : 2}
+      "shelfResource" : {"@type" : "shield", "volume" : 0}
     },
     "victoryPoints" : 3,
     "id" : 15
@@ -218,7 +218,7 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "servant", "volume" : 2}
+      "shelfResource" : {"@type" : "servant", "volume" : 0}
     },
     "victoryPoints" : 3,
     "id": 16

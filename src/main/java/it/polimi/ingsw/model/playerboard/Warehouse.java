@@ -61,7 +61,14 @@ public class Warehouse extends Observable implements CliPrinter {
             //assigning second shelf's resources to the first one
             shelfOne.setShelfResource(shelfTwo.getShelfResource());
             shelfTwo.setShelfResource(temp);        //assigning first shelf's resources to the second one
+
+            if(shelfOne.isExtraShelf() && shelfTwo.getResourceVolume()==0)
+                shelfTwo.emptyThisShelf();
+            else if(shelfTwo.isExtraShelf() && shelfOne.getResourceVolume()==0)
+                shelfOne.emptyThisShelf();
+
             notifyObservers(this);
+
         }
 
     }
@@ -77,13 +84,14 @@ public class Warehouse extends Observable implements CliPrinter {
         //if one of these cases => not valid
         //case 1 and 2: one of the shelves is the warehouse's firstShelf, which means can contain one resource max
         //case 3 and 4: one of the shelves is the warehouse's secondShelf, which means can contain two resource max
-        //case 5: one of the shelves is an extraShelf given by the leader card, these type of shelves cannot be switched
+        //case 5: one of the shelves is an extraShelf, these type of shelves can only be switched with shelves containing same type of resource
         return  (shelfOne == firstShelf && shelfTwo.getResourceVolume() > 1)      //case 1
                 || (shelfTwo == firstShelf && shelfOne.getResourceVolume() > 1)      //case 2
                 || (shelfOne == secondShelf && shelfTwo.getResourceVolume() > 2)     //case 3
                 || (shelfTwo == secondShelf && shelfOne.getResourceVolume() > 2)     //case 4
                 // case 5
-                || (extraShelves != null && (extraShelves.contains(shelfOne) || extraShelves.contains(shelfTwo)) && !shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()));
+                || ((shelfOne.isExtraShelf() || shelfTwo.isExtraShelf()) &&
+                (!shelfOne.getShelfResource().sameType(shelfTwo.getShelfResource()) || (shelfOne.isExtraShelf() && shelfTwo.isEmpty()) || (shelfTwo.isExtraShelf() && shelfOne.isEmpty())));
 
     }
 
@@ -105,19 +113,16 @@ public class Warehouse extends Observable implements CliPrinter {
     }
 
     public ArrayList<Resource> getAllWarehouseResources() {
-
         ArrayList<Resource> totWarehouseResources = new ArrayList<>();
         getAllWarehouseShelves().stream().filter(s -> !s.isEmpty()).map(Shelf::getShelfResource).forEach(totWarehouseResources::add);
-
         return totWarehouseResources;
     }
 
     public void addExtraShelf(Shelf extraShelf) {
-
         extraShelf.setAsExtraShelf();
-        if(this.extraShelves == null)
-            this.extraShelves = new ArrayList<>();
-        this.extraShelves.add(extraShelf);
+        if(extraShelves == null)
+            extraShelves = new ArrayList<>();
+        extraShelves.add(extraShelf);
         notifyObservers(this);
     }
 
@@ -175,9 +180,9 @@ public class Warehouse extends Observable implements CliPrinter {
         if (extraShelves != null) {
             stringBuilder.append("Extra shelves:\n");
             for (Shelf extraShelf : extraShelves) {
-                stringBuilder.append("   ╔═══════════════╗\n")
-                             .append("   ║      " + (extraShelf.getShelfResource().getVolume()) + " " + extraShelf.getShelfResource().print() + "     ║\n")
-                             .append("   ╚═══════════════╝\n");
+                stringBuilder.append("  ╔═══════════════╗\n")
+                             .append("  ║      " + (extraShelf.getShelfResource().getVolume()) + " " + extraShelf.getShelfResource().print() + "     ║\n")
+                             .append("  ╚═══════════════╝\n");
             }
         }
         return stringBuilder.toString();
