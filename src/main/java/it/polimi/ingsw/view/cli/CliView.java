@@ -42,7 +42,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void update(Message message) {
+    public void update(Message message) {
         executor.submit(() -> message.apply(this));
     }
 
@@ -927,7 +927,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void waitTurn(){
+    public synchronized void waitTurn(){
         System.out.println("Wait for your next turn...");
     }
 
@@ -975,22 +975,22 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void updateWarehouse(Warehouse warehouse) {
+    public void updateWarehouse(Warehouse warehouse) {
         clientModel.updateWarehouse(warehouse.print());
     }
 
     @Override
-    public synchronized void updateCoffer(Coffer coffer) {
+    public void updateCoffer(Coffer coffer) {
         clientModel.updateCoffer(coffer.print());
     }
 
     @Override
-    public synchronized void updateFaithTrack(Path path) {
+    public void updateFaithTrack(Path path) {
         clientModel.updateFaithTrack(path.print());
     }
 
     @Override
-    public synchronized void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
         clientModel.updateDevCardsArea(developmentCardsArea.print());
     }
 
