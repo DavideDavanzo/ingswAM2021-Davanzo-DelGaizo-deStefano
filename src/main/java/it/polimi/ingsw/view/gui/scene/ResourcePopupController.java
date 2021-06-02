@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.view.gui.GuiView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -55,8 +56,13 @@ public class ResourcePopupController implements GenericSceneController{
     }
 
 
+
+
     private void choiceButtonClick(Event event) {
-        gui.askBlankResources(choiceButton.getText());
+        if(choiceButton.equals(Coin)) gui.askBlankResources("coin");
+        if(choiceButton.equals(Shield)) gui.askBlankResources("shield");
+        if(choiceButton.equals(Servant)) gui.askBlankResources("servant");
+        if(choiceButton.equals(Stone)) gui.askBlankResources("stone");
     }
 
 

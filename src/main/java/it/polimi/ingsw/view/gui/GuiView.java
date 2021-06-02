@@ -11,10 +11,7 @@ import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.gui.scene.GenericSceneController;
-import it.polimi.ingsw.view.gui.scene.LeaderSceneController;
-import it.polimi.ingsw.view.gui.scene.LoginSceneController;
-import it.polimi.ingsw.view.gui.scene.ResourcePopupController;
+import it.polimi.ingsw.view.gui.scene.*;
 import javafx.application.Platform;
 
 import javax.swing.*;
@@ -92,7 +89,7 @@ public class GuiView extends View {
 
     @Override
     public void chooseInfo() {
-
+        Platform.runLater(() -> SceneController.changeScene(this, "playerboard_scene.fxml"));
     }
 
     @Override
