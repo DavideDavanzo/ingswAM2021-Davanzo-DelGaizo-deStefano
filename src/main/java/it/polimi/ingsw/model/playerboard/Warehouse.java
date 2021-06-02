@@ -147,6 +147,11 @@ public class Warehouse extends Observable implements CliPrinter {
         notifyObservers(this);
     }
 
+    public void emptyShelf(Shelf shelf){
+        shelf.emptyThisShelf();
+        notifyObservers(this);
+    }
+
     public Shelf getFirstShelf() {
         return firstShelf;
     }

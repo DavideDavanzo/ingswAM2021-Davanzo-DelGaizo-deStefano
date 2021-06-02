@@ -56,7 +56,6 @@ public class PlayerBoard implements CliPrinter {
         for(Item product : totalProductionOutput) {
                 cantMove = path.moveForward(product.pathSteps());
                 coffer.updateCoffer(product);
-
         }
         return cantMove;
     }
@@ -68,7 +67,7 @@ public class PlayerBoard implements CliPrinter {
         ArrayList<Resource> totalCost = new ArrayList<>(totalInputRequired.size());
         for(Resource r : totalInputRequired) totalCost.add(r.clone());
 
-        for(Resource newResource : totalCost) {
+        for(Resource resource : totalCost) {
 
             for (Shelf s : getWarehouse().getAllWarehouseShelves()) {
 
@@ -76,14 +75,14 @@ public class PlayerBoard implements CliPrinter {
 
                     previousVolume = s.getShelfResource().getVolume();
 
-                    if (previousVolume >= newResource.getVolume()) {
+                    if (previousVolume >= resource.getVolume()) {
 
-                        newResource.setVolume(-newResource.getVolume());
-                        warehouse.addResourcesToShelf(newResource, s);
-                        newResource.setVolume(-newResource.getVolume());
+                        resource.setVolume(-resource.getVolume());
+                        warehouse.addResourcesToShelf(resource, s);
+                        resource.setVolume(-resource.getVolume());
 
                         if(s.isEmpty() || s.getShelfResource().getVolume() != previousVolume) {
-                            newResource.setVolume(0);
+                            resource.setVolume(0);
                         }
 
                     }
@@ -91,21 +90,23 @@ public class PlayerBoard implements CliPrinter {
 
                         try {
 
-                            newResource.setVolume(-newResource.getVolume());
-                            warehouse.addResourcesToShelf(newResource, s);
-                            newResource.setVolume(-newResource.getVolume());
+                            resource.setVolume(-resource.getVolume());
+                            warehouse.addResourcesToShelf(resource, s);
+                            resource.setVolume(-resource.getVolume());
 
                         } catch(NotEnoughResourcesException e) {
 
-                            newResource.setVolume(newResource.getVolume() + s.getShelfResource().getVolume());
+                            resource.setVolume(resource.getVolume() + s.getShelfResource().getVolume());
 
                             if(!s.isExtraShelf())
-                                s.emptyThisShelf();
-                            else
+                                warehouse.emptyShelf(s);
+                            else {
                                 s.getShelfResource().setVolume(0);
+                                warehouse.notifyObservers(warehouse);
+                            }
 
-                            coffer.updateCoffer(newResource);
-                            newResource.setVolume(0);
+                            coffer.updateCoffer(resource);
+                            resource.setVolume(0);
 
                         }
 
@@ -114,10 +115,10 @@ public class PlayerBoard implements CliPrinter {
 
             }
 
-            if(newResource.getVolume() != 0) {
-                newResource.setVolume(-newResource.getVolume());
-                coffer.updateCoffer(newResource);
-                newResource.setVolume(0);
+            if(resource.getVolume() != 0) {
+                resource.setVolume(-resource.getVolume());
+                coffer.updateCoffer(resource);
+                resource.setVolume(0);
             }
 
         }
