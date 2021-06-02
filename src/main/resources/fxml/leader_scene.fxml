@@ -38,9 +38,9 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="firstCard" layoutX="47.0" layoutY="353.0" mnemonicParsing="false" onAction="#firstCardButton" text="1" />
-      <Button fx:id="secondCard" layoutX="193.0" layoutY="353.0" mnemonicParsing="false" onAction="#secondCardButton" text="2" />
-      <Button fx:id="thirdCard" layoutX="344.0" layoutY="353.0" mnemonicParsing="false" onAction="#thirdCardButton" text="3" />
-      <Button fx:id="fourthCard" layoutX="507.0" layoutY="353.0" mnemonicParsing="false" onAction="#fourthCardButton" text="4" />
+      <Button fx:id="firstCard" layoutX="47.0" layoutY="353.0" mnemonicParsing="false" text="1" />
+      <Button fx:id="secondCard" layoutX="193.0" layoutY="353.0" mnemonicParsing="false" text="2" />
+      <Button fx:id="thirdCard" layoutX="344.0" layoutY="353.0" mnemonicParsing="false" text="3" />
+      <Button fx:id="fourthCard" layoutX="507.0" layoutY="353.0" mnemonicParsing="false" text="4" />
    </children>
 </Pane>

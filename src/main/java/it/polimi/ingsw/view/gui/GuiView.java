@@ -6,10 +6,12 @@ import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
+import it.polimi.ingsw.utils.Parser;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.*;
 import javafx.application.Platform;
@@ -49,6 +51,14 @@ public class GuiView extends View {
         sendMessage(new PlayersNumber(num));
     }
 
+    public void leaderChoice(ArrayList<LeaderCard> choice) {
+        sendMessage(new LeaderRequest(Parser.serialize(choice)));
+    }
+
+    public void resourceChoice(ArrayList<Resource> choice) {
+        sendMessage(new ResourceChoice(choice));
+    }
+
     @Override
     public void askLeaders(ArrayList<LeaderCard> leaderCards) {
         LeaderSceneController lsc = new LeaderSceneController();
@@ -58,8 +68,10 @@ public class GuiView extends View {
 
     @Override
     public void askBlankResources(String msg) {
+        System.out.println("PIPPO");
         ResourcePopupController rpc = new ResourcePopupController();
         rpc.setResourceImages();
+        rpc.setChoiceNumber(Integer.parseInt(msg));
         Platform.runLater(() -> SceneController.changeScene(this, rpc, "resource_popup.fxml"));
     }
 

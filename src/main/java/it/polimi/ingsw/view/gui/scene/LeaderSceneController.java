@@ -20,6 +20,8 @@ public class LeaderSceneController implements GenericSceneController {
 
     private ArrayList<LeaderCard> leaderCards;
 
+    private ArrayList<LeaderCard> leaderChoices;
+
     @FXML
     private Button firstCard;
 
@@ -42,6 +44,7 @@ public class LeaderSceneController implements GenericSceneController {
     private ImageView fourthLeader;
 
     public void initialize() {
+        leaderChoices = new ArrayList<>();
         setLeaderImages();
         firstCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstCardButton);
         secondCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondCardButton);
@@ -71,8 +74,9 @@ public class LeaderSceneController implements GenericSceneController {
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
             fourthCard.setDisable(true);
-
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(0));
     }
 
     public void secondCardButton(Event event) {
@@ -81,7 +85,9 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             thirdCard.setDisable(true);
             fourthCard.setDisable(true);
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(1));
     }
 
     public void thirdCardButton(Event event) {
@@ -90,7 +96,9 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             secondCard.setDisable(true);
             fourthCard.setDisable(true);
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(2));
     }
 
     public void fourthCardButton(Event event) {
@@ -99,6 +107,13 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(3));
     }
+
+    private void sendCards() {
+        gui.leaderChoice(leaderChoices);
+    }
+
 }
