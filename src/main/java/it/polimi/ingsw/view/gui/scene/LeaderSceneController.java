@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.view.gui.GuiView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -8,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -18,6 +19,8 @@ public class LeaderSceneController implements GenericSceneController {
     private GuiView gui;
 
     private ArrayList<LeaderCard> leaderCards;
+
+    private ArrayList<LeaderCard> leaderChoices;
 
     @FXML
     private Button firstCard;
@@ -41,6 +44,7 @@ public class LeaderSceneController implements GenericSceneController {
     private ImageView fourthLeader;
 
     public void initialize() {
+        leaderChoices = new ArrayList<>();
         setLeaderImages();
         firstCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstCardButton);
         secondCard.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondCardButton);
@@ -70,7 +74,9 @@ public class LeaderSceneController implements GenericSceneController {
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
             fourthCard.setDisable(true);
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(0));
     }
 
     public void secondCardButton(Event event) {
@@ -79,7 +85,9 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             thirdCard.setDisable(true);
             fourthCard.setDisable(true);
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(1));
     }
 
     public void thirdCardButton(Event event) {
@@ -88,7 +96,9 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             secondCard.setDisable(true);
             fourthCard.setDisable(true);
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(2));
     }
 
     public void fourthCardButton(Event event) {
@@ -97,6 +107,13 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
+            sendCards();
         }
+        leaderChoices.add(leaderCards.get(3));
     }
+
+    private void sendCards() {
+        gui.leaderChoice(leaderChoices);
+    }
+
 }

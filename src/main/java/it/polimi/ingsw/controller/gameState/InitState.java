@@ -54,7 +54,11 @@ public class InitState extends GameState {
 
     @Override
     public void process(ResourceChoice resourceChoice) throws InvalidStateException {
-        Resource[] resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        Resource[] resources = null;
+        if(resourceChoice.getMsg() != null) {
+            resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        }
+        else resources = resourceChoice.getResources().toArray(new Resource[0]);
         try {
             addToShelfInit(new ArrayList<>(Arrays.asList(resources)));
         } catch (InvalidInputException | NotEnoughResourcesException e) {

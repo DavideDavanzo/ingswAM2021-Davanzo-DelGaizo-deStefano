@@ -6,6 +6,7 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 import it.polimi.ingsw.model.cards.*;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
+import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
@@ -138,4 +139,11 @@ public class cliPrintTest {
         System.out.println(lorenzoIlMagnifico.print());
     }
 
+    @Test
+    public void printPlayerboard(){
+
+        PlayerBoard playerBoard = new PlayerBoard();
+
+        System.out.println(playerBoard.print());;
+    }
     }
