@@ -26,6 +26,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class CliView extends View {
 
@@ -233,7 +234,7 @@ public class CliView extends View {
             switch (cmd = stdIn.readLine().toLowerCase()) {
                 case "pb":
                     System.out.println("Faith track:");
-                    System.out.println(clientModel.getFaithTrack());
+                    System.out.println(clientModel.getFaithTrack().print());
                     System.out.println("Leader cards:");
                     if (clientModel.getLeaderCards().size() == 0)
                         System.out.println("you do not have any leader card");
@@ -243,23 +244,23 @@ public class CliView extends View {
                         }
                     }
                     System.out.println("Development card area:");
-                    System.out.println(clientModel.getDevelopmentCardsArea());
+                    System.out.println(clientModel.getDevelopmentCardsArea().print());
                     System.out.println("Warehouse:");
-                    System.out.println(clientModel.getWarehouse());
+                    System.out.println(clientModel.getWarehouse().print());
                     System.out.println("Coffer:");
-                    System.out.println(clientModel.getCoffer());
+                    System.out.println(clientModel.getCoffer().print());
                     break;
                 case "w":
                     System.out.println("Warehouse:");
-                    System.out.println(clientModel.getWarehouse());
+                    System.out.println(clientModel.getWarehouse().print());
                     break;
                 case "ft":
                     System.out.println("Faith track:");
-                    System.out.println(clientModel.getFaithTrack());
+                    System.out.println(clientModel.getFaithTrack().print());
                     break;
                 case "c":
                     System.out.println("Coffer:");
-                    System.out.println(clientModel.getCoffer());
+                    System.out.println(clientModel.getCoffer().print());
                     break;
                 case "da":
                     System.out.println("Development card area:");
@@ -439,8 +440,8 @@ public class CliView extends View {
 
     private synchronized void buyDevCard(){
         System.out.println("These are your available resources");
-        System.out.println(clientModel.getWarehouse());
-        System.out.println(clientModel.getCoffer());
+        System.out.println(clientModel.getWarehouse().print());
+        System.out.println(clientModel.getCoffer().print());
         sendMessage(new CardsMarketInfoRequest());
         try {
             wait();
@@ -495,7 +496,7 @@ public class CliView extends View {
         }
         int slot = 0;
         System.out.println("These are your development cards");
-        System.out.println(clientModel.getDevelopmentCardsArea());
+        System.out.println(clientModel.getDevelopmentCardsArea().print());
         while(slot < 1 || slot > 3){
             System.out.println("On top of which stack would you like to put it?");
             System.out.println("Type a number from 1 to 3");
@@ -516,7 +517,7 @@ public class CliView extends View {
 
     private synchronized void getMarketResources() {
         System.out.println("This is your current warehouse:");
-        System.out.println(clientModel.getWarehouse());
+        System.out.println(clientModel.getWarehouse().print());
         sendMessage(new MarketInfoRequest());
         try {
             wait();
@@ -556,11 +557,11 @@ public class CliView extends View {
 
     private void activateProduction(){
         System.out.println("These are your available resources");
-        System.out.println(clientModel.getWarehouse());
-        System.out.println(clientModel.getCoffer());
+        System.out.println(clientModel.getWarehouse().print());
+        System.out.println(clientModel.getCoffer().print());
         System.out.println("These are your development cards:");
         System.out.println();
-        System.out.println(clientModel.getDevelopmentCardsArea());
+        System.out.println(clientModel.getDevelopmentCardsArea().print());
         for(LeaderCard leaderCard : clientModel.getLeaderCards()){
             if(leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
                 System.out.println(leaderCard.print());
@@ -571,18 +572,17 @@ public class CliView extends View {
         int cont = 4;
         do{
             System.out.println("Choose the stack of the development card you want to activate");
-            long num = clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).count();
-            if(num != 0) {
+            if(clientModel.getLeaderCards().stream().filter(l -> l.getEffect() instanceof ExtraDevEffect).anyMatch(LeaderCard::isActive)) {
                 System.out.println("or a leader card with extra trade effect");
-                cont += num;
+                cont += clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).filter(l -> l.getEffect() instanceof ExtraDevEffect).count();
             }
             System.out.println("b -> base production");
             System.out.println("1 -> first stack");
             System.out.println("2 -> second stack");
             System.out.println("3 -> third stack");
-            for(int i=0; i<num; i++)
-                System.out.println((4+i) + " -> " + (i==0?"first":"second") + " extra shelf");
-            System.out.println();
+            clientModel.getLeaderCards().stream()
+                                        .filter(leaderCard -> leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
+                                        .forEach(leaderCard -> System.out.println((clientModel.getLeaderCards().indexOf(leaderCard) + 4) + " -> " + (clientModel.getLeaderCards().indexOf(leaderCard)==0?"first leader card":"second leader card")));
             System.out.println("Type \"activate\" to execute production");
             System.out.println("exit -> return to main commands");
             try {
@@ -600,7 +600,7 @@ public class CliView extends View {
             } else{
                 try {
                     int temp = Integer.parseInt(userInput);
-                    if (!choices.contains(temp) && temp>0 && temp<4+num) {
+                    if (!choices.contains(temp) && temp>0 && temp<4+clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).filter(l -> l.getEffect() instanceof ExtraDevEffect).count()) {
                         choices.add(temp);
                         cont--;
                     } else if(temp == 0){
@@ -727,7 +727,7 @@ public class CliView extends View {
         ArrayList<Integer> choices = new ArrayList<>();
         String userInput = null;
         System.out.println("This is your current warehouse...");
-        System.out.println(clientModel.getWarehouse());
+        System.out.println(clientModel.getWarehouse().print());
         if(numExtraShelves == 0) {
             for (Item resource : resources) {
                 System.out.println("Incoming resource: " + resource.print());
@@ -872,7 +872,7 @@ public class CliView extends View {
     private void switchShelves() {
         String userInput;
         System.out.println("This is your current warehouse...");
-        System.out.println(clientModel.getWarehouse());
+        System.out.println(clientModel.getWarehouse().print());
         System.out.println("Which shelves do you want to swap? Choose as follow: (1) (2) (3) for main shelves, (4) (5) for extra shelves");
 
         int firstShelf = 0;
@@ -950,7 +950,7 @@ public class CliView extends View {
     @Override
     public synchronized void processAck(Ack ack) {
         try {
-            wait(1000);
+            wait(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -976,22 +976,22 @@ public class CliView extends View {
 
     @Override
     public void updateWarehouse(Warehouse warehouse) {
-        clientModel.updateWarehouse(warehouse.print());
+        clientModel.updateWarehouse(warehouse);
     }
 
     @Override
     public void updateCoffer(Coffer coffer) {
-        clientModel.updateCoffer(coffer.print());
+        clientModel.updateCoffer(coffer);
     }
 
     @Override
     public void updateFaithTrack(Path path) {
-        clientModel.updateFaithTrack(path.print());
+        clientModel.updateFaithTrack(path);
     }
 
     @Override
     public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
-        clientModel.updateDevCardsArea(developmentCardsArea.print());
+        clientModel.updateDevCardsArea(developmentCardsArea);
     }
 
     @Override
