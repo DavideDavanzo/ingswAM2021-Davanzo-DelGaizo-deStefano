@@ -100,23 +100,23 @@ public class Market implements CliPrinter {
         Marble tempMarble = spareMarble;
 
         if(line == 'r'){
-            spareMarble = marketMatrix[index][3];
+            spareMarble = marketMatrix[index][0];
 
-            for(int i = 3 ; i > 0 ; i--){
-                marketMatrix[index][i] = marketMatrix[index][i-1];
+            for(int i = 0 ; i < 3 ; i++){
+                marketMatrix[index][i] = marketMatrix[index][i+1];
             }
 
-            marketMatrix[index][0] = tempMarble;
+            marketMatrix[index][3] = tempMarble;
 
         }
         else if(line == 'c'){
-            spareMarble = marketMatrix[2][index];
+            spareMarble = marketMatrix[0][index];
 
-            for(int i = 2; i > 0; i--) {
-                marketMatrix[i][index] = marketMatrix[i-1][index];
+            for(int i = 0; i < 2; i++) {
+                marketMatrix[i][index] = marketMatrix[i+1][index];
             }
 
-            marketMatrix[0][index] = tempMarble;
+            marketMatrix[2][index] = tempMarble;
 
         }
     }
@@ -181,10 +181,11 @@ public class Market implements CliPrinter {
         stringBuilder.append(spareMarble.print() + " ↓ ↓ ↓ ↓");
         for(int i = 0; i < 3; i++){
             stringBuilder.append( "\n");
-            stringBuilder.append("→ ");
+            stringBuilder.append("  ");
             for(int j = 0; j < 4; j++){
                 stringBuilder.append(marketMatrix[i][j].print() + " ");
             }
+            stringBuilder.append("\uD83E\uDC14");
         }
         return stringBuilder.toString();
     }
