@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -54,6 +55,7 @@ public class PlayersNumberSceneController implements GenericSceneController{
         connectingLabel.setVisible(true);
 
         gui.askNumberOfPlayers(numChoice.getValue());
+        Platform.runLater(() -> SceneController.changeScene(gui, "lobby_scene.fxml"));
     }
 
     @Override

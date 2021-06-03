@@ -6,12 +6,16 @@ import it.polimi.ingsw.view.gui.SceneController;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
@@ -54,6 +58,8 @@ public class ResourcePopupController implements GenericSceneController {
     }
 
     private void handleClick() {
+
+        coin.setCursor(Cursor.HAND);
         coin.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -63,6 +69,7 @@ public class ResourcePopupController implements GenericSceneController {
             }
         });
 
+        shield.setCursor(Cursor.HAND);
         shield.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -72,6 +79,7 @@ public class ResourcePopupController implements GenericSceneController {
             }
         });
 
+        servant.setCursor(Cursor.HAND);
         servant.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -81,6 +89,7 @@ public class ResourcePopupController implements GenericSceneController {
             }
         });
 
+        stone.setCursor(Cursor.HAND);
         stone.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
