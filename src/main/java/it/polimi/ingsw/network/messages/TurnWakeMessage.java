@@ -16,6 +16,11 @@ public class TurnWakeMessage extends Message {
 
     @Override
     public void apply(View view) {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println(msg);
         view.askCommand();
     }

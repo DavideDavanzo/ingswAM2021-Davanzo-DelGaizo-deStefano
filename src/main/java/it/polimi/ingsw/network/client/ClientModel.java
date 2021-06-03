@@ -10,43 +10,37 @@ import java.util.ArrayList;
 
 public class ClientModel {
 
-    private String warehouse;
-    private String coffer;
-    private String faithTrack;
-    private String playerboard;
-    private String developmentCardsArea;
+    private Warehouse warehouse;
+    private Coffer coffer;
+    private Path faithTrack;
+    private DevelopmentCardsArea developmentCardsArea;
     private ArrayList<LeaderCard> leaderCards;
 
     public ClientModel(){
         leaderCards = new ArrayList<>();
-        warehouse = (new Warehouse().print());
-        coffer = (new Coffer().print());
-        faithTrack = (new Path()).print();
-        developmentCardsArea = (new DevelopmentCardsArea()).print();
+        warehouse = new Warehouse();
+        coffer = new Coffer();
+        faithTrack = new Path();
+        developmentCardsArea = new DevelopmentCardsArea();
     }
 
     public ArrayList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
 
-    public String getWarehouse() {
+    public Warehouse getWarehouse() {
         return warehouse;
     }
 
-    public String getCoffer() {
+    public Coffer getCoffer() {
         return coffer;
     }
 
-    public String getFaithTrack() {
+    public Path getFaithTrack() {
         return faithTrack;
     }
 
-
-    public String getPlayerboard() {
-        return playerboard;
-    }
-
-    public String getDevelopmentCardsArea() {
+    public DevelopmentCardsArea getDevelopmentCardsArea() {
         return developmentCardsArea;
     }
 
@@ -54,21 +48,19 @@ public class ClientModel {
         this.leaderCards = leaderCards;
     }
 
-    public synchronized void updateWarehouse(String warehouse){
+    public synchronized void updateWarehouse(Warehouse warehouse){
         this.warehouse = warehouse;
-        notify();
     }
 
-    public synchronized void updateCoffer(String coffer){
+    public synchronized void updateCoffer(Coffer coffer){
         this.coffer = coffer;
-        notify();
     }
 
-    public synchronized void updateDevCardsArea(String developmentCardsArea){
+    public void updateDevCardsArea(DevelopmentCardsArea developmentCardsArea){
         this.developmentCardsArea = developmentCardsArea;
     }
 
-    public synchronized void updateFaithTrack(String path){
+    public synchronized void updateFaithTrack(Path path){
         this.faithTrack = path;
     }
 
