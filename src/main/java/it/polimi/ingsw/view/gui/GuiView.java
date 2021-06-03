@@ -68,7 +68,6 @@ public class GuiView extends View {
 
     @Override
     public void askBlankResources(String msg) {
-        System.out.println("PIPPO");
         ResourcePopupController rpc = new ResourcePopupController();
         rpc.setResourceImages();
         rpc.setChoiceNumber(Integer.parseInt(msg));
@@ -86,6 +85,9 @@ public class GuiView extends View {
         if(!message.isSuccessful()) {
             LoginSceneController loginSceneController = (LoginSceneController) SceneController.getActiveSceneController();
             loginSceneController.reAskLogin();
+        }
+        else {
+            Platform.runLater(() -> SceneController.changeScene(this, "lobby_scene.fxml"));
         }
     }
 
@@ -141,12 +143,13 @@ public class GuiView extends View {
 
     @Override
     public void showMarket(Market market) {
+        Platform.runLater(() -> SceneController.changeScene(this, "sharedArea_scene.fxml"));
 
     }
 
     @Override
     public void showCardsMarket(CardMarket cardMarket) {
-
+        Platform.runLater(() -> SceneController.changeScene(this, "sharedArea_scene.fxml"));
     }
 
     @Override
