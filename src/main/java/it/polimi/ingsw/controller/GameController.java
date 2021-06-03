@@ -166,7 +166,7 @@ public class GameController implements Observer, Serializable {
             ArrayList<LeaderCard> choice = new ArrayList<>();
 
             for(int i = 0; i < 4; i++) {
-                choice.add(leaderCards.get(players + players * chosenPlayerNum));
+                choice.add(leaderCards.get(i + players * 4));
             }
 
             leaderChoices.push(choice);
