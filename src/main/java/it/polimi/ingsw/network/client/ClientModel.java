@@ -13,7 +13,6 @@ public class ClientModel {
     private String warehouse;
     private String coffer;
     private String faithTrack;
-    private String playerboard;
     private String developmentCardsArea;
     private ArrayList<LeaderCard> leaderCards;
 
@@ -41,11 +40,6 @@ public class ClientModel {
         return faithTrack;
     }
 
-
-    public String getPlayerboard() {
-        return playerboard;
-    }
-
     public String getDevelopmentCardsArea() {
         return developmentCardsArea;
     }
@@ -56,15 +50,13 @@ public class ClientModel {
 
     public synchronized void updateWarehouse(String warehouse){
         this.warehouse = warehouse;
-        notify();
     }
 
     public synchronized void updateCoffer(String coffer){
         this.coffer = coffer;
-        notify();
     }
 
-    public synchronized void updateDevCardsArea(String developmentCardsArea){
+    public void updateDevCardsArea(String developmentCardsArea){
         this.developmentCardsArea = developmentCardsArea;
     }
 

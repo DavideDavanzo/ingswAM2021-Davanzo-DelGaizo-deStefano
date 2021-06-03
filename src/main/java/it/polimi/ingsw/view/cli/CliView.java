@@ -42,7 +42,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void update(Message message) {
+    public synchronized void update(Message message) {
         executor.submit(() -> message.apply(this));
     }
 
@@ -232,8 +232,8 @@ public class CliView extends View {
         try {
             switch (cmd = stdIn.readLine().toLowerCase()) {
                 case "pb":
-                    System.out.println(clientModel.getPlayerboard());
-                    System.out.println(clientModel.getDevelopmentCardsArea());
+                    System.out.println("Faith track:");
+                    System.out.println(clientModel.getFaithTrack());
                     System.out.println("Leader cards:");
                     if (clientModel.getLeaderCards().size() == 0)
                         System.out.println("you do not have any leader card");
@@ -242,6 +242,12 @@ public class CliView extends View {
                             System.out.println(leaderCard.print());
                         }
                     }
+                    System.out.println("Development card area:");
+                    System.out.println(clientModel.getDevelopmentCardsArea());
+                    System.out.println("Warehouse:");
+                    System.out.println(clientModel.getWarehouse());
+                    System.out.println("Coffer:");
+                    System.out.println(clientModel.getCoffer());
                     break;
                 case "w":
                     System.out.println("Warehouse:");
@@ -944,7 +950,7 @@ public class CliView extends View {
     @Override
     public synchronized void processAck(Ack ack) {
         try {
-            wait(500);
+            wait(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
