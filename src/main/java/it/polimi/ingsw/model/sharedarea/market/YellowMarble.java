@@ -29,4 +29,9 @@ public class YellowMarble extends Marble implements Serializable {
     public String print() {
         return Color.ANSI_YELLOW.escape() + "●" + Color.ANSI_WHITE.escape();
     }
+
+    @Override
+    public String toPath() {
+        return "yellowmarble";
+    }
 }

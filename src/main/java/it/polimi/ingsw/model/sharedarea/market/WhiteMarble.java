@@ -28,4 +28,9 @@ public class WhiteMarble extends Marble {
     public String print() {
         return Color.ANSI_WHITE.escape() + "●";
     }
+
+    @Override
+    public String toPath() {
+        return "whitemarble";
+    }
 }

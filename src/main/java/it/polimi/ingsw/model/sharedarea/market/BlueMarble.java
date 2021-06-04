@@ -27,4 +27,9 @@ public class BlueMarble extends Marble{
     public String print() {
         return Color.ANSI_BLUE.escape() + "●" + Color.ANSI_WHITE.escape();
     }
+
+    @Override
+    public String toPath() {
+        return "bluemarble";
+    }
 }

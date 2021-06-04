@@ -25,4 +25,6 @@ public abstract class Marble implements CliPrinter {
 
   public abstract Item returnItem();
 
+  public abstract String toPath();
+
 }

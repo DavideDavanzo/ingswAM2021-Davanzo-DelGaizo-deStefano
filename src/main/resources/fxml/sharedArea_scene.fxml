@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.ImageInput?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,10 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.SharedAreaSceneController">
    <children>
-      <GridPane layoutX="10.0" layoutY="10.0" prefHeight="398.0" prefWidth="290.0">
+      <GridPane fx:id="cardGridPane" layoutX="6.0" layoutY="8.0" prefHeight="383.0" prefWidth="299.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,7 +28,7 @@
             <ImageView fx:id="pos32" fitHeight="126.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
             <ImageView fx:id="pos10" fitHeight="126.0" fitWidth="65.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
             <ImageView fx:id="pos20" fitHeight="126.0" fitWidth="65.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-            <ImageView fx:id="pos30" fitHeight="126.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+            <ImageView fx:id="pos30" fitHeight="126.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
             <ImageView fx:id="pos01" fitHeight="126.0" fitWidth="65.0" layoutX="220.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
             <ImageView fx:id="pos11" fitHeight="126.0" fitWidth="65.0" layoutX="10.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ImageView fx:id="pos21" fitHeight="126.0" fitWidth="65.0" layoutX="80.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
@@ -43,7 +44,7 @@
       </GridPane>
       <ImageView fx:id="marketBoard" fitHeight="399.0" fitWidth="290.0" layoutX="300.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/plancia%20portabiglie.png" />
+            <Image url="@../images/plancia_portabiglie.png" />
          </image>
       </ImageView>
       <ImageView fx:id="container" fitHeight="169.0" fitWidth="208.0" layoutX="343.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
@@ -51,7 +52,7 @@
             <Image url="@../images/portabiglie.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="347.0" layoutY="101.0" prefHeight="96.0" prefWidth="194.0">
+      <GridPane fx:id="gridPane" layoutX="347.0" layoutY="101.0" prefHeight="96.0" prefWidth="194.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -78,5 +79,40 @@
             <ImageView fitHeight="36.0" fitWidth="42.0" layoutX="10.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
+      <Button fx:id="firstRowArrowButton" layoutX="551.0" layoutY="101.0" mnemonicParsing="false" onAction="#firstRowArrowButtonClick" prefHeight="25.0" prefWidth="42.0">
+         <effect>
+            <ImageInput />
+         </effect>
+      </Button>
+      <Button fx:id="secondRowArrowButton" layoutX="551.0" layoutY="137.0" mnemonicParsing="false" onAction="#secondRowArrowButtonClick" prefHeight="25.0" prefWidth="42.0">
+         <effect>
+            <ImageInput />
+         </effect>
+      </Button>
+      <Button fx:id="thirdRowArrowButton" layoutX="551.0" layoutY="162.0" mnemonicParsing="false" onAction="#thirdRowArrowButtonClick" prefHeight="25.0" prefWidth="42.0">
+         <effect>
+            <ImageInput />
+         </effect>
+      </Button>
+      <Button fx:id="firstColumnArrowButton" layoutX="390.0" layoutY="231.0" mnemonicParsing="false" onAction="#firstColumnArrowButtonClick" prefHeight="56.0" prefWidth="23.0">
+         <effect>
+            <ImageInput />
+         </effect>
+      </Button>
+      <Button fx:id="secondColumnArrowButton" layoutX="423.0" layoutY="231.0" mnemonicParsing="false" onAction="#secondColumnArrowButtonClick" prefHeight="56.0" prefWidth="23.0">
+         <effect>
+            <ImageInput />
+         </effect>
+      </Button>
+      <Button fx:id="thirdColumnArrowButton" layoutX="457.0" layoutY="231.0" mnemonicParsing="false" onAction="#thirdColumnArrowButtonCLick" prefHeight="56.0" prefWidth="23.0">
+         <effect>
+            <ImageInput />
+         </effect>
+      </Button>
+      <Button fx:id="fourthColumnArrowButton" layoutX="490.0" layoutY="231.0" mnemonicParsing="false" onAction="#fourthColumnArrowButtonClick" prefHeight="56.0" prefWidth="23.0">
+         <effect>
+            <ImageInput />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>
