@@ -29,7 +29,7 @@ public class MarketPlaceTest {
 
         //Other Market Creation
         Marble[][] anotherOne = { {new BlueMarble(), new WhiteMarble(), new YellowMarble(), new GreyMarble()},
-                                  {new WhiteMarble(), new PurpleMarble(), new RedMarble(), new WhiteMarble()},
+                                  {new RedMarble(), new WhiteMarble(), new BlueMarble(), new WhiteMarble()},
                                   {new GreyMarble(), new YellowMarble(), new PurpleMarble(), new WhiteMarble()}
         };
         otherMarket.setMarketMatrix(anotherOne);
@@ -38,7 +38,7 @@ public class MarketPlaceTest {
         Marble spareMarble = new WhiteMarble();
         market.setSpareMarble(spareMarble);
 
-        Marble secondSpareMarble = new BlueMarble();
+        Marble secondSpareMarble = new PurpleMarble();
         otherMarket.setSpareMarble(secondSpareMarble);
 
         //Returned Items
