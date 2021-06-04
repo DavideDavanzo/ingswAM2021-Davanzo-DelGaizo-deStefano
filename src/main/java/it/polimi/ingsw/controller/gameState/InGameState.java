@@ -21,6 +21,7 @@ import it.polimi.ingsw.model.resources.FaithPoint;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.*;
+import it.polimi.ingsw.utils.Parser;
 import it.polimi.ingsw.view.VirtualView;
 
 import java.util.ArrayList;
@@ -308,6 +309,7 @@ public class InGameState extends GameState {
         ArrayList<Integer> cardsIndex = activateProductionCmd.getProductionCardsIndex();
         boolean doesntWantCardProduction = cardsIndex.isEmpty();
         Trade baseProduction = new Trade();
+        boolean askBlankResource = false;
 
         ArrayList<Resource> productionInput = new ArrayList<>();
         DevelopmentCardsArea area = gameController.getCurrentPlayer().getPlayerBoard().getDevelopmentCardsArea();
@@ -327,7 +329,9 @@ public class InGameState extends GameState {
                 else {
                     LinkedList<LeaderCard> leaderCards = currentPlayer.getLeaderCards();
                     if(!leaderCards.isEmpty() && leaderCards.get(i-4).isActive() && leaderCards.get(i-4).getEffect() instanceof ExtraDevEffect) {
-                        for(Resource r : ((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getInput()) productionInput.add(r.clone());
+                        for(Resource r : ((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getInput()) {
+                            productionInput.add(r.clone());
+                        }
                     }
                 }
             }
@@ -359,19 +363,30 @@ public class InGameState extends GameState {
 
                         else if(!leaderCards.isEmpty() && leaderCards.get(i-4).isActive() && leaderCards.get(i-4).getEffect() instanceof ExtraDevEffect) {
 
+                            currentPlayer.getPlayerBoard().payRequiredResources(((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getInput());
+
                             for(Item item : ((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getOutput()) {
                                 try {
                                     currentPlayer.getPlayerBoard().getCoffer().updateCoffer(item);
+                                    currentPlayer.getPlayerBoard().getPath().moveForward(item.pathSteps());
                                 } catch (InvalidInputException e) {
                                     //Shouldn't reach this statement.
                                     e.printStackTrace();
                                 }
                             }
 
+                            askBlankResource = true;
+
                         }
 
                     }
+
                     if(currentPlayer.getPlayerBoard().activateProduction(developmentCards)) gameController.setEndGame(true);
+
+                    if(askBlankResource){
+                        currentView.sendMessage(new ResourceRequest("1"));      //TODO: use int rather than String
+                        return;
+                    }
                 }
             }
         } catch (NotEnoughResourcesException e) {
@@ -385,6 +400,23 @@ public class InGameState extends GameState {
         currentView.showMessage("Successful production!");
         currentPlayer.revokeBigActionToken();
         currentView.sendMessage(new Ack(true));
+    }
+
+    @Override
+    public void process(ResourceChoice resourceChoice){
+        Player currentPlayer =  gameController.getCurrentPlayer();
+        Resource[] resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        for(Resource resource : resources) {
+            try {
+                currentPlayer.getPlayerBoard().getCoffer().updateCoffer(resource);
+            } catch (NotEnoughResourcesException | InvalidInputException e) {
+                //Shouldn't reach this statement.
+                e.printStackTrace();
+            }
+        }
+        currentPlayer.revokeBigActionToken();
+        gameController.getVirtualViewMap().get(currentPlayer.getNickname()).showMessage("Successful production!");
+        gameController.getVirtualViewMap().get(currentPlayer.getNickname()).sendMessage(new Ack(true));
     }
 
     @Override
