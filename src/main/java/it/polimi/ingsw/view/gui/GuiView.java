@@ -34,6 +34,7 @@ public class GuiView extends View {
 
     public GuiView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;
+        clientModel = new ClientModel();
         executor = Executors.newCachedThreadPool();
     }
 
@@ -109,12 +110,12 @@ public class GuiView extends View {
 
     @Override
     public void chooseInfo() {
-        Platform.runLater(() -> SceneController.changeScene(this, "playerboard_scene.fxml"));
+        Platform.runLater(() -> SceneController.changeScene(this, "playerBoard_scene.fxml"));
     }
 
     @Override
     public void askCommand() {
-
+        Platform.runLater(() -> SceneController.changeScene(this, "command_scene.fxml"));
     }
 
     @Override
