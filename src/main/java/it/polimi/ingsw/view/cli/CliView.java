@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 
 public class CliView extends View {
 
@@ -570,11 +569,12 @@ public class CliView extends View {
         ArrayList<Integer> choices = new ArrayList<>();
         Trade baseTrade = null;
         int cont = 4;
+        long numLeaderCards = clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).filter(l -> l.getEffect() instanceof ExtraDevEffect).count();
         do{
             System.out.println("Choose the stack of the development card you want to activate");
             if(clientModel.getLeaderCards().stream().filter(l -> l.getEffect() instanceof ExtraDevEffect).anyMatch(LeaderCard::isActive)) {
                 System.out.println("or a leader card with extra trade effect");
-                cont += clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).filter(l -> l.getEffect() instanceof ExtraDevEffect).count();
+                cont += numLeaderCards;
             }
             System.out.println("b -> base production");
             System.out.println("1 -> first stack");
@@ -600,7 +600,9 @@ public class CliView extends View {
             } else{
                 try {
                     int temp = Integer.parseInt(userInput);
-                    if (!choices.contains(temp) && temp>0 && temp<4+clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).filter(l -> l.getEffect() instanceof ExtraDevEffect).count()) {
+                    if (!choices.contains(temp) && temp>0 && ( (temp<4) ||
+                            (temp<4+clientModel.getLeaderCards().size() && clientModel.getLeaderCards().get(temp-4).getEffect() instanceof ExtraDevEffect &&
+                                    clientModel.getLeaderCards().get(temp-4).isActive()))) {
                         choices.add(temp);
                         cont--;
                     } else if(temp == 0){
