@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.model.sharedarea.market.Market;
+import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.utils.Parser;
@@ -25,6 +26,11 @@ public class GuiView extends View {
 
     private SocketHandler socketHandler;
     ExecutorService executor;
+    private ClientModel clientModel;
+
+    public ClientModel getClientModel() {
+        return clientModel;
+    }
 
     public GuiView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;

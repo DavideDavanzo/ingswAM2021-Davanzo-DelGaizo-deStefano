@@ -11,6 +11,8 @@ public class PlayerboardSceneController implements GenericSceneController{
     @FXML
     private ImageView pos0,pos1,pos2,pos3,pos4,pos5,pos6,pos7,pos8,pos9,pos10,pos11,pos12,pos13,pos14,pos15,pos16,pos17,pos18,pos19,pos20,pos21,pos22,pos23,pos24;
 
+    private ImageView[] positions = {pos0,pos1,pos2,pos3,pos4,pos5,pos6,pos7,pos8,pos9,pos10,pos11,pos12,pos13,pos14,pos15,pos16,pos17,pos18,pos19,pos20,pos21,pos22,pos23,pos24};
+
     @FXML
     private ImageView shelf1, shelf2pos1, shelf2pos2, shelf3pos1, shelf3pos2, shelf3pos3;
 
@@ -26,8 +28,11 @@ public class PlayerboardSceneController implements GenericSceneController{
 
 
     public void setCrossPosition(){
+          //  (positions[gui.getClientModel().getFaithTrack().getCurrentPositionAsInt()] = CROCE;
+        }
 
-    }
+
+
 
 
 
