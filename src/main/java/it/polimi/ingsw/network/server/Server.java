@@ -91,9 +91,7 @@ public class Server implements Observer {
                 gameControllers.add(gameController);
                 currID++;
             }
-            try {
-                gameController.logPlayer(loginRequest.getUsername(), virtualView);
-            } catch (Exception e) {
+            if(gameController.logPlayer(loginRequest.getUsername(), virtualView)) {
                 usernames.put(loginRequest.getUsername(), currID);
                 System.out.println(usernames);
                 break;

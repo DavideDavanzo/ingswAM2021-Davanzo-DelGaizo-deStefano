@@ -23,6 +23,14 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void login();
 
+    public boolean validateUsername(String username){
+        if(username.contains(" ") || username.contains("!") || username.contains("?") || username.contains("(") || username.contains(")"))
+            return false;
+        else if(username.startsWith("0") || username.startsWith("1") || username.startsWith("2") || username.startsWith("3") || username.startsWith("4") || username.startsWith("5") || username.startsWith("6") || username.startsWith("7") || username.startsWith("8") || username.startsWith("9"))
+            return false;
+        else return true;
+    }
+
     public abstract void askNumberOfPlayers();
 
     public abstract void askLeaders(ArrayList<LeaderCard> leaderCards);

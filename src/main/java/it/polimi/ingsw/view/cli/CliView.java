@@ -64,8 +64,12 @@ public class CliView extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //TODO: validate username
-        sendMessage(new LoginRequest());
+        if(validateUsername(socketHandler.getUsername()))
+            sendMessage(new LoginRequest());
+        else {
+            System.out.println("Username must: start with a letter, not contain spaces. Try with another one...");
+            login();
+        }
     }
 
     @Override
