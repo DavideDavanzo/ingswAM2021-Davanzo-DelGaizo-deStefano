@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.network.messages.Message;
 
+import java.util.Set;
+
 public interface Observer {
 
     void update(Message message);
@@ -20,5 +22,7 @@ public interface Observer {
     void update(DevelopmentCardsArea developmentCardsArea);
 
     void update(int pathPosition);
+
+    void update(Set<String> usernames);
 
 }

@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -21,7 +22,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
-public class GameController implements Observer, Serializable {
+public class GameController extends Observable implements Observer, Serializable {
 
     private Match match;
     private Map<String, VirtualView> virtualViewMap;
@@ -33,7 +34,6 @@ public class GameController implements Observer, Serializable {
     private TurnController turnController;
 
     private Stack<ArrayList<LeaderCard>> leaderChoices;
-
 
     public GameController() {
         this.chosenPlayerNum = 0;
@@ -104,7 +104,7 @@ public class GameController implements Observer, Serializable {
             virtualView.showError("Sorry, something went wrong..");
         }
 
-        throw new Exception();
+        throw new Exception();      //TODO: create specific exception or change return type to boolean
 
     }
 
@@ -154,6 +154,7 @@ public class GameController implements Observer, Serializable {
         VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
         currentView.showMessage(lossMessage); //TODO: Use a message for loss ??
         currentView.showMessage("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        notifyObservers(virtualViewMap.keySet());
     }
 
     private void prepareLeaderChoices() {
@@ -181,6 +182,7 @@ public class GameController implements Observer, Serializable {
             VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
             currentView.showMessage("You Won!");
             currentView.showMessage("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+            notifyObservers(virtualViewMap.keySet());
             return;
         }
 
@@ -194,6 +196,8 @@ public class GameController implements Observer, Serializable {
 
         sendBroadcastMessageExclude(winner.getNickname() + " Won!", winner.getNickname());
         sendBroadcastMessage(completeRanking.toString());
+
+        notifyObservers(virtualViewMap.keySet());
 
     }
 
@@ -298,6 +302,11 @@ public class GameController implements Observer, Serializable {
     @Override
     public void update(int pathPosition) {
         match.getPlayers().forEach(p -> p.getPlayerBoard().getPath().applyVaticanReport(pathPosition));
+    }
+
+    @Override
+    public void update(Set<String> usernames) {
+        //do nothing
     }
 
     public void setMatch(Match match) {

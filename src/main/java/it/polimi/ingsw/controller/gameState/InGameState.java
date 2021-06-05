@@ -443,7 +443,6 @@ public class InGameState extends GameState {
             currentView.sendMessage(new Ack(false));
             return;
         }
-
         currentView.sendMessage(new Ack(true));
     }
 

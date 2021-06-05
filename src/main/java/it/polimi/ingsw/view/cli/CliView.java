@@ -263,7 +263,7 @@ public class CliView extends View {
                     break;
                 case "da":
                     System.out.println("Development card area:");
-                    System.out.println(clientModel.getDevelopmentCardsArea());
+                    System.out.println(clientModel.getDevelopmentCardsArea().print());
                     break;
                 case "lc":
                     System.out.println("Leader cards:");
@@ -851,7 +851,7 @@ public class CliView extends View {
         System.out.println();
         int i=1;
         for (Item item : items){
-            System.out.println();
+            System.out.println();       //TODO: finish askToChangeWhiteMarbles()
         }
         int temp = 0;
         ArrayList<Item> choices = new ArrayList<>();

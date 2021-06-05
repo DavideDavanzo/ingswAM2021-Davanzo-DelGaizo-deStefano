@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.messages.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Observable {
 
@@ -54,6 +55,12 @@ public class Observable {
     public void notifyObservers(int pathPosition){
         for(Observer observer : observers){
             observer.update(pathPosition);
+        }
+    }
+
+    public void notifyObservers(Set<String> usernames){
+        for(Observer observer : observers){
+            observer.update(usernames);
         }
     }
 
