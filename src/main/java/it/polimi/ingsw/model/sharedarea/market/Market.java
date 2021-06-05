@@ -189,6 +189,10 @@ public class Market implements CliPrinter {
         }
         return stringBuilder.toString();
     }
+
+    public ArrayList<Marble> getMarbleArrayList() {
+        return marbleArrayList;
+    }
 }
 
 

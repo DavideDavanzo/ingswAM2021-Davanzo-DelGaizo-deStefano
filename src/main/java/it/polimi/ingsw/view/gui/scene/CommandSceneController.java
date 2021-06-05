@@ -8,7 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
-public class CommandSceneController implements GenericSceneController{
+public class CommandSceneController implements GenericSceneController {
 
     private GuiView gui;
 
@@ -37,15 +37,15 @@ public class CommandSceneController implements GenericSceneController{
     }
 
     public void yourBoardButtonClick(Event event) {
-        Platform.runLater(() -> SceneController.changeScene(gui, "playerboard_scene.fxml"));
+        Platform.runLater(() -> SceneController.changeScene(gui, "playerBoard_scene.fxml"));
     }
 
     public void passTurnButtonClick(Event event) {
-        Platform.runLater(() -> SceneController.changeScene(gui, "playerboard_scene.fxml"));
+        Platform.runLater(() -> SceneController.changeScene(gui, "playerBoard_scene.fxml"));
     }
 
     public void quitButtonClick(Event event) {
-        Platform.runLater(() -> SceneController.changeScene(gui, "exit_scene.fxml"));
+        Platform.runLater(() -> SceneController.changeScene(gui, "menu_scene.fxml", () -> System.exit(0)));
     }
 
 

@@ -28,4 +28,9 @@ public class GreyMarble extends Marble{
     public String print() {
         return Color.ANSI_GREY.escape() + "●" + Color.ANSI_WHITE.escape();
     }
+
+    @Override
+    public String toPath() {
+        return "greymarble";
+    }
 }

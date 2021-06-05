@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 
 import java.util.ArrayList;
 
@@ -15,6 +17,8 @@ public class ClientModel {
     private Path faithTrack;
     private DevelopmentCardsArea developmentCardsArea;
     private ArrayList<LeaderCard> leaderCards;
+    private Market market;
+    private CardMarket cardMarket;
 
     public ClientModel(){
         leaderCards = new ArrayList<>();
@@ -22,6 +26,8 @@ public class ClientModel {
         coffer = new Coffer();
         faithTrack = new Path();
         developmentCardsArea = new DevelopmentCardsArea();
+        market = new Market();
+        cardMarket = new CardMarket();
     }
 
     public ArrayList<LeaderCard> getLeaderCards() {
@@ -44,6 +50,14 @@ public class ClientModel {
         return developmentCardsArea;
     }
 
+    public Market getMarket() {
+        return market;
+    }
+
+    public CardMarket getCardMarket() {
+        return cardMarket;
+    }
+
     public void setLeaderCards(ArrayList<LeaderCard> leaderCards){
         this.leaderCards = leaderCards;
     }
@@ -64,4 +78,7 @@ public class ClientModel {
         this.faithTrack = path;
     }
 
+    public synchronized void update(Market market) {this.market = market;}
+
+    public synchronized void update(CardMarket cardMarket) {this.cardMarket = cardMarket;}
 }
