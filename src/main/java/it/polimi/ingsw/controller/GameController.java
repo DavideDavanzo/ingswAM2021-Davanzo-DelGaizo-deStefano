@@ -288,7 +288,6 @@ public class GameController extends Observable implements Observer, Serializable
             }
         }
         virtualViewMap.get(nickname).disconnect();
-        sendBroadcastMessageExclude(nickname + " lost connection...", nickname);
     }
 
     public boolean isCurrentPlayer(String username) {

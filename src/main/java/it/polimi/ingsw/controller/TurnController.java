@@ -33,11 +33,10 @@ public class TurnController {
     public void nextTurn() {
 
         currentPlayer.giveBigActionToken();
-        nextPlayer();
 
-        while(!gameController.getVirtualViewMap().get(currentPlayer.getNickname()).isConnected()) {
+        do {
             nextPlayer();
-        }
+        } while(!gameController.getVirtualViewMap().get(currentPlayer.getNickname()).isConnected());
 
 
         if(gameController.isEndGame() && currentPlayer.hasInkwell()) {
