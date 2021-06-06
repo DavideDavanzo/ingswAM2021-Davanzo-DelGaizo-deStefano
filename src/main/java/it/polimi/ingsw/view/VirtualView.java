@@ -19,9 +19,11 @@ public class VirtualView extends View {
 
     private final ServerClientHandler clientHandler;
     private String username;
+    private boolean connected;
 
     public VirtualView(ServerClientHandler clientHandler){
         this.clientHandler = clientHandler;
+        connected = false;
     }
 
     @Override
@@ -112,6 +114,7 @@ public class VirtualView extends View {
     public void disconnect() {
         try {
             clientHandler.getClientSocket().close();
+            connected = false;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -163,5 +166,14 @@ public class VirtualView extends View {
     public void setUsername(String username){
         this.username = username;
     }
+
+    public void connect() {
+        connected = true;
+    }
+
+    public boolean isConnected() {
+        return connected;
+    }
+
 
 }

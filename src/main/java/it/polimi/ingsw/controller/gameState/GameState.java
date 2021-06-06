@@ -87,7 +87,7 @@ public class GameState {
         virtualView.showCardsMarket(gameController.getMatch().getSharedArea().getCardMarket());
     }
 
-    public void process(Disconnection disconnection){
+    public void process(Disconnection disconnection) {
         gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
         gameController.getVirtualViewMap().get(disconnection.getUsername()).disconnect();
     }

@@ -62,6 +62,7 @@ public class GameController extends Observable implements Observer, Serializable
 
             try {
                 addVirtualView(nickname, virtualView);
+                virtualView.connect();
             } catch (NicknameException e) { //This catch will never happen, it's explicit just for code richness.
                 virtualView.showLogin("error", false);
                 return;
@@ -79,6 +80,7 @@ public class GameController extends Observable implements Observer, Serializable
 
             try {
                 addVirtualView(nickname, virtualView);
+                virtualView.connect();
             } catch (NicknameException e) {
                 virtualView.showLogin("Nickname already logged, try another one", false);
                 return;
@@ -106,6 +108,15 @@ public class GameController extends Observable implements Observer, Serializable
 
         throw new Exception();      //TODO: create specific exception or change return type to boolean
 
+    }
+
+    public void reconnect(String nickname) {
+        virtualViewMap.get(nickname).connect();
+
+    }
+
+    public boolean verifyConnected(String nickname) {
+        return virtualViewMap.get(nickname).isConnected();
     }
 
     public void startMatch() {
