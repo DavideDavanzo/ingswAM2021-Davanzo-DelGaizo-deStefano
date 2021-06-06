@@ -28,13 +28,15 @@ public class Client {
         Client client = new Client();
 
         if(args[0].equals(CLI))
-            client.startCli(args[1], Integer.parseInt(args[2]));
+            client.startCli(args);
         else launch(AppFX.class, args);
 
     }
 
-    public void startCli(String hostName, int port){
+    public void startCli(String[] args){
 
+        String hostName = args[1];
+        int port = Integer.parseInt(args[2]);
         System.out.println("Connecting to server...");
         try {
             socket = new Socket(hostName, port);

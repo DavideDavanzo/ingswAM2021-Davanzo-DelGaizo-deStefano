@@ -115,7 +115,7 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
-    public void reconnect(String nickname) {
+    public void reconnect(String nickname, VirtualView virtualView) {
         virtualViewMap.get(nickname).connect();
 
     }
