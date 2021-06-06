@@ -33,8 +33,12 @@ public class TurnController {
     public void nextTurn() {
 
         currentPlayer.giveBigActionToken();
-        gameController.updateQueue();
-        currentPlayer = players.peek();
+        nextPlayer();
+
+        while(!gameController.getVirtualViewMap().get(currentPlayer.getNickname()).isConnected()) {
+            nextPlayer();
+        }
+
 
         if(gameController.isEndGame() && currentPlayer.hasInkwell()) {
             gameController.handleEndGame();
@@ -53,6 +57,11 @@ public class TurnController {
 
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + "'s turn started . ." , currentPlayer.getNickname());
         virtualViewMap.get(currentPlayer.getNickname()).sendMessage(new TurnWakeMessage());
+    }
+
+    public void nextPlayer() {
+        gameController.updateQueue();
+        currentPlayer = players.peek();
     }
 
     public void updateTurnCounter() {

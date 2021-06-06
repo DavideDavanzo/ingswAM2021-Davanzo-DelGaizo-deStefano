@@ -462,6 +462,21 @@ public class InGameState extends GameState {
 
     }
 
+    @Override
+    public void process(Disconnection disconnection) {
+
+        gameController.disconnect(disconnection.getUsername());
+
+        long playerNum = gameController.connectedPlayersAsInt();
+
+        if(gameController.isSinglePlayer() || playerNum == 1) {
+            gameController.notifyObservers(gameController.getVirtualViewMap().keySet());
+            return;
+        }
+
+        gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
+    }
+
     public boolean bigActionNotAvailable(boolean token, VirtualView currentView) {
         if(!token) {
             currentView.showError("Can't perform a big action in this turn anymore. .");

@@ -21,6 +21,7 @@ import it.polimi.ingsw.view.VirtualView;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class GameController extends Observable implements Observer, Serializable {
 
@@ -115,9 +116,9 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
-    public void reconnect(String nickname) {
-        virtualViewMap.get(nickname).connect();
-
+    public void reconnect(String nickname, VirtualView virtualView) {
+        virtualView.connect();
+        virtualViewMap.put(nickname, virtualView);
     }
 
     public boolean verifyConnected(String nickname) {
@@ -225,6 +226,7 @@ public class GameController extends Observable implements Observer, Serializable
         for(Player other : getPlayers()) {
             if(!other.getNickname().equals(nickname)) {
                 try {
+                    if(!virtualViewMap.get(other.getNickname()).isConnected()) continue;
                     if(other.moveForward(steps)) maxMovement = true;
                 } catch (InvalidInputException e) {
                     //Should never reach this statement
@@ -246,13 +248,47 @@ public class GameController extends Observable implements Observer, Serializable
     }
 
     public void sendBroadcastMessage(String message) {
-        for(VirtualView v : virtualViewMap.values()) v.showMessage(message);
+        for(VirtualView v : virtualViewMap.values()) {
+            if(v.isConnected()) v.showMessage(message);
+        }
     }
 
     public void sendBroadcastMessageExclude(String message, String nickname) {
         for(Map.Entry<String, VirtualView> entry : virtualViewMap.entrySet()) {
-            if(!entry.getKey().equals(nickname)) entry.getValue().showMessage(message);
+            if(!entry.getKey().equals(nickname) && entry.getValue().isConnected()) {
+                entry.getValue().showMessage(message);
+            }
         }
+    }
+
+    public synchronized long connectedPlayersAsInt() {
+        return virtualViewMap.values().stream().filter(VirtualView::isConnected).count();
+    }
+
+    public synchronized void disconnect(String nickname) {
+        int count = 1;
+        for(Player p : getPlayers()) {
+            if(p.getNickname().equals(nickname) && p.hasInkwell()) {
+                try {
+                    while(!virtualViewMap.get(getPlayers().get(getPlayers().indexOf(p) + count).getNickname()).isConnected()) {
+                        count++;
+                    }
+                    p.setInkwell(false);
+                    getPlayers().get(getPlayers().indexOf(p) + count).giveInkwell();
+                } catch(IndexOutOfBoundsException ie) {
+                    count = 0;
+                    while(!virtualViewMap.get(getPlayers().get(count).getNickname()).isConnected()) {
+                        count++;
+                    }
+                    p.setInkwell(false);
+                    getPlayers().get(count).giveInkwell();
+                } finally {
+                    virtualViewMap.get(nickname).disconnect();
+                }
+            }
+        }
+        virtualViewMap.get(nickname).disconnect();
+        sendBroadcastMessageExclude(nickname + " lost connection...", nickname);
     }
 
     public boolean isCurrentPlayer(String username) {
