@@ -26,8 +26,7 @@ public class Server implements Observer {
     private ArrayList<GameController> gameControllers;
     private GameController gameController;
     ExecutorService executor = Executors.newCachedThreadPool();
-    private HashMap<String, Integer> usernames;
-    private int currID;
+    private HashMap<String, GameController> usernames;
 
     public Server(int port){
         socketPort = port;
@@ -35,8 +34,7 @@ public class Server implements Observer {
         gameController = new GameController();
         gameController.addObserver(this);
         gameControllers.add(gameController);
-        usernames = new HashMap<String, Integer>();
-        currID = 0;
+        usernames = new HashMap<String, GameController>();
     }
 
     public static void main(String[] args){
@@ -80,8 +78,15 @@ public class Server implements Observer {
             System.out.println("Waiting login from " + virtualView.getClientHandler().getClientSocket().getLocalAddress());
             Message loginRequest = virtualView.getClientHandler().returnClientMessage();
             if(usernames.containsKey(loginRequest.getUsername())){
-                virtualView.sendMessage(new LoginReply("Username already logged", false));
-                continue;
+                if(usernames.get(loginRequest.getUsername()).verifyConnected(loginRequest.getUsername())) {
+                    virtualView.sendMessage(new LoginReply("Username already logged", false));
+                    continue;
+                } else {
+                    usernames.get(loginRequest.getUsername()).reconnect(loginRequest.getUsername(), virtualView);
+                    virtualView.setUsername(loginRequest.getUsername());
+                    virtualView.getClientHandler().setUsername(loginRequest.getUsername());
+                    return;
+                }
             }
             virtualView.setUsername(loginRequest.getUsername());
             virtualView.getClientHandler().setUsername(loginRequest.getUsername());
@@ -89,12 +94,11 @@ public class Server implements Observer {
                 gameController = new GameController();
                 gameController.addObserver(this);
                 gameControllers.add(gameController);
-                currID++;
             }
             if(gameController.logPlayer(loginRequest.getUsername(), virtualView)) {
-                usernames.put(loginRequest.getUsername(), currID);
+                usernames.put(loginRequest.getUsername(), gameController);
                 System.out.println(usernames);
-                break;
+                return;
             }
         }
 
