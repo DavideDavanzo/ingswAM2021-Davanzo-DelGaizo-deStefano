@@ -53,10 +53,15 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
-    public synchronized void logPlayer(String nickname, VirtualView virtualView) throws Exception {
+    public synchronized boolean logPlayer(String nickname, VirtualView virtualView) {
 
-        while(!virtualViewMap.isEmpty() && (chosenPlayerNum == 0))
-            wait();
+        while(!virtualViewMap.isEmpty() && (chosenPlayerNum == 0)) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         if(virtualViewMap.isEmpty()) {
 
@@ -65,7 +70,7 @@ public class GameController extends Observable implements Observer, Serializable
                 virtualView.connect();
             } catch (NicknameException e) { //This catch will never happen, it's explicit just for code richness.
                 virtualView.showLogin("error", false);
-                return;
+                return false;
             }
 
             //TO RECEIVE INCOMING MESSAGES
@@ -83,7 +88,7 @@ public class GameController extends Observable implements Observer, Serializable
                 virtualView.connect();
             } catch (NicknameException e) {
                 virtualView.showLogin("Nickname already logged, try another one", false);
-                return;
+                return false;
             }
 
             //TO RECEIVE INCOMING MESSAGES
@@ -100,13 +105,13 @@ public class GameController extends Observable implements Observer, Serializable
         }
         else if(isFull()){
             virtualView.showLogin("Sorry, something went wrong", false);
-            return;
+            return false;
         }
         else {
             virtualView.showError("Sorry, something went wrong..");
         }
 
-        throw new Exception();      //TODO: create specific exception or change return type to boolean
+        return true;
 
     }
 
@@ -142,7 +147,7 @@ public class GameController extends Observable implements Observer, Serializable
         turnController.updateTurnCounter();
         prepareLeaderChoices();
 
-        sendBroadcastMessage("Match started! " + turnController.getCurrentPlayer().getNickname() + " is the first player");
+        sendBroadcastMessage("Match started!\nPlayers: " + virtualViewMap.keySet() + "\n" + turnController.getCurrentPlayer().getNickname() + " is the first player");
         askLeaders();
 
     }
