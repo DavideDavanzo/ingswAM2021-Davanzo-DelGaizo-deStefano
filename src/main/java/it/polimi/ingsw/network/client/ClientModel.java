@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.model.sharedarea.market.Market;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ClientModel {
 
@@ -16,12 +17,12 @@ public class ClientModel {
     private Coffer coffer;
     private Path faithTrack;
     private DevelopmentCardsArea developmentCardsArea;
-    private ArrayList<LeaderCard> leaderCards;
+    private LinkedList<LeaderCard> leaderCards;
     private Market market;
     private CardMarket cardMarket;
 
     public ClientModel(){
-        leaderCards = new ArrayList<>();
+        leaderCards = new LinkedList<>();
         warehouse = new Warehouse();
         coffer = new Coffer();
         faithTrack = new Path();
@@ -30,7 +31,7 @@ public class ClientModel {
         cardMarket = new CardMarket();
     }
 
-    public ArrayList<LeaderCard> getLeaderCards() {
+    public LinkedList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
 
@@ -58,7 +59,7 @@ public class ClientModel {
         return cardMarket;
     }
 
-    public void setLeaderCards(ArrayList<LeaderCard> leaderCards){
+    public void setLeaderCards(LinkedList<LeaderCard> leaderCards){
         this.leaderCards = leaderCards;
     }
 

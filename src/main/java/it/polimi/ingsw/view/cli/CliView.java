@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -150,7 +151,7 @@ public class CliView extends View {
             }
         }
 
-        ArrayList<LeaderCard> reply = new ArrayList<>();
+        LinkedList<LeaderCard> reply = new LinkedList<>();
         reply.add(leaderCards.get(firstChoice-1));
         reply.add(leaderCards.get(secondChoice-1));
 
@@ -166,7 +167,7 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void askCommand() {
+    public void askCommand() {
         System.out.println("These are the commands allowed:");
         System.out.println("b -> buy a card");
         System.out.println("m -> take resources from market");
@@ -280,21 +281,25 @@ public class CliView extends View {
                     }
                     break;
                 case "m":
-                    sendMessage(new MarketInfoRequest());
-                    System.out.println("Market:");
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    synchronized(this) {
+                        sendMessage(new MarketInfoRequest());
+                        System.out.println("Market:");
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case "cm":
-                    sendMessage(new CardsMarketInfoRequest());
-                    System.out.println("Cards market:");
-                    try {
-                        wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    synchronized(this) {
+                        sendMessage(new CardsMarketInfoRequest());
+                        System.out.println("Cards market:");
+                        try {
+                            wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case "exit" :
@@ -1006,8 +1011,13 @@ public class CliView extends View {
     }
 
     @Override
+    public void updateLeaderCards(LinkedList<LeaderCard> leaderCards) {
+        clientModel.setLeaderCards(leaderCards);
+    }
+
+    @Override
     public void disconnect() {
-        //close socket?
+        socketHandler.disconnect();
     }
 
     private void welcome(){

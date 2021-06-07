@@ -15,6 +15,7 @@ import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Set;
 
 public abstract class View extends Observable implements Observer {
@@ -112,5 +113,7 @@ public abstract class View extends Observable implements Observer {
     }
 
     public abstract void updateActiveLeader(int index);
+
+    public abstract void updateLeaderCards(LinkedList<LeaderCard> leaderCards);
 
 }

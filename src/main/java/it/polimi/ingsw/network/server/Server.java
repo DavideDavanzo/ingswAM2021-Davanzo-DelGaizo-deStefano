@@ -106,8 +106,9 @@ public class Server implements Observer {
 
     @Override
     public void update(Set<String> usernames) {
-        for(String username : usernames)
+        for(String username : usernames) {
             this.usernames.remove(username);
+        }
     }
 
     @Override

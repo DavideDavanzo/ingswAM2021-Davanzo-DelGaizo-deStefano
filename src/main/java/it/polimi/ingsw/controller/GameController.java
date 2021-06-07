@@ -14,6 +14,7 @@ import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.WarehouseUpdate;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
@@ -119,6 +120,24 @@ public class GameController extends Observable implements Observer, Serializable
     public void reconnect(String nickname, VirtualView virtualView) {
         virtualView.connect();
         virtualViewMap.put(nickname, virtualView);
+        virtualView.addObserver(this);
+        virtualView.start();
+        for(Player p : match.getPlayers()){
+            if(p.getNickname().equals(nickname)){
+                match.addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getWarehouse().addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getCoffer().addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getDevelopmentCardsArea().addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getPath().addObserver(virtualViewMap.get(nickname));
+                virtualView.updateFaithTrack(p.getPlayerBoard().getPath());
+                virtualView.updateDevCards(p.getPlayerBoard().getDevelopmentCardsArea());
+                virtualView.updateWarehouse(p.getPlayerBoard().getWarehouse());
+                virtualView.updateCoffer(p.getPlayerBoard().getCoffer());
+                virtualView.updateLeaderCards(p.getLeaderCards());
+                break;
+            }
+        }
+        virtualView.showLogin("Reconnection to match completed. Wait for your turn...", true);
     }
 
     public boolean verifyConnected(String nickname) {

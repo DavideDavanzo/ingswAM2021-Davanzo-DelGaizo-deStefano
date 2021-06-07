@@ -14,6 +14,7 @@ import it.polimi.ingsw.network.server.ServerClientHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class VirtualView extends View {
 
@@ -153,6 +154,11 @@ public class VirtualView extends View {
     @Override
     public void updateActiveLeader(int index) {
         sendMessage(new LeaderCardUpdate(index));
+    }
+
+    @Override
+    public void updateLeaderCards(LinkedList<LeaderCard> leaderCards) {
+        sendMessage(new LeaderCardUpdate(leaderCards));
     }
 
     public ServerClientHandler getClientHandler(){

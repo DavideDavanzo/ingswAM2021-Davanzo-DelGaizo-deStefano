@@ -12,7 +12,7 @@ public class Disconnection extends Message{
 
     @Override
     public void apply(View view) {
-
+        view.disconnect();
     }
 
     @Override

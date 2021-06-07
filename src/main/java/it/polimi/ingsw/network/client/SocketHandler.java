@@ -46,6 +46,7 @@ public class SocketHandler extends Observable implements Runnable {
                 e.printStackTrace();
             }
         }
+        System.exit(0);
     }
 
     public void sendMessage(Message message){

@@ -464,17 +464,17 @@ public class InGameState extends GameState {
 
     @Override
     public void process(Disconnection disconnection) {
-        System.out.println("prima");
+
         gameController.disconnect(disconnection.getUsername());
 
         long playerNum = gameController.connectedPlayersAsInt();
 
         if(gameController.isSinglePlayer() || playerNum == 1) {
-            System.out.println("DOPO");
             gameController.notifyObservers(gameController.getVirtualViewMap().keySet());
             for(VirtualView v : gameController.getVirtualViewMap().values()) {
                 if(v.isConnected()) {
                     v.showMessage("Not enough players to continue the match. Sorry");
+                    v.sendMessage(new Disconnection());
                 }
             }
             return;

@@ -19,6 +19,7 @@ import javafx.application.Platform;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -166,6 +167,11 @@ public class GuiView extends View {
 
     @Override
     public void updateActiveLeader(int index) {
+
+    }
+
+    @Override
+    public void updateLeaderCards(LinkedList<LeaderCard> leaderCards) {
 
     }
 
