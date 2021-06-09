@@ -41,7 +41,7 @@ public class ServerClientHandler extends Observable implements Runnable{
 
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!clientSocket.isClosed()) {
             try {
                 Message message = objectMapper.readValue(socketIn.nextLine(), Message.class);
                 System.out.println("Received: " + objectMapper.writeValueAsString(message));

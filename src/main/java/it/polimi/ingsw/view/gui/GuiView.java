@@ -152,7 +152,6 @@ public class GuiView extends View {
     @Override
     public void showMarket(Market market) {
         Platform.runLater(() -> SceneController.changeScene(this, "sharedArea_scene.fxml"));
-
     }
 
     @Override

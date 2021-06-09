@@ -73,6 +73,19 @@ public class InitState extends GameState {
         else nextTurnInit();
     }
 
+
+    @Override
+    public void process(Disconnection disconnection) {
+        gameController.notifyObservers(gameController.getVirtualViewMap().keySet());
+        for(VirtualView v : gameController.getVirtualViewMap().values()) {
+            if(v.isConnected()) {
+                v.showMessage("Critical Disconnection - At least one player left the match during initialization.\nYou will be disconnected as well...");
+                v.sendMessage(new Disconnection());
+                v.disconnect();
+            }
+        }
+    }
+
     private void nextTurnInit() {
         gameController.updateQueue();
         gameController.getTurnController().updateTurnCounter();
@@ -99,4 +112,5 @@ public class InitState extends GameState {
     public void nextState() {
         gameController.setGameState(new InGameState(gameController));
     }
+
 }
