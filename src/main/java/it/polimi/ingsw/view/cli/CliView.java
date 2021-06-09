@@ -30,7 +30,6 @@ import java.util.concurrent.Executors;
 
 public class CliView extends View {
 
-    private final SocketHandler socketHandler;
     private BufferedReader stdIn;
     private ClientModel clientModel;
     ExecutorService executor;
@@ -952,10 +951,6 @@ public class CliView extends View {
     public synchronized void showCardsMarket(CardMarket cardMarket) {
         System.out.println(cardMarket.print());
         notify();
-    }
-
-    private void sendMessage(Message message){
-        socketHandler.sendMessage(message);
     }
 
     @Override

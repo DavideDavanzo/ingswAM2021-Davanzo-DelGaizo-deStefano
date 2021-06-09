@@ -25,7 +25,6 @@ import java.util.concurrent.Executors;
 
 public class GuiView extends View {
 
-    private SocketHandler socketHandler;
     ExecutorService executor;
     private ClientModel clientModel;
 
@@ -177,10 +176,6 @@ public class GuiView extends View {
     @Override
     public void showLogin(String msg, boolean successful) {
 
-    }
-
-    private void sendMessage(Message message){
-        socketHandler.sendMessage(message);
     }
 
     @Override

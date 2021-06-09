@@ -8,9 +8,11 @@ import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.LoginRequest;
+import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 
@@ -20,9 +22,15 @@ import java.util.Set;
 
 public abstract class View extends Observable implements Observer {
 
+    protected SocketHandler socketHandler;
+
     public abstract void start();
 
     public abstract void login();
+
+    public void sendMessage(Message message){
+        socketHandler.sendMessage(message);
+    }
 
     public boolean validateUsername(String username){
         if(username.contains(" ") || username.contains("!") || username.contains("?") || username.contains("(") || username.contains(")"))
