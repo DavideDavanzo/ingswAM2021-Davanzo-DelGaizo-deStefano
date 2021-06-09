@@ -1,11 +1,13 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.network.messages.MarketResourcesCmd;
 import it.polimi.ingsw.view.gui.GuiView;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.util.Objects;
@@ -19,6 +21,23 @@ public class SharedAreaSceneController implements GenericSceneController{
 
     @FXML
     private GridPane cardGridPane;
+
+    @FXML
+    private Button firstRowArrowButton, secondRowArrowButton, thirdRowArrowButton,firstColumnArrowButton, secondColumnArrowButton,thirdColumnArrowButton,fourthColumnArrowButton;
+
+    @FXML
+    public void initialize(){
+        setMarketImages();
+        setMarketImages();
+        firstRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstRowArrowButtonClick);
+        secondRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondRowArrowButtonClick);
+        thirdRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdRowArrowButtonClick);
+        firstColumnArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstColumnArrowButtonClick);
+        secondColumnArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondColumnArrowButtonClick);
+        thirdRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdColumnArrowButtonCLick);
+        fourthColumnArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::fourthColumnArrowButtonClick);
+
+    }
 
     public void setMarketImages(){
         for(int i= 0; i< gridPane.getMaxWidth() -1; i++){
@@ -37,26 +56,32 @@ public class SharedAreaSceneController implements GenericSceneController{
         }
     }
 
-
-    public void firstRowArrowButtonClick(Event event) {
+    public void firstRowArrowButtonClick(Event event){
+        gui.sendMessage(new MarketResourcesCmd( 'r',0));
     }
 
-    public void secondRowArrowButtonClick(ActionEvent event) {
+    public void secondRowArrowButtonClick(Event event) {
+        gui.sendMessage(new MarketResourcesCmd( 'r',1));
     }
 
-    public void thirdRowArrowButtonClick(ActionEvent event) {
+    public void thirdRowArrowButtonClick(Event event) {
+        gui.sendMessage(new MarketResourcesCmd( 'r',2));
     }
 
-    public void firstColumnArrowButtonClick(ActionEvent event) {
+    public void firstColumnArrowButtonClick(Event event) {
+        gui.sendMessage(new MarketResourcesCmd( 'c',0));
     }
 
-    public void secondColumnArrowButtonClick(ActionEvent event) {
+    public void secondColumnArrowButtonClick(Event event) {
+        gui.sendMessage(new MarketResourcesCmd( 'c',1));
     }
 
-    public void thirdColumnArrowButtonCLick(ActionEvent event) {
+    public void thirdColumnArrowButtonCLick(Event event) {
+        gui.sendMessage(new MarketResourcesCmd( 'c',2));
     }
 
-    public void fourthColumnArrowButtonClick(ActionEvent event) {
+    public void fourthColumnArrowButtonClick(Event event) {
+        gui.sendMessage(new MarketResourcesCmd( 'c',3));
     }
 
     @Override
