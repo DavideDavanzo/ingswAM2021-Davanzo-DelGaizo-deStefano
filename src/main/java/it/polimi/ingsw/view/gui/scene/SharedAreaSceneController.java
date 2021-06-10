@@ -12,20 +12,19 @@ import javafx.scene.layout.GridPane;
 
 import java.util.Objects;
 
-public class SharedAreaSceneController implements GenericSceneController{
+public class SharedAreaSceneController implements GenericSceneController {
 
     private GuiView gui;
 
     @FXML
-    private GridPane gridPane;
+    private GridPane gridPane = new GridPane();
 
     @FXML
-    private GridPane cardGridPane;
+    private GridPane cardGridPane = new GridPane();
 
     @FXML
     private Button firstRowArrowButton, secondRowArrowButton, thirdRowArrowButton,firstColumnArrowButton, secondColumnArrowButton,thirdColumnArrowButton,fourthColumnArrowButton;
 
-    @FXML
     public void initialize(){
         setMarketImages();
         setCardMarketImages();
@@ -38,15 +37,18 @@ public class SharedAreaSceneController implements GenericSceneController{
         fourthColumnArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::fourthColumnArrowButtonClick);
     }
 
-    public void setMarketImages(){
-        for(int i= 0; i< gridPane.getMaxWidth() -1; i++){
-            for(int j = 0; j < gridPane.getMaxHeight() -1 ; j++) {
-                gridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/" + gui.getClientModel().getMarket().getMarbleArrayList().get(i * 4 + j).toPath() + ".png")))), i, j);
+    public void setMarketImages() {
+        System.out.println("Prima");
+        for(int i = 0; i < 3; i++){
+            System.out.println("Dopo");
+            for(int j = 0; j < 4; j++) {
+                gridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/redmarble.png")))), i , j);
+                //gridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/" + gui.getClientModel().getMarket().getMarbleArrayList().get(i * 4 + j).toPath() + ".png")))), i, j);
             }
         }
     }
 
-    public void setCardMarketImages(){
+    public void setCardMarketImages() {
         for(int i= 0; i< cardGridPane.getMaxWidth() -1; i++){
             for(int j = 0; j< cardGridPane.getMaxHeight() -1; j++){
                 cardGridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardFront/" + gui.getClientModel().getCardMarket().getDecks()[i][j].getCards().peek().getId() + ".png")))), i, j);

@@ -33,7 +33,9 @@ public class CommandSceneController implements GenericSceneController {
     }
 
     public void sharedAreaButtonClick(Event event) {
-        Platform.runLater(() -> SceneController.changeScene(gui, "sharedArea_scene.fxml"));
+        SharedAreaSceneController sAsC = new SharedAreaSceneController();
+        sAsC.setGui(gui);
+        Platform.runLater(() -> SceneController.changeScene(gui, sAsC, "sharedArea_scene.fxml"));
     }
 
     public void yourBoardButtonClick(Event event) {
