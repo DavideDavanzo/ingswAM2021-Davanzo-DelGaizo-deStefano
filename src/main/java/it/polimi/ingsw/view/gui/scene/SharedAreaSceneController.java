@@ -28,7 +28,7 @@ public class SharedAreaSceneController implements GenericSceneController{
     @FXML
     public void initialize(){
         setMarketImages();
-        setMarketImages();
+        setCardMarketImages();
         firstRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstRowArrowButtonClick);
         secondRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondRowArrowButtonClick);
         thirdRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdRowArrowButtonClick);
@@ -36,7 +36,6 @@ public class SharedAreaSceneController implements GenericSceneController{
         secondColumnArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondColumnArrowButtonClick);
         thirdRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdColumnArrowButtonCLick);
         fourthColumnArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::fourthColumnArrowButtonClick);
-
     }
 
     public void setMarketImages(){
@@ -49,9 +48,8 @@ public class SharedAreaSceneController implements GenericSceneController{
 
     public void setCardMarketImages(){
         for(int i= 0; i< cardGridPane.getMaxWidth() -1; i++){
-            for(int j = 0; j< cardGridPane.getMaxHeight() -1; i++){
-
-                cardGridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardFront/" + gui.getClientModel().getCardMarket().getDecks()[i][j].getCards().peek().getId() + "png")))), i, j);
+            for(int j = 0; j< cardGridPane.getMaxHeight() -1; j++){
+                cardGridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardFront/" + gui.getClientModel().getCardMarket().getDecks()[i][j].getCards().peek().getId() + ".png")))), i, j);
             }
         }
     }

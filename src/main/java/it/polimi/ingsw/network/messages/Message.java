@@ -7,8 +7,6 @@ import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.View;
 
-import java.io.Serializable;
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
@@ -19,8 +17,6 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = LeaderRequest.class, name = "LeaderRequest"),
         @JsonSubTypes.Type(value = ErrorMessage.class, name = "ErrorMessage"),
         @JsonSubTypes.Type(value = ArrangeInWarehouseCmd.class, name = "ArrangeInWarehouseCmd"),
-        @JsonSubTypes.Type(value = MarketInfoRequest.class, name = "MarketInfoRequest"),
-        @JsonSubTypes.Type(value = CardsMarketInfoRequest.class, name = "CardsMarketInfoRequest"),
         @JsonSubTypes.Type(value = BuyCardCmd.class, name = "BuyCardCmd"),
         @JsonSubTypes.Type(value = ChangeWhiteMarbleReply.class, name = "ChangeWhiteMarbleReply"),
         @JsonSubTypes.Type(value = ChangeWhiteMarbleRequest.class, name = "ChangeWhiteMarbleRequest"),
@@ -41,8 +37,8 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = LeaderCardUpdate.class, name = "LeaderCardUpdate"),
         @JsonSubTypes.Type(value = SwitchShelvesCmd.class, name = "SwitchShelvesCmd"),
         @JsonSubTypes.Type(value = ActivateProductionCmd.class, name = "ActivateProductionCmd"),
-        @JsonSubTypes.Type(value = MarketInfoMessage.class, name = "MarketInfoMessage"),
-        @JsonSubTypes.Type(value = CardsMarketInfoMessage.class, name = "CardsMarketInfoMessage"),
+        @JsonSubTypes.Type(value = MarketUpdate.class, name = "MarketUpdate"),
+        @JsonSubTypes.Type(value = CardsMarketUpdate.class, name = "CardsMarketUpdate"),
         @JsonSubTypes.Type(value = Ack.class, name = "Ack")
 })
 //TODO: declare each message @JasonSubTypes.Type

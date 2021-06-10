@@ -4,12 +4,13 @@ import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.resources.Item;
+import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Market implements CliPrinter {
+public class Market extends Observable implements CliPrinter {
 
     private Marble[][] marketMatrix;
     private Marble spareMarble;
@@ -93,6 +94,7 @@ public class Market implements CliPrinter {
         }
 
         updateMarket(line,index);
+
         return list;
     }
 
@@ -119,6 +121,9 @@ public class Market implements CliPrinter {
             marketMatrix[2][index] = tempMarble;
 
         }
+
+        notifyObservers(this);
+
     }
 
     public Marble[][] getMarketMatrix(){

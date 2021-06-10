@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.messages.Message;
 
 import java.util.ArrayList;
@@ -61,6 +63,18 @@ public class Observable {
     public void notifyObservers(Set<String> usernames){
         for(Observer observer : observers){
             observer.update(usernames);
+        }
+    }
+
+    public void notifyObservers(Market market){
+        for(Observer observer : observers){
+            observer.update(market);
+        }
+    }
+
+    public void notifyObservers(CardMarket cardMarket){
+        for(Observer observer : observers){
+            observer.update(cardMarket);
         }
     }
 

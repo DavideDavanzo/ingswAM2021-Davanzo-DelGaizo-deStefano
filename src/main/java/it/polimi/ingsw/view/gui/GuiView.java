@@ -124,38 +124,38 @@ public class GuiView extends View {
     }
 
     @Override
-    public void updateWarehouse(Warehouse warehouse) {
-
+    public synchronized void updateWarehouse(Warehouse warehouse) {
+        clientModel.updateWarehouse(warehouse);
     }
 
     @Override
-    public void updateCoffer(Coffer coffer) {
-
+    public synchronized void updateCoffer(Coffer coffer) {
+        clientModel.updateCoffer(coffer);
     }
 
     @Override
     public void updateFaithTrack(Path path) {
-
+        clientModel.updateFaithTrack(path);
     }
 
     @Override
     public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
+        clientModel.updateDevCardsArea(developmentCardsArea);
+    }
 
+    @Override
+    public void updateMarket(Market market) {
+        clientModel.updateMarket(market);
+    }
+
+    @Override
+    public void updateCardMarket(CardMarket cardMarket) {
+        clientModel.updateCardMarket(cardMarket);
     }
 
     @Override
     public void processAck(Ack ack) {
 
-    }
-
-    @Override
-    public void showMarket(Market market) {
-        Platform.runLater(() -> SceneController.changeScene(this, "sharedArea_scene.fxml"));
-    }
-
-    @Override
-    public void showCardsMarket(CardMarket cardMarket) {
-        Platform.runLater(() -> SceneController.changeScene(this, "sharedArea_scene.fxml"));
     }
 
     @Override

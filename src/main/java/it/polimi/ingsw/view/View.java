@@ -80,13 +80,13 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void updateDevCards(DevelopmentCardsArea developmentCardsArea);
 
+    public abstract void updateMarket(Market market);
+
+    public abstract void updateCardMarket(CardMarket cardMarket);
+
     public void processAck(Ack ack){ }
 
     public void waitTurn(){ }
-
-    public abstract void showMarket(Market market);
-
-    public abstract void showCardsMarket(CardMarket cardMarket);
 
     public abstract void disconnect();
 
@@ -117,6 +117,16 @@ public abstract class View extends Observable implements Observer {
 
     @Override
     public void update(Set<String> usernames){
+        //do nothing
+    }
+
+    @Override
+    public void update(Market market) {
+        //do nothing
+    }
+
+    @Override
+    public void update(CardMarket cardMarket) {
         //do nothing
     }
 

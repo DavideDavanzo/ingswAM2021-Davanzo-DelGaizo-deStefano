@@ -280,26 +280,12 @@ public class CliView extends View {
                     }
                     break;
                 case "m":
-                    synchronized(this) {
-                        sendMessage(new MarketInfoRequest());
-                        System.out.println("Market:");
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    System.out.println("Market:");
+                    System.out.println(clientModel.getMarket().print());
                     break;
                 case "cm":
-                    synchronized(this) {
-                        sendMessage(new CardsMarketInfoRequest());
-                        System.out.println("Cards market:");
-                        try {
-                            wait();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    System.out.println("Cards market:");
+                    System.out.println(clientModel.getCardMarket().print());
                     break;
                 case "exit" :
                     break;
@@ -449,12 +435,8 @@ public class CliView extends View {
         System.out.println("These are your available resources");
         System.out.println(clientModel.getWarehouse().print());
         System.out.println(clientModel.getCoffer().print());
-        sendMessage(new CardsMarketInfoRequest());
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Card market:");
+        System.out.println(clientModel.getCardMarket().print());
         System.out.println("Choose color:");
         System.out.println("g -> green");
         System.out.println("b -> blue");
@@ -525,12 +507,8 @@ public class CliView extends View {
     private synchronized void getMarketResources() {
         System.out.println("This is your current warehouse:");
         System.out.println(clientModel.getWarehouse().print());
-        sendMessage(new MarketInfoRequest());
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Market:");
+        System.out.println(clientModel.getMarket().print());
         char line = ' ';
         while (line != 'r' && line != 'c') {
             System.out.println("Choose:");
@@ -942,18 +920,6 @@ public class CliView extends View {
     }
 
     @Override
-    public synchronized void showMarket(Market market) {
-        System.out.println(market.print());
-        notify();
-    }
-
-    @Override
-    public synchronized void showCardsMarket(CardMarket cardMarket) {
-        System.out.println(cardMarket.print());
-        notify();
-    }
-
-    @Override
     public synchronized void processAck(Ack ack) {
         try {
             wait(500);
@@ -1008,6 +974,16 @@ public class CliView extends View {
     @Override
     public void updateLeaderCards(LinkedList<LeaderCard> leaderCards) {
         clientModel.setLeaderCards(leaderCards);
+    }
+
+    @Override
+    public void updateMarket(Market market) {
+        clientModel.updateMarket(market);
+    }
+
+    @Override
+    public void updateCardMarket(CardMarket cardMarket) {
+        clientModel.updateCardMarket(cardMarket);
     }
 
     @Override

@@ -55,6 +55,16 @@ public class VirtualView extends View {
     }
 
     @Override
+    public void update(Market market) {
+        updateMarket(market);
+    }
+
+    @Override
+    public void update(CardMarket cardMarket) {
+        updateCardMarket(cardMarket);
+    }
+
+    @Override
     public void start() {
         clientHandler.addObserver(this);
         Thread thread = new Thread(clientHandler);
@@ -116,6 +126,7 @@ public class VirtualView extends View {
         try {
             clientHandler.getClientSocket().close();
             connected = false;
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -142,13 +153,13 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void showMarket(Market market) {
-        sendMessage(new MarketInfoMessage(market));
+    public void updateMarket(Market market) {
+        sendMessage(new MarketUpdate(market));
     }
 
     @Override
-    public void showCardsMarket(CardMarket cardMarket) {
-        sendMessage(new CardsMarketInfoMessage(cardMarket));
+    public void updateCardMarket(CardMarket cardMarket) {
+        sendMessage(new CardsMarketUpdate(cardMarket));
     }
 
     @Override

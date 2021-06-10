@@ -27,8 +27,6 @@ public class ClientModel {
         coffer = new Coffer();
         faithTrack = new Path();
         developmentCardsArea = new DevelopmentCardsArea();
-        market = new Market();
-        cardMarket = new CardMarket();
     }
 
     public LinkedList<LeaderCard> getLeaderCards() {
@@ -79,7 +77,7 @@ public class ClientModel {
         this.faithTrack = path;
     }
 
-    public synchronized void update(Market market) {this.market = market;}
+    public void updateMarket(Market market) {this.market = market;}
 
-    public synchronized void update(CardMarket cardMarket) {this.cardMarket = cardMarket;}
+    public void updateCardMarket(CardMarket cardMarket) {this.cardMarket = cardMarket;}
 }

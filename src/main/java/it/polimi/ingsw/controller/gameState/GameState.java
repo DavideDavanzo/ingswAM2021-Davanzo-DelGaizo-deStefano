@@ -77,16 +77,6 @@ public class GameState {
         System.out.println("Got timeout from " + timeoutMessage.getMsg() + " handler");
     }
 
-    public void process(MarketInfoRequest marketInfoRequest) {
-        VirtualView virtualView = gameController.getVirtualViewMap().get(marketInfoRequest.getUsername());
-        virtualView.showMarket(gameController.getMatch().getSharedArea().getMarket());
-    }
-
-    public void process(CardsMarketInfoRequest cardsMarketInfoRequest) {
-        VirtualView virtualView = gameController.getVirtualViewMap().get(cardsMarketInfoRequest.getUsername());
-        virtualView.showCardsMarket(gameController.getMatch().getSharedArea().getCardMarket());
-    }
-
     public void process(Disconnection disconnection) {
         gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
         gameController.getVirtualViewMap().get(disconnection.getUsername()).disconnect();

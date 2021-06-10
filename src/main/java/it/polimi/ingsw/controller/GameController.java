@@ -13,6 +13,8 @@ import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.network.messages.WarehouseUpdate;
 import it.polimi.ingsw.observingPattern.Observable;
@@ -152,12 +154,16 @@ public class GameController extends Observable implements Observer, Serializable
             Player p = new Player(entry.getKey());
             match.addPlayer(p);
             match.addObserver(entry.getValue());
+            match.getSharedArea().getMarket().addObserver(entry.getValue());
+            match.getSharedArea().getCardMarket().addObserver(entry.getValue());
             p.getPlayerBoard().getWarehouse().addObserver(entry.getValue());
             p.getPlayerBoard().getCoffer().addObserver(entry.getValue());
             p.getPlayerBoard().getDevelopmentCardsArea().addObserver(entry.getValue());
             p.getPlayerBoard().getPath().addObserver(entry.getValue());
             p.getPlayerBoard().getPath().addObserver(this);
         }
+        match.getSharedArea().getMarket().notifyObservers(match.getSharedArea().getMarket());
+        match.getSharedArea().getCardMarket().notifyObservers(match.getSharedArea().getCardMarket());
 
         if(isSinglePlayer()) match.setToSinglePlayer();
         else match.shufflePlayers();
@@ -366,6 +372,16 @@ public class GameController extends Observable implements Observer, Serializable
 
     @Override
     public void update(DevelopmentCardsArea developmentCardsArea) {
+        //do nothing
+    }
+
+    @Override
+    public void update(Market market) {
+        //do nothing
+    }
+
+    @Override
+    public void update(CardMarket cardMarket) {
         //do nothing
     }
 

@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
+import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.view.cli.CliPrinter;
 
 
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * A Card Market contains various {@link Deck Decks} arranged in this order:
  * Green, Blue, Yellow, Purple. The card's level decreases from the top to the bottom.
  */
-public class CardMarket implements CliPrinter {
+public class CardMarket extends Observable implements CliPrinter {
 
     private Deck[][] decks = new Deck[3][4];
 
@@ -86,6 +87,7 @@ public class CardMarket implements CliPrinter {
             case PURPLE: destroyLine(3);
                 break;
         }
+        notifyObservers(this);
     }
 
     //TODO: Simplify when number - color association is created
@@ -100,7 +102,11 @@ public class CardMarket implements CliPrinter {
         for(Deck[] line : decks) {
             for(Deck d : line) {
                 if(d.isEmpty()) continue;
-                if(d.getColor().equals(ECardColor.valueOf(color)) && d.getLevel() == level) return d.getCards().pop();
+                if(d.getColor().equals(ECardColor.valueOf(color)) && d.getLevel() == level){
+                    DevelopmentCard developmentCard = d.getCards().pop();
+                    notifyObservers(this);
+                    return developmentCard;
+                }
             }
         }
         throw new IllegalArgumentException("There's no such card... try again.");
@@ -191,6 +197,7 @@ public class CardMarket implements CliPrinter {
         for(int i = 2; i >= 0 ; i--) {
             if(decks[i][line].isEmpty()) continue;
             decks[i][line].getCards().pop();
+            notifyObservers(this);
             return;
         }
 

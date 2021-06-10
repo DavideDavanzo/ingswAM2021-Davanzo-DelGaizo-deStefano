@@ -6,20 +6,20 @@ import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.view.View;
 
-public class CardsMarketInfoMessage extends Message{
+public class CardsMarketUpdate extends Message{
 
     @JsonSerialize(as = CardMarket.class)
     private CardMarket cardMarket;
 
-    public CardsMarketInfoMessage(){}
+    public CardsMarketUpdate(){}
 
-    public CardsMarketInfoMessage(CardMarket cardMarket){
+    public CardsMarketUpdate(CardMarket cardMarket){
         this.cardMarket = cardMarket;
     }
 
     @Override
     public void apply(View view) {
-        view.showCardsMarket(cardMarket);
+        view.updateCardMarket(cardMarket);
     }
 
     @Override
