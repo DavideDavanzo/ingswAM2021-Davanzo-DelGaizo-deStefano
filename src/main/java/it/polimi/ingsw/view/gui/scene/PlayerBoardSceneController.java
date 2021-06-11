@@ -45,6 +45,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         if(!gui.getClientModel().getWarehouse().getFirstShelf().isEmpty()) shelf1.setImage(
                 new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getFirstShelf().getShelfResource().toString() + ".png")))
         );
+
     }
 
     private void initTrack() {
