@@ -26,6 +26,7 @@ public class SharedAreaSceneController implements GenericSceneController {
     @FXML
     private Button firstRowArrowButton, secondRowArrowButton, thirdRowArrowButton,firstColumnArrowButton, secondColumnArrowButton,thirdColumnArrowButton,fourthColumnArrowButton;
 
+    @FXML
     public void initialize(){
         setMarketImages();
         setCardMarketImages();
@@ -69,8 +70,6 @@ public class SharedAreaSceneController implements GenericSceneController {
             }
 
         }
-
-        System.out.println(gui.getClientModel().getCardMarket().print());
 
     }
 

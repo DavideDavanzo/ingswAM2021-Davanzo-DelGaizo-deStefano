@@ -16,6 +16,7 @@ public class SceneController {
     private static Scene activeScene;
 
     public static void changeScene(GuiView gui, String fxml) {
+
         GenericSceneController controller;
 
         try {
@@ -43,7 +44,6 @@ public class SceneController {
     }
 
     public static void changeScene(GuiView gui, GenericSceneController controller, String fxml) {
-
         try {
 
             FXMLLoader loader = new FXMLLoader(SceneController.class.getResource("/fxml/" + fxml));
@@ -59,7 +59,6 @@ public class SceneController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static GenericSceneController getActiveSceneController() {
