@@ -37,6 +37,66 @@
             <ImageView fx:id="pos12" fitHeight="126.0" fitWidth="73.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <ImageView fx:id="pos22" fitHeight="126.0" fitWidth="72.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <ImageView fx:id="pos32" fitHeight="126.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button fx:id="thirdGreen" mnemonicParsing="false" prefHeight="139.0" prefWidth="81.0" opacity="0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="thirdBlue" mnemonicParsing="false" prefHeight="154.0" prefWidth="113.0" opacity="0" GridPane.columnIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="thirdYellow" mnemonicParsing="false" prefHeight="140.0" prefWidth="119.0" opacity="0" GridPane.columnIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="thirdPurple" mnemonicParsing="false" prefHeight="214.0" prefWidth="181.0" opacity="0" GridPane.columnIndex="3">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="secondGreen" mnemonicParsing="false" prefHeight="161.0" prefWidth="264.0" opacity="0" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="secondBlue" mnemonicParsing="false" prefHeight="232.0" prefWidth="136.0" opacity="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="secondYellow" mnemonicParsing="false" prefHeight="204.0" prefWidth="165.0" opacity="0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="secondPurple" mnemonicParsing="false" prefHeight="228.0" prefWidth="195.0" opacity="0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="firstGreen" mnemonicParsing="false" prefHeight="215.0" prefWidth="206.0" opacity="0" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="firstBlue" mnemonicParsing="false" prefHeight="138.0" prefWidth="85.0" opacity="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="firstYellow" mnemonicParsing="false" prefHeight="174.0" prefWidth="106.0" opacity="0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="firstPurple" mnemonicParsing="false" prefHeight="203.0" prefWidth="122.0" opacity="0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
          <opaqueInsets>
             <Insets left="100.0" />
