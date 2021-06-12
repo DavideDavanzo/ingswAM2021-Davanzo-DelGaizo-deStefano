@@ -26,6 +26,9 @@ public class SharedAreaSceneController implements GenericSceneController {
     private GridPane cardGridPane;
 
     @FXML
+    private Button backButton;
+
+    @FXML
     private Button firstRowArrowButton, secondRowArrowButton, thirdRowArrowButton,firstColumnArrowButton, secondColumnArrowButton,thirdColumnArrowButton,fourthColumnArrowButton;
 
     @FXML
@@ -35,6 +38,7 @@ public class SharedAreaSceneController implements GenericSceneController {
     public void initialize(){
         setMarketImages();
         setCardMarketImages();
+        backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
         firstRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstRowArrowButtonClick);
         secondRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondRowArrowButtonClick);
         thirdRowArrowButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdRowArrowButtonClick);
@@ -56,6 +60,12 @@ public class SharedAreaSceneController implements GenericSceneController {
         thirdPurple.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdPurpleCardButtonClick);
     }
 
+    public void backButtonClick(Event event){
+        backButton.setDisable(true);
+        Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
+
+    }
+
     public void setMarketImages() {
 
         for(int i = 0; i < 4; i++) {
@@ -67,11 +77,8 @@ public class SharedAreaSceneController implements GenericSceneController {
                 imageView.setImage(image);
 
                 //gridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/" + gui.getClientModel().getMarket().getMarbleArrayList().get(i * 4 + j).toPath() + ".png")))), i, j);
-
             }
-
         }
-
     }
 
     public void setCardMarketImages() {
@@ -85,9 +92,7 @@ public class SharedAreaSceneController implements GenericSceneController {
                 imageView.setImage(image);
 
             }
-
         }
-
     }
 
     public void firstRowArrowButtonClick(Event event){

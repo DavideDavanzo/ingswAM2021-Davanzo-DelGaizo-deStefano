@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.scene;
 import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -67,6 +68,8 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Coin(1));
                 numberCheck();
                 mouseEvent.consume();
+                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
+
             }
         });
 
@@ -77,6 +80,7 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Shield(1));
                 numberCheck();
                 mouseEvent.consume();
+                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
             }
         });
 
@@ -87,6 +91,7 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Servant(1));
                 numberCheck();
                 mouseEvent.consume();
+                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
             }
         });
 
@@ -97,6 +102,7 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Stone(1));
                 numberCheck();
                 mouseEvent.consume();
+                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
             }
         });
     }

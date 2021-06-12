@@ -1,16 +1,23 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.view.gui.GuiView;
+import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.util.Objects;
 
 public class PlayerBoardSceneController implements GenericSceneController{
 
     private GuiView gui;
+
+    @FXML
+    private Button backButton;
 
     @FXML
     private ImageView pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, pos11, pos12, pos13, pos14, pos15, pos16, pos17, pos18, pos19, pos20, pos21, pos22, pos23, pos24;
@@ -35,6 +42,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
 
     private void initAll() {
         initTrack();
+        backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
+
         positions[gui.getClientModel().getFaithTrack().getCurrentPositionAsInt()].setImage(
                 new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png")))
         );
@@ -45,6 +54,12 @@ public class PlayerBoardSceneController implements GenericSceneController{
         if(!gui.getClientModel().getWarehouse().getFirstShelf().isEmpty()) shelf1.setImage(
                 new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getFirstShelf().getShelfResource().toString() + ".png")))
         );
+
+    }
+
+    public void backButtonClick(Event event){
+        backButton.setDisable(true);
+        Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
 
     }
 
