@@ -35,6 +35,9 @@ public class SharedAreaSceneController implements GenericSceneController {
     private Button firstGreen, secondGreen, thirdGreen, firstBlue, secondBlue, thirdBlue, firstYellow, secondYellow, thirdYellow, firstPurple, secondPurple, thirdPurple;
 
     @FXML
+    private ImageView spareImageView;
+
+    @FXML
     public void initialize(){
         setMarketImages();
         setCardMarketImages();
@@ -72,13 +75,14 @@ public class SharedAreaSceneController implements GenericSceneController {
 
             for(int j = 0; j < 3; j++) {
 
-                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/redmarble.png")));
                 ImageView imageView = (ImageView) gridPane.getChildren().get(j * 4 + i);
-                imageView.setImage(image);
+                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/" + gui.getClientModel().getMarket().getMarketMatrix()[j][i].toPath() + ".png"))));
 
-                //gridPane.add(new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/" + gui.getClientModel().getMarket().getMarbleArrayList().get(i * 4 + j).toPath() + ".png")))), i, j);
             }
         }
+
+        spareImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/" + gui.getClientModel().getMarket().getSpareMarble().toPath() + ".png"))));
+
     }
 
     public void setCardMarketImages() {

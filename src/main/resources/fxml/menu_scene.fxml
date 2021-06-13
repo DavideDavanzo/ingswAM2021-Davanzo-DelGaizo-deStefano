@@ -13,7 +13,7 @@
    <children>
       <ButtonBar layoutY="336.0" prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #EEE;">
          <buttons>
-            <Button fx:id="playButton" mnemonicParsing="false" onAction="#playButtonClick" style="-fx-background-color: #CDD6D0;" text="Play" textFill="#9661c1">
+            <Button fx:id="playButton" mnemonicParsing="false" style="-fx-background-color: #CDD6D0;" text="Play" textFill="#9661c1">
                <font>
                   <Font name="System Bold Italic" size="13.0" />
                </font>
@@ -21,7 +21,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="quitButton" mnemonicParsing="false" onAction="#quitButtonClick" style="-fx-background-color: #CDD6D0;" text="Quit" textFill="#c12b2b">
+            <Button fx:id="quitButton" mnemonicParsing="false" style="-fx-background-color: #CDD6D0;" text="Quit" textFill="#c12b2b">
                <font>
                   <Font name="System Bold Italic" size="13.0" />
                </font>
