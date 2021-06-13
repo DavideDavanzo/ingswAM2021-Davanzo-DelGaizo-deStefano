@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.util.Locale;
 import java.util.Objects;
 
 public class PlayerBoardSceneController implements GenericSceneController{
@@ -52,7 +53,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
 
         if(!gui.getClientModel().getWarehouse().getFirstShelf().isEmpty()) shelf1.setImage(
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getFirstShelf().getShelfResource().toString() + ".png")))
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getFirstShelf().getShelfResource().getClass().getSimpleName().toLowerCase() + ".png")))
         );
 
     }

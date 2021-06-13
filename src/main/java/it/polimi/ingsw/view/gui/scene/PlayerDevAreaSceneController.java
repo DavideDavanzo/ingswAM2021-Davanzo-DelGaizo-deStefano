@@ -38,25 +38,25 @@ public class PlayerDevAreaSceneController implements GenericSceneController{
         Stack<DevelopmentCard> secondStack = gui.getClientModel().getDevelopmentCardsArea().getSecondStack();
         Stack<DevelopmentCard> thirdStack = gui.getClientModel().getDevelopmentCardsArea().getThirdStack();
         if(!firstStack.isEmpty()){
-            firstSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(0).toString() + ".png"))));
+            firstSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(0).getId() + ".png"))));
             if(firstStack.get(1) != null)
-                firstSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(1).toString() + ".png"))));
-            if(firstStack.get(1) != null)
-                firstSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(1).toString() + ".png"))));
+                firstSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(1).getId() + ".png"))));
+            if(firstStack.get(2) != null)
+                firstSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(2).getId() + ".png"))));
         }
         if(!secondStack.isEmpty()){
-            secondSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(0).toString() + ".png"))));
+            secondSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(0).getId() + ".png"))));
             if(secondStack.get(1) != null)
-                secondSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(1).toString() + ".png"))));
-            if(secondStack.get(1) != null)
-                secondSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(1).toString() + ".png"))));
+                secondSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(1).getId() + ".png"))));
+            if(secondStack.get(2) != null)
+                secondSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(2).getId() + ".png"))));
         }
         if(!thirdStack.isEmpty()){
-            thirdSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(0).toString() + ".png"))));
+            thirdSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(0).getId() + ".png"))));
             if(thirdStack.get(1) != null)
-                thirdSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(1).toString() + ".png"))));
-            if(thirdStack.get(1) != null)
-                thirdSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(1).toString() + ".png"))));
+                thirdSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(1).getId() + ".png"))));
+            if(thirdStack.get(2) != null)
+                thirdSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(2).getId() + ".png"))));
         }
         firstDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstSlotClick);
         secondDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondSlotClick);
