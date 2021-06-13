@@ -26,17 +26,17 @@
       <ImageView fx:id="thirdSlotFirstLvl" fitHeight="196.0" fitWidth="162.0" layoutX="389.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="thirdSlotSecondLvl" fitHeight="196.0" fitWidth="162.0" layoutX="389.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="thirdSlotThirdLvl" fitHeight="196.0" fitWidth="162.0" layoutX="389.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
-      <Button id="firstSlotButton" fx:id="firstDevSlot" layoutX="13.0" layoutY="55.0" mnemonicParsing="false" opacity="0.0" prefHeight="373.0" prefWidth="173.0">
+      <Button id="firstSlotButton" fx:id="firstDevSlot" layoutX="13.0" layoutY="55.0" mnemonicParsing="false" opacity="0.1" prefHeight="373.0" prefWidth="173.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="thirdSlotButton" fx:id="thirdDevSlot" layoutX="384.0" layoutY="54.0" mnemonicParsing="false" opacity="0.2" prefHeight="373.0" prefWidth="173.0">
+      <Button id="thirdSlotButton" fx:id="thirdDevSlot" layoutX="384.0" layoutY="54.0" mnemonicParsing="false" opacity="0.1" prefHeight="373.0" prefWidth="173.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="secondSlotButton" fx:id="secondDevSlot" layoutX="197.0" layoutY="55.0" mnemonicParsing="false" opacity="0.0" prefHeight="373.0" prefWidth="173.0">
+      <Button id="secondSlotButton" fx:id="secondDevSlot" layoutX="197.0" layoutY="55.0" mnemonicParsing="false" opacity="0.1" prefHeight="373.0" prefWidth="173.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -2,10 +2,11 @@ package it.polimi.ingsw;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import it.polimi.ingsw.model.resources.Coin;
-import it.polimi.ingsw.model.resources.Resource;
+import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.utils.Parser;
 import org.junit.jupiter.api.Test;
+
+import java.util.Locale;
 
 public class AppTest {
     @Test
