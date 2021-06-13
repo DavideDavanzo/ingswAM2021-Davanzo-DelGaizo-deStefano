@@ -66,7 +66,6 @@ public class SharedAreaSceneController implements GenericSceneController {
     public void backButtonClick(Event event){
         backButton.setDisable(true);
         Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
-
     }
 
     public void setMarketImages() {

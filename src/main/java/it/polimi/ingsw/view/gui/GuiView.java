@@ -100,7 +100,7 @@ public class GuiView extends View {
 
     @Override
     public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves) {
-
+        Platform.runLater(() -> SceneController.changeScene(this, new StockResourcesSceneController(resources, numExtraShelves), "askToStockResources_scene.fxml"));
     }
 
     @Override
