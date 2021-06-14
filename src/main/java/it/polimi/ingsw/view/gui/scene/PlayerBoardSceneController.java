@@ -95,5 +95,6 @@ public class PlayerBoardSceneController implements GenericSceneController{
     public void setGui(GuiView gui) {
         this.gui = gui;
     }
+
 }
 

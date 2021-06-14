@@ -8,6 +8,7 @@ import it.polimi.ingsw.network.messages.ArrangeInWarehouseCmd;
 import it.polimi.ingsw.view.gui.GuiView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Blend;
 import javafx.scene.effect.BoxBlur;
@@ -33,7 +34,7 @@ public class StockResourcesSceneController implements GenericSceneController{
     private Button firstShelfButton, secondShelfButton, thirdShelfButton, discardButton, firstExtraButton, secondExtraButton;
 
     @FXML
-    private GridPane resourcesGridPane, leadersGridPane;
+    private GridPane resourcesGridPane, leadersGridPane, toFirstShelfGridPane, toSecondShelfGridPane, toThirdShelfGridPane, toFirstExtraGridPane, toSecondExtraGridPane;
 
     @FXML
     private ImageView firstShelfFirstResource, secondShelfFirstResource, secondShelfSecondResource, thirdShelfFirstResource, thirdShelfSecondResource, thirdShelfThirdResource, firstLeaderFirstResource, firstLeaderSecondResource, secondLeaderFirstResource, secondLeaderSecondResource;
@@ -106,6 +107,13 @@ public class StockResourcesSceneController implements GenericSceneController{
 
     public void addToFirstShelf(Event event){
         choices.add(1);
+        for(Node node : toFirstShelfGridPane.getChildren()){
+            ImageView imageView = (ImageView) node;
+            if(imageView.getImage() == null){
+                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + incomingResources.get(currResourceIndex).getClass().getSimpleName().toLowerCase() + ".png"))));
+                break;
+            }
+        }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
         resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
@@ -114,6 +122,13 @@ public class StockResourcesSceneController implements GenericSceneController{
 
     public void addToSecondShelf(Event event){
         choices.add(2);
+        for(Node node : toSecondShelfGridPane.getChildren()){
+            ImageView imageView = (ImageView) node;
+            if(imageView.getImage() == null){
+                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + incomingResources.get(currResourceIndex).getClass().getSimpleName().toLowerCase() + ".png"))));
+                break;
+            }
+        }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
         resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
@@ -122,6 +137,13 @@ public class StockResourcesSceneController implements GenericSceneController{
 
     public void addToThirdShelf(Event event){
         choices.add(3);
+        for(Node node : toThirdShelfGridPane.getChildren()){
+            ImageView imageView = (ImageView) node;
+            if(imageView.getImage() == null){
+                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + incomingResources.get(currResourceIndex).getClass().getSimpleName().toLowerCase() + ".png"))));
+                break;
+            }
+        }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
         resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
@@ -138,6 +160,13 @@ public class StockResourcesSceneController implements GenericSceneController{
 
     public void addToFirstExtra(Event event){
         choices.add(4);
+        for(Node node : toFirstExtraGridPane.getChildren()){
+            ImageView imageView = (ImageView) node;
+            if(imageView.getImage() == null){
+                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + incomingResources.get(currResourceIndex).getClass().getSimpleName().toLowerCase() + ".png"))));
+                break;
+            }
+        }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
         resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
@@ -146,6 +175,13 @@ public class StockResourcesSceneController implements GenericSceneController{
 
     public void addToSecondExtra(Event event){
         choices.add(5);
+        for(Node node : toSecondExtraGridPane.getChildren()){
+            ImageView imageView = (ImageView) node;
+            if(imageView.getImage() == null) {
+                imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + incomingResources.get(currResourceIndex).getClass().getSimpleName().toLowerCase() + ".png"))));
+                break;
+            }
+        }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
         resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
