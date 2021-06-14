@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -22,17 +26,22 @@
       <ImageView fx:id="thirdSlotFirstLvl" fitHeight="196.0" fitWidth="162.0" layoutX="389.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="thirdSlotSecondLvl" fitHeight="196.0" fitWidth="162.0" layoutX="389.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="thirdSlotThirdLvl" fitHeight="196.0" fitWidth="162.0" layoutX="389.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true" />
-      <Button id="firstSlotButton" fx:id="firstDevSlot" layoutX="13.0" layoutY="55.0" mnemonicParsing="false" opacity="0.1" prefHeight="373.0" prefWidth="173.0">
+      <Button id="firstSlotButton" fx:id="firstDevSlot" layoutX="14.0" layoutY="43.0" mnemonicParsing="false" opacity="0.1" prefHeight="363.0" prefWidth="173.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="thirdSlotButton" fx:id="thirdDevSlot" layoutX="384.0" layoutY="54.0" mnemonicParsing="false" opacity="0.1" prefHeight="373.0" prefWidth="173.0">
+      <Button id="thirdSlotButton" fx:id="thirdDevSlot" layoutX="384.0" layoutY="43.0" mnemonicParsing="false" opacity="0.1" prefHeight="363.0" prefWidth="173.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button id="secondSlotButton" fx:id="secondDevSlot" layoutX="197.0" layoutY="55.0" mnemonicParsing="false" opacity="0.1" prefHeight="373.0" prefWidth="173.0">
+      <Button id="secondSlotButton" fx:id="secondDevSlot" layoutX="197.0" layoutY="43.0" mnemonicParsing="false" opacity="0.1" prefHeight="363.0" prefWidth="173.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="backButton" layoutX="13.0" layoutY="14.0" mnemonicParsing="false" text="Back">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

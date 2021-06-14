@@ -17,8 +17,6 @@ public class SceneController {
 
     public static void changeScene(GuiView gui, String fxml) {
 
-        System.out.println("ChangeScene");
-
         if(gui == null)
             System.out.println("GUI NULL in changeScene");
 

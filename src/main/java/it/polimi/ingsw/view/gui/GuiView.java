@@ -155,7 +155,7 @@ public class GuiView extends View {
 
     @Override
     public void processAck(Ack ack) {
-
+        askCommand();
     }
 
     @Override

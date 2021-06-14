@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,7 +13,7 @@
 
 <AnchorPane prefHeight="347.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="348.0" fitWidth="268.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="348.0" fitWidth="267.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/warehouse.png" />
          </image>
@@ -32,7 +34,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="thirdShelfButton" layoutX="35.0" layoutY="219.0" mnemonicParsing="false" opacity="0.0" prefHeight="62.0" prefWidth="201.0">
+      <Button fx:id="thirdShelfButton" layoutX="34.0" layoutY="224.0" mnemonicParsing="false" opacity="0.0" prefHeight="62.0" prefWidth="201.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -54,6 +56,30 @@
             <ImageView fitHeight="35.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="discardButton" layoutX="202.0" layoutY="18.0" mnemonicParsing="false" text="Discard" />
+      <Button fx:id="discardButton" layoutX="182.0" layoutY="18.0" mnemonicParsing="false" text="Discard" />
+      <GridPane fx:id="leadersGridPane" layoutX="266.0" layoutY="1.0" prefHeight="348.0" prefWidth="115.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" />
+            <Label alignment="CENTER" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <ImageView fx:id="firstLeader" fitHeight="175.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="secondLeader" fitHeight="175.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+         </children>
+         <opaqueInsets>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </opaqueInsets>
+      </GridPane>
+      <ImageView fx:id="firsLeaderFirstResource" fitHeight="32.0" fitWidth="32.0" layoutX="287.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="firstLeaderSecondResource" fitHeight="32.0" fitWidth="32.0" layoutX="330.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="firstExtraButton" disable="true" layoutX="283.0" layoutY="130.0" mnemonicParsing="false" opacity="0.0" prefHeight="41.0" prefWidth="83.0" />
+      <ImageView fx:id="firsLeaderFirstResource1" fitHeight="32.0" fitWidth="32.0" layoutX="287.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="firsLeaderFirstResource11" fitHeight="32.0" fitWidth="32.0" layoutX="329.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="secondExtraButton" disable="true" layoutX="281.0" layoutY="305.0" mnemonicParsing="false" opacity="0.0" prefHeight="41.0" prefWidth="83.0" />
    </children>
 </AnchorPane>

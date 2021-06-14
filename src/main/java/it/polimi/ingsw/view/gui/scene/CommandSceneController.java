@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.network.messages.PassTurnMessage;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
@@ -24,14 +25,6 @@ public class CommandSceneController implements GenericSceneController {
     @FXML
     private Button quitButton;
 
-    @FXML
-    public void initialize(){
-        //sharedAreaButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::sharedAreaButtonClick);
-        //yourBoardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::yourBoardButtonClick);
-        //passTurnButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::passTurnButtonClick);
-        //quitButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::quitButtonClick);
-    }
-
     public void sharedAreaButtonClick(Event event) {
         SharedAreaSceneController sAsC = new SharedAreaSceneController();
         sAsC.setGui(gui);
@@ -43,10 +36,12 @@ public class CommandSceneController implements GenericSceneController {
     }
 
     public void passTurnButtonClick(Event event) {
+        gui.sendMessage(new PassTurnMessage());
         Platform.runLater(() -> SceneController.changeScene(gui, "playerBoard_scene.fxml"));
     }
 
     public void quitButtonClick(Event event) {
+        gui.disconnect();
         Platform.runLater(() -> SceneController.changeScene(gui, "menu_scene.fxml", () -> System.exit(0)));
     }
 

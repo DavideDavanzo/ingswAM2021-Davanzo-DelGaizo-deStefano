@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.network.messages.ArrangeInWarehouseCmd;
@@ -24,13 +26,13 @@ public class StockResourcesSceneController implements GenericSceneController{
     private ArrayList<Integer> choices;
 
     @FXML
-    private Button firstShelfButton, secondShelfButton, thirdShelfButton, discardButton;
+    private Button firstShelfButton, secondShelfButton, thirdShelfButton, discardButton, firstExtraButton, secondExtraButton;
 
     @FXML
-    private GridPane resourcesGridPane;
+    private GridPane resourcesGridPane, leadersGridPane;
 
     @FXML
-    private ImageView firstShelfFirstResource, secondShelfFirstResource, secondShelfSecondResource, thirdShelfFirstResource, thirdShelfSecondResource, thirdShelfThirdResource;
+    private ImageView firstShelfFirstResource, secondShelfFirstResource, secondShelfSecondResource, thirdShelfFirstResource, thirdShelfSecondResource, thirdShelfThirdResource, firstLeaderFirstResource, firstLeaderSecondResource, secondLeaderFirstResource, secondLeaderSecondResource;
 
     public StockResourcesSceneController(ArrayList<Item> incomingResources, int numExtraShelves) {
         this.incomingResources = incomingResources;
@@ -64,6 +66,30 @@ public class StockResourcesSceneController implements GenericSceneController{
                 thirdShelfThirdResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
         }
 
+
+        if(numExtraShelves>0) {
+            LeaderCard firstExtraLeader = (LeaderCard) gui.getClientModel().getLeaderCards().stream().filter(l -> l.isActive() && l.getEffect() instanceof ExtraShelfEffect).toArray()[0];
+            ((ImageView) leadersGridPane.getChildren().get(0)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstExtraLeader.getId() + ".png"))));
+            firstExtraButton.setDisable(false);
+            firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToFirstExtra);
+            if(!gui.getClientModel().getWarehouse().getExtraShelves().get(0).isEmpty()){
+                firstLeaderFirstResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                if(gui.getClientModel().getWarehouse().getExtraShelves().get(0).getShelfResource().getVolume() == 2)
+                    firstLeaderSecondResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+            }
+        }
+        if(numExtraShelves>1) {
+            LeaderCard secondExtraLeader = (LeaderCard) gui.getClientModel().getLeaderCards().stream().filter(l -> l.isActive() && l.getEffect() instanceof ExtraShelfEffect).toArray()[1];
+            ((ImageView) leadersGridPane.getChildren().get(1)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondExtraLeader.getId() + ".png"))));
+            secondExtraButton.setDisable(false);
+            secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToSecondExtra);
+            if(!gui.getClientModel().getWarehouse().getExtraShelves().get(1).isEmpty()){
+                secondLeaderFirstResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                if(gui.getClientModel().getWarehouse().getExtraShelves().get(1).getShelfResource().getVolume() == 2)
+                    secondLeaderSecondResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+            }
+        }
+
         firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToFirstShelf);
         secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToSecondShelf);
         thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToThirdShelf);
@@ -91,6 +117,18 @@ public class StockResourcesSceneController implements GenericSceneController{
 
     public void discard(Event event){
         choices.add(0);
+        if(choices.size() == incomingResources.size())
+            gui.sendMessage(new ArrangeInWarehouseCmd(choices));
+    }
+
+    public void addToFirstExtra(Event event){
+        choices.add(4);
+        if(choices.size() == incomingResources.size())
+            gui.sendMessage(new ArrangeInWarehouseCmd(choices));
+    }
+
+    public void addToSecondExtra(Event event){
+        choices.add(5);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }

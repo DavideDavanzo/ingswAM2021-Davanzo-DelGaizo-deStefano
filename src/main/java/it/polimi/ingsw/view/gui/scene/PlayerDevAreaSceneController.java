@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.network.messages.BuyCardCmd;
 import it.polimi.ingsw.view.gui.GuiView;
+import it.polimi.ingsw.view.gui.SceneController;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.event.Event;
@@ -25,7 +27,7 @@ public class PlayerDevAreaSceneController implements GenericSceneController{
     private ImageView firstSlotFirstLvl, firstSlotSecondLvl, firstSlotThirdLvl, secondSlotFirstLvl, secondSlotSecondLvl, secondSlotThirdLvl, thirdSlotFirstLvl, thirdSlotSecondLvl, thirdSlotThirdLvl;
 
     @FXML
-    private Button firstDevSlot, secondDevSlot, thirdDevSlot;
+    private Button firstDevSlot, secondDevSlot, thirdDevSlot, backButton;
 
     public PlayerDevAreaSceneController(ECardColor color, int cardLvl){
         this.color = color;
@@ -61,6 +63,7 @@ public class PlayerDevAreaSceneController implements GenericSceneController{
         firstDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstSlotClick);
         secondDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondSlotClick);
         thirdDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdSlotClick);
+        backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
     }
 
     public void firstSlotClick(Event event){
@@ -73,6 +76,10 @@ public class PlayerDevAreaSceneController implements GenericSceneController{
 
     public void thirdSlotClick(Event event){
         gui.sendMessage(new BuyCardCmd(color, cardLvl, 3));
+    }
+
+    public void backButtonClick(Event event){
+        Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
     }
 
     @Override
