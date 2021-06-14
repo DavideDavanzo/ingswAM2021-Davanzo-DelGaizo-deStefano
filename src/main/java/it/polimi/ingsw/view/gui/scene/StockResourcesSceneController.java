@@ -115,7 +115,8 @@ public class StockResourcesSceneController implements GenericSceneController{
             }
         }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
-        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
+        if(currResourceIndex < incomingResources.size())
+            resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
@@ -130,7 +131,8 @@ public class StockResourcesSceneController implements GenericSceneController{
             }
         }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
-        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
+        if(currResourceIndex < incomingResources.size())
+            resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
@@ -145,7 +147,8 @@ public class StockResourcesSceneController implements GenericSceneController{
             }
         }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
-        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
+        if(currResourceIndex < incomingResources.size())
+            resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
@@ -153,7 +156,8 @@ public class StockResourcesSceneController implements GenericSceneController{
     public void discard(Event event){
         choices.add(0);
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
-        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
+        if(currResourceIndex < incomingResources.size())
+            resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
@@ -168,7 +172,8 @@ public class StockResourcesSceneController implements GenericSceneController{
             }
         }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
-        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
+        if(currResourceIndex < incomingResources.size())
+            resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
@@ -183,7 +188,8 @@ public class StockResourcesSceneController implements GenericSceneController{
             }
         }
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
-        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
+        if(currResourceIndex < incomingResources.size())
+            resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
