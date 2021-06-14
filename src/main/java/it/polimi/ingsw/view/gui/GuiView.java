@@ -26,11 +26,6 @@ import java.util.concurrent.Executors;
 public class GuiView extends View {
 
     ExecutorService executor;
-    private ClientModel clientModel;
-
-    public ClientModel getClientModel() {
-        return clientModel;
-    }
 
     public GuiView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;

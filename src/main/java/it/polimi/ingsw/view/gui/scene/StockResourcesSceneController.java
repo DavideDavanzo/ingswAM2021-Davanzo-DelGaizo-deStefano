@@ -9,6 +9,9 @@ import it.polimi.ingsw.view.gui.GuiView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.effect.Blend;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +27,7 @@ public class StockResourcesSceneController implements GenericSceneController{
     private ArrayList<Item> incomingResources;
     private int numExtraShelves;
     private ArrayList<Integer> choices;
+    private int currResourceIndex;
 
     @FXML
     private Button firstShelfButton, secondShelfButton, thirdShelfButton, discardButton, firstExtraButton, secondExtraButton;
@@ -38,19 +42,24 @@ public class StockResourcesSceneController implements GenericSceneController{
         this.incomingResources = incomingResources;
         this.numExtraShelves = numExtraShelves;
         choices = new ArrayList<>();
+        currResourceIndex = 0;
     }
 
     @FXML
     public void initialize(){
 
+        //set images of the incoming market resources
         for(int i=0; i<incomingResources.size(); i++){
-            ((ImageView) resourcesGridPane.getChildren().get(i)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + incomingResources.get(i).getClass().getSimpleName().toLowerCase() + ".png"))));
+            ImageView imageView = (ImageView) resourcesGridPane.getChildren().get(i);
+            imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + incomingResources.get(i).getClass().getSimpleName().toLowerCase() + ".png"))));
+            if(i != currResourceIndex)
+                imageView.setOpacity(0.5);
         }
 
+        //set images and buttons of player's warehouse
         Shelf firstShelf = gui.getClientModel().getWarehouse().getFirstShelf();
         Shelf secondShelf = gui.getClientModel().getWarehouse().getSecondShelf();
         Shelf thirdShelf = gui.getClientModel().getWarehouse().getThirdShelf();
-
         if(!firstShelf.isEmpty())
             firstShelfFirstResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
         if(!secondShelf.isEmpty()){
@@ -65,8 +74,12 @@ public class StockResourcesSceneController implements GenericSceneController{
             if(thirdShelf.getShelfResource().getVolume() == 3)
                 thirdShelfThirdResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
         }
+        firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToFirstShelf);
+        secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToSecondShelf);
+        thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToThirdShelf);
+        discardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::discard);
 
-
+        //set images and buttons of optional extra shelves
         if(numExtraShelves>0) {
             LeaderCard firstExtraLeader = (LeaderCard) gui.getClientModel().getLeaderCards().stream().filter(l -> l.isActive() && l.getEffect() instanceof ExtraShelfEffect).toArray()[0];
             ((ImageView) leadersGridPane.getChildren().get(0)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstExtraLeader.getId() + ".png"))));
@@ -89,46 +102,52 @@ public class StockResourcesSceneController implements GenericSceneController{
                     secondLeaderSecondResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
             }
         }
-
-        firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToFirstShelf);
-        secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToSecondShelf);
-        thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToThirdShelf);
-        discardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::discard);
-
     }
 
     public void addToFirstShelf(Event event){
         choices.add(1);
+        resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
+        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
     public void addToSecondShelf(Event event){
         choices.add(2);
+        resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
+        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
     public void addToThirdShelf(Event event){
         choices.add(3);
+        resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
+        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
     public void discard(Event event){
         choices.add(0);
+        resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
+        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
     public void addToFirstExtra(Event event){
         choices.add(4);
+        resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
+        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
     public void addToSecondExtra(Event event){
         choices.add(5);
+        resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
+        resourcesGridPane.getChildren().get(currResourceIndex).setOpacity(1);
         if(choices.size() == incomingResources.size())
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }

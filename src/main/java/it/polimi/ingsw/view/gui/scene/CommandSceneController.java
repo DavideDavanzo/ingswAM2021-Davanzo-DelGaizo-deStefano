@@ -36,8 +36,11 @@ public class CommandSceneController implements GenericSceneController {
     }
 
     public void passTurnButtonClick(Event event) {
-        gui.sendMessage(new PassTurnMessage());
-        Platform.runLater(() -> SceneController.changeScene(gui, "playerBoard_scene.fxml"));
+        if(gui.getClientModel().isMyTurn()) {
+            gui.getClientModel().setMyTurn(false);
+            gui.sendMessage(new PassTurnMessage());
+            Platform.runLater(() -> SceneController.changeScene(gui, "playerBoard_scene.fxml"));
+        } else System.out.println("Not your turn!");
     }
 
     public void quitButtonClick(Event event) {

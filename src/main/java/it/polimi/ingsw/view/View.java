@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
@@ -23,6 +24,8 @@ import java.util.Set;
 public abstract class View extends Observable implements Observer {
 
     protected SocketHandler socketHandler;
+
+    protected ClientModel clientModel;
 
     public abstract void start();
 
@@ -133,5 +136,9 @@ public abstract class View extends Observable implements Observer {
     public abstract void updateActiveLeader(int index);
 
     public abstract void updateLeaderCards(LinkedList<LeaderCard> leaderCards);
+
+    public ClientModel getClientModel() {
+        return clientModel;
+    }
 
 }

@@ -22,6 +22,7 @@ public class Ack extends Message {
 
     @Override
     public void apply(View view) {
+        view.getClientModel().setMyTurn(true);  //no ack after PassTurnMessage which sets myTurn to false directly
         view.processAck(this);
     }
 

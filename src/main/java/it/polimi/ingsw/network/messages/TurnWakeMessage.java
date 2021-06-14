@@ -22,6 +22,7 @@ public class TurnWakeMessage extends Message {
             e.printStackTrace();
         }
         System.out.println(msg);
+        view.getClientModel().setMyTurn(true);
         view.askCommand();
     }
 

@@ -31,7 +31,6 @@ import java.util.concurrent.Executors;
 public class CliView extends View {
 
     private BufferedReader stdIn;
-    private ClientModel clientModel;
     ExecutorService executor;
 
     public CliView(SocketHandler socketHandler) {

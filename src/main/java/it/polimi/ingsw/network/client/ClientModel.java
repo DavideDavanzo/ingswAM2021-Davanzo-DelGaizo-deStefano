@@ -20,6 +20,7 @@ public class ClientModel {
     private LinkedList<LeaderCard> leaderCards;
     private Market market;
     private CardMarket cardMarket;
+    private boolean myTurn;
 
     public ClientModel(){
         leaderCards = new LinkedList<>();
@@ -27,6 +28,7 @@ public class ClientModel {
         coffer = new Coffer();
         faithTrack = new Path();
         developmentCardsArea = new DevelopmentCardsArea();
+        myTurn = false;
     }
 
     public LinkedList<LeaderCard> getLeaderCards() {
@@ -80,4 +82,12 @@ public class ClientModel {
     public void updateMarket(Market market) {this.market = market;}
 
     public void updateCardMarket(CardMarket cardMarket) {this.cardMarket = cardMarket;}
+
+    public boolean isMyTurn() {
+        return myTurn;
+    }
+
+    public void setMyTurn(boolean myTurn) {
+        this.myTurn = myTurn;
+    }
 }
