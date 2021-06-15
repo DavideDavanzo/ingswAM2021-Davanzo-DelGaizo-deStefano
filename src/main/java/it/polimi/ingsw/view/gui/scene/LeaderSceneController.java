@@ -70,6 +70,7 @@ public class LeaderSceneController implements GenericSceneController {
 
     public void firstCardButton(Event event) {
         firstCard.setDisable(true);
+        firstCard.setOpacity(0.6);
         if(secondCard.isDisabled() || thirdCard.isDisabled() || fourthCard.isDisabled()){
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
@@ -81,6 +82,7 @@ public class LeaderSceneController implements GenericSceneController {
 
     public void secondCardButton(Event event) {
         secondCard.setDisable(true);
+        secondCard.setOpacity(0.6);
         if(firstCard.isDisabled() || thirdCard.isDisabled() || fourthCard.isDisabled()){
             firstCard.setDisable(true);
             thirdCard.setDisable(true);
@@ -92,6 +94,7 @@ public class LeaderSceneController implements GenericSceneController {
 
     public void thirdCardButton(Event event) {
         thirdCard.setDisable(true);
+        thirdCard.setOpacity(0.6);
         if(firstCard.isDisabled() || secondCard.isDisabled() || fourthCard.isDisabled()){
             firstCard.setDisable(true);
             secondCard.setDisable(true);
@@ -103,6 +106,7 @@ public class LeaderSceneController implements GenericSceneController {
 
     public void fourthCardButton(Event event) {
         fourthCard.setDisable(true);
+        fourthCard.setOpacity(0.6);
         if(firstCard.isDisabled() || secondCard.isDisabled() || thirdCard.isDisabled()){
             firstCard.setDisable(true);
             secondCard.setDisable(true);

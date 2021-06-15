@@ -1,11 +1,14 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +36,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
 
     @FXML
     private ImageView coinCoffer, shieldCoffer, servantCoffer, stoneCoffer;
+    @FXML
+    private Label coinCofferVolume, shieldCofferVolume, servantCofferVolume, stoneCofferVolume;
 
     @FXML
     private ImageView popeToken1, popeToken2, popeToken3;
@@ -43,24 +48,41 @@ public class PlayerBoardSceneController implements GenericSceneController{
 
     private void initAll() {
         initTrack();
+        initWareHouse();
+        initCoffer();
         backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
-
-        positions[gui.getClientModel().getFaithTrack().getCurrentPositionAsInt()].setImage(
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png")))
-        );
-        popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato giallo.png"))));
-        popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato arancione.png"))));
-        popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
-
-        if(!gui.getClientModel().getWarehouse().getFirstShelf().isEmpty()) shelf1.setImage(
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + gui.getClientModel().getWarehouse().getFirstShelf().getShelfResource().getClass().getSimpleName().toLowerCase() + ".png")))
-        );
-
     }
 
-    public void backButtonClick(Event event){
-        backButton.setDisable(true);
-        Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
+    private void initWareHouse(){
+        Shelf firstShelf = gui.getClientModel().getWarehouse().getFirstShelf();
+        Shelf secondShelf = gui.getClientModel().getWarehouse().getSecondShelf();
+        Shelf thirdShelf = gui.getClientModel().getWarehouse().getThirdShelf();
+        if(!firstShelf.isEmpty())
+            shelf1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+        if(!secondShelf.isEmpty()){
+            shelf2pos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+            if(secondShelf.getShelfResource().getVolume() == 2)
+                shelf2pos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+        }
+        if(!thirdShelf.isEmpty()){
+            shelf3pos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+            if(thirdShelf.getShelfResource().getVolume() >= 2)
+                shelf3pos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+            if(thirdShelf.getShelfResource().getVolume() == 3)
+                shelf3pos3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+        }
+    }
+
+    private void initCoffer(){
+        coinCoffer.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/coin.png"))));
+        shieldCoffer.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
+        stoneCoffer.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
+        servantCoffer.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
+        Coffer coffer = gui.getClientModel().getCoffer();
+        coinCofferVolume.setText(String.valueOf(coffer.getCoins().getVolume()));
+        shieldCofferVolume.setText(String.valueOf(coffer.getShields().getVolume()));
+        stoneCofferVolume.setText(String.valueOf(coffer.getStones().getVolume()));
+        servantCofferVolume.setText(Integer.toString(coffer.getServants().getVolume()));
     }
 
     private void initTrack() {
@@ -89,6 +111,17 @@ public class PlayerBoardSceneController implements GenericSceneController{
         positions[22] = pos22;
         positions[23] = pos23;
         positions[24] = pos24;
+        positions[gui.getClientModel().getFaithTrack().getCurrentPositionAsInt()].setImage(
+                new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png")))
+        );
+        popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato giallo.png"))));
+        popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato arancione.png"))));
+        popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
+    }
+
+    public void backButtonClick(Event event){
+        backButton.setDisable(true);
+        Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
     }
 
     @Override

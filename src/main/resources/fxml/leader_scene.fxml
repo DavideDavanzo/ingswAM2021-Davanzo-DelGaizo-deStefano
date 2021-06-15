@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -8,39 +9,52 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" >
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox fx:id="hbox" layoutY="53.0" prefHeight="295.0" prefWidth="600.0">
+      <HBox fx:id="hbox" layoutY="53.0" prefHeight="211.0" prefWidth="601.0">
          <children>
-            <ImageView fx:id="firstLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="firstLeader" fitHeight="220.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="secondLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="secondLeader" fitHeight="220.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets right="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="thirdLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="thirdLeader" fitHeight="220.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets right="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
-            <ImageView fx:id="fourthLeader" fitHeight="280.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="fourthLeader" fitHeight="220.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
                <HBox.margin>
                   <Insets right="5.0" top="10.0" />
                </HBox.margin>
             </ImageView>
          </children></HBox>
-      <Label layoutX="204.0" layoutY="31.0" text="Choose 2 cards among these:">
+      <Label layoutX="206.0" layoutY="14.0" text="Choose 2 cards among these:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="firstCard" layoutX="47.0" layoutY="353.0" mnemonicParsing="false" text="1" />
-      <Button fx:id="secondCard" layoutX="193.0" layoutY="353.0" mnemonicParsing="false" text="2" />
-      <Button fx:id="thirdCard" layoutX="344.0" layoutY="353.0" mnemonicParsing="false" text="3" />
-      <Button fx:id="fourthCard" layoutX="507.0" layoutY="353.0" mnemonicParsing="false" text="4" />
+      <Button fx:id="firstCard" layoutX="5.0" layoutY="63.0" mnemonicParsing="false" opacity="0.0" prefHeight="220.0" prefWidth="144.0" text="chosen">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="secondCard" layoutX="153.0" layoutY="63.0" mnemonicParsing="false" opacity="0.0" prefHeight="220.0" prefWidth="144.0" text="chosen">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="thirdCard" layoutX="303.0" layoutY="63.0" mnemonicParsing="false" opacity="0.0" prefHeight="220.0" prefWidth="144.0" text="chosen">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="fourthCard" layoutX="451.0" layoutY="63.0" mnemonicParsing="false" opacity="0.0" prefHeight="220.0" prefWidth="144.0" text="chosen">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
    </children>
 </Pane>

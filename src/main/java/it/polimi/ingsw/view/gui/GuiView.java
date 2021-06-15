@@ -45,7 +45,7 @@ public class GuiView extends View {
     }
 
     @Override
-    public void askNumberOfPlayers() {
+    public synchronized void askNumberOfPlayers() {
         Platform.runLater(() -> SceneController.changeScene(this, "playersNumber_scene.fxml"));
     }
 
@@ -83,7 +83,7 @@ public class GuiView extends View {
     }
 
     @Override
-    public void onLoginReply(LoginReply message) {
+    public synchronized void onLoginReply(LoginReply message) {
         if(!message.isSuccessful()) {
             LoginSceneController loginSceneController = (LoginSceneController) SceneController.getActiveSceneController();
             loginSceneController.reAskLogin();
