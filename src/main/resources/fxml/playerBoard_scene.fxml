@@ -76,6 +76,21 @@
                   <Label fx:id="servantCofferVolume" layoutX="23.0" layoutY="318.0" prefHeight="20.0" prefWidth="14.0" textFill="WHITE" />
                   <Label fx:id="stoneCofferVolume" layoutX="80.0" layoutY="316.0" prefHeight="20.0" prefWidth="14.0" textFill="WHITE" />
                   <Label fx:id="shieldCofferVolume" layoutX="81.0" layoutY="284.0" prefHeight="20.0" prefWidth="14.0" textFill="WHITE" />
+                  <Button fx:id="firstShelfButton" layoutX="40.0" layoutY="152.0" mnemonicParsing="false" opacity="0.0" prefHeight="28.0" prefWidth="70.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="secondShelfButton" layoutX="34.0" layoutY="185.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="85.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="thirdShelfButton" layoutX="23.0" layoutY="221.0" mnemonicParsing="false" opacity="0.0" prefHeight="27.0" prefWidth="105.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                </children></AnchorPane>
       </content>
     </Tab>

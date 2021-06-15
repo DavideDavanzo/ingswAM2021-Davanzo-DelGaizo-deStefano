@@ -119,12 +119,12 @@ public class GuiView extends View {
     }
 
     @Override
-    public synchronized void updateWarehouse(Warehouse warehouse) {
+    public void updateWarehouse(Warehouse warehouse) {
         clientModel.updateWarehouse(warehouse);
     }
 
     @Override
-    public synchronized void updateCoffer(Coffer coffer) {
+    public void updateCoffer(Coffer coffer) {
         clientModel.updateCoffer(coffer);
     }
 
@@ -187,6 +187,5 @@ public class GuiView extends View {
     public synchronized void update(Message message) {
         executor.submit(() -> message.apply(this));
     }
-
 
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.Shelf;
+import it.polimi.ingsw.network.messages.SwitchShelvesCmd;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -20,8 +22,10 @@ public class PlayerBoardSceneController implements GenericSceneController{
 
     private GuiView gui;
 
+    private ArrayList<Integer> shelvesToSwitch;
+
     @FXML
-    private Button backButton;
+    private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton;
 
     @FXML
     private ImageView pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, pos11, pos12, pos13, pos14, pos15, pos16, pos17, pos18, pos19, pos20, pos21, pos22, pos23, pos24;
@@ -51,6 +55,19 @@ public class PlayerBoardSceneController implements GenericSceneController{
         initWareHouse();
         initCoffer();
         backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
+        if(!gui.getClientModel().isMyTurn()){
+            firstShelfButton.setDisable(true);
+            secondShelfButton.setDisable(true);
+            thirdShelfButton.setDisable(true);
+            //firstExtraButton.setDisable(true);
+            //secondExtraButton.setDisable(true);
+        }
+        firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstShelf);
+        secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondShelf);
+        thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchThirdShelf);
+        //firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstExtra);
+        //secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondExtra);
+        shelvesToSwitch = new ArrayList<>();
     }
 
     private void initWareHouse(){
@@ -111,12 +128,59 @@ public class PlayerBoardSceneController implements GenericSceneController{
         positions[22] = pos22;
         positions[23] = pos23;
         positions[24] = pos24;
-        positions[gui.getClientModel().getFaithTrack().getCurrentPositionAsInt()].setImage(
-                new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png")))
-        );
-        popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato giallo.png"))));
-        popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato arancione.png"))));
-        popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
+
+        positions[gui.getClientModel().getFaithTrack().getCurrentPositionAsInt()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png"))));
+
+        if(gui.getClientModel().getFaithTrack().getPopeTokens().get(0).isFaceUp())
+            popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+        else popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato giallo.png"))));
+        if(gui.getClientModel().getFaithTrack().getPopeTokens().get(1).isFaceUp())
+            popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+        else popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato arancione.png"))));
+        if(gui.getClientModel().getFaithTrack().getPopeTokens().get(2).isFaceUp())
+            popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+        else popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
+
+    }
+
+    public void switchFirstShelf(Event event){
+        shelvesToSwitch.add(1);
+        if(shelvesToSwitch.size() == 2){
+            gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
+            shelvesToSwitch = new ArrayList<>();
+        }
+    }
+
+    public void switchSecondShelf(Event event){
+        shelvesToSwitch.add(2);
+        if(shelvesToSwitch.size() == 2){
+            gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
+            shelvesToSwitch = new ArrayList<>();
+        }
+    }
+
+    public void switchThirdShelf(Event event){
+        shelvesToSwitch.add(3);
+        if(shelvesToSwitch.size() == 2){
+            gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
+            shelvesToSwitch = new ArrayList<>();
+        }
+    }
+
+    public void switchFirstExtra(Event event){
+        shelvesToSwitch.add(4);
+        if(shelvesToSwitch.size() == 2){
+            gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
+            shelvesToSwitch = new ArrayList<>();
+        }
+    }
+
+    public void switchSecondExtra(Event event){
+        shelvesToSwitch.add(5);
+        if(shelvesToSwitch.size() == 2){
+            gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
+            shelvesToSwitch = new ArrayList<>();
+        }
     }
 
     public void backButtonClick(Event event){
