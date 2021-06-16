@@ -4,6 +4,10 @@ import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.Shelf;
+import it.polimi.ingsw.model.resources.Coin;
+import it.polimi.ingsw.model.resources.Servant;
+import it.polimi.ingsw.model.resources.Shield;
+import it.polimi.ingsw.model.resources.Stone;
 import it.polimi.ingsw.network.messages.ActivateProductionCmd;
 import it.polimi.ingsw.network.messages.SwitchShelvesCmd;
 import it.polimi.ingsw.view.gui.GuiView;
@@ -16,6 +20,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -29,7 +35,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private ArrayList<Integer> productionStacks;
     private Trade baseProduction;
     @FXML
-    private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton, firstStackButton, secondStackButton, thirdStackButton, baseProductionButton, activateProductionButton;
+    private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton, firstStackButton, secondStackButton, thirdStackButton, baseProductionButton, activateProductionButton, coinInputButton, shieldInputButton, stoneInputButton, servantInputButton, coinOutputButton, shieldOutputButton, stoneOutputButton, servantOutputButton;
     @FXML
     private ImageView pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, pos11, pos12, pos13, pos14, pos15, pos16, pos17, pos18, pos19, pos20, pos21, pos22, pos23, pos24;
     private ImageView[] positions = new ImageView[25];
@@ -43,6 +49,10 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private Label coinCofferVolume, shieldCofferVolume, servantCofferVolume, stoneCofferVolume;
     @FXML
     private ImageView popeToken1, popeToken2, popeToken3;
+    @FXML
+    private AnchorPane mainAnchorPane, baseProductionAnchorPane;
+    @FXML
+    private GridPane baseInputGridPane, baseOutputGridPane;
 
     public void initialize() {
         Platform.runLater(this::initAll);
@@ -75,8 +85,19 @@ public class PlayerBoardSceneController implements GenericSceneController{
         thirdStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdStackClick);
         baseProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::baseProductionClick);
         activateProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateProduction);
+        coinInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::coinInputClick);
+        shieldInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldInputClick);
+        stoneInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneInputClick);
+        servantInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantInputClick);
+        coinOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::coinOutputClick);
+        shieldOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldOutputClick);
+        stoneOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneOutputClick);
+        servantOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantOutputClick);
         shelvesToSwitch = new ArrayList<>();
         productionStacks = new ArrayList<>();
+        baseProduction = new Trade();
+        baseProduction.setInput(new ArrayList<>());
+        baseProduction.setOutput(new ArrayList<>());
     }
 
     private void initWareHouse(){
@@ -245,6 +266,81 @@ public class PlayerBoardSceneController implements GenericSceneController{
 
     public void baseProductionClick(Event event){
         activateProductionButton.setDisable(false);
+        //mainAnchorPane.setDisable(true);
+        baseProductionAnchorPane.setDisable(false);
+        baseProductionAnchorPane.setVisible(true);
+    }
+
+    public void coinInputClick(Event event){
+        baseProduction.getInput().add(new Coin(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
+    }
+
+    public void shieldInputClick(Event event){
+        baseProduction.getInput().add(new Shield(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
+    }
+
+    public void stoneInputClick(Event event){
+        baseProduction.getInput().add(new Stone(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
+    }
+
+    public void servantInputClick(Event event){
+        baseProduction.getInput().add(new Servant(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
+    }
+
+    public void coinOutputClick(Event event){
+        baseProduction.getOutput().add(new Coin(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
+    }
+
+    public void shieldOutputClick(Event event){
+        baseProduction.getOutput().add(new Shield(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
+    }
+
+    public void stoneOutputClick(Event event){
+        baseProduction.getOutput().add(new Stone(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
+    }
+
+    public void servantOutputClick(Event event){
+        baseProduction.getOutput().add(new Servant(1));
+        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
+            baseProductionAnchorPane.setDisable(true);
+            baseProductionAnchorPane.setVisible(false);
+            mainAnchorPane.setDisable(false);
+        }
     }
 
     public void activateProduction(Event event){
