@@ -51,15 +51,15 @@
                   <ImageView fx:id="shelf3pos1" fitHeight="22.0" fitWidth="27.0" layoutX="37.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="shelf3pos2" fitHeight="22.0" fitWidth="27.0" layoutX="65.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="shelf3pos3" fitHeight="22.0" fitWidth="27.0" layoutX="93.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot1lvl2" fitHeight="149.0" fitWidth="109.0" layoutX="229.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot1lvl3" fitHeight="149.0" fitWidth="109.0" layoutX="233.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot1lvl1" fitHeight="149.0" fitWidth="109.0" layoutX="228.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot2lvl1" fitHeight="149.0" fitWidth="109.0" layoutX="346.0" layoutY="131.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot2lvl2" fitHeight="149.0" fitWidth="109.0" layoutX="350.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot2lvl3" fitHeight="149.0" fitWidth="109.0" layoutX="350.0" layoutY="208.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot3lvl1" fitHeight="149.0" fitWidth="109.0" layoutX="459.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot3lvl2" fitHeight="149.0" fitWidth="109.0" layoutX="460.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot3lvl3" fitHeight="149.0" fitWidth="109.0" layoutX="469.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot1lvl3" fitHeight="140.0" fitWidth="95.0" layoutX="237.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot1lvl2" fitHeight="147.0" fitWidth="96.0" layoutX="236.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot1lvl1" fitHeight="142.0" fitWidth="94.0" layoutX="237.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot2lvl3" fitHeight="141.0" fitWidth="93.0" layoutX="352.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot2lvl2" fitHeight="148.0" fitWidth="98.0" layoutX="351.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot2lvl1" fitHeight="140.0" fitWidth="95.0" layoutX="352.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot3lvl3" fitHeight="143.0" fitWidth="97.0" layoutX="470.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot3lvl2" fitHeight="139.0" fitWidth="94.0" layoutX="471.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot3lvl1" fitHeight="141.0" fitWidth="96.0" layoutX="470.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="shieldCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="95.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="stoneCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="93.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="coinCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="40.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true" />
@@ -87,6 +87,31 @@
                      </cursor>
                   </Button>
                   <Button fx:id="thirdShelfButton" layoutX="23.0" layoutY="221.0" mnemonicParsing="false" opacity="0.0" prefHeight="27.0" prefWidth="105.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="firstStackButton" disable="true" layoutX="231.0" layoutY="136.0" mnemonicParsing="false" opacity="0.0" prefHeight="209.0" prefWidth="106.0" text="stack&#10;chosen for&#10;production" textAlignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="secondStackButton" disable="true" layoutX="346.0" layoutY="138.0" mnemonicParsing="false" opacity="0.0" prefHeight="207.0" prefWidth="107.0" text="stack&#10;chosen for&#10;production" textAlignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="thirdStackButton" disable="true" layoutX="464.0" layoutY="139.0" mnemonicParsing="false" opacity="0.0" prefHeight="205.0" prefWidth="109.0" text="stack&#10;chosen for&#10;production">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="baseProductionButton" layoutX="145.0" layoutY="249.0" mnemonicParsing="false" opacity="0.0" prefHeight="60.0" prefWidth="76.0" text="chosen" textAlignment="CENTER">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="activateProductionButton" disable="true" layoutX="147.0" layoutY="161.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="75.0" text="Activate&#10;production" textAlignment="CENTER">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>

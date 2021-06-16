@@ -1,7 +1,10 @@
 package it.polimi.ingsw.view.gui.scene;
 
+import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.Shelf;
+import it.polimi.ingsw.network.messages.ActivateProductionCmd;
 import it.polimi.ingsw.network.messages.SwitchShelvesCmd;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
@@ -17,32 +20,27 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Stack;
 
 public class PlayerBoardSceneController implements GenericSceneController{
 
     private GuiView gui;
-
     private ArrayList<Integer> shelvesToSwitch;
-
+    private ArrayList<Integer> productionStacks;
+    private Trade baseProduction;
     @FXML
-    private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton;
-
+    private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton, firstStackButton, secondStackButton, thirdStackButton, baseProductionButton, activateProductionButton;
     @FXML
     private ImageView pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, pos11, pos12, pos13, pos14, pos15, pos16, pos17, pos18, pos19, pos20, pos21, pos22, pos23, pos24;
-
     private ImageView[] positions = new ImageView[25];
-
     @FXML
     private ImageView shelf1, shelf2pos1, shelf2pos2, shelf3pos1, shelf3pos2, shelf3pos3;
-
     @FXML
     private ImageView slot1lvl1, slot1lvl2, slot1lvl3, slot2lvl1, slot2lvl2, slot2lvl3, slot3lvl1,slot3lvl2,slot3lvl3;
-
     @FXML
     private ImageView coinCoffer, shieldCoffer, servantCoffer, stoneCoffer;
     @FXML
     private Label coinCofferVolume, shieldCofferVolume, servantCofferVolume, stoneCofferVolume;
-
     @FXML
     private ImageView popeToken1, popeToken2, popeToken3;
 
@@ -54,20 +52,31 @@ public class PlayerBoardSceneController implements GenericSceneController{
         initTrack();
         initWareHouse();
         initCoffer();
-        backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
+        initDevCards();
         if(!gui.getClientModel().isMyTurn()){
             firstShelfButton.setDisable(true);
             secondShelfButton.setDisable(true);
             thirdShelfButton.setDisable(true);
             //firstExtraButton.setDisable(true);
             //secondExtraButton.setDisable(true);
+            firstStackButton.setDisable(true);
+            secondStackButton.setDisable(true);
+            thirdStackButton.setDisable(true);
+            baseProductionButton.setDisable(true);
         }
+        backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
         firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstShelf);
         secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondShelf);
         thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchThirdShelf);
         //firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstExtra);
         //secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondExtra);
+        firstStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstStackClick);
+        secondStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondStackClick);
+        thirdStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdStackClick);
+        baseProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::baseProductionClick);
+        activateProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateProduction);
         shelvesToSwitch = new ArrayList<>();
+        productionStacks = new ArrayList<>();
     }
 
     private void initWareHouse(){
@@ -143,6 +152,36 @@ public class PlayerBoardSceneController implements GenericSceneController{
 
     }
 
+    public void initDevCards(){
+        Stack<DevelopmentCard> firstStack = gui.getClientModel().getDevelopmentCardsArea().getFirstStack();
+        Stack<DevelopmentCard> secondStack = gui.getClientModel().getDevelopmentCardsArea().getSecondStack();
+        Stack<DevelopmentCard> thirdStack = gui.getClientModel().getDevelopmentCardsArea().getThirdStack();
+        if(!firstStack.isEmpty()){
+            slot1lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(0).getId() + ".png"))));
+            if(firstStack.get(1) != null)
+                slot1lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(1).getId() + ".png"))));
+            if(firstStack.get(2) != null)
+                slot1lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(2).getId() + ".png"))));
+            firstStackButton.setDisable(false);
+        }
+        if(!secondStack.isEmpty()){
+            slot2lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(0).getId() + ".png"))));
+            if(secondStack.get(1) != null)
+                slot2lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(1).getId() + ".png"))));
+            if(secondStack.get(2) != null)
+                slot2lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(2).getId() + ".png"))));
+            secondStackButton.setDisable(false);
+        }
+        if(!thirdStack.isEmpty()){
+            slot3lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(0).getId() + ".png"))));
+            if(thirdStack.get(1) != null)
+                slot3lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(1).getId() + ".png"))));
+            if(thirdStack.get(2) != null)
+                slot3lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(2).getId() + ".png"))));
+            thirdStackButton.setDisable(false);
+        }
+    }
+
     public void switchFirstShelf(Event event){
         shelvesToSwitch.add(1);
         if(shelvesToSwitch.size() == 2){
@@ -181,6 +220,35 @@ public class PlayerBoardSceneController implements GenericSceneController{
             gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
             shelvesToSwitch = new ArrayList<>();
         }
+    }
+
+    public void firstStackClick(Event event){
+        activateProductionButton.setDisable(false);
+        productionStacks.add(1);
+        firstStackButton.setDisable(true);
+        firstStackButton.setOpacity(0.5);
+    }
+
+    public void secondStackClick(Event event){
+        activateProductionButton.setDisable(false);
+        productionStacks.add(2);
+        secondStackButton.setDisable(true);
+        secondStackButton.setOpacity(0.5);
+    }
+
+    public void thirdStackClick(Event event){
+        activateProductionButton.setDisable(false);
+        productionStacks.add(3);
+        thirdStackButton.setDisable(true);
+        thirdStackButton.setOpacity(0.5);
+    }
+
+    public void baseProductionClick(Event event){
+        activateProductionButton.setDisable(false);
+    }
+
+    public void activateProduction(Event event){
+        gui.sendMessage(new ActivateProductionCmd(baseProduction, baseProduction!=null, productionStacks));
     }
 
     public void backButtonClick(Event event){
