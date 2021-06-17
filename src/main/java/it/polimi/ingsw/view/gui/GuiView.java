@@ -150,7 +150,7 @@ public class GuiView extends View {
 
     @Override
     public void processAck(Ack ack) {
-        askCommand();
+        Platform.runLater(() -> SceneController.changeScene(this, "playerBoard_scene.fxml"));
     }
 
     @Override
