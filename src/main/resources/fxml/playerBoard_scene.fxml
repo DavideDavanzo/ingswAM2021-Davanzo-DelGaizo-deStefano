@@ -56,15 +56,15 @@
                   <ImageView fx:id="shelf3pos1" fitHeight="22.0" fitWidth="27.0" layoutX="37.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="shelf3pos2" fitHeight="22.0" fitWidth="27.0" layoutX="65.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="shelf3pos3" fitHeight="22.0" fitWidth="27.0" layoutX="93.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot1lvl3" fitHeight="140.0" fitWidth="95.0" layoutX="237.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot1lvl1" fitHeight="140.0" fitWidth="95.0" layoutX="237.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="slot1lvl2" fitHeight="147.0" fitWidth="96.0" layoutX="236.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot1lvl1" fitHeight="142.0" fitWidth="94.0" layoutX="237.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot2lvl3" fitHeight="141.0" fitWidth="93.0" layoutX="352.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot1lvl3" fitHeight="142.0" fitWidth="94.0" layoutX="237.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot2lvl1" fitHeight="141.0" fitWidth="93.0" layoutX="352.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="slot2lvl2" fitHeight="148.0" fitWidth="98.0" layoutX="351.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot2lvl1" fitHeight="140.0" fitWidth="95.0" layoutX="352.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot3lvl3" fitHeight="143.0" fitWidth="97.0" layoutX="470.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot2lvl3" fitHeight="140.0" fitWidth="95.0" layoutX="352.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot3lvl1" fitHeight="143.0" fitWidth="97.0" layoutX="470.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="slot3lvl2" fitHeight="139.0" fitWidth="94.0" layoutX="471.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="slot3lvl1" fitHeight="141.0" fitWidth="96.0" layoutX="470.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="slot3lvl3" fitHeight="141.0" fitWidth="96.0" layoutX="470.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="shieldCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="95.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="stoneCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="93.0" layoutY="316.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fx:id="coinCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="40.0" layoutY="283.0" pickOnBounds="true" preserveRatio="true" />

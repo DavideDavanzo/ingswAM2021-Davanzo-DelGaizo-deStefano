@@ -41,23 +41,23 @@ public class PlayerDevAreaSceneController implements GenericSceneController{
         Stack<DevelopmentCard> thirdStack = gui.getClientModel().getDevelopmentCardsArea().getThirdStack();
         if(!firstStack.isEmpty()){
             firstSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(0).getId() + ".png"))));
-            if(firstStack.get(1) != null)
+            if(firstStack.size() >= 2)
                 firstSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(1).getId() + ".png"))));
-            if(firstStack.get(2) != null)
+            if(firstStack.size() == 3)
                 firstSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(2).getId() + ".png"))));
         }
         if(!secondStack.isEmpty()){
             secondSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(0).getId() + ".png"))));
-            if(secondStack.get(1) != null)
+            if(secondStack.size() >= 2)
                 secondSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(1).getId() + ".png"))));
-            if(secondStack.get(2) != null)
+            if(secondStack.size() == 3)
                 secondSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(2).getId() + ".png"))));
         }
         if(!thirdStack.isEmpty()){
             thirdSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(0).getId() + ".png"))));
-            if(thirdStack.get(1) != null)
+            if(thirdStack.size() >= 2)
                 thirdSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(1).getId() + ".png"))));
-            if(thirdStack.get(2) != null)
+            if(thirdStack.size() == 3)
                 thirdSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(2).getId() + ".png"))));
         }
         firstDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstSlotClick);

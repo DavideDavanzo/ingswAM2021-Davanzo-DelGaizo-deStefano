@@ -71,7 +71,6 @@ public class SharedAreaSceneController implements GenericSceneController {
     public void setMarketImages() {
 
         for(int i = 0; i < 4; i++) {
-
             for(int j = 0; j < 3; j++) {
 
                 ImageView imageView = (ImageView) gridPane.getChildren().get(j * 4 + i);
@@ -87,7 +86,6 @@ public class SharedAreaSceneController implements GenericSceneController {
     public void setCardMarketImages() {
 
         for(int i = 0; i < 4; i++) {
-
             for(int j = 0; j < 3; j++) {
 
                 Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getCardMarket().getDecks()[j][i].getCards().peek().getId() + ".png")));

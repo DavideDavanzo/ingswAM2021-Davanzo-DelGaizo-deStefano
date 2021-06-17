@@ -98,9 +98,6 @@ public class PlayerBoardSceneController implements GenericSceneController{
         servantOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantOutputClick);
         shelvesToSwitch = new ArrayList<>();
         productionStacks = new ArrayList<>();
-        baseProduction = new Trade();
-        baseProduction.setInput(new ArrayList<>());
-        baseProduction.setOutput(new ArrayList<>());
     }
 
     private void initWareHouse(){
@@ -181,27 +178,27 @@ public class PlayerBoardSceneController implements GenericSceneController{
         Stack<DevelopmentCard> secondStack = gui.getClientModel().getDevelopmentCardsArea().getSecondStack();
         Stack<DevelopmentCard> thirdStack = gui.getClientModel().getDevelopmentCardsArea().getThirdStack();
         if(!firstStack.isEmpty()){
-            slot1lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(0).getId() + ".png"))));
-            if(firstStack.get(1) != null)
-                slot1lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(1).getId() + ".png"))));
-            if(firstStack.get(2) != null)
-                slot1lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(2).getId() + ".png"))));
+            slot1lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstStack.get(0).getId() + ".png"))));
+            if(firstStack.size() >= 2)
+                slot1lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstStack.get(1).getId() + ".png"))));
+            if(firstStack.size() == 3)
+                slot1lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstStack.get(2).getId() + ".png"))));
             firstStackButton.setDisable(false);
         }
         if(!secondStack.isEmpty()){
-            slot2lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(0).getId() + ".png"))));
-            if(secondStack.get(1) != null)
-                slot2lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(1).getId() + ".png"))));
-            if(secondStack.get(2) != null)
-                slot2lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(2).getId() + ".png"))));
+            slot2lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + secondStack.get(0).getId() + ".png"))));
+            if(secondStack.size() >= 2)
+                slot2lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + secondStack.get(1).getId() + ".png"))));
+            if(secondStack.size() == 3)
+                slot2lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + secondStack.get(2).getId() + ".png"))));
             secondStackButton.setDisable(false);
         }
         if(!thirdStack.isEmpty()){
-            slot3lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(0).getId() + ".png"))));
-            if(thirdStack.get(1) != null)
-                slot3lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(1).getId() + ".png"))));
-            if(thirdStack.get(2) != null)
-                slot3lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(2).getId() + ".png"))));
+            slot3lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(0).getId() + ".png"))));
+            if(thirdStack.size() >= 2)
+                slot3lvl2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(1).getId() + ".png"))));
+            if(thirdStack.size() == 3)
+                slot3lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(2).getId() + ".png"))));
             thirdStackButton.setDisable(false);
         }
     }
@@ -250,24 +247,27 @@ public class PlayerBoardSceneController implements GenericSceneController{
         activateProductionButton.setDisable(false);
         productionStacks.add(1);
         firstStackButton.setDisable(true);
-        firstStackButton.setOpacity(0.5);
+        firstStackButton.setOpacity(0.6);
     }
 
     public void secondStackClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(2);
         secondStackButton.setDisable(true);
-        secondStackButton.setOpacity(0.5);
+        secondStackButton.setOpacity(0.6);
     }
 
     public void thirdStackClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(3);
         thirdStackButton.setDisable(true);
-        thirdStackButton.setOpacity(0.5);
+        thirdStackButton.setOpacity(0.6);
     }
 
     public void baseProductionClick(Event event){
+        baseProduction = new Trade();
+        baseProduction.setInput(new ArrayList<>());
+        baseProduction.setOutput(new ArrayList<>());
         //mainAnchorPane.setDisable(true);
         baseProductionAnchorPane.setDisable(false);
         baseProductionAnchorPane.setVisible(true);

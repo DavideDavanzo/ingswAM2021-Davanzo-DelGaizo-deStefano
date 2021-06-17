@@ -80,7 +80,7 @@ public class StockResourcesSceneController implements GenericSceneController{
         //set images and buttons of optional extra shelves
         if(numExtraShelves>0) {
             LeaderCard firstExtraLeader = (LeaderCard) gui.getClientModel().getLeaderCards().stream().filter(l -> l.isActive() && l.getEffect() instanceof ExtraShelfEffect).toArray()[0];
-            ((ImageView) leadersGridPane.getChildren().get(0)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstExtraLeader.getId() + ".png"))));
+            ((ImageView) leadersGridPane.getChildren().get(0)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstExtraLeader.getId() + ".png"))));
             firstExtraButton.setDisable(false);
             firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToFirstExtra);
             if(!gui.getClientModel().getWarehouse().getExtraShelves().get(0).isEmpty()){
@@ -91,7 +91,7 @@ public class StockResourcesSceneController implements GenericSceneController{
         }
         if(numExtraShelves>1) {
             LeaderCard secondExtraLeader = (LeaderCard) gui.getClientModel().getLeaderCards().stream().filter(l -> l.isActive() && l.getEffect() instanceof ExtraShelfEffect).toArray()[1];
-            ((ImageView) leadersGridPane.getChildren().get(1)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondExtraLeader.getId() + ".png"))));
+            ((ImageView) leadersGridPane.getChildren().get(1)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + secondExtraLeader.getId() + ".png"))));
             secondExtraButton.setDisable(false);
             secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::addToSecondExtra);
             if(!gui.getClientModel().getWarehouse().getExtraShelves().get(1).isEmpty()){
