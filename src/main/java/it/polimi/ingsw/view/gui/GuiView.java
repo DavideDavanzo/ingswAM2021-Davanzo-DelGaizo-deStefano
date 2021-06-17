@@ -165,17 +165,17 @@ public class GuiView extends View {
 
     @Override
     public void disconnect() {
-
+        socketHandler.disconnect();
     }
 
     @Override
     public void updateActiveLeader(int index) {
-
+        clientModel.getLeaderCards().get(index).setActive(true);
     }
 
     @Override
     public void updateLeaderCards(LinkedList<LeaderCard> leaderCards) {
-
+        clientModel.setLeaderCards(leaderCards);
     }
 
     @Override

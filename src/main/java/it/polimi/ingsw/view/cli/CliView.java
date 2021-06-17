@@ -830,19 +830,20 @@ public class CliView extends View {
         sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
+    //TODO: finish askToChangeWhiteMarbles()
     @Override
     public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
-        System.out.println();
-        System.out.println();
+        System.out.println("You have multiple active leader cards with extra marble effect");
+        System.out.println("For each of the " + count + " white marble(s) taken choose one of these resources:");
         int i=1;
         for (Item item : items){
-            System.out.println();       //TODO: finish askToChangeWhiteMarbles()
+            System.out.println((i++) + " -> " + item.print());
         }
         int temp = 0;
         ArrayList<Item> choices = new ArrayList<>();
         for(i=0; i<count; i++){
             do{
-                System.out.println();
+                System.out.println(i==0?"first marble -> ":"second marble -> ");
                 try {
                     while(stdIn.ready())
                         stdIn.readLine();
