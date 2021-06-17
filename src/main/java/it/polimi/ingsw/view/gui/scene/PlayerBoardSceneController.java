@@ -15,6 +15,7 @@ import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -45,6 +46,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private ImageView slot1lvl1, slot1lvl2, slot1lvl3, slot2lvl1, slot2lvl2, slot2lvl3, slot3lvl1,slot3lvl2,slot3lvl3;
     @FXML
     private ImageView coinCoffer, shieldCoffer, servantCoffer, stoneCoffer;
+    @FXML
+    private ImageView firstInputImageView, secondInputImageView, outputImageView;
     @FXML
     private Label coinCofferVolume, shieldCofferVolume, servantCofferVolume, stoneCofferVolume;
     @FXML
@@ -265,7 +268,6 @@ public class PlayerBoardSceneController implements GenericSceneController{
     }
 
     public void baseProductionClick(Event event){
-        activateProductionButton.setDisable(false);
         //mainAnchorPane.setDisable(true);
         baseProductionAnchorPane.setDisable(false);
         baseProductionAnchorPane.setVisible(true);
@@ -273,74 +275,62 @@ public class PlayerBoardSceneController implements GenericSceneController{
 
     public void coinInputClick(Event event){
         baseProduction.getInput().add(new Coin(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        if(baseProduction.getInput().size() == 1)
+            firstInputImageView.setImage(new Image("/images/resources/coin.png"));
+        else
+            secondInputImageView.setImage(new Image("/images/resources/coin.png"));
+        handleBaseInputClick();
     }
 
     public void shieldInputClick(Event event){
         baseProduction.getInput().add(new Shield(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        if(baseProduction.getInput().size() == 1)
+            firstInputImageView.setImage(new Image("/images/resources/shield.png"));
+        else
+            secondInputImageView.setImage(new Image("/images/resources/shield.png"));
+        handleBaseInputClick();
     }
 
     public void stoneInputClick(Event event){
         baseProduction.getInput().add(new Stone(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        if(baseProduction.getInput().size() == 1)
+            firstInputImageView.setImage(new Image("/images/resources/stone.png"));
+        else
+            secondInputImageView.setImage(new Image("/images/resources/stone.png"));
+        handleBaseInputClick();
     }
 
     public void servantInputClick(Event event){
         baseProduction.getInput().add(new Servant(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        if(baseProduction.getInput().size() == 1)
+            firstInputImageView.setImage(new Image("/images/resources/servant.png"));
+        else
+            secondInputImageView.setImage(new Image("/images/resources/servant.png"));
+        handleBaseInputClick();
     }
 
     public void coinOutputClick(Event event){
         baseProduction.getOutput().add(new Coin(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        outputImageView.setImage(new Image("/images/resources/coin.png"));
+        handleBaseOutputClick();
     }
 
     public void shieldOutputClick(Event event){
         baseProduction.getOutput().add(new Shield(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        outputImageView.setImage(new Image("/images/resources/shield.png"));
+        handleBaseOutputClick();
     }
 
     public void stoneOutputClick(Event event){
         baseProduction.getOutput().add(new Stone(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        outputImageView.setImage(new Image("/images/resources/stone.png"));
+        handleBaseOutputClick();
     }
 
     public void servantOutputClick(Event event){
         baseProduction.getOutput().add(new Servant(1));
-        if(baseProduction.getInput().size() == 2 && baseProduction.getOutput().size() == 1) {
-            baseProductionAnchorPane.setDisable(true);
-            baseProductionAnchorPane.setVisible(false);
-            mainAnchorPane.setDisable(false);
-        }
+        outputImageView.setImage(new Image("/images/resources/servant.png"));
+        handleBaseOutputClick();
     }
 
     public void activateProduction(Event event){
@@ -350,6 +340,42 @@ public class PlayerBoardSceneController implements GenericSceneController{
     public void backButtonClick(Event event){
         backButton.setDisable(true);
         Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
+    }
+
+    private void handleBaseInputClick(){
+        if(baseProduction.getInput().size() == 2) {
+            coinInputButton.setDisable(true);
+            shieldInputButton.setDisable(true);
+            stoneInputButton.setDisable(true);
+            servantInputButton.setDisable(true);
+            for(Node node : baseInputGridPane.getChildren()){
+                node.setOpacity(0.5);
+            }
+            if(baseProduction.getOutput().size() == 1) {
+                baseProductionAnchorPane.setDisable(true);
+                baseProductionAnchorPane.setVisible(false);
+                mainAnchorPane.setDisable(false);
+                activateProductionButton.setDisable(false);
+            }
+        }
+    }
+
+    private void handleBaseOutputClick(){
+        if(baseProduction.getOutput().size() == 1) {
+            coinOutputButton.setDisable(true);
+            shieldOutputButton.setDisable(true);
+            stoneOutputButton.setDisable(true);
+            servantOutputButton.setDisable(true);
+            for(Node node : baseOutputGridPane.getChildren()){
+                node.setOpacity(0.5);
+            }
+            if(baseProduction.getInput().size() == 2) {
+                baseProductionAnchorPane.setDisable(true);
+                baseProductionAnchorPane.setVisible(false);
+                mainAnchorPane.setDisable(false);
+                activateProductionButton.setDisable(false);
+            }
+        }
     }
 
     @Override
