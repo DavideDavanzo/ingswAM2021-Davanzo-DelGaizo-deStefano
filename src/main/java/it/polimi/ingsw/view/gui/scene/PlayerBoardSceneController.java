@@ -14,10 +14,12 @@ import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -56,6 +58,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private AnchorPane mainAnchorPane, baseProductionAnchorPane;
     @FXML
     private GridPane baseInputGridPane, baseOutputGridPane;
+    @FXML
+    private Tab otherBoard1, otherBoard2, otherBoard3;
 
     public void initialize() {
         Platform.runLater(this::initAll);
@@ -96,6 +100,12 @@ public class PlayerBoardSceneController implements GenericSceneController{
         shieldOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldOutputClick);
         stoneOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneOutputClick);
         servantOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantOutputClick);
+        otherBoard1.setOnSelectionChanged(new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                askForOtherPlayerboard();
+            }
+        });
         shelvesToSwitch = new ArrayList<>();
         productionStacks = new ArrayList<>();
     }
@@ -201,6 +211,9 @@ public class PlayerBoardSceneController implements GenericSceneController{
                 slot3lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(2).getId() + ".png"))));
             thirdStackButton.setDisable(false);
         }
+    }
+
+    public void askForOtherPlayerboard(){
     }
 
     public void switchFirstShelf(Event event){

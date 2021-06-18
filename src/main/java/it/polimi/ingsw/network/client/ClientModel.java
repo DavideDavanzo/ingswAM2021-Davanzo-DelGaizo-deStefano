@@ -31,6 +31,14 @@ public class ClientModel {
         myTurn = false;
     }
 
+    public ClientModel(LinkedList<LeaderCard> leaderCards, Warehouse warehouse, Coffer coffer, Path path, DevelopmentCardsArea developmentCardsArea){
+        this.leaderCards = leaderCards;
+        this.warehouse = warehouse;
+        this.coffer = coffer;
+        this.faithTrack = path;
+        this.developmentCardsArea = developmentCardsArea;
+    }
+
     public LinkedList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }

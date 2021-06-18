@@ -27,6 +27,8 @@ public abstract class View extends Observable implements Observer {
 
     protected ClientModel clientModel;
 
+    protected ClientModel otherPlayerClientModel;
+
     public abstract void start();
 
     public abstract void login();
@@ -141,4 +143,11 @@ public abstract class View extends Observable implements Observer {
         return clientModel;
     }
 
+    public ClientModel getOtherPlayerClientModel(){
+        return otherPlayerClientModel;
+    }
+
+    public void setOtherPlayerClientModel(ClientModel otherPlayerClientModel) {
+        this.otherPlayerClientModel = otherPlayerClientModel;
+    }
 }

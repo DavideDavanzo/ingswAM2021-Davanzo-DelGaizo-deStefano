@@ -1,9 +1,10 @@
 package it.polimi.ingsw.controller.gameState;
 
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.controller.GameController;
-import it.polimi.ingsw.view.VirtualView;
 
 public class GameState {
 
@@ -80,6 +81,11 @@ public class GameState {
     public void process(Disconnection disconnection) {
         gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
         gameController.getVirtualViewMap().get(disconnection.getUsername()).disconnect();
+    }
+
+    public void process(OtherPlayerInfosRequest otherPlayerInfosRequest){
+        Player otherPlayer = gameController.getPlayers().stream().filter(p -> p.getNickname().equals(otherPlayerInfosRequest.getOtherUsername())).findAny().get();
+        gameController.getVirtualViewMap().get(otherPlayerInfosRequest.getUsername()).sendMessage(new OtherPlayerInfosReply(otherPlayer.getWarehouse(), otherPlayer.getPlayerBoard().getCoffer(), otherPlayer.getPlayerBoard().getPath(), otherPlayer.getPlayerBoard().getDevelopmentCardsArea(), otherPlayer.getLeaderCards()));
     }
 
     public void nextState() {

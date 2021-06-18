@@ -239,11 +239,11 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab text="Player 1 board">
+    <Tab fx:id="otherBoard1" text="Player 1 board">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="143.0" fitWidth="200.0">
+                  <ImageView fitHeight="371.0" fitWidth="600.0">
                      <image>
                         <Image url="@../images/Masters of Renaissance_PlayerBoard (11_2020)-1.png" />
                      </image>
@@ -251,11 +251,11 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab text="Player 2 board">
+      <Tab fx:id="otherBoard2" text="Player 2 board">
           <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="143.0" fitWidth="200.0">
+                  <ImageView fitHeight="371.0" fitWidth="600.0">
                      <image>
                         <Image url="@../images/Masters of Renaissance_PlayerBoard (11_2020)-1.png" />
                      </image>
@@ -263,11 +263,11 @@
                </children></AnchorPane>
           </content>
       </Tab>
-      <Tab text="Player 3 board">
+      <Tab fx:id="otherBoard3" text="Player 3 board">
           <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="143.0" fitWidth="200.0">
+                  <ImageView fitHeight="371.0" fitWidth="600.0">
                      <image>
                         <Image url="@../images/Masters of Renaissance_PlayerBoard (11_2020)-1.png" />
                      </image>

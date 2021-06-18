@@ -229,6 +229,7 @@ public class CliView extends View {
         System.out.println("lc -> my leader cards");
         System.out.println("m -> market");
         System.out.println("cm -> card market");
+        System.out.println("op -> other player's board");
         System.out.println("exit -> return to main commands");
 
         String cmd;
@@ -286,6 +287,9 @@ public class CliView extends View {
                     System.out.println("Cards market:");
                     System.out.println(clientModel.getCardMarket().print());
                     break;
+                case "op":
+                    askOtherPlayerInfo();
+                    break;
                 case "exit" :
                     break;
                 default:
@@ -294,6 +298,29 @@ public class CliView extends View {
             }
         } catch (IOException e){
             e.printStackTrace();
+        }
+    }
+
+    //TODO: validate other username, sendMessage only if it exists in clientModel
+    private synchronized void askOtherPlayerInfo(){
+        System.out.println("Which player would you like to see the board of? Type his/her username:");
+        try {
+            sendMessage(new OtherPlayerInfosRequest(stdIn.readLine()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            wait(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(otherPlayerClientModel.getWarehouse().print());
+        System.out.println(otherPlayerClientModel.getCoffer().print());
+        System.out.println(otherPlayerClientModel.getFaithTrack().print());
+        System.out.println(otherPlayerClientModel.getDevelopmentCardsArea().print());
+        for(LeaderCard leaderCard : otherPlayerClientModel.getLeaderCards()){
+            if(leaderCard.isActive())
+                System.out.println(leaderCard.print());
         }
     }
 
