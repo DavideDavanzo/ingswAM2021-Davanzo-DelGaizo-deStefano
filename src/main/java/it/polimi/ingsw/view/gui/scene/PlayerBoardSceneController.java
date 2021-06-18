@@ -43,6 +43,9 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private ImageView pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, pos11, pos12, pos13, pos14, pos15, pos16, pos17, pos18, pos19, pos20, pos21, pos22, pos23, pos24;
     private ImageView[] positions = new ImageView[25];
     @FXML
+    private ImageView blackCrossStart, pos110, pos25, pos31, pos41, pos51, pos61, pos71, pos81, pos91, pos101, pos111, pos121, pos131, pos141, pos151, pos161, pos171, pos181, pos191, pos201, pos211, pos221, pos231, pos241;
+    private ImageView[] position = new ImageView[25];
+    @FXML
     private ImageView shelf1, shelf2pos1, shelf2pos2, shelf3pos1, shelf3pos2, shelf3pos3;
     @FXML
     private ImageView slot1lvl1, slot1lvl2, slot1lvl3, slot2lvl1, slot2lvl2, slot2lvl3, slot3lvl1,slot3lvl2,slot3lvl3;
@@ -50,6 +53,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private ImageView coinCoffer, shieldCoffer, servantCoffer, stoneCoffer;
     @FXML
     private ImageView firstInputImageView, secondInputImageView, outputImageView;
+    @FXML
+    private ImageView tokenBack;
     @FXML
     private Label coinCofferVolume, shieldCofferVolume, servantCofferVolume, stoneCofferVolume;
     @FXML
@@ -70,6 +75,10 @@ public class PlayerBoardSceneController implements GenericSceneController{
         initWareHouse();
         initCoffer();
         initDevCards();
+        if(gui.getClientModel().isSinglePlayer()) {
+            tokenBack.setImage(new Image(getClass().getResourceAsStream("/images/soloMatch/back_circle.png")));
+            initLorenzoTrack();
+        }
         if(!gui.getClientModel().isMyTurn()){
             firstShelfButton.setDisable(true);
             secondShelfButton.setDisable(true);
@@ -181,6 +190,36 @@ public class PlayerBoardSceneController implements GenericSceneController{
             popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
         else popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
 
+    }
+
+    private void initLorenzoTrack(){
+        position[0] = blackCrossStart;
+        position[1] = pos110;
+        position[2] = pos25;
+        position[3] = pos31;
+        position[4] = pos41;
+        position[5] = pos51;
+        position[6] = pos61;
+        position[7] = pos71;
+        position[8] = pos81;
+        position[9] = pos91;
+        position[10] = pos101;
+        position[11] = pos111;
+        position[12] = pos121;
+        position[13] = pos131;
+        position[14] = pos141;
+        position[15] = pos151;
+        position[16] = pos161;
+        position[17] = pos171;
+        position[18] = pos181;
+        position[19] = pos191;
+        position[20] = pos201;
+        position[21] = pos211;
+        position[22] = pos221;
+        position[23] = pos231;
+        position[24] = pos241;
+
+        position[gui.getClientModel().getLorenzoIlMagnifico().getBlackCrossPosition()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/croce.png"))));
     }
 
     public void initDevCards(){

@@ -236,6 +236,32 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
+                  <ImageView fx:id="tokenBack" fitHeight="67.0" fitWidth="68.0" layoutX="1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="blackCrossStart" fitHeight="28.0" fitWidth="24.0" layoutX="2.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos110" fitHeight="21.0" fitWidth="25.0" layoutX="53.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos25" fitHeight="21.0" fitWidth="25.0" layoutX="83.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos31" fitHeight="21.0" fitWidth="25.0" layoutX="83.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos41" fitHeight="21.0" fitWidth="25.0" layoutX="85.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos51" fitHeight="21.0" fitWidth="25.0" layoutX="112.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos61" fitHeight="21.0" fitWidth="25.0" layoutX="140.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos71" fitHeight="21.0" fitWidth="25.0" layoutX="171.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos81" fitHeight="21.0" fitWidth="25.0" layoutX="202.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos91" fitHeight="21.0" fitWidth="25.0" layoutX="228.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos101" fitHeight="21.0" fitWidth="25.0" layoutX="228.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos111" fitHeight="21.0" fitWidth="25.0" layoutX="228.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos121" fitHeight="21.0" fitWidth="25.0" layoutX="260.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos131" fitHeight="21.0" fitWidth="25.0" layoutX="288.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos141" fitHeight="21.0" fitWidth="25.0" layoutX="317.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos151" fitHeight="21.0" fitWidth="25.0" layoutX="347.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos161" fitHeight="21.0" fitWidth="25.0" layoutX="376.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos171" fitHeight="21.0" fitWidth="25.0" layoutX="377.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos181" fitHeight="21.0" fitWidth="25.0" layoutX="377.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos191" fitHeight="21.0" fitWidth="25.0" layoutX="406.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos201" fitHeight="21.0" fitWidth="25.0" layoutX="437.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos211" fitHeight="21.0" fitWidth="25.0" layoutX="465.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos221" fitHeight="21.0" fitWidth="25.0" layoutX="493.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos231" fitHeight="21.0" fitWidth="25.0" layoutX="523.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="pos241" fitHeight="21.0" fitWidth="25.0" layoutX="553.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
                </children></AnchorPane>
       </content>
     </Tab>

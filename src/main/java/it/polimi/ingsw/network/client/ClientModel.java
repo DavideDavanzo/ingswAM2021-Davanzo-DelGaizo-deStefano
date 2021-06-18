@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
@@ -21,6 +22,9 @@ public class ClientModel {
     private Market market;
     private CardMarket cardMarket;
     private boolean myTurn;
+    private LorenzoIlMagnifico lorenzoIlMagnifico;
+    private boolean singlePlayer;
+
 
     public ClientModel(){
         leaderCards = new LinkedList<>();
@@ -29,6 +33,8 @@ public class ClientModel {
         faithTrack = new Path();
         developmentCardsArea = new DevelopmentCardsArea();
         myTurn = false;
+        lorenzoIlMagnifico = new LorenzoIlMagnifico();
+
     }
 
     public ClientModel(LinkedList<LeaderCard> leaderCards, Warehouse warehouse, Coffer coffer, Path path, DevelopmentCardsArea developmentCardsArea){
@@ -67,6 +73,10 @@ public class ClientModel {
         return cardMarket;
     }
 
+    public LorenzoIlMagnifico getLorenzoIlMagnifico() {
+        return lorenzoIlMagnifico;
+    }
+
     public void setLeaderCards(LinkedList<LeaderCard> leaderCards){
         this.leaderCards = leaderCards;
     }
@@ -81,6 +91,15 @@ public class ClientModel {
 
     public void updateDevCardsArea(DevelopmentCardsArea developmentCardsArea){
         this.developmentCardsArea = developmentCardsArea;
+    }
+
+
+    public void setSinglePlayer(boolean singlePlayer) {
+        this.singlePlayer = singlePlayer;
+    }
+
+    public boolean isSinglePlayer() {
+        return singlePlayer;
     }
 
     public synchronized void updateFaithTrack(Path path){
