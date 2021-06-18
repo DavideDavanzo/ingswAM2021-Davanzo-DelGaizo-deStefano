@@ -1,7 +1,6 @@
 package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.view.gui.GuiView;
 import javafx.event.Event;
 import javafx.fxml.FXML;
