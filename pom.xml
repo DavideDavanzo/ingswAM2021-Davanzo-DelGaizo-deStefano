@@ -51,12 +51,6 @@
       <version>RELEASE</version>
       <scope>test</scope>
     </dependency>
-      <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter-api</artifactId>
-          <version>5.8.0-M1</version>
-          <scope>compile</scope>
-      </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -117,6 +111,15 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <addClasspath>true</addClasspath>
+                <classpathPrefix>lib/</classpathPrefix>
+                <mainClass>it.polimi.ingsw.Launcher</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -150,38 +153,6 @@
           <artifactId>maven-shade-plugin</artifactId>
           <version>3.2.0</version>
           <executions>
-            <execution>
-              <id>client-jar</id>
-              <phase>package</phase>
-              <goals>
-                <goal>shade</goal>
-              </goals>
-              <configuration>
-                <shadedArtifactAttached>true</shadedArtifactAttached>
-                <shadedClassifierName>project-classifier</shadedClassifierName>
-                <transformers>
-                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                    <mainClass>it.polimi.ingsw.network.client.Client</mainClass>
-                  </transformer>
-                </transformers>
-              </configuration>
-            </execution>
-            <execution>
-              <id>server-jar</id>
-              <phase>package</phase>
-              <goals>
-                <goal>shade</goal>
-              </goals>
-              <configuration>
-                <shadedArtifactAttached>true</shadedArtifactAttached>
-                <shadedClassifierName>project-classifier</shadedClassifierName>
-                <transformers>
-                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                    <mainClass>it.polimi.ingsw.network.server.Server</mainClass>
-                  </transformer>
-                </transformers>
-              </configuration>
-            </execution>
             <execution>
               <id>gui-jar</id>
               <phase>package</phase>

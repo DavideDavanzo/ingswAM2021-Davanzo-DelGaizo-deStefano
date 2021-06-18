@@ -25,6 +25,17 @@ public class CommandSceneController implements GenericSceneController {
     @FXML
     private Button quitButton;
 
+    @FXML
+    private Button leaderButton;
+
+    public void initialize() {
+        sharedAreaButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::sharedAreaButtonClick);
+        yourBoardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::yourBoardButtonClick);
+        passTurnButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::passTurnButtonClick);
+        quitButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::quitButtonClick);
+        leaderButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leaderButtonClick);
+    }
+
     public void sharedAreaButtonClick(Event event) {
         SharedAreaSceneController sAsC = new SharedAreaSceneController();
         sAsC.setGui(gui);
@@ -46,6 +57,10 @@ public class CommandSceneController implements GenericSceneController {
     public void quitButtonClick(Event event) {
         gui.disconnect();
         Platform.runLater(() -> SceneController.changeScene(gui, "menu_scene.fxml", () -> System.exit(0)));
+    }
+
+    public void leaderButtonClick(Event event) {
+        Platform.runLater(() -> SceneController.changeScene(gui, "yourLeader_scene.fxml"));
     }
 
     @Override
