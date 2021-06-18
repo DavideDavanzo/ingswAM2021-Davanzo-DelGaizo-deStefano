@@ -130,10 +130,10 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (firstStack.isEmpty()) {
-            stringBuilder.append("this is your first deck: there are no cards in this deck\n");
+            stringBuilder.append("first deck: there are no cards in this deck\n");
         }
         else {
-            stringBuilder.append("this is your first deck: \n");
+            stringBuilder.append("first deck: \n");
             stringBuilder.append("\n");
             for (int i = 0; i < firstStack.size() - 1; i++)
                 stringBuilder.append(ECardColor.getColorMap().get(firstStack.get(i).getColor()).escape() + "╔═════════" + Color.ANSI_WHITE.escape());
@@ -164,10 +164,10 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
             stringBuilder.append("\n");
         }
             if (secondStack.isEmpty()) {
-                stringBuilder.append("this is your second deck: there are no cards in this deck\n");
+                stringBuilder.append("second deck: there are no cards in this deck\n");
             }
             else {
-                stringBuilder.append("this is your second deck:\n");
+                stringBuilder.append("second deck:\n");
                 for (int i = 0; i < secondStack.size() - 1; i++)
                     stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "╔═════════" + Color.ANSI_WHITE.escape());
                 stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
@@ -195,9 +195,9 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
             }
 
             if (thirdStack.isEmpty())
-                stringBuilder.append("this is your third deck: there are no cards in this deck\n");
+                stringBuilder.append("third deck: there are no cards in this deck\n");
             else {
-                stringBuilder.append("this is your third deck:\n");
+                stringBuilder.append("third deck:\n");
                     for (int i = 0; i < thirdStack.size() - 1; i++)
                     stringBuilder.append(ECardColor.getColorMap().get(thirdStack.get(i).getColor()).escape() + "╔═════════" + Color.ANSI_WHITE.escape());
                     stringBuilder.append(ECardColor.getColorMap().get(thirdStack.peek().getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
