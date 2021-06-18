@@ -276,60 +276,60 @@ public class PlayerBoardSceneController implements GenericSceneController{
     public void coinInputClick(Event event){
         baseProduction.getInput().add(new Coin(1));
         if(baseProduction.getInput().size() == 1)
-            firstInputImageView.setImage(new Image("/images/resources/coin.png"));
+            firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/coin.png"))));
         else
-            secondInputImageView.setImage(new Image("/images/resources/coin.png"));
+            secondInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/coin.png"))));
         handleBaseInputClick();
     }
 
     public void shieldInputClick(Event event){
         baseProduction.getInput().add(new Shield(1));
         if(baseProduction.getInput().size() == 1)
-            firstInputImageView.setImage(new Image("/images/resources/shield.png"));
+            firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
         else
-            secondInputImageView.setImage(new Image("/images/resources/shield.png"));
+            secondInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
         handleBaseInputClick();
     }
 
     public void stoneInputClick(Event event){
         baseProduction.getInput().add(new Stone(1));
         if(baseProduction.getInput().size() == 1)
-            firstInputImageView.setImage(new Image("/images/resources/stone.png"));
+            firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
         else
-            secondInputImageView.setImage(new Image("/images/resources/stone.png"));
+            secondInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
         handleBaseInputClick();
     }
 
     public void servantInputClick(Event event){
         baseProduction.getInput().add(new Servant(1));
         if(baseProduction.getInput().size() == 1)
-            firstInputImageView.setImage(new Image("/images/resources/servant.png"));
+            firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
         else
-            secondInputImageView.setImage(new Image("/images/resources/servant.png"));
+            secondInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
         handleBaseInputClick();
     }
 
     public void coinOutputClick(Event event){
         baseProduction.getOutput().add(new Coin(1));
-        outputImageView.setImage(new Image("/images/resources/coin.png"));
+        outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/coin.png"))));
         handleBaseOutputClick();
     }
 
     public void shieldOutputClick(Event event){
         baseProduction.getOutput().add(new Shield(1));
-        outputImageView.setImage(new Image("/images/resources/shield.png"));
+        outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
         handleBaseOutputClick();
     }
 
     public void stoneOutputClick(Event event){
         baseProduction.getOutput().add(new Stone(1));
-        outputImageView.setImage(new Image("/images/resources/stone.png"));
+        outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
         handleBaseOutputClick();
     }
 
     public void servantOutputClick(Event event){
         baseProduction.getOutput().add(new Servant(1));
-        outputImageView.setImage(new Image("/images/resources/servant.png"));
+        outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
         handleBaseOutputClick();
     }
 

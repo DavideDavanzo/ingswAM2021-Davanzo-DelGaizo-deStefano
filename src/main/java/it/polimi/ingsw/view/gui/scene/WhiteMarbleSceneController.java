@@ -65,7 +65,7 @@ public class WhiteMarbleSceneController implements GenericSceneController {
         }
 
         for(Node node : whiteMarblesGridPane.getChildren()){
-            ((ImageView) node).setImage(new Image("/images/marbles/whitemarble.png"));
+            ((ImageView) node).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/marbles/whitemarble.png"))));
         }
 
         firstLeaderButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstLeaderClick);
