@@ -95,6 +95,10 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void disconnect();
 
+    public void showOtherPlayerClientModel(){
+
+    }
+
     @Override
     public void update(Warehouse warehouse){
         //do nothing

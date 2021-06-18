@@ -105,7 +105,7 @@ public class GuiView extends View {
 
     @Override
     public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
-
+        Platform.runLater(() -> SceneController.changeScene(this, "whiteMarbleEffect_scene.fxml"));
     }
 
     @Override

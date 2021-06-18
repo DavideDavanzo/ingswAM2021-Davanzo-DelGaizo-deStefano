@@ -309,11 +309,10 @@ public class CliView extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            wait(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    }
+
+    @Override
+    public void showOtherPlayerClientModel(){
         System.out.println(otherPlayerClientModel.getWarehouse().print());
         System.out.println(otherPlayerClientModel.getCoffer().print());
         System.out.println(otherPlayerClientModel.getFaithTrack().print());
