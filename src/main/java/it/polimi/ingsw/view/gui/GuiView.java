@@ -46,11 +46,6 @@ public class GuiView extends View {
 
     @Override
     public synchronized void askNumberOfPlayers() {
-        try {
-            wait(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         Platform.runLater(() -> SceneController.changeScene(this, "playersNumber_scene.fxml"));
     }
 
@@ -110,7 +105,7 @@ public class GuiView extends View {
 
     @Override
     public void chooseInfo() {
-        Platform.runLater(() -> SceneController.changeScene(this, "playerBoard_scene.fxml"));
+        Platform.runLater(() -> SceneController.changeScene(this, new PlayerBoardSceneController(clientModel), "playerBoard_scene.fxml"));
     }
 
     @Override
@@ -155,12 +150,7 @@ public class GuiView extends View {
 
     @Override
     public synchronized void processAck(Ack ack) {
-        try {
-            wait(300);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Platform.runLater(() -> SceneController.changeScene(this, "playerBoard_scene.fxml"));
+        Platform.runLater(() -> SceneController.changeScene(this, new PlayerBoardSceneController(clientModel), "playerBoard_scene.fxml"));
     }
 
     @Override
@@ -191,6 +181,11 @@ public class GuiView extends View {
     @Override
     public void showMessage(String msg) {
 
+    }
+
+    @Override
+    public void showOtherPlayerClientModel() {
+        Platform.runLater(() -> SceneController.changeScene(this, new PlayerBoardSceneController(otherPlayerClientModel), "playerBoard_scene.fxml"));
     }
 
     @Override

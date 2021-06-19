@@ -301,7 +301,6 @@ public class CliView extends View {
         }
     }
 
-    //TODO: validate other username, sendMessage only if it exists in clientModel
     private synchronized void askOtherPlayerInfo(){
         System.out.println("Which player would you like to see the board of? Type his/her username:");
         try {

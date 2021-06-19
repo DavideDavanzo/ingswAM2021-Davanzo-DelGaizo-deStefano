@@ -8,7 +8,9 @@ import it.polimi.ingsw.model.resources.Coin;
 import it.polimi.ingsw.model.resources.Servant;
 import it.polimi.ingsw.model.resources.Shield;
 import it.polimi.ingsw.model.resources.Stone;
+import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.messages.ActivateProductionCmd;
+import it.polimi.ingsw.network.messages.OtherPlayerInfosRequest;
 import it.polimi.ingsw.network.messages.SwitchShelvesCmd;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
@@ -34,11 +36,14 @@ import java.util.Stack;
 public class PlayerBoardSceneController implements GenericSceneController{
 
     private GuiView gui;
+    private ClientModel clientModel;
     private ArrayList<Integer> shelvesToSwitch;
     private ArrayList<Integer> productionStacks;
     private Trade baseProduction;
     @FXML
     private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton, firstStackButton, secondStackButton, thirdStackButton, baseProductionButton, activateProductionButton, coinInputButton, shieldInputButton, stoneInputButton, servantInputButton, coinOutputButton, shieldOutputButton, stoneOutputButton, servantOutputButton;
+    @FXML
+    private Button myBoardButton, otherBoard1Button, otherBoard2Button, otherBoard3Button;
     @FXML
     private ImageView pos0, pos1, pos2, pos3, pos4, pos5, pos6, pos7, pos8, pos9, pos10, pos11, pos12, pos13, pos14, pos15, pos16, pos17, pos18, pos19, pos20, pos21, pos22, pos23, pos24;
     private ImageView[] positions = new ImageView[25];
@@ -63,11 +68,15 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private AnchorPane mainAnchorPane, baseProductionAnchorPane;
     @FXML
     private GridPane baseInputGridPane, baseOutputGridPane;
-    @FXML
-    private Tab otherBoard1, otherBoard2, otherBoard3;
+
+    public PlayerBoardSceneController(){}
+
+    public PlayerBoardSceneController(ClientModel clientModel){
+        this.clientModel = clientModel;
+    }
 
     public void initialize() {
-        Platform.runLater(this::initAll);
+        initAll();
     }
 
     private void initAll() {
@@ -75,11 +84,11 @@ public class PlayerBoardSceneController implements GenericSceneController{
         initWareHouse();
         initCoffer();
         initDevCards();
-        if(gui.getClientModel().isSinglePlayer()) {
-            tokenBack.setImage(new Image(getClass().getResourceAsStream("/images/soloMatch/back_circle.png")));
+        if(clientModel.isSinglePlayer()) {
+            tokenBack.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/back_circle.png"))));
             initLorenzoTrack();
         }
-        if(!gui.getClientModel().isMyTurn()){
+        if(!clientModel.isMyTurn()){
             firstShelfButton.setDisable(true);
             secondShelfButton.setDisable(true);
             thirdShelfButton.setDisable(true);
@@ -91,6 +100,11 @@ public class PlayerBoardSceneController implements GenericSceneController{
             baseProductionButton.setDisable(true);
         }
         backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
+        if(!(clientModel == gui.getClientModel())){
+            disableAllButtons();
+            myBoardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::returnToMyBoard);
+            return;
+        } else myBoardButton.setDisable(true);
         firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstShelf);
         secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondShelf);
         thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchThirdShelf);
@@ -109,20 +123,17 @@ public class PlayerBoardSceneController implements GenericSceneController{
         shieldOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldOutputClick);
         stoneOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneOutputClick);
         servantOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantOutputClick);
-        otherBoard1.setOnSelectionChanged(new EventHandler<Event>() {
-            @Override
-            public void handle(Event event) {
-                askForOtherPlayerboard();
-            }
-        });
+        otherBoard1Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer2Infos);
+        otherBoard2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer3Infos);
+        otherBoard3Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer4Infos);
         shelvesToSwitch = new ArrayList<>();
         productionStacks = new ArrayList<>();
     }
 
     private void initWareHouse(){
-        Shelf firstShelf = gui.getClientModel().getWarehouse().getFirstShelf();
-        Shelf secondShelf = gui.getClientModel().getWarehouse().getSecondShelf();
-        Shelf thirdShelf = gui.getClientModel().getWarehouse().getThirdShelf();
+        Shelf firstShelf = clientModel.getWarehouse().getFirstShelf();
+        Shelf secondShelf = clientModel.getWarehouse().getSecondShelf();
+        Shelf thirdShelf = clientModel.getWarehouse().getThirdShelf();
         if(!firstShelf.isEmpty())
             shelf1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
         if(!secondShelf.isEmpty()){
@@ -144,7 +155,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         shieldCoffer.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
         stoneCoffer.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
         servantCoffer.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
-        Coffer coffer = gui.getClientModel().getCoffer();
+        Coffer coffer = clientModel.getCoffer();
         coinCofferVolume.setText(String.valueOf(coffer.getCoins().getVolume()));
         shieldCofferVolume.setText(String.valueOf(coffer.getShields().getVolume()));
         stoneCofferVolume.setText(String.valueOf(coffer.getStones().getVolume()));
@@ -178,15 +189,15 @@ public class PlayerBoardSceneController implements GenericSceneController{
         positions[23] = pos23;
         positions[24] = pos24;
 
-        positions[gui.getClientModel().getFaithTrack().getCurrentPositionAsInt()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png"))));
+        positions[clientModel.getFaithTrack().getCurrentPositionAsInt()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png"))));
 
-        if(gui.getClientModel().getFaithTrack().getPopeTokens().get(0).isFaceUp())
+        if(clientModel.getFaithTrack().getPopeTokens().get(0).isFaceUp())
             popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
         else popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato giallo.png"))));
-        if(gui.getClientModel().getFaithTrack().getPopeTokens().get(1).isFaceUp())
+        if(clientModel.getFaithTrack().getPopeTokens().get(1).isFaceUp())
             popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
         else popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato arancione.png"))));
-        if(gui.getClientModel().getFaithTrack().getPopeTokens().get(2).isFaceUp())
+        if(clientModel.getFaithTrack().getPopeTokens().get(2).isFaceUp())
             popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
         else popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
 
@@ -219,13 +230,13 @@ public class PlayerBoardSceneController implements GenericSceneController{
         position[23] = pos231;
         position[24] = pos241;
 
-        position[gui.getClientModel().getLorenzoIlMagnifico().getBlackCrossPosition()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/croce.png"))));
+        position[clientModel.getLorenzoIlMagnifico().getBlackCrossPosition()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/croce.png"))));
     }
 
     public void initDevCards(){
-        Stack<DevelopmentCard> firstStack = gui.getClientModel().getDevelopmentCardsArea().getFirstStack();
-        Stack<DevelopmentCard> secondStack = gui.getClientModel().getDevelopmentCardsArea().getSecondStack();
-        Stack<DevelopmentCard> thirdStack = gui.getClientModel().getDevelopmentCardsArea().getThirdStack();
+        Stack<DevelopmentCard> firstStack = clientModel.getDevelopmentCardsArea().getFirstStack();
+        Stack<DevelopmentCard> secondStack = clientModel.getDevelopmentCardsArea().getSecondStack();
+        Stack<DevelopmentCard> thirdStack = clientModel.getDevelopmentCardsArea().getThirdStack();
         if(!firstStack.isEmpty()){
             slot1lvl1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstStack.get(0).getId() + ".png"))));
             if(firstStack.size() >= 2)
@@ -252,7 +263,24 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void askForOtherPlayerboard(){
+    public void askPlayer2Infos(Event event){
+        askForOtherPlayerboard("Dav");  //TODO: clientModel.getUsernames()
+    }
+
+    public void askPlayer3Infos(Event event){
+        askForOtherPlayerboard("Dario");
+    }
+
+    public void askPlayer4Infos(Event event){
+        askForOtherPlayerboard("Ale");
+    }
+
+    public void returnToMyBoard(Event event){
+        Platform.runLater(() -> SceneController.changeScene(gui, new PlayerBoardSceneController(gui.getClientModel()), "playerBoard_scene.fxml"));
+    }
+
+    public void askForOtherPlayerboard(String otherUsername){
+        gui.sendMessage(new OtherPlayerInfosRequest(otherUsername));
     }
 
     public void switchFirstShelf(Event event){
@@ -428,6 +456,27 @@ public class PlayerBoardSceneController implements GenericSceneController{
                 activateProductionButton.setDisable(false);
             }
         }
+    }
+
+    private void disableAllButtons(){
+        firstShelfButton.setDisable(true);
+        secondShelfButton.setDisable(true);
+        thirdShelfButton.setDisable(true);
+        //firstExtraButton.setDisable(true);
+        //secondExtraButton.setDisable(true);
+        firstStackButton.setDisable(true);
+        secondStackButton.setDisable(true);
+        thirdStackButton.setDisable(true);
+        baseProductionButton.setDisable(true);
+        activateProductionButton.setDisable(true);
+        coinInputButton.setDisable(true);
+        shieldInputButton.setDisable(true);
+        stoneInputButton.setDisable(true);
+        servantInputButton.setDisable(true);
+        coinOutputButton.setDisable(true);
+        shieldOutputButton.setDisable(true);
+        stoneOutputButton.setDisable(true);
+        servantOutputButton.setDisable(true);
     }
 
     @Override

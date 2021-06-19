@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.controller.GameController;
 
+import java.util.NoSuchElementException;
+
 public class GameState {
 
     protected GameController gameController;
@@ -84,8 +86,12 @@ public class GameState {
     }
 
     public void process(OtherPlayerInfosRequest otherPlayerInfosRequest){
-        Player otherPlayer = gameController.getPlayers().stream().filter(p -> p.getNickname().equals(otherPlayerInfosRequest.getOtherUsername())).findAny().get();
-        gameController.getVirtualViewMap().get(otherPlayerInfosRequest.getUsername()).sendMessage(new OtherPlayerInfosReply(otherPlayer.getWarehouse(), otherPlayer.getPlayerBoard().getCoffer(), otherPlayer.getPlayerBoard().getPath(), otherPlayer.getPlayerBoard().getDevelopmentCardsArea(), otherPlayer.getLeaderCards()));
+        try {
+            Player otherPlayer = gameController.getPlayers().stream().filter(p -> p.getNickname().equals(otherPlayerInfosRequest.getOtherUsername())).findAny().get();
+            gameController.getVirtualViewMap().get(otherPlayerInfosRequest.getUsername()).sendMessage(new OtherPlayerInfosReply(otherPlayer.getWarehouse(), otherPlayer.getPlayerBoard().getCoffer(), otherPlayer.getPlayerBoard().getPath(), otherPlayer.getPlayerBoard().getDevelopmentCardsArea(), otherPlayer.getLeaderCards()));
+        } catch (NoSuchElementException e) {
+            gameController.getVirtualViewMap().get(otherPlayerInfosRequest.getUsername()).sendMessage(new ErrorMessage("Username not found"));
+        }
     }
 
     public void nextState() {
