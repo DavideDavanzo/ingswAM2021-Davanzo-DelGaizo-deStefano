@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.resources.Coin;
@@ -68,6 +69,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private AnchorPane mainAnchorPane, baseProductionAnchorPane;
     @FXML
     private GridPane baseInputGridPane, baseOutputGridPane;
+    @FXML
+    private ImageView firstLeader, secondLeader, firstExtraPos1, firstExtraPos2, secondExtraPos1, secondExtraPos2;
 
     public PlayerBoardSceneController(){}
 
@@ -84,6 +87,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         initWareHouse();
         initCoffer();
         initDevCards();
+        initLeaderCards();
         if(clientModel.isSinglePlayer()) {
             tokenBack.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/back_circle.png"))));
             initLorenzoTrack();
@@ -92,8 +96,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
             firstShelfButton.setDisable(true);
             secondShelfButton.setDisable(true);
             thirdShelfButton.setDisable(true);
-            //firstExtraButton.setDisable(true);
-            //secondExtraButton.setDisable(true);
+            firstExtraButton.setDisable(true);
+            secondExtraButton.setDisable(true);
             firstStackButton.setDisable(true);
             secondStackButton.setDisable(true);
             thirdStackButton.setDisable(true);
@@ -108,8 +112,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
         firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstShelf);
         secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondShelf);
         thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchThirdShelf);
-        //firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstExtra);
-        //secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondExtra);
+        firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstExtra);
+        secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondExtra);
         firstStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstStackClick);
         secondStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondStackClick);
         thirdStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdStackClick);
@@ -260,6 +264,35 @@ public class PlayerBoardSceneController implements GenericSceneController{
             if(thirdStack.size() == 3)
                 slot3lvl3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(2).getId() + ".png"))));
             thirdStackButton.setDisable(false);
+        }
+    }
+
+    public void initLeaderCards(){
+        try {
+            if(clientModel.getLeaderCards().get(0).isActive()) {
+                firstLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + clientModel.getLeaderCards().get(0).getId() + ".png"))));
+                if(clientModel.getLeaderCards().get(0).getEffect() instanceof ExtraShelfEffect){
+                    firstExtraButton.setDisable(false);
+                    if(!clientModel.getWarehouse().getExtraShelves().get(0).isEmpty()) {
+                        firstExtraPos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                        if(clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getVolume() == 2)
+                            firstExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                    }
+                }
+            }
+            if(clientModel.getLeaderCards().get(1).isActive()) {
+                secondLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + clientModel.getLeaderCards().get(1).getId() + ".png"))));
+                if(clientModel.getLeaderCards().get(1).getEffect() instanceof ExtraShelfEffect){
+                    secondExtraButton.setDisable(false);
+                    if(!clientModel.getWarehouse().getExtraShelves().get(1).isEmpty()) {
+                        secondExtraPos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                        if(clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getVolume() == 2)
+                            secondExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                    }
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return;
         }
     }
 
@@ -462,8 +495,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
         firstShelfButton.setDisable(true);
         secondShelfButton.setDisable(true);
         thirdShelfButton.setDisable(true);
-        //firstExtraButton.setDisable(true);
-        //secondExtraButton.setDisable(true);
+        firstExtraButton.setDisable(true);
+        secondExtraButton.setDisable(true);
         firstStackButton.setDisable(true);
         secondStackButton.setDisable(true);
         thirdStackButton.setDisable(true);
