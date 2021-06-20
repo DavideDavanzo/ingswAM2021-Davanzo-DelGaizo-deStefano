@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.playerboard.Coffer;
 import it.polimi.ingsw.model.playerboard.Shelf;
@@ -42,7 +43,9 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private ArrayList<Integer> productionStacks;
     private Trade baseProduction;
     @FXML
-    private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton, firstStackButton, secondStackButton, thirdStackButton, baseProductionButton, activateProductionButton, coinInputButton, shieldInputButton, stoneInputButton, servantInputButton, coinOutputButton, shieldOutputButton, stoneOutputButton, servantOutputButton;
+    private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton;
+    @FXML
+    private Button firstStackButton, secondStackButton, thirdStackButton, firstLeaderProductionButton, secondLeaderProductionButton, baseProductionButton, activateProductionButton, coinInputButton, shieldInputButton, stoneInputButton, servantInputButton, coinOutputButton, shieldOutputButton, stoneOutputButton, servantOutputButton;
     @FXML
     private Button myBoardButton, otherBoard1Button, otherBoard2Button, otherBoard3Button;
     @FXML
@@ -117,6 +120,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
         firstStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstStackClick);
         secondStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondStackClick);
         thirdStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdStackClick);
+        firstLeaderProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstLeaderProductionClick);
+        secondLeaderProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondLeaderProductionClick);
         baseProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::baseProductionClick);
         activateProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateProduction);
         coinInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::coinInputClick);
@@ -278,6 +283,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
                         if(clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getVolume() == 2)
                             firstExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
                     }
+                } else if(clientModel.getLeaderCards().get(0).getEffect() instanceof ExtraDevEffect) {
+                    firstLeaderProductionButton.setDisable(false);
                 }
             }
             if(clientModel.getLeaderCards().get(1).isActive()) {
@@ -290,6 +297,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
                             secondExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
                     }
                 }
+            } else if(clientModel.getLeaderCards().get(1).getEffect() instanceof ExtraDevEffect) {
+                secondLeaderProductionButton.setDisable(false);
             }
         } catch (IndexOutOfBoundsException e) {
             return;
@@ -377,11 +386,24 @@ public class PlayerBoardSceneController implements GenericSceneController{
         thirdStackButton.setOpacity(0.6);
     }
 
+    public void firstLeaderProductionClick(Event event){
+        activateProductionButton.setDisable(false);
+        productionStacks.add(4);
+        thirdStackButton.setDisable(true);
+        thirdStackButton.setOpacity(0.6);
+    }
+
+    public void secondLeaderProductionClick(Event event){
+        activateProductionButton.setDisable(false);
+        productionStacks.add(5);
+        thirdStackButton.setDisable(true);
+        thirdStackButton.setOpacity(0.6);
+    }
+
     public void baseProductionClick(Event event){
         baseProduction = new Trade();
         baseProduction.setInput(new ArrayList<>());
         baseProduction.setOutput(new ArrayList<>());
-        //mainAnchorPane.setDisable(true);
         baseProductionAnchorPane.setDisable(false);
         baseProductionAnchorPane.setVisible(true);
     }
@@ -500,6 +522,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
         firstStackButton.setDisable(true);
         secondStackButton.setDisable(true);
         thirdStackButton.setDisable(true);
+        firstLeaderProductionButton.setDisable(true);
+        secondLeaderProductionButton.setDisable(true);
         baseProductionButton.setDisable(true);
         activateProductionButton.setDisable(true);
         coinInputButton.setDisable(true);

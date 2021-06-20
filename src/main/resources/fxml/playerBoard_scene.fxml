@@ -275,6 +275,8 @@
                   <Image url="@../images/cardsBack/Masters%20of%20Renaissance__Cards_BACK_3mmBleed-49-1.png" />
                </image>
             </ImageView>
+            <Button fx:id="firstLeaderProductionButton" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="186.0" prefWidth="124.0" text="chosen&#10;for production" textAlignment="CENTER" />
+            <Button fx:id="secondLeaderProductionButton" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="185.0" prefWidth="124.0" text="chosen&#10;for production" textAlignment="CENTER" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <GridPane prefHeight="20.0" prefWidth="723.0">
@@ -312,9 +314,16 @@
       </GridPane>
       <ImageView fx:id="firstExtraPos1" fitHeight="34.0" fitWidth="34.0" layoutX="22.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="firstExtraPos2" fitHeight="34.0" fitWidth="34.0" layoutX="69.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="firstExtraButton" disable="true" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="85.0" />
+      <Button fx:id="firstExtraButton" disable="true" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="85.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
       <ImageView fx:id="secondExtraPos1" fitHeight="34.0" fitWidth="34.0" layoutX="22.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="secondExtraPos2" fitHeight="34.0" fitWidth="34.0" layoutX="69.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="secondExtraButton" disable="true" layoutX="20.0" layoutY="351.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="85.0" />
+      <Button fx:id="secondExtraButton" disable="true" layoutX="20.0" layoutY="351.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="85.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
