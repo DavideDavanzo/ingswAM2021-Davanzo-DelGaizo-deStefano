@@ -26,13 +26,9 @@ public class LeaderCardUpdate extends Message{
         this.leaderCards = leaderCards;
     }
 
-    public LeaderCardUpdate(String msg) {
-        super(msg);
-    }
-
     @Override
     public void apply(View view) {
-        if(index != 0)
+        if(leaderCards == null)
             view.updateActiveLeader(index);
         else    view.updateLeaderCards(leaderCards);
     }
