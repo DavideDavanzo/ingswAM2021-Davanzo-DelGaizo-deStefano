@@ -60,7 +60,9 @@ public class CommandSceneController implements GenericSceneController {
     }
 
     public void leaderButtonClick(Event event) {
-        Platform.runLater(() -> SceneController.changeScene(gui, "yourLeader_scene.fxml"));
+        YourLeaderSceneController yLsC = new YourLeaderSceneController();
+        yLsC.setGui(gui);
+        Platform.runLater(() -> SceneController.changeScene(gui, yLsC, "yourLeader_scene.fxml"));
     }
 
     @Override

@@ -74,7 +74,9 @@ public class LeaderSceneController implements GenericSceneController {
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
             fourthCard.setDisable(true);
+            leaderChoices.add(leaderCards.get(0));
             sendCards();
+            return;
         }
         leaderChoices.add(leaderCards.get(0));
     }
@@ -86,7 +88,9 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             thirdCard.setDisable(true);
             fourthCard.setDisable(true);
+            leaderChoices.add(leaderCards.get(1));
             sendCards();
+            return;
         }
         leaderChoices.add(leaderCards.get(1));
     }
@@ -98,7 +102,9 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             secondCard.setDisable(true);
             fourthCard.setDisable(true);
+            leaderChoices.add(leaderCards.get(2));
             sendCards();
+            return;
         }
         leaderChoices.add(leaderCards.get(2));
     }
@@ -110,7 +116,9 @@ public class LeaderSceneController implements GenericSceneController {
             firstCard.setDisable(true);
             secondCard.setDisable(true);
             thirdCard.setDisable(true);
+            leaderChoices.add(leaderCards.get(3));
             sendCards();
+            return;
         }
         leaderChoices.add(leaderCards.get(3));
     }

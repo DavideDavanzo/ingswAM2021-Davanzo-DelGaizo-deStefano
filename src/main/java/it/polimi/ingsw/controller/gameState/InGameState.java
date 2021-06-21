@@ -309,7 +309,7 @@ public class InGameState extends GameState {
         ArrayList<Integer> cardsIndex = activateProductionCmd.getProductionCardsIndex();
         boolean doesntWantCardProduction = cardsIndex.isEmpty();
         Trade baseProduction = new Trade();
-        boolean askBlankResource = false;
+        int askBlankResource = 0;
 
         ArrayList<Resource> productionInput = new ArrayList<>();
         DevelopmentCardsArea area = gameController.getCurrentPlayer().getPlayerBoard().getDevelopmentCardsArea();
@@ -365,17 +365,8 @@ public class InGameState extends GameState {
 
                             currentPlayer.getPlayerBoard().payRequiredResources(((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getInput());
 
-                            for(Item item : ((ExtraDevEffect) leaderCards.get(i-4).getEffect()).getExtraTrade().getOutput()) {
-                                try {
-                                    currentPlayer.getPlayerBoard().getCoffer().updateCoffer(item);
-                                    currentPlayer.getPlayerBoard().getPath().moveForward(item.pathSteps());
-                                } catch (InvalidInputException e) {
-                                    //Shouldn't reach this statement.
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            askBlankResource = true;
+                            if(currentPlayer.moveForward(1)) gameController.setEndGame(true);
+                            askBlankResource++;
 
                         }
 
@@ -383,8 +374,8 @@ public class InGameState extends GameState {
 
                     if(currentPlayer.getPlayerBoard().activateProduction(developmentCards)) gameController.setEndGame(true);
 
-                    if(askBlankResource){
-                        currentView.sendMessage(new ResourceRequest("1"));      //TODO: use int rather than String
+                    if(askBlankResource > 0) {
+                        currentView.sendMessage(new ResourceRequest(String.valueOf(askBlankResource)));      //TODO: use int rather than String
                         return;
                     }
                 }
