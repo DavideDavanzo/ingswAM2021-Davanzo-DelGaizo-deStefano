@@ -15,6 +15,10 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * In this scene the player decides how many persons he/she/they want/s to play with
+ */
+
 public class PlayersNumberSceneController implements GenericSceneController{
 
     private GuiView gui;
@@ -38,6 +42,10 @@ public class PlayersNumberSceneController implements GenericSceneController{
         numChoice.setItems(FXCollections.observableArrayList(2, 3, 4));
     }
 
+    /**
+     * Solo Match
+     * @param event
+     */
     public void singlePlayerButtonClick(Event event) {
         singlePlayerButton.setDisable(true);
         multiPlayerButton.setDisable(true);
@@ -47,6 +55,10 @@ public class PlayersNumberSceneController implements GenericSceneController{
         gui.askNumberOfPlayers(1);
     }
 
+    /**
+     * Multiplayer match
+     * @param event
+     */
     public void multiPlayerButtonClick(Event event) {
         if(numChoice.getValue() == null) return;
 

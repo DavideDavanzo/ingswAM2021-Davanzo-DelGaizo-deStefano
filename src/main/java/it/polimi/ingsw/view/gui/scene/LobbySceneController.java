@@ -2,6 +2,9 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.view.gui.GuiView;
 
+/**
+ * Waiting room
+ */
 public class LobbySceneController implements GenericSceneController {
 
     GuiView gui;

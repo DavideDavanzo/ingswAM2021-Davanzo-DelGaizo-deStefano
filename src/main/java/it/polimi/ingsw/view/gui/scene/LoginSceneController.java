@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * This class implements the login scene
+ */
+
 public class LoginSceneController implements GenericSceneController {
 
     private GuiView gui;
@@ -30,6 +34,9 @@ public class LoginSceneController implements GenericSceneController {
         loginButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::loginButtonClick);
     }
 
+    /**
+     * Button clicked after typing the nickname
+     */
     public void loginButtonClick(Event event) {
         loginButton.setDisable(true);
         String nickname = usernameTextField.getText();
@@ -39,12 +46,20 @@ public class LoginSceneController implements GenericSceneController {
             reAskLogin();
     }
 
+    /**
+     * If its nickname is not valid, the player is asked to insert it again
+     */
     public void reAskLogin() {
         usernameTextField.clear();
         loginButton.setDisable(false);
         invalidUserLabel.setVisible(true);
     }
 
+    /**
+     * Verifies that the chosen nickname is valid
+     * @param nickname
+     * @return
+     */
     private boolean isValid(String nickname) {
 
         if(nickname == null || nickname.equals("") || nickname.contains(" ")) return false;

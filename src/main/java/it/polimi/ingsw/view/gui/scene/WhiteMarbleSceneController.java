@@ -18,6 +18,10 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This class Implements the scene used to make the player choose which resource he/she/they desire/s thanks to the
+ * white marble leader card effect
+ */
 public class WhiteMarbleSceneController implements GenericSceneController {
 
     private GuiView gui;

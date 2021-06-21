@@ -16,6 +16,9 @@ import java.util.Stack;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * Scene created to allow the player to place his Development Cards
+ */
 public class PlayerDevAreaSceneController implements GenericSceneController{
 
     private GuiView gui;

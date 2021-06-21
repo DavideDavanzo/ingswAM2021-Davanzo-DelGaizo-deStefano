@@ -21,6 +21,9 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * This class implements the scene in which the player chooses one or more resources then added to its warehouse
+ */
 
 public class ResourcePopupController implements GenericSceneController {
 

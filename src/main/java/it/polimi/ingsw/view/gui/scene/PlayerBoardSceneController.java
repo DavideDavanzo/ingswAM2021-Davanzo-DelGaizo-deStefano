@@ -35,6 +35,9 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Stack;
 
+/**
+ * Playerboard scene: the player can look at all his cards and resources
+ */
 public class PlayerBoardSceneController implements GenericSceneController{
 
     private GuiView gui;

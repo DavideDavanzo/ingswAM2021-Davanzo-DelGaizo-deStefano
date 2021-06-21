@@ -9,6 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 
+/**
+ * This class implements the scene that allows the player to choose its next move
+ */
+
 public class CommandSceneController implements GenericSceneController {
 
     private GuiView gui;
@@ -36,12 +40,18 @@ public class CommandSceneController implements GenericSceneController {
         leaderButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leaderButtonClick);
     }
 
+    /**
+     * This button leads to the SharedArea scene
+     */
     public void sharedAreaButtonClick(Event event) {
         SharedAreaSceneController sAsC = new SharedAreaSceneController();
         sAsC.setGui(gui);
         Platform.runLater(() -> SceneController.changeScene(gui, sAsC, "sharedArea_scene.fxml"));
     }
 
+    /**
+     * This button leads to the player's playerboard
+     */
     public void yourBoardButtonClick(Event event) {
         Platform.runLater(() -> SceneController.changeScene(gui, new PlayerBoardSceneController(gui.getClientModel()), "playerBoard_scene.fxml"));
     }

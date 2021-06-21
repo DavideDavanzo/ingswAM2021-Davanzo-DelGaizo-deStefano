@@ -15,6 +15,9 @@ import javafx.application.Platform;
 
 import java.util.Objects;
 
+/**
+ * This scene implements the shared area, composed by the resources market anf the card market
+ */
 public class SharedAreaSceneController implements GenericSceneController {
 
     private GuiView gui;

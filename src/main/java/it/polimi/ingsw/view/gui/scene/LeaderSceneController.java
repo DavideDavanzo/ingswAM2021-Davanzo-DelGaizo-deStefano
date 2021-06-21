@@ -13,6 +13,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In this scene the player chooses two leader card
+ */
 public class LeaderSceneController implements GenericSceneController {
 
     private GuiView gui;

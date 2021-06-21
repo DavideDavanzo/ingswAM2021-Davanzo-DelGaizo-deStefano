@@ -18,6 +18,9 @@ import javafx.scene.layout.GridPane;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * In this scene the player stocks his/hers/their resources
+ */
 public class StockResourcesSceneController implements GenericSceneController{
 
     private GuiView gui;
