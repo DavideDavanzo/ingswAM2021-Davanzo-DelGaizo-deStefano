@@ -54,7 +54,9 @@ public class GuiView extends View {
     }
 
     public void leaderChoice(ArrayList<LeaderCard> choice) {
+        System.out.println(choice.size());
         sendMessage(new LeaderRequest(Parser.serialize(choice)));
+        clientModel.setLeaderCards(new LinkedList<>(choice));
     }
 
     public void resourceChoice(ArrayList<Resource> choice) {
@@ -115,6 +117,14 @@ public class GuiView extends View {
 
     @Override
     public void activateLeaderCards() {
+
+    }
+
+    public void activateLeaderCards(int i) {
+
+    }
+
+    public void tossLeaderCards(int i) {
 
     }
 
