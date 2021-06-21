@@ -213,6 +213,9 @@ public class PlayerBoardSceneController implements GenericSceneController{
             popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
         else popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
 
+        //if(isSinglePlayer)
+            initLorenzoTrack();
+
     }
 
     private void initLorenzoTrack(){
@@ -242,7 +245,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         position[23] = pos231;
         position[24] = pos241;
 
-        position[clientModel.getLorenzoIlMagnifico().getBlackCrossPosition()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/croce.png"))));
+        position[clientModel.getLorenzoPosition()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/croce.png"))));
     }
 
     public void initDevCards(){

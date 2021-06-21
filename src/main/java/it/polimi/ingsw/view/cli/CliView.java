@@ -1017,6 +1017,11 @@ public class CliView extends View {
     }
 
     @Override
+    public void updateLorenzoPosition(int lorenzoPosition) {
+        //useless in cli
+    }
+
+    @Override
     public void disconnect() {
         socketHandler.disconnect();
     }

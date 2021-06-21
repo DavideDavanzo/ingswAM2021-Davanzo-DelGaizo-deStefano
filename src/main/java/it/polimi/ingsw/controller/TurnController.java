@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.network.messages.LorenzoPositionUpdate;
 import it.polimi.ingsw.network.messages.TurnWakeMessage;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -49,6 +50,7 @@ public class TurnController {
         if(gameController.isSinglePlayer()) {
             try {
                 gameController.flipActionToken();
+                virtualViewMap.get(currentPlayer.getNickname()).updateLorenzoPosition(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
             } catch (LossException e) {
                 return;
             }

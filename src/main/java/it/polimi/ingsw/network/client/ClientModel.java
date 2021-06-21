@@ -22,9 +22,8 @@ public class ClientModel {
     private Market market;
     private CardMarket cardMarket;
     private boolean myTurn;
-    private LorenzoIlMagnifico lorenzoIlMagnifico;
+    private int lorenzoPosition;
     private boolean singlePlayer;
-
 
     public ClientModel(){
         leaderCards = new LinkedList<>();
@@ -33,8 +32,7 @@ public class ClientModel {
         faithTrack = new Path();
         developmentCardsArea = new DevelopmentCardsArea();
         myTurn = false;
-        lorenzoIlMagnifico = new LorenzoIlMagnifico();
-
+        lorenzoPosition = 0;
     }
 
     public ClientModel(LinkedList<LeaderCard> leaderCards, Warehouse warehouse, Coffer coffer, Path path, DevelopmentCardsArea developmentCardsArea){
@@ -73,8 +71,8 @@ public class ClientModel {
         return cardMarket;
     }
 
-    public LorenzoIlMagnifico getLorenzoIlMagnifico() {
-        return lorenzoIlMagnifico;
+    public int getLorenzoPosition() {
+        return lorenzoPosition;
     }
 
     public void setLeaderCards(LinkedList<LeaderCard> leaderCards){
@@ -92,7 +90,6 @@ public class ClientModel {
     public void updateDevCardsArea(DevelopmentCardsArea developmentCardsArea){
         this.developmentCardsArea = developmentCardsArea;
     }
-
 
     public void setSinglePlayer(boolean singlePlayer) {
         this.singlePlayer = singlePlayer;
@@ -117,4 +114,9 @@ public class ClientModel {
     public void setMyTurn(boolean myTurn) {
         this.myTurn = myTurn;
     }
+
+    public void setLorenzoPosition(int lorenzoPosition){
+        this.lorenzoPosition = lorenzoPosition;
+    }
+
 }

@@ -179,6 +179,11 @@ public class GuiView extends View {
     }
 
     @Override
+    public void updateLorenzoPosition(int lorenzoPosition) {
+        clientModel.setLorenzoPosition(lorenzoPosition);
+    }
+
+    @Override
     public void showLogin(String msg, boolean successful) {
 
     }

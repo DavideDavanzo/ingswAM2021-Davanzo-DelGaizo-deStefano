@@ -139,6 +139,8 @@ public abstract class View extends Observable implements Observer {
         //do nothing
     }
 
+    public abstract void updateLorenzoPosition(int lorenzoPosition);
+
     public abstract void updateActiveLeader(int index);
 
     public abstract void updateLeaderCards(LinkedList<LeaderCard> leaderCards);

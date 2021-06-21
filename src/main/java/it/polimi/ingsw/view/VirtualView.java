@@ -172,6 +172,11 @@ public class VirtualView extends View {
         sendMessage(new LeaderCardUpdate(leaderCards));
     }
 
+    @Override
+    public void updateLorenzoPosition(int lorenzoPosition) {
+        sendMessage(new LorenzoPositionUpdate(lorenzoPosition));
+    }
+
     public ServerClientHandler getClientHandler(){
         return clientHandler;
     }
@@ -191,6 +196,5 @@ public class VirtualView extends View {
     public boolean isConnected() {
         return connected;
     }
-
 
 }

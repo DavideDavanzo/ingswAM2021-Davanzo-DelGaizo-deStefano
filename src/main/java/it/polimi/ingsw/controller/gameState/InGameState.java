@@ -138,7 +138,8 @@ public class InGameState extends GameState {
             }
             currentPlayer.setItemsToArrangeInWarehouse(temporaryItems);
             currentView.showMessage("Items taken from the Market successfully!");
-            currentView.askToStockMarketResources(temporaryItems, currentPlayer.extraShelvesCount());
+            if(temporaryItems.size() != 0)
+                currentView.askToStockMarketResources(temporaryItems, currentPlayer.extraShelvesCount());
         }
 
         ////////////////////////////////// Two Extra Marbles //////////////////////////////////////////////////
