@@ -42,6 +42,11 @@ public class CliView extends View {
 
     @Override
     public synchronized void update(Message message) {
+        try {
+            wait(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         executor.submit(() -> message.apply(this));
     }
 
@@ -947,7 +952,7 @@ public class CliView extends View {
     @Override
     public synchronized void processAck(Ack ack) {
         try {
-            wait(500);
+            wait(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -992,7 +997,7 @@ public class CliView extends View {
     }
 
     @Override
-    public void updateActiveLeader(int index) {
+    public synchronized void updateActiveLeader(int index) {
         clientModel.getLeaderCards().get(index).setActive(true);
     }
 
