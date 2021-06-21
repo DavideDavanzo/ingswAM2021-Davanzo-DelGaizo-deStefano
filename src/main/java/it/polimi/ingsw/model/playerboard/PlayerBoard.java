@@ -105,8 +105,30 @@ public class PlayerBoard implements CliPrinter {
                                 warehouse.notifyObservers(warehouse);
                             }
 
-                            coffer.updateCoffer(resource);
-                            resource.setVolume(0);
+                            if(warehouse.getExtraShelves() != null && warehouse.getExtraShelves().size() != 0){
+                                for(Shelf extraShelf : warehouse.getExtraShelves()){
+                                    if(!extraShelf.isEmpty()) {
+                                        previousVolume = extraShelf.getShelfResource().getVolume();
+                                        if (extraShelf.getShelfResource().getVolume() >= -resource.getVolume()) {
+                                            warehouse.addResourcesToShelf(resource, extraShelf);
+                                            if (extraShelf.isEmpty() || extraShelf.getShelfResource().getVolume() != previousVolume)
+                                                resource.setVolume(0);
+                                        } else {
+                                            try{
+                                                warehouse.addResourcesToShelf(resource, extraShelf);
+                                            } catch(NotEnoughResourcesException ex) {
+                                                extraShelf.emptyThisShelf();
+                                                resource.setVolume(resource.getVolume() + previousVolume);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(resource.getVolume() != 0) {
+                                coffer.updateCoffer(resource);
+                                resource.setVolume(0);
+                            }
 
                         }
 

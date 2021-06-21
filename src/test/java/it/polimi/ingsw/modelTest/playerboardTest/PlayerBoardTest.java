@@ -28,7 +28,7 @@ public class PlayerBoardTest {
 
         // Player board status initialisation
         // Warehouse: first shelf -> 1 coin, second shelf -> 1 shield, first extra -> 1 servant, second extra -> 2 shields
-        // Coffer: 5 coins, 3 stones, 1 servant
+        // Coffer: 5 coins, 3 stones, 1 servant, 2 shields
         Effect effect = new ExtraShelfEffect(new Servant());
         player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf());
         player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Shield(1), player.getPlayerBoard().getWarehouse().getSecondShelf());
@@ -42,8 +42,8 @@ public class PlayerBoardTest {
         player.getPlayerBoard().getCoffer().updateCoffer(new Servant(1));
 
         //trade input example:
-        //1 shield, 3 servants, 3 coins, 2 stones, 1 coin
-        inputRequired.add(new Shield(1));
+        //4 shield, 3 servants, 3 coins, 2 stones, 1 coin
+        inputRequired.add(new Shield(4));
         inputRequired.add(new Servant(3));
         inputRequired.add(new Coin(3));
         inputRequired.add(new Stone(2));
@@ -52,8 +52,15 @@ public class PlayerBoardTest {
         assertFalse(player.getPlayerBoard().possiblePayment(inputRequired));
 
         player.getPlayerBoard().getCoffer().updateCoffer(new Servant(3));
+        player.getPlayerBoard().getCoffer().updateCoffer(new Shield(2));
 
         assertTrue(player.getPlayerBoard().possiblePayment(inputRequired));
+
+        player.getPlayerBoard().payRequiredResources(inputRequired);
+
+        assertTrue(player.getPlayerBoard().getWarehouse().getSecondShelf().isEmpty());
+        assertTrue(player.getPlayerBoard().getWarehouse().getExtraShelves().get(1).isEmpty());
+        assertTrue(player.getPlayerBoard().getCoffer().getShields().getVolume() == 1);
 
     }
 
