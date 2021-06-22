@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <GridPane fx:id="cardGridPane" layoutX="6.0" layoutY="8.0" prefHeight="400.0" prefWidth="310.0">
+      <GridPane fx:id="cardGridPane" layoutX="7.0" layoutY="11.0" prefHeight="378.0" prefWidth="327.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -25,19 +25,19 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <ImageView fx:id="pos00" fitHeight="126.0" fitWidth="73.0" layoutX="220.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="pos10" fitHeight="126.0" fitWidth="72.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
-            <ImageView fx:id="pos20" fitHeight="126.0" fitWidth="71.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
-            <ImageView fx:id="pos30" fitHeight="126.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
-            <ImageView fx:id="pos01" fitHeight="126.0" fitWidth="74.0" layoutX="220.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
-            <ImageView fx:id="pos11" fitHeight="126.0" fitWidth="73.0" layoutX="10.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ImageView fx:id="pos21" fitHeight="126.0" fitWidth="72.0" layoutX="80.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <ImageView fx:id="pos31" fitHeight="126.0" fitWidth="73.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ImageView fx:id="pos02" fitHeight="126.0" fitWidth="72.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
-            <ImageView fx:id="pos12" fitHeight="126.0" fitWidth="73.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ImageView fx:id="pos22" fitHeight="126.0" fitWidth="72.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ImageView fx:id="pos32" fitHeight="126.0" fitWidth="71.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button fx:id="thirdGreen" mnemonicParsing="false" opacity="0" prefHeight="139.0" prefWidth="81.0">
+            <ImageView fx:id="pos00" fitHeight="120.0" fitWidth="83.0" layoutX="220.0" layoutY="281.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pos10" fitHeight="120.0" fitWidth="82.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fx:id="pos20" fitHeight="120.0" fitWidth="82.0" layoutX="80.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+            <ImageView fx:id="pos30" fitHeight="120.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+            <ImageView fx:id="pos01" fitHeight="120.0" fitWidth="82.0" layoutX="220.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <ImageView fx:id="pos11" fitHeight="120.0" fitWidth="82.0" layoutX="10.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ImageView fx:id="pos21" fitHeight="120.0" fitWidth="82.0" layoutX="80.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <ImageView fx:id="pos31" fitHeight="120.0" fitWidth="82.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ImageView fx:id="pos02" fitHeight="120.0" fitWidth="82.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+            <ImageView fx:id="pos12" fitHeight="120.0" fitWidth="82.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <ImageView fx:id="pos22" fitHeight="120.0" fitWidth="82.0" layoutX="10.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <ImageView fx:id="pos32" fitHeight="120.0" fitWidth="82.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button fx:id="thirdGreen" mnemonicParsing="false" opacity="0" prefHeight="136.0" prefWidth="89.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -102,17 +102,17 @@
             <Insets left="100.0" />
          </opaqueInsets>
       </GridPane>
-      <ImageView fx:id="marketBoard" fitHeight="368.0" fitWidth="269.0" layoutX="321.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="marketBoard" fitHeight="348.0" fitWidth="271.0" layoutX="340.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/plancia_portabiglie.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="container" fitHeight="164.0" fitWidth="197.0" layoutX="361.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="container" fitHeight="164.0" fitWidth="197.0" layoutX="382.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/portabiglie.png" />
          </image>
       </ImageView>
-      <GridPane fx:id="gridPane" layoutX="384.0" layoutY="84.0" prefHeight="101.0" prefWidth="157.0">
+      <GridPane fx:id="gridPane" layoutX="405.0" layoutY="88.0" prefHeight="101.0" prefWidth="157.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -139,35 +139,35 @@
             <ImageView fitHeight="38.0" fitWidth="40.0" layoutX="10.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="firstRowArrowButton" layoutX="559.0" layoutY="92.0" mnemonicParsing="false" opacity="0" prefHeight="18.0" prefWidth="30.0">
+      <Button fx:id="firstRowArrowButton" layoutX="580.0" layoutY="96.0" mnemonicParsing="false" opacity="0" prefHeight="18.0" prefWidth="30.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="secondRowArrowButton" layoutX="559.0" layoutY="122.0" mnemonicParsing="false" opacity="0" prefHeight="18.0" prefWidth="30.0">
+      <Button fx:id="secondRowArrowButton" layoutX="580.0" layoutY="126.0" mnemonicParsing="false" opacity="0" prefHeight="18.0" prefWidth="30.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="thirdRowArrowButton" layoutX="559.0" layoutY="157.0" mnemonicParsing="false" opacity="0" prefHeight="15.0" prefWidth="30.0">
+      <Button fx:id="thirdRowArrowButton" layoutX="580.0" layoutY="161.0" mnemonicParsing="false" opacity="0" prefHeight="15.0" prefWidth="30.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="firstColumnArrowButton" layoutX="408.0" layoutY="217.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
+      <Button fx:id="firstColumnArrowButton" layoutX="429.0" layoutY="221.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="secondColumnArrowButton" layoutX="438.0" layoutY="217.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
+      <Button fx:id="secondColumnArrowButton" layoutX="459.0" layoutY="221.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="thirdColumnArrowButton" layoutX="470.0" layoutY="217.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
+      <Button fx:id="thirdColumnArrowButton" layoutX="491.0" layoutY="221.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="fourthColumnArrowButton" layoutX="499.0" layoutY="217.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
+      <Button fx:id="fourthColumnArrowButton" layoutX="520.0" layoutY="221.0" mnemonicParsing="false" opacity="0" prefHeight="50.0" prefWidth="16.0">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="backButton" layoutX="523.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Back" />
-      <ImageView fx:id="spareImageView" fitHeight="38.0" fitWidth="40.0" layoutX="363.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="backButton" layoutX="448.0" layoutY="369.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="71.0" text="Back" />
+      <ImageView fx:id="spareImageView" fitHeight="38.0" fitWidth="40.0" layoutX="384.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.scene;
 
 import it.polimi.ingsw.view.gui.GuiView;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,7 +43,6 @@ public class WinnerSceneController implements GenericSceneController{
     public void initialize(){
         setImages();
         setLabels();
-
     }
 
     public void setImages(){
@@ -57,10 +57,9 @@ public class WinnerSceneController implements GenericSceneController{
 
     }
 
-
-
     @Override
     public void setGui(GuiView gui) {
         this.gui = gui;
     }
+
 }

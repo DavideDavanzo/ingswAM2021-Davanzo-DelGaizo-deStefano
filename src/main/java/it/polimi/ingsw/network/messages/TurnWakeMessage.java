@@ -17,11 +17,11 @@ public class TurnWakeMessage extends Message {
     @Override
     public void apply(View view) {
         try {
-            Thread.sleep(500);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(msg);
+        view.showMessage(msg);
         view.getClientModel().setMyTurn(true);
         view.askCommand();
     }

@@ -16,8 +16,9 @@ import it.polimi.ingsw.utils.Parser;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.scene.*;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.*;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
@@ -26,11 +27,14 @@ import java.util.concurrent.Executors;
 public class GuiView extends View {
 
     ExecutorService executor;
+    private Alert alert;
 
     public GuiView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;
         clientModel = new ClientModel();
         executor = Executors.newCachedThreadPool();
+        alert = new Alert(AlertType.INFORMATION);
+        alert.setResizable(true);
     }
 
     @Override
@@ -86,6 +90,7 @@ public class GuiView extends View {
 
     @Override
     public synchronized void onLoginReply(LoginReply message) {
+        showMessage(message.getMsg());
         if(!message.isSuccessful()) {
             LoginSceneController loginSceneController = (LoginSceneController) SceneController.getActiveSceneController();
             loginSceneController.reAskLogin();
@@ -185,17 +190,32 @@ public class GuiView extends View {
 
     @Override
     public void showLogin(String msg, boolean successful) {
-
     }
 
     @Override
     public void showError(String msg) {
-
+        Platform.runLater(() -> {
+            alert.setHeaderText("Error");
+            if(alert.isShowing()) {
+                alert.setContentText(alert.getContentText() + "\n" + msg);
+                alert.close();
+            }
+            else    alert.setContentText(msg);
+            alert.show();
+        });
     }
 
     @Override
     public void showMessage(String msg) {
-
+        Platform.runLater(() -> {
+            alert.setHeaderText("Message");
+            if(alert.isShowing()) {
+                alert.setContentText(alert.getContentText() + "\n" + msg);
+                alert.close();
+            }
+            else    alert.setContentText(msg);
+            alert.show();
+        });
     }
 
     @Override

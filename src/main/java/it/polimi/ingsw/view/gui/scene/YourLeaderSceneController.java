@@ -6,6 +6,7 @@ import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -100,4 +101,5 @@ public class YourLeaderSceneController implements GenericSceneController {
     public void setGui(GuiView gui) {
         this.gui = gui;
     }
+
 }

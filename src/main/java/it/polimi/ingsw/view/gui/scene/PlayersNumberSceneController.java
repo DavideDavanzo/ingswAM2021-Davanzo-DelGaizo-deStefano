@@ -6,10 +6,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
@@ -75,4 +72,5 @@ public class PlayersNumberSceneController implements GenericSceneController{
     public void setGui(GuiView gui) {
         this.gui = gui;
     }
+
 }
