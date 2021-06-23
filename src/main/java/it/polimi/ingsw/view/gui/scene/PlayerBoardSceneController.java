@@ -164,13 +164,13 @@ public class PlayerBoardSceneController implements GenericSceneController{
         positions[clientModel.getFaithTrack().getCurrentPositionAsInt()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png"))));
 
         if(clientModel.getFaithTrack().getPopeTokens().get(0).isFaceUp())
-            popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+            popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/popeTwo.png"))));
         else popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato giallo.png"))));
         if(clientModel.getFaithTrack().getPopeTokens().get(1).isFaceUp())
-            popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+            popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/popeThree.png"))));
         else popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato arancione.png"))));
         if(clientModel.getFaithTrack().getPopeTokens().get(2).isFaceUp())
-            popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+            popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/popeFour.png"))));
         else popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
 
         if(clientModel.isSinglePlayer())

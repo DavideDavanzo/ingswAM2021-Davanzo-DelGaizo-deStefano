@@ -42,6 +42,7 @@ public class ResourcePopupController implements GenericSceneController {
     @FXML
     private ImageView stone = new ImageView();
 
+
     public void initialize(){
         chosenResources = new ArrayList<>();
         setResourceImages();
@@ -68,7 +69,6 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Coin(1));
                 numberCheck();
                 mouseEvent.consume();
-                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
 
             }
         });
@@ -80,7 +80,6 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Shield(1));
                 numberCheck();
                 mouseEvent.consume();
-                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
             }
         });
 
@@ -91,7 +90,6 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Servant(1));
                 numberCheck();
                 mouseEvent.consume();
-                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
             }
         });
 
@@ -102,7 +100,7 @@ public class ResourcePopupController implements GenericSceneController {
                 chosenResources.add(new Stone(1));
                 numberCheck();
                 mouseEvent.consume();
-                Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
+
             }
         });
     }
@@ -118,6 +116,7 @@ public class ResourcePopupController implements GenericSceneController {
         if(choiceNumber == 1) {
             disableAll();
             gui.resourceChoice(chosenResources);
+            Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
         } else choiceNumber--;
     }
 
