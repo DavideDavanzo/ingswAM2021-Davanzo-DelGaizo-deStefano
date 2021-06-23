@@ -129,6 +129,7 @@ public class LeaderSceneController implements GenericSceneController {
 
     private void sendCards() {
         gui.leaderChoice(leaderChoices);
+        gui.getClientModel().setLeadersOrdered();
     }
 
 }

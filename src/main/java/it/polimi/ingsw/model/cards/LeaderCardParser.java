@@ -4,10 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,19 +12,41 @@ public class LeaderCardParser {
 
     public ArrayList<LeaderCard> parse() {
 
-        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+        ArrayList<LeaderCard> leaderCards;
 
-        try(Reader reader = new FileReader("src/main/resources/leaderCards")) {
+        InputStream is = null;
+        is = this.getClass().getClassLoader().getResourceAsStream("leaderCards");
+        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            LeaderCard[] card = objectMapper.readValue(reader, LeaderCard[].class);
-
-            leaderCards = new ArrayList<>(Arrays.asList(card));
-
+        String line = null;
+        try {
+            line = buf.readLine();
         } catch (IOException e) {
-            System.out.println("No json file for leader cards..");
             e.printStackTrace();
         }
+        StringBuilder sb = new StringBuilder();
+
+        while(line != null) {
+            sb.append(line).append("\n");
+            try {
+                line = buf.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String fileAsString = sb.toString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        LeaderCard[] card = new LeaderCard[0];
+        try {
+            card = objectMapper.readValue(fileAsString, LeaderCard[].class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        leaderCards = new ArrayList<>(Arrays.asList(card));
+
 
         return leaderCards;
 

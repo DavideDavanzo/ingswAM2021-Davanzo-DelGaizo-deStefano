@@ -45,23 +45,23 @@ public class YourLeaderSceneController implements GenericSceneController {
         leader2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leader2ButtonClick);
         activateButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateButtonClick);
         discardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::discardButtonClick);
-        if(gui.getClientModel().getLeaderCards().get(0).isDiscarded() && gui.getClientModel().getLeaderCards().get(1).isDiscarded())
+        if(gui.getClientModel().getFirstLeader().isDiscarded() && gui.getClientModel().getSecondLeader().isDiscarded())
             noCardsLabel.setVisible(true);
     }
 
     private void initCards() {
 
-        if(gui.getClientModel().getLeaderCards().get(0).isDiscarded()) {
+        if(gui.getClientModel().getFirstLeader().isDiscarded()) {
             leader1Button.setVisible(false);
             card1.setImage(null);
         }
-        else card1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getLeaderCards().get(0).getId() + ".png"))));
+        else card1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getFirstLeader().getId() + ".png"))));
 
-        if(gui.getClientModel().getLeaderCards().get(1).isDiscarded()) {
+        if(gui.getClientModel().getSecondLeader().isDiscarded()) {
             leader2Button.setVisible(false);
             card2.setImage(null);
         }
-        else card2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getLeaderCards().get(1).getId() + ".png"))));
+        else card2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getSecondLeader().getId() + ".png"))));
 
     }
 
