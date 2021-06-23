@@ -15,12 +15,14 @@ public class LeaderCard extends Card {
     private Requirement requirement;
     private Effect effect;
     private boolean active;
+    private boolean discarded;
 
     public LeaderCard() { }
 
     public LeaderCard(int victoryPoints) {
         super(victoryPoints);
         active = false;
+        discarded = false;
     }
 
     public LeaderCard(Requirement requirement, Effect effect, int victoryPoints) {
@@ -28,6 +30,7 @@ public class LeaderCard extends Card {
         this.requirement = requirement;
         this.effect = effect;
         this.active = false;
+        this.discarded = false;
     }
 
     public LeaderCard(Requirement requirement, Effect effect, int victoryPoints, int id) {
@@ -35,6 +38,7 @@ public class LeaderCard extends Card {
         this.requirement = requirement;
         this.effect = effect;
         this.active = false;
+        this.discarded = false;
     }
 
     //TODO: Create a new exception?
@@ -74,6 +78,14 @@ public class LeaderCard extends Card {
 
     public boolean isActive() {
         return active;
+    }
+
+    public void setDiscarded(boolean discarded) {
+        this.discarded = discarded;
+    }
+
+    public boolean isDiscarded() {
+        return discarded;
     }
 
     /**

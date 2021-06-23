@@ -1,13 +1,12 @@
 package it.polimi.ingsw.view.gui.scene;
 
-import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.view.gui.GuiView;
 import it.polimi.ingsw.view.gui.SceneController;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -34,6 +33,8 @@ public class YourLeaderSceneController implements GenericSceneController {
     private Button activateButton;
     @FXML
     private Button discardButton;
+    @FXML
+    private Label noCardsLabel;
 
     public void initialize() {
         initCards();
@@ -44,11 +45,24 @@ public class YourLeaderSceneController implements GenericSceneController {
         leader2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leader2ButtonClick);
         activateButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateButtonClick);
         discardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::discardButtonClick);
+        if(gui.getClientModel().getLeaderCards().get(0).isDiscarded() && gui.getClientModel().getLeaderCards().get(1).isDiscarded())
+            noCardsLabel.setVisible(true);
     }
 
     private void initCards() {
-        card1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getLeaderCards().get(0).getId() + ".png"))));
-        card2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getLeaderCards().get(1).getId() + ".png"))));
+
+        if(gui.getClientModel().getLeaderCards().get(0).isDiscarded()) {
+            leader1Button.setVisible(false);
+            card1.setImage(null);
+        }
+        else card1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getLeaderCards().get(0).getId() + ".png"))));
+
+        if(gui.getClientModel().getLeaderCards().get(1).isDiscarded()) {
+            leader2Button.setVisible(false);
+            card2.setImage(null);
+        }
+        else card2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getLeaderCards().get(1).getId() + ".png"))));
+
     }
 
     public void leader1ButtonClick(Event event) {
@@ -63,7 +77,7 @@ public class YourLeaderSceneController implements GenericSceneController {
         leader1Button.setText("selected");
         leader2Button.setDisable(true);
         leader1Button.setOpacity(0.6);
-        selected = 0;
+        selected = 1;
         activateButton.setVisible(true);
         discardButton.setVisible(true);
     }
@@ -80,7 +94,7 @@ public class YourLeaderSceneController implements GenericSceneController {
         leader2Button.setText("selected");
         leader1Button.setDisable(true);
         leader2Button.setOpacity(0.6);
-        selected = 1;
+        selected = 2;
         activateButton.setVisible(true);
         discardButton.setVisible(true);
     }

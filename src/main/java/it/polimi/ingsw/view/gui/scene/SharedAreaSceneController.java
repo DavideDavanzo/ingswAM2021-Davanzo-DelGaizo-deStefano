@@ -91,8 +91,11 @@ public class SharedAreaSceneController implements GenericSceneController {
 
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 3; j++) {
-
-                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getCardMarket().getDecks()[j][i].getCards().peek().getId() + ".png")));
+                Image image;
+                if(!gui.getClientModel().getCardMarket().getDecks()[j][i].isEmpty())
+                    image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + gui.getClientModel().getCardMarket().getDecks()[j][i].getCards().peek().getId() + ".png")));
+                else
+                    image = null;
                 ImageView imageView = (ImageView) cardGridPane.getChildren().get(j * 4 + i);
                 imageView.setImage(image);
 

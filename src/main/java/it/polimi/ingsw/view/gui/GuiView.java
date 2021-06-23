@@ -127,11 +127,13 @@ public class GuiView extends View {
     }
 
     public void activateLeaderCards(int i) {
-
+        sendMessage(new ActivateLeaderCmd(new ArrayList<Integer>(){{add(i);}}));
     }
 
     public void tossLeaderCards(int i) {
-
+        LeaderCard card = clientModel.getLeaderCards().get(i-1);
+        if(!card.isActive()) clientModel.getLeaderCards().get(i-1).setDiscarded(true);
+        sendMessage(new DiscardLeaderCmd(new ArrayList<Integer>(){{add(i);}}));
     }
 
     @Override
