@@ -130,7 +130,8 @@ public class GuiView extends View {
     }
 
     public void tossLeaderCards(int i) {
-        clientModel.getLeaderCards().get(i-1).setDiscarded(true);
+        LeaderCard card = clientModel.getLeaderCards().get(i-1);
+        if(!card.isActive()) clientModel.getLeaderCards().get(i-1).setDiscarded(true);
         sendMessage(new DiscardLeaderCmd(new ArrayList<Integer>(){{add(i);}}));
     }
 
