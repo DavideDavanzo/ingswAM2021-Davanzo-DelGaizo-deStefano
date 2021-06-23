@@ -42,6 +42,7 @@ import it.polimi.ingsw.view.View;
         @JsonSubTypes.Type(value = OtherPlayerInfosRequest.class, name = "OtherPlayerInfosRequest"),
         @JsonSubTypes.Type(value = OtherPlayerInfosReply.class, name = "OtherPlayerInfosReply"),
         @JsonSubTypes.Type(value = LorenzoPositionUpdate.class, name = "LorenzoPositionUpdate"),
+        @JsonSubTypes.Type(value = PlayersListMessage.class, name = "PlayersListMessage"),
         @JsonSubTypes.Type(value = Ack.class, name = "Ack")
 })
 //TODO: declare each message @JasonSubTypes.Type

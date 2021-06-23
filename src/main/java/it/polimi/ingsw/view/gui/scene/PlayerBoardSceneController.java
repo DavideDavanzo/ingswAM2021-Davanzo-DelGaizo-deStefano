@@ -30,10 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Playerboard scene: the player can look at all his cards and resources
@@ -45,6 +42,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
     private ArrayList<Integer> shelvesToSwitch;
     private ArrayList<Integer> productionStacks;
     private Trade baseProduction;
+    ArrayList<String> usernamesList = new ArrayList<>();
+
     @FXML
     private Button backButton, firstShelfButton, secondShelfButton, thirdShelfButton, firstExtraButton, secondExtraButton;
     @FXML
@@ -98,46 +97,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
             tokenBack.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/back_circle.png"))));
             initLorenzoTrack();
         }
-        if(!clientModel.isMyTurn()){
-            firstShelfButton.setDisable(true);
-            secondShelfButton.setDisable(true);
-            thirdShelfButton.setDisable(true);
-            firstExtraButton.setDisable(true);
-            secondExtraButton.setDisable(true);
-            firstStackButton.setDisable(true);
-            secondStackButton.setDisable(true);
-            thirdStackButton.setDisable(true);
-            baseProductionButton.setDisable(true);
-        }
-        backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
-        if(!(clientModel == gui.getClientModel())){
-            disableAllButtons();
-            myBoardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::returnToMyBoard);
-            return;
-        } else myBoardButton.setDisable(true);
-        firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstShelf);
-        secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondShelf);
-        thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchThirdShelf);
-        firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstExtra);
-        secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondExtra);
-        firstStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstStackClick);
-        secondStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondStackClick);
-        thirdStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdStackClick);
-        firstLeaderProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstLeaderProductionClick);
-        secondLeaderProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondLeaderProductionClick);
-        baseProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::baseProductionClick);
-        activateProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateProduction);
-        coinInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::coinInputClick);
-        shieldInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldInputClick);
-        stoneInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneInputClick);
-        servantInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantInputClick);
-        coinOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::coinOutputClick);
-        shieldOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldOutputClick);
-        stoneOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneOutputClick);
-        servantOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantOutputClick);
-        otherBoard1Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer2Infos);
-        otherBoard2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer3Infos);
-        otherBoard3Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer4Infos);
+        initButtons();
         shelvesToSwitch = new ArrayList<>();
         productionStacks = new ArrayList<>();
     }
@@ -204,16 +164,16 @@ public class PlayerBoardSceneController implements GenericSceneController{
         positions[clientModel.getFaithTrack().getCurrentPositionAsInt()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/thumbnail_faith.png"))));
 
         if(clientModel.getFaithTrack().getPopeTokens().get(0).isFaceUp())
-            popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+            popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/popeTwo.png"))));
         else popeToken1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato giallo.png"))));
         if(clientModel.getFaithTrack().getPopeTokens().get(1).isFaceUp())
-            popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+            popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/popeThree.png"))));
         else popeToken2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato arancione.png"))));
         if(clientModel.getFaithTrack().getPopeTokens().get(2).isFaceUp())
-            popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/.png"))));
+            popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/popeFour.png"))));
         else popeToken3.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/quadrato rosso.png"))));
 
-        //if(isSinglePlayer)
+        if(clientModel.isSinglePlayer())
             initLorenzoTrack();
 
     }
@@ -312,15 +272,18 @@ public class PlayerBoardSceneController implements GenericSceneController{
     }
 
     public void askPlayer2Infos(Event event){
-        askForOtherPlayerboard("Dav");  //TODO: clientModel.getUsernames()
+        if(usernamesList.size() >= 1)
+            askForOtherPlayerboard(usernamesList.get(0));
     }
 
     public void askPlayer3Infos(Event event){
-        askForOtherPlayerboard("Dario");
+        if(usernamesList.size() >= 2)
+            askForOtherPlayerboard(usernamesList.get(1));
     }
 
     public void askPlayer4Infos(Event event){
-        askForOtherPlayerboard("Ale");
+        if(usernamesList.size() >= 3)
+            askForOtherPlayerboard(usernamesList.get(2));
     }
 
     public void returnToMyBoard(Event event){
@@ -516,6 +479,64 @@ public class PlayerBoardSceneController implements GenericSceneController{
                 mainAnchorPane.setDisable(false);
                 activateProductionButton.setDisable(false);
             }
+        }
+    }
+
+    private void initButtons(){
+        if(!clientModel.isMyTurn()){
+            firstShelfButton.setDisable(true);
+            secondShelfButton.setDisable(true);
+            thirdShelfButton.setDisable(true);
+            firstExtraButton.setDisable(true);
+            secondExtraButton.setDisable(true);
+            firstStackButton.setDisable(true);
+            secondStackButton.setDisable(true);
+            thirdStackButton.setDisable(true);
+            baseProductionButton.setDisable(true);
+        }
+        backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
+        if(!(clientModel == gui.getClientModel())){
+            disableAllButtons();
+            myBoardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::returnToMyBoard);
+            return;
+        } else myBoardButton.setDisable(true);
+        firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstShelf);
+        secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondShelf);
+        thirdShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchThirdShelf);
+        firstExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstExtra);
+        secondExtraButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondExtra);
+        firstStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstStackClick);
+        secondStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondStackClick);
+        thirdStackButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdStackClick);
+        firstLeaderProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstLeaderProductionClick);
+        secondLeaderProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondLeaderProductionClick);
+        baseProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::baseProductionClick);
+        activateProductionButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateProduction);
+        coinInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::coinInputClick);
+        shieldInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldInputClick);
+        stoneInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneInputClick);
+        servantInputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantInputClick);
+        coinOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::coinOutputClick);
+        shieldOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::shieldOutputClick);
+        stoneOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::stoneOutputClick);
+        servantOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantOutputClick);
+        if(!gui.getClientModel().isSinglePlayer()) {
+            for(String s : gui.getClientModel().getUsernamesList()) {
+                if(!s.equals(gui.getMyUsername()))
+                    usernamesList.add(s);
+            }
+            if(usernamesList.size() >= 1){
+                otherBoard1Button.setText(usernamesList.get(0));
+                otherBoard1Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer2Infos);
+            } else otherBoard1Button.setVisible(false);
+            if(usernamesList.size() >= 2) {
+                otherBoard2Button.setText(usernamesList.get(1));
+                otherBoard2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer3Infos);
+            } else otherBoard2Button.setVisible(false);
+            if(usernamesList.size() >= 3) {
+                otherBoard3Button.setText(usernamesList.get(2));
+                otherBoard3Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer4Infos);
+            } else otherBoard3Button.setVisible(false);
         }
     }
 
