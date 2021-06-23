@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.sharedarea.market.Market;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class ClientModel {
 
@@ -24,6 +25,7 @@ public class ClientModel {
     private boolean myTurn;
     private int lorenzoPosition;
     private boolean singlePlayer;
+    private Set<String> usernamesList;
 
     public ClientModel(){
         leaderCards = new LinkedList<>();
@@ -119,4 +121,11 @@ public class ClientModel {
         this.lorenzoPosition = lorenzoPosition;
     }
 
+    public Set<String> getUsernamesList() {
+        return usernamesList;
+    }
+
+    public void setUsernamesList(Set<String> usernamesList) {
+        this.usernamesList = usernamesList;
+    }
 }

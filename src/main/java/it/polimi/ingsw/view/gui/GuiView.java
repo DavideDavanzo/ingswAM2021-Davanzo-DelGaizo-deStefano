@@ -96,6 +96,7 @@ public class GuiView extends View {
             loginSceneController.reAskLogin();
         }
         else {
+            myUsername = socketHandler.getUsername();
             Platform.runLater(() -> SceneController.changeScene(this, "lobby_scene.fxml"));
         }
     }

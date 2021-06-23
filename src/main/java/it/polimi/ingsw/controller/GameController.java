@@ -16,6 +16,7 @@ import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.PlayersListMessage;
 import it.polimi.ingsw.network.messages.WarehouseUpdate;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
@@ -173,7 +174,9 @@ public class GameController extends Observable implements Observer, Serializable
         turnController.updateTurnCounter();
         prepareLeaderChoices();
 
-        sendBroadcastMessage("Match started!\nPlayers: " + virtualViewMap.keySet() + "\n" + turnController.getCurrentPlayer().getNickname() + " is the first player");
+        if(virtualViewMap.size() !=1 )
+            sendBroadcastMessage("Match started!\nPlayers: " + virtualViewMap.keySet() + "\n" + turnController.getCurrentPlayer().getNickname() + " is the first player");
+        sendBroadcastMessage(new PlayersListMessage(virtualViewMap.keySet()));
         askLeaders();
 
     }
@@ -283,6 +286,12 @@ public class GameController extends Observable implements Observer, Serializable
             if(!entry.getKey().equals(nickname) && entry.getValue().isConnected()) {
                 entry.getValue().showMessage(message);
             }
+        }
+    }
+
+    private void sendBroadcastMessage(Message message){
+        for(VirtualView v : virtualViewMap.values()) {
+            if(v.isConnected()) v.sendMessage(message);
         }
     }
 

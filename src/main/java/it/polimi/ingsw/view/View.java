@@ -25,6 +25,8 @@ public abstract class View extends Observable implements Observer {
 
     protected SocketHandler socketHandler;
 
+    protected String myUsername;
+
     protected ClientModel clientModel;
 
     protected ClientModel otherPlayerClientModel;
@@ -155,5 +157,9 @@ public abstract class View extends Observable implements Observer {
 
     public void setOtherPlayerClientModel(ClientModel otherPlayerClientModel) {
         this.otherPlayerClientModel = otherPlayerClientModel;
+    }
+
+    public String getMyUsername() {
+        return myUsername;
     }
 }
