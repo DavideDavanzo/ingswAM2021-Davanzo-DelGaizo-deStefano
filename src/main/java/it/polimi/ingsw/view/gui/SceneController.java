@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Implements the controller of a generic scene
+ */
 public class SceneController {
 
     private static GenericSceneController activeSceneController;

@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Observable class that can be observed by implementing the {@link Observer} interface and registering as listener.
+ */
 public class Observable {
 
     protected final List<Observer> observers = new ArrayList<>();

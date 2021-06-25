@@ -13,6 +13,9 @@ import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Handles socket connection
+ */
 public class ServerClientHandler extends Observable implements Runnable{
 
     private String username;

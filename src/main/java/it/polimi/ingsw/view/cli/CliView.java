@@ -28,6 +28,10 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * This class implements all methods of View and it is used for the Command Line Interface.
+ */
+
 public class CliView extends View {
 
     private BufferedReader stdIn;
