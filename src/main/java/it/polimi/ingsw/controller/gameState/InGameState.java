@@ -267,27 +267,20 @@ public class InGameState extends GameState {
 
         for(Integer i : discardLeaderCmd.getChoices()) {
 
-            if(currentPlayer.getLeaderCards().size() != 0 && currentPlayer.getLeaderCards().size() >= i) {
+            LeaderCard toDiscard = currentPlayer.getLeaderCards().get(i-1);
 
-                LeaderCard toDiscard = currentPlayer.getLeaderCards().get(i-1);
-
-                if(toDiscard.isActive()) {
-                    currentView.showError("Couldn't remove the leader card number " + i + " because it's active.");
-                }
-
-                else {
-                    leadersToDiscard.add(currentPlayer.getLeaderCards().get(i - 1));
-                    currentView.showMessage("Discarded leader card number " + i);
-                    gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " discarded a leader card!", currentPlayer.getNickname());
-                }
-
+            if(toDiscard.isActive()) {
+                currentView.showError("Couldn't remove the leader card number " + i + " because it's active.");
             }
 
-            else
-                currentView.showError("Couldn't remove the leader card number " + i);
+            else {
+                leadersToDiscard.add(currentPlayer.getLeaderCards().get(i - 1));
+                currentView.showMessage("Discarded leader card number " + i);
+                gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + " discarded a leader card!", currentPlayer.getNickname());
+            }
 
         }
-        currentPlayer.getLeaderCards().removeAll(leadersToDiscard);
+        leadersToDiscard.forEach(l -> l.setDiscarded(true));
         try {
             if(currentPlayer.moveForward(leadersToDiscard.size())) gameController.setEndGame(true);
         } catch (InvalidInputException e) {

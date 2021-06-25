@@ -129,7 +129,7 @@ public class PlayerBoardTest {
     }
 
     @Test
-    void testActivateProduction() throws NotEnoughResourcesException, InvalidInputException, ProductionFailException, EndGameException {
+    void testActivateProduction() throws NotEnoughResourcesException, InvalidInputException, ProductionFailException {
 
         Player player = new Player();
         Effect effect = new ExtraShelfEffect(new Servant());
@@ -140,8 +140,8 @@ public class PlayerBoardTest {
         // Player board status initialisation
         // Warehouse: first shelf -> 1 coin, second shelf -> 1 shield, first extra -> 1 servant, second extra -> 2 shields
         // Coffer: 5 coins, 3 stones, 3 servants
-        player.getPlayerBoard().getWarehouse().getFirstShelf().updateShelf(new Coin(1));
-        player.getPlayerBoard().getWarehouse().getSecondShelf().updateShelf(new Shield(1));
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Coin(1), player.getPlayerBoard().getWarehouse().getFirstShelf());
+        player.getPlayerBoard().getWarehouse().addResourcesToShelf(new Shield(1), player.getPlayerBoard().getWarehouse().getSecondShelf());
         player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).updateShelf(new Servant(1));
         player.getPlayerBoard().getWarehouse().getExtraShelves().get(1).updateShelf(new Shield(2));
         player.getPlayerBoard().getCoffer().updateCoffer(new Coin(5));
@@ -177,7 +177,7 @@ public class PlayerBoardTest {
         player.getPlayerBoard().activateProduction(chosenCards);
 
         // Player board final status
-        // Warehouse: totally empty except fot second extra shelf with 2 shields
+        // Warehouse: totally empty except for second extra shelf with 2 shields
         // Coffer: 4 servants, 4 coins, 1 stone, 2 shields
         // Path: +2
         assertTrue(player.getPlayerBoard().getWarehouse().getFirstShelf().isEmpty());

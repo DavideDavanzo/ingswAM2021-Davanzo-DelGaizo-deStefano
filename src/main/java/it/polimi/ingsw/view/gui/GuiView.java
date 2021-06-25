@@ -62,7 +62,6 @@ public class GuiView extends View {
     }
 
     public void leaderChoice(ArrayList<LeaderCard> choice) {
-        System.out.println(choice.size());
         sendMessage(new LeaderRequest(Parser.serialize(choice)));
         clientModel.setLeaderCards(new LinkedList<>(choice));
     }
@@ -138,7 +137,7 @@ public class GuiView extends View {
 
     public void tossLeaderCards(int i) {
         LeaderCard card = clientModel.getLeaderCards().get(i-1);
-        if(!card.isActive()) clientModel.getLeaderCards().get(i-1).setDiscarded(true);
+        if(!card.isActive()) card.setDiscarded(true);
         sendMessage(new DiscardLeaderCmd(new ArrayList<Integer>(){{add(i);}}));
     }
 

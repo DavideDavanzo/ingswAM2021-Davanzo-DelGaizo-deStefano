@@ -280,11 +280,12 @@ public class CliView extends View {
                     break;
                 case "lc":
                     System.out.println("Leader cards:");
-                    if (clientModel.getLeaderCards().size() == 0)
+                    if (clientModel.getLeaderCards().stream().filter(l -> !l.isDiscarded()).count() == 0)
                         System.out.println("you do not have any leader cards");
                     else {
                         for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
-                            System.out.println(leaderCard.print());
+                            if(!leaderCard.isDiscarded())
+                                System.out.println(leaderCard.print());
                         }
                     }
                     break;
@@ -326,7 +327,7 @@ public class CliView extends View {
         System.out.println(otherPlayerClientModel.getFaithTrack().print());
         System.out.println(otherPlayerClientModel.getDevelopmentCardsArea().print());
         for(LeaderCard leaderCard : otherPlayerClientModel.getLeaderCards()){
-            if(leaderCard.isActive())
+            if(leaderCard.isActive() && !leaderCard.isDiscarded())
                 System.out.println(leaderCard.print());
         }
     }
@@ -379,15 +380,15 @@ public class CliView extends View {
     @Override
     public void activateLeaderCards() {
         int choice = 0;
-        if(clientModel.getLeaderCards().size() == 0){
+        if(clientModel.getLeaderCards().stream().filter(l -> !l.isDiscarded()).count() == 0){
             System.out.println("You have no leader card");
         } else {
             System.out.println("These are your inactive leader cards:");
             for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
-                if(!leaderCard.isActive())
+                if(!leaderCard.isActive() && !leaderCard.isDiscarded())
                     System.out.println(leaderCard.print());
             }
-            if(clientModel.getLeaderCards().size() == 1){
+            if(clientModel.getLeaderCards().stream().filter(l -> !l.isDiscarded()).count() == 1){
                 System.out.println("Do you want to activate it?");
                 System.out.println("y -> yes");
                 System.out.println("n -> no");
@@ -425,15 +426,16 @@ public class CliView extends View {
     @Override
     public void tossLeaderCards() {
         int choice = 0;
-        if(clientModel.getLeaderCards().size() == 0){
+        if(clientModel.getLeaderCards().stream().filter(l -> !l.isDiscarded()).count() == 0){
             System.out.println("You have no leader card");
+            askCommand();
         } else {
             System.out.println("These are your leader cards:");
             for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
-                if(!leaderCard.isActive())
+                if(!leaderCard.isActive() && !leaderCard.isDiscarded())
                     System.out.println(leaderCard.print());
             }
-            if(clientModel.getLeaderCards().stream().filter(l -> !l.isActive()).count() == 1){
+            if(clientModel.getLeaderCards().stream().filter(l -> !l.isActive() && !l.isDiscarded()).count() == 1){
                 System.out.println("Do you want to discard it?");
                 System.out.println("y -> yes");
                 System.out.println("n -> no");
@@ -444,7 +446,7 @@ public class CliView extends View {
                     e.printStackTrace();
                 }
                 if(userInput.startsWith("y"))
-                    choice = 1;
+                    choice = !clientModel.getLeaderCards().get(0).isActive() && !clientModel.getLeaderCards().get(0).isDiscarded() ? 1 : 2;
                 else
                     return;
             } else {
@@ -460,7 +462,7 @@ public class CliView extends View {
             ArrayList<Integer> temp = new ArrayList<>();
             temp.add(choice);
             sendMessage(new DiscardLeaderCmd(temp));
-            clientModel.getLeaderCards().remove(choice-1);
+            clientModel.getLeaderCards().get(choice-1).setDiscarded(true);
         }
     }
 
@@ -581,17 +583,17 @@ public class CliView extends View {
         System.out.println();
         System.out.println(clientModel.getDevelopmentCardsArea().print());
         for(LeaderCard leaderCard : clientModel.getLeaderCards()){
-            if(leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
+            if(leaderCard.isActive() && !leaderCard.isDiscarded() && leaderCard.getEffect() instanceof ExtraDevEffect)
                 System.out.println(leaderCard.print());
         }
         String userInput = null;
         ArrayList<Integer> choices = new ArrayList<>();
         Trade baseTrade = null;
         int cont = 4;
-        long numLeaderCards = clientModel.getLeaderCards().stream().filter(LeaderCard::isActive).filter(l -> l.getEffect() instanceof ExtraDevEffect).count();
+        long numLeaderCards = clientModel.getLeaderCards().stream().filter(l -> l.isActive() && !l.isDiscarded() && l.getEffect() instanceof ExtraDevEffect).count();
         do{
             System.out.println("Choose the stack of the development card you want to activate");
-            if(clientModel.getLeaderCards().stream().filter(l -> l.getEffect() instanceof ExtraDevEffect).anyMatch(LeaderCard::isActive)) {
+            if(clientModel.getLeaderCards().stream().filter(l -> l.getEffect() instanceof ExtraDevEffect).anyMatch(l -> l.isActive() && !l.isDiscarded())) {
                 System.out.println("or a leader card with extra trade effect");
                 cont += numLeaderCards;
             }
@@ -600,7 +602,7 @@ public class CliView extends View {
             System.out.println("2 -> second stack");
             System.out.println("3 -> third stack");
             clientModel.getLeaderCards().stream()
-                                        .filter(leaderCard -> leaderCard.isActive() && leaderCard.getEffect() instanceof ExtraDevEffect)
+                                        .filter(leaderCard -> leaderCard.isActive() && !leaderCard.isDiscarded() && leaderCard.getEffect() instanceof ExtraDevEffect)
                                         .forEach(leaderCard -> System.out.println((clientModel.getLeaderCards().indexOf(leaderCard) + 4) + " -> " + (clientModel.getLeaderCards().indexOf(leaderCard)==0?"first leader card":"second leader card")));
             System.out.println("Type \"activate\" to execute production");
             System.out.println("exit -> return to main commands");
@@ -621,7 +623,7 @@ public class CliView extends View {
                     int temp = Integer.parseInt(userInput);
                     if (!choices.contains(temp) && temp>0 && ( (temp<4) ||
                             (temp<4+clientModel.getLeaderCards().size() && clientModel.getLeaderCards().get(temp-4).getEffect() instanceof ExtraDevEffect &&
-                                    clientModel.getLeaderCards().get(temp-4).isActive()))) {
+                                    clientModel.getLeaderCards().get(temp-4).isActive() && !clientModel.getLeaderCards().get(temp-4).isDiscarded()))) {
                         choices.add(temp);
                         cont--;
                     } else if(temp == 0){

@@ -65,8 +65,9 @@ public class WhiteMarbleSceneController implements GenericSceneController {
                 thirdShelfThirdResource.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdShelf.getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
         }
 
-        for(LeaderCard leaderCard : gui.getClientModel().getLeaderCards()) {
-            ((ImageView) leadersGridPane.getChildren().get(0)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + leaderCard.getId() + ".png"))));
+        int i=0;
+        for(LeaderCard leaderCard : gui.getClientModel().getLeaderCards()) {    //hp: if this scene starts, player sure has 2 active leader cards
+            ((ImageView) leadersGridPane.getChildren().get(i++)).setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + leaderCard.getId() + ".png"))));
         }
 
         for(Node node : whiteMarblesGridPane.getChildren()){
