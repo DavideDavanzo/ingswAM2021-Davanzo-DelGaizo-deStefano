@@ -27,6 +27,9 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.stream.IntStream;
 
+/**
+ * This class implements the controller of the game
+ */
 public class GameController extends Observable implements Observer, Serializable {
 
     private Match match;
@@ -120,6 +123,11 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
+    /**
+     * Handles reconnection
+     * @param nickname
+     * @param virtualView
+     */
     public void reconnect(String nickname, VirtualView virtualView) {
         virtualView.connect();
         virtualViewMap.put(nickname, virtualView);
@@ -147,6 +155,9 @@ public class GameController extends Observable implements Observer, Serializable
         return virtualViewMap.get(nickname).isConnected();
     }
 
+    /**
+     * Starts a match
+     */
     public void startMatch() {
         System.out.println("Starting match..."); //Server side message.
 
@@ -195,6 +206,10 @@ public class GameController extends Observable implements Observer, Serializable
         }
     }
 
+    /**
+     * Declares Lorenzo as the winner
+     * @param lossMessage for the user
+     */
     private void lorenzoWins(String lossMessage) {
         VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
         currentView.showMessage(lossMessage); //TODO: Use a message for loss ??
@@ -221,6 +236,9 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
+    /**
+     * Declares the winner and the rest of the ranking
+     */
     public void handleEndGame() {
 
         if(isSinglePlayer()) {
@@ -246,6 +264,12 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
+    /**
+     * Moves all the crosses of the players except the one of the current player
+     * @param player
+     * @param steps
+     * @return
+     */
     public boolean moveAllExcept(Player player, int steps) {
 
         String nickname = player.getNickname();
@@ -299,6 +323,10 @@ public class GameController extends Observable implements Observer, Serializable
         return virtualViewMap.values().stream().filter(VirtualView::isConnected).count();
     }
 
+    /**
+     * Handles disconnection of the user
+     * @param nickname
+     */
     public synchronized void disconnect(String nickname) {
         int count = 1;
         for(Player p : getPlayers()) {

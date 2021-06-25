@@ -10,6 +10,9 @@ import java.net.Socket;
 
 import static javafx.application.Application.launch;
 
+/**
+ *
+ */
 public class Client {
 
     public String username;
