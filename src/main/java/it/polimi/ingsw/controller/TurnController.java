@@ -45,7 +45,6 @@ public class TurnController {
             nextPlayer();
         } while(!gameController.getVirtualViewMap().get(currentPlayer.getNickname()).isConnected());
 
-
         if(gameController.isEndGame() && currentPlayer.hasInkwell()) {
             gameController.handleEndGame();
             return;

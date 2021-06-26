@@ -9,7 +9,7 @@ import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.network.client.ClientModel;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 import java.util.LinkedList;
 
@@ -38,7 +38,7 @@ public class OtherPlayerInfosReply extends Message{
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
         view.setOtherPlayerClientModel(new ClientModel(leaderCards, warehouse, coffer, path, developmentCardsArea));
         view.showOtherPlayerClientModel();
     }

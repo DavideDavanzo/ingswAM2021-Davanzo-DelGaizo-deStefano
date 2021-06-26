@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.messages;
 
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 public class TurnWakeMessage extends Message {
 
@@ -15,7 +15,7 @@ public class TurnWakeMessage extends Message {
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
         try {
             Thread.sleep(300);
         } catch (InterruptedException e) {

@@ -20,30 +20,23 @@ import it.polimi.ingsw.observingPattern.Observer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Defines a generic View to be implemented by each view type
  */
 public abstract class View extends Observable implements Observer {
 
-    protected SocketHandler socketHandler;
-
-    protected String myUsername;
-
-    protected ClientModel clientModel;
-
-    protected ClientModel otherPlayerClientModel;
+    protected String username;
 
     public abstract void start();
-
-    public abstract void login();
 
     /**
      * Sends message
      * @param message
      */
-    public void sendMessage(Message message){
-        socketHandler.sendMessage(message);
-    }
+    public abstract void sendMessage(Message message);
 
     /**
      * Verifies if the chosen username is valid
@@ -51,11 +44,16 @@ public abstract class View extends Observable implements Observer {
      * @return true or false
      */
     public boolean validateUsername(String username){
-        if(username.contains(" ") || username.contains("!") || username.contains("?") || username.contains("(") || username.contains(")"))
+
+        if(username == null || username.equals("") || username.contains(" "))
             return false;
-        else if(username.startsWith("0") || username.startsWith("1") || username.startsWith("2") || username.startsWith("3") || username.startsWith("4") || username.startsWith("5") || username.startsWith("6") || username.startsWith("7") || username.startsWith("8") || username.startsWith("9"))
-            return false;
-        else return true;
+
+        String regex = "^[A-Za-z]\\w{2,19}$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(username);
+
+        return m.matches();
+
     }
 
     /**
@@ -90,33 +88,9 @@ public abstract class View extends Observable implements Observer {
      */
     public abstract void askToChangeWhiteMarbles(ArrayList<Item> items, int count);
 
-    public abstract void showLogin(String msg, boolean successful);
-
     public abstract void showError(String msg);
 
     public abstract void showMessage(String msg);
-
-    public void onLoginReply(LoginReply message){
-
-    }
-
-    public void onLoginRequest(LoginRequest message){
-
-    }
-
-    /**
-     * The user chooses which info he/she wants to access
-     */
-    public void chooseInfo(){}
-
-    /**
-     * Asks the user which action he/she wants to take next
-     */
-    public void askCommand(){}
-
-    public void activateLeaderCards(){}
-
-    public void tossLeaderCards(){}
 
     public abstract void updateWarehouse(Warehouse warehouse);
 
@@ -130,55 +104,7 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void updateCardMarket(CardMarket cardMarket);
 
-    public void processAck(Ack ack){ }
-
-    public void waitTurn(){ }
-
     public abstract void disconnect();
-
-    public void showOtherPlayerClientModel(){
-
-    }
-
-    @Override
-    public void update(Warehouse warehouse){
-        //do nothing
-    }
-
-    @Override
-    public void update(Path path) {
-        //do nothing
-    }
-
-    @Override
-    public void update(Coffer coffer) {
-        //do nothing
-    }
-
-    @Override
-    public void update(DevelopmentCardsArea developmentCardsArea) {
-        //do nothing
-    }
-
-    @Override
-    public void update(int pathPosition) {
-        //do nothing
-    }
-
-    @Override
-    public void update(Set<String> usernames){
-        //do nothing
-    }
-
-    @Override
-    public void update(Market market) {
-        //do nothing
-    }
-
-    @Override
-    public void update(CardMarket cardMarket) {
-        //do nothing
-    }
 
     public abstract void updateLorenzoPosition(int lorenzoPosition);
 
@@ -186,19 +112,46 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void updateLeaderCards(LinkedList<LeaderCard> leaderCards);
 
-    public ClientModel getClientModel() {
-        return clientModel;
+    public void setUsername(String username){
+        this.username = username;
     }
 
-    public ClientModel getOtherPlayerClientModel(){
-        return otherPlayerClientModel;
+    public String getUsername() {
+        return username;
     }
 
-    public void setOtherPlayerClientModel(ClientModel otherPlayerClientModel) {
-        this.otherPlayerClientModel = otherPlayerClientModel;
+    /////// The following methods are inherited from Observer interface, but never used in this class ///////
+    @Override
+    public void update(Warehouse warehouse){
+        //do nothing
+    }
+    @Override
+    public void update(Path path) {
+        //do nothing
+    }
+    @Override
+    public void update(Coffer coffer) {
+        //do nothing
+    }
+    @Override
+    public void update(DevelopmentCardsArea developmentCardsArea) {
+        //do nothing
+    }
+    @Override
+    public void update(int pathPosition) {
+        //do nothing
+    }
+    @Override
+    public void update(Set<String> usernames){
+        //do nothing
+    }
+    @Override
+    public void update(Market market) {
+        //do nothing
+    }
+    @Override
+    public void update(CardMarket cardMarket) {
+        //do nothing
     }
 
-    public String getMyUsername() {
-        return myUsername;
-    }
 }

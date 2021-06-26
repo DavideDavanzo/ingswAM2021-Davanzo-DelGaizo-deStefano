@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class StockMarketResourcesRequest extends Message {
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
         view.askToStockMarketResources(resources, numExtraShelves);
     }
 

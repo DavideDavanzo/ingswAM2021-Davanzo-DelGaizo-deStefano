@@ -518,7 +518,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         servantOutputButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::servantOutputClick);
         if(!gui.getClientModel().isSinglePlayer()) {
             for(String s : gui.getClientModel().getUsernamesList()) {
-                if(!s.equals(gui.getMyUsername()))
+                if(!s.equals(gui.getUsername()))
                     usernamesList.add(s);
             }
             otherBoard1Button.setText(usernamesList.get(0));

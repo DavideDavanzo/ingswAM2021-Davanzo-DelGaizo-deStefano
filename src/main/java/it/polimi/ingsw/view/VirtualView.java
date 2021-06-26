@@ -19,7 +19,6 @@ import java.util.LinkedList;
 public class VirtualView extends View {
 
     private final ServerClientHandler clientHandler;
-    private String username;
     private boolean connected;
 
     public VirtualView(ServerClientHandler clientHandler){
@@ -28,10 +27,72 @@ public class VirtualView extends View {
     }
 
     @Override
+    public void start() {
+        clientHandler.addObserver(this);
+        Thread thread = new Thread(clientHandler);
+        thread.start();
+    }
+
+    @Override
+    public void sendMessage(Message message){
+        clientHandler.sendMessage(message);
+    }
+
+    @Override
     public void update(Message message) {
         if(message.getUsername() == null)
             message.setUsername(username);
         notifyObservers(message);
+    }
+
+    @Override
+    public void askNumberOfPlayers() {
+        clientHandler.sendMessage(new PlayersNumRequest());
+    }
+
+    @Override
+    public void askLeaders(ArrayList<LeaderCard> leaderCards) {
+        LeaderCardParser parser = new LeaderCardParser();
+        clientHandler.sendMessage(new LeaderRequest(parser.serialize(leaderCards)));
+    }
+
+    @Override
+    public void askBlankResources(String msg) {
+        clientHandler.sendMessage(new ResourceRequest(msg));
+    }
+
+    public void showLogin(String msg, boolean successful) {
+        clientHandler.sendMessage(new LoginReply(msg, successful));
+    }
+
+    @Override
+    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves){
+        sendMessage(new StockMarketResourcesRequest(resources, numExtraShelves));
+    }
+
+    @Override
+    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
+        clientHandler.sendMessage(new ChangeWhiteMarbleRequest(items, count));
+    }
+
+    @Override
+    public void showError(String msg) {
+        clientHandler.sendMessage(new ErrorMessage(msg));
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        clientHandler.sendMessage(new InfoMessage(msg));
+    }
+
+    @Override
+    public void disconnect() {
+        try {
+            clientHandler.getClientSocket().close();
+            connected = false;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -62,74 +123,6 @@ public class VirtualView extends View {
     @Override
     public void update(CardMarket cardMarket) {
         updateCardMarket(cardMarket);
-    }
-
-    @Override
-    public void start() {
-        clientHandler.addObserver(this);
-        Thread thread = new Thread(clientHandler);
-        thread.start();
-    }
-
-    @Override
-    public void login() {
-
-    }
-
-    @Override
-    public void askNumberOfPlayers() {
-        clientHandler.sendMessage(new PlayersNumRequest());
-    }
-
-    @Override
-    public void askLeaders(ArrayList<LeaderCard> leaderCards) {
-        LeaderCardParser parser = new LeaderCardParser();
-        clientHandler.sendMessage(new LeaderRequest(parser.serialize(leaderCards)));
-    }
-
-    @Override
-    public void askBlankResources(String msg) {
-        clientHandler.sendMessage(new ResourceRequest(msg));
-    }
-
-    @Override
-    public void showLogin(String msg, boolean successful) {
-        clientHandler.sendMessage(new LoginReply(msg, successful));
-    }
-
-    @Override
-    public void showError(String msg) {
-        clientHandler.sendMessage(new ErrorMessage(msg));
-    }
-
-    @Override
-    public void showMessage(String msg) {
-        clientHandler.sendMessage(new InfoMessage(msg));
-    }
-
-    @Override
-    public void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves){
-        sendMessage(new StockMarketResourcesRequest(resources, numExtraShelves));
-    }
-
-    @Override
-    public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
-        clientHandler.sendMessage(new ChangeWhiteMarbleRequest(items, count));
-    }
-
-    public void stopTimer(){
-        clientHandler.stopTimer();
-    }
-
-    @Override
-    public void disconnect() {
-        try {
-            clientHandler.getClientSocket().close();
-            connected = false;
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -179,14 +172,6 @@ public class VirtualView extends View {
 
     public ServerClientHandler getClientHandler(){
         return clientHandler;
-    }
-
-    public void sendMessage(Message message){
-        clientHandler.sendMessage(message);
-    }
-
-    public void setUsername(String username){
-        this.username = username;
     }
 
     public void connect() {

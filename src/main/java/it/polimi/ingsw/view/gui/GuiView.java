@@ -1,19 +1,13 @@
 package it.polimi.ingsw.view.gui;
 
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.model.playerboard.Coffer;
-import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
-import it.polimi.ingsw.model.playerboard.Warehouse;
-import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
-import it.polimi.ingsw.model.sharedarea.CardMarket;
-import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.utils.Parser;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 import it.polimi.ingsw.view.gui.scene.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -21,16 +15,13 @@ import javafx.scene.control.Alert.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * This class implements all methods of View and it is used for the Graphic User Interface.
  */
+public class GuiView extends ClientView {
 
-public class GuiView extends View {
-
-    ExecutorService executor;
     private Alert alert;
 
     public GuiView(SocketHandler socketHandler) {
@@ -45,6 +36,16 @@ public class GuiView extends View {
     public void start() {
         socketHandler.addObserver(this);
         new Thread(socketHandler).start();
+    }
+
+    @Override
+    public synchronized void update(Message message) {
+        try {
+            wait(100);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        executor.submit(() -> message.apply(this));
     }
 
     @Override
@@ -85,7 +86,6 @@ public class GuiView extends View {
         Platform.runLater(() -> SceneController.changeScene(this, rpc, "resource_popup.fxml"));
     }
 
-    @Override
     public void onLoginRequest(LoginRequest message) {
         socketHandler.setUsername(message.getMsg());
         sendMessage(message);
@@ -99,7 +99,7 @@ public class GuiView extends View {
             loginSceneController.reAskLogin();
         }
         else {
-            myUsername = socketHandler.getUsername();
+            username = socketHandler.getUsername();
             Platform.runLater(() -> SceneController.changeScene(this, "lobby_scene.fxml"));
         }
     }
@@ -115,18 +115,8 @@ public class GuiView extends View {
     }
 
     @Override
-    public void chooseInfo() {
-        Platform.runLater(() -> SceneController.changeScene(this, new PlayerBoardSceneController(clientModel), "playerBoard_scene.fxml"));
-    }
-
-    @Override
     public void askCommand() {
         Platform.runLater(() -> SceneController.changeScene(this, "command_scene.fxml"));
-    }
-
-    @Override
-    public void activateLeaderCards() {
-
     }
 
     public void activateLeaderCards(int i) {
@@ -142,62 +132,13 @@ public class GuiView extends View {
     }
 
     @Override
-    public void updateWarehouse(Warehouse warehouse) {
-        clientModel.updateWarehouse(warehouse);
-    }
-
-    @Override
-    public void updateCoffer(Coffer coffer) {
-        clientModel.updateCoffer(coffer);
-    }
-
-    @Override
-    public void updateFaithTrack(Path path) {
-        clientModel.updateFaithTrack(path);
-    }
-
-    @Override
-    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
-        clientModel.updateDevCardsArea(developmentCardsArea);
-    }
-
-    @Override
-    public void updateMarket(Market market) {
-        clientModel.updateMarket(market);
-    }
-
-    @Override
-    public void updateCardMarket(CardMarket cardMarket) {
-        clientModel.updateCardMarket(cardMarket);
-    }
-
-    @Override
     public synchronized void processAck(Ack ack) {
         Platform.runLater(() -> SceneController.changeScene(this, new PlayerBoardSceneController(clientModel), "playerBoard_scene.fxml"));
     }
 
     @Override
-    public void disconnect() {
-        socketHandler.disconnect();
-    }
-
-    @Override
-    public void updateActiveLeader(int index) {
-        clientModel.getLeaderCards().get(index).setActive(true);
-    }
-
-    @Override
-    public void updateLeaderCards(LinkedList<LeaderCard> leaderCards) {
-        clientModel.setLeaderCards(leaderCards);
-    }
-
-    @Override
     public void updateLorenzoPosition(int lorenzoPosition) {
         clientModel.setLorenzoPosition(lorenzoPosition);
-    }
-
-    @Override
-    public void showLogin(String msg, boolean successful) {
     }
 
     @Override
@@ -232,13 +173,8 @@ public class GuiView extends View {
     }
 
     @Override
-    public synchronized void update(Message message) {
-        try {
-            wait(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        executor.submit(() -> message.apply(this));
+    public void waitTurn() {
+        Platform.runLater(() -> SceneController.changeScene(this, new PlayerBoardSceneController(clientModel), "playerBoard_scene.fxml"));
     }
 
 }

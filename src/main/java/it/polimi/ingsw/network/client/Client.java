@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 
+import it.polimi.ingsw.view.ClientView;
 import it.polimi.ingsw.view.cli.CliView;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.AppFX;
@@ -50,7 +51,7 @@ public class Client {
         System.out.println("Connection established");
 
         SocketHandler socketHandler = new SocketHandler(socket);
-        View clientView = new CliView(socketHandler);
+        ClientView clientView = new CliView(socketHandler);
         clientView.start();
 
     }

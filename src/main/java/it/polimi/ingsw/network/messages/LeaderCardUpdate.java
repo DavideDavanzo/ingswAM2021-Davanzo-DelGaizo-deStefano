@@ -3,9 +3,8 @@ package it.polimi.ingsw.network.messages;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class LeaderCardUpdate extends Message{
@@ -27,7 +26,7 @@ public class LeaderCardUpdate extends Message{
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
         if(leaderCards == null)
             view.updateActiveLeader(index);
         else    view.updateLeaderCards(leaderCards);

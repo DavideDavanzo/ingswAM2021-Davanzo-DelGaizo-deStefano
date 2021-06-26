@@ -7,41 +7,40 @@ import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.ExtraDevEffect;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.model.sharedarea.market.Market;
-import it.polimi.ingsw.model.playerboard.Coffer;
-import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
-import it.polimi.ingsw.model.playerboard.Warehouse;
-import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.Item;
-import it.polimi.ingsw.model.sharedarea.CardMarket;
 import it.polimi.ingsw.network.client.ClientModel;
 import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.network.messages.*;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
  * This class implements all methods of View and it is used for the Command Line Interface.
  */
-
-public class CliView extends View {
+public class CliView extends ClientView {
 
     private BufferedReader stdIn;
-    ExecutorService executor;
 
     public CliView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;
         stdIn = new BufferedReader(new InputStreamReader(System.in));
         clientModel = new ClientModel();
         executor = Executors.newCachedThreadPool();
+    }
+
+    @Override
+    public void start() {
+        welcome();
+        socketHandler.addObserver(this);
+        executor.submit(socketHandler);
+        login();
     }
 
     @Override
@@ -52,14 +51,6 @@ public class CliView extends View {
             e.printStackTrace();
         }
         executor.submit(() -> message.apply(this));
-    }
-
-    @Override
-    public void start() {
-        welcome();
-        socketHandler.addObserver(this);
-        executor.submit(socketHandler);
-        login();
     }
 
     @Override
@@ -227,7 +218,10 @@ public class CliView extends View {
         }
     }
 
-    public void chooseInfo(){
+    /**
+     * The user chooses which info he/she wants to access
+     */
+    private synchronized void chooseInfo(){
 
         System.out.println("Which item would you like to see?");
         System.out.println("pb -> my entire player board");
@@ -238,7 +232,8 @@ public class CliView extends View {
         System.out.println("lc -> my leader cards");
         System.out.println("m -> market");
         System.out.println("cm -> card market");
-        System.out.println("op -> other player's board");
+        if(!clientModel.isSinglePlayer())
+            System.out.println("op -> other player's board");
         System.out.println("exit -> return to main commands");
 
         String cmd;
@@ -298,7 +293,10 @@ public class CliView extends View {
                     System.out.println(clientModel.getCardMarket().print());
                     break;
                 case "op":
-                    askOtherPlayerInfo();
+                    if(!clientModel.isSinglePlayer()) {
+                        askOtherPlayerInfo();
+                        wait(500);
+                    } else System.out.println("There is no other player except Lorenzo!");
                     break;
                 case "exit" :
                     break;
@@ -306,7 +304,7 @@ public class CliView extends View {
                     System.out.println("Error - wrong format. Try again");
                     chooseInfo();
             }
-        } catch (IOException e){
+        } catch (IOException | InterruptedException e){
             e.printStackTrace();
         }
     }
@@ -377,8 +375,7 @@ public class CliView extends View {
 
     }
 
-    @Override
-    public void activateLeaderCards() {
+    private void activateLeaderCards() {
         int choice = 0;
         if(clientModel.getLeaderCards().stream().filter(l -> !l.isDiscarded()).count() == 0){
             System.out.println("You have no leader card");
@@ -423,7 +420,6 @@ public class CliView extends View {
         }
     }
 
-    @Override
     public void tossLeaderCards() {
         int choice = 0;
         if(clientModel.getLeaderCards().stream().filter(l -> !l.isDiscarded()).count() == 0){
@@ -866,7 +862,6 @@ public class CliView extends View {
         sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
-    //TODO: finish askToChangeWhiteMarbles()
     @Override
     public void askToChangeWhiteMarbles(ArrayList<Item> items, int count) {
         System.out.println("You have multiple active leader cards with extra marble effect");
@@ -968,11 +963,6 @@ public class CliView extends View {
     }
 
     @Override
-    public void showLogin(String msg, boolean successful) {
-        System.out.println(msg);
-    }
-
-    @Override
     public synchronized void showError(String msg) {
         System.out.println(msg);
     }
@@ -983,53 +973,8 @@ public class CliView extends View {
     }
 
     @Override
-    public void updateWarehouse(Warehouse warehouse) {
-        clientModel.updateWarehouse(warehouse);
-    }
-
-    @Override
-    public void updateCoffer(Coffer coffer) {
-        clientModel.updateCoffer(coffer);
-    }
-
-    @Override
-    public void updateFaithTrack(Path path) {
-        clientModel.updateFaithTrack(path);
-    }
-
-    @Override
-    public void updateDevCards(DevelopmentCardsArea developmentCardsArea) {
-        clientModel.updateDevCardsArea(developmentCardsArea);
-    }
-
-    @Override
-    public synchronized void updateActiveLeader(int index) {
-        clientModel.getLeaderCards().get(index).setActive(true);
-    }
-
-    @Override
-    public void updateLeaderCards(LinkedList<LeaderCard> leaderCards) {
-        clientModel.setLeaderCards(leaderCards);
-    }
-
-    @Override
-    public void updateMarket(Market market) {
-        clientModel.updateMarket(market);
-    }
-
-    @Override
-    public void updateCardMarket(CardMarket cardMarket) {
-        clientModel.updateCardMarket(cardMarket);
-    }
-
-    @Override
     public void updateLorenzoPosition(int lorenzoPosition) {
-        //useless in cli
-    }
-
-    @Override
-    public void disconnect() {
-        socketHandler.disconnect();
+        //do nothing: useless in cli
     }
 
     private void welcome(){

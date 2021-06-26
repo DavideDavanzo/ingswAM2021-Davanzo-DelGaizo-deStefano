@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 public class DevCardsUpdate extends Message{
 
@@ -19,7 +19,7 @@ public class DevCardsUpdate extends Message{
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
         view.updateDevCards(developmentCardsArea);
     }
 

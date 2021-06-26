@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
@@ -58,7 +58,7 @@ public abstract class Message {
         this.msg = msg;
     }
 
-    public abstract void apply(View view);
+    public abstract void apply(ClientView view);
 
     public abstract void getProcessedBy(GameState gameState) throws InvalidStateException;
 

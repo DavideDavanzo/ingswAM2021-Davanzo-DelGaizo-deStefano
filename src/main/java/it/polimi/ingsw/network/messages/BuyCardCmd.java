@@ -3,7 +3,7 @@ package it.polimi.ingsw.network.messages;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.enums.ECardColor;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 public class BuyCardCmd extends Message{
 
@@ -24,7 +24,7 @@ public class BuyCardCmd extends Message{
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
 
     }
 

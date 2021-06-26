@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.model.cards.LeaderCardParser;
-import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.ClientView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ public class LeaderRequest extends Message {
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
