@@ -443,6 +443,7 @@ public class InGameState extends GameState {
 
         if(!currentPlayer.hasBigActionToken()) {
             currentView.sendMessage(new PassTurnMessage());
+            gameController.getTurnController().getTimerThread().interrupt();
             gameController.getTurnController().nextTurn();
         }
         else {
