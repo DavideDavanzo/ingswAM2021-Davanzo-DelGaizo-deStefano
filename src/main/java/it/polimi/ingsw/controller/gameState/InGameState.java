@@ -391,7 +391,11 @@ public class InGameState extends GameState {
     @Override
     public void process(ResourceChoice resourceChoice){
         Player currentPlayer =  gameController.getCurrentPlayer();
-        Resource[] resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        Resource[] resources = null;
+        if(resourceChoice.getMsg() != null) {
+            resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        }
+        else resources = resourceChoice.getResources().toArray(new Resource[0]);
         for(Resource resource : resources) {
             try {
                 currentPlayer.getPlayerBoard().getCoffer().updateCoffer(resource);

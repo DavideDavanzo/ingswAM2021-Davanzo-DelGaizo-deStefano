@@ -7,9 +7,11 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
@@ -37,16 +39,24 @@ public class YourLeaderSceneController implements GenericSceneController {
     private Label noCardsLabel;
 
     public void initialize() {
+
         initCards();
         activateButton.setVisible(false);
         discardButton.setVisible(false);
         backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
-        leader1Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leader1ButtonClick);
-        leader2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leader2ButtonClick);
-        activateButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateButtonClick);
-        discardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::discardButtonClick);
+
+        if(gui.getClientModel().isMyTurn()) {
+            leader1Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leader1ButtonClick);
+            leader2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::leader2ButtonClick);
+            activateButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::activateButtonClick);
+            discardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::discardButtonClick);
+        }
+
+        activationCheck();
+
         if(gui.getClientModel().getFirstLeader().isDiscarded() && gui.getClientModel().getSecondLeader().isDiscarded())
             noCardsLabel.setVisible(true);
+
     }
 
     private void initCards() {
@@ -68,7 +78,7 @@ public class YourLeaderSceneController implements GenericSceneController {
     public void leader1ButtonClick(Event event) {
         if(leader2Button.isDisabled()) {
             leader1Button.setOpacity(0);
-            leader2Button.setDisable(false);
+            if(!gui.getClientModel().getSecondLeader().isActive()) leader2Button.setDisable(false);
             selected = null;
             activateButton.setVisible(false);
             discardButton.setVisible(false);
@@ -85,7 +95,7 @@ public class YourLeaderSceneController implements GenericSceneController {
     public void leader2ButtonClick(Event event) {
         if(leader1Button.isDisabled()) {
             leader2Button.setOpacity(0);
-            leader1Button.setDisable(false);
+            if(!gui.getClientModel().getFirstLeader().isActive()) leader1Button.setDisable(false);
             selected = null;
             activateButton.setVisible(false);
             discardButton.setVisible(false);
@@ -97,6 +107,18 @@ public class YourLeaderSceneController implements GenericSceneController {
         selected = 2;
         activateButton.setVisible(true);
         discardButton.setVisible(true);
+    }
+
+    private void activationCheck() {
+        DropShadow ds = new DropShadow(20, Color.AQUA);
+        if(gui.getClientModel().getFirstLeader().isActive()) {
+            card1.setEffect(ds);
+            leader1Button.setDisable(true);
+        }
+        if(gui.getClientModel().getSecondLeader().isActive()) {
+            card2.setEffect(ds);
+            leader2Button.setDisable(true);
+        }
     }
 
     public void backButtonClick(Event event) {
