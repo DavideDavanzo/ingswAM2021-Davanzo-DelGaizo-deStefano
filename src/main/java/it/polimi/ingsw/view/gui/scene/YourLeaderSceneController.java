@@ -76,13 +76,15 @@ public class YourLeaderSceneController implements GenericSceneController {
     }
 
     public void leader1ButtonClick(Event event) {
-        if(leader2Button.isDisabled()) {
-            leader1Button.setOpacity(0);
-            if(!gui.getClientModel().getSecondLeader().isActive()) leader2Button.setDisable(false);
-            selected = null;
-            activateButton.setVisible(false);
-            discardButton.setVisible(false);
-            return;
+        if(!gui.getClientModel().getSecondLeader().isActive()) {
+            if(leader2Button.isDisabled()) {
+                leader1Button.setOpacity(0);
+                leader2Button.setDisable(false);
+                selected = null;
+                activateButton.setVisible(false);
+                discardButton.setVisible(false);
+                return;
+            }
         }
         leader1Button.setText("selected");
         leader2Button.setDisable(true);
@@ -93,13 +95,15 @@ public class YourLeaderSceneController implements GenericSceneController {
     }
 
     public void leader2ButtonClick(Event event) {
-        if(leader1Button.isDisabled()) {
-            leader2Button.setOpacity(0);
-            if(!gui.getClientModel().getFirstLeader().isActive()) leader1Button.setDisable(false);
-            selected = null;
-            activateButton.setVisible(false);
-            discardButton.setVisible(false);
-            return;
+        if(!gui.getClientModel().getFirstLeader().isActive()) {
+            if(leader1Button.isDisabled()) {
+                leader2Button.setOpacity(0);
+                leader1Button.setDisable(false);
+                selected = null;
+                activateButton.setVisible(false);
+                discardButton.setVisible(false);
+                return;
+            }
         }
         leader2Button.setText("selected");
         leader1Button.setDisable(true);
