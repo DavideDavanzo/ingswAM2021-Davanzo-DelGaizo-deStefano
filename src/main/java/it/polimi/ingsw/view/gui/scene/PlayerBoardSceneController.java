@@ -83,8 +83,9 @@ public class PlayerBoardSceneController implements GenericSceneController{
         this.clientModel = clientModel;
     }
 
+    @FXML
     public void initialize() {
-        initAll();
+        Platform.runLater(this::initAll);
     }
 
     private void initAll() {
@@ -354,15 +355,15 @@ public class PlayerBoardSceneController implements GenericSceneController{
     public void firstLeaderProductionClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(4);
-        thirdStackButton.setDisable(true);
-        thirdStackButton.setOpacity(0.6);
+        firstLeaderProductionButton.setDisable(true);
+        firstLeaderProductionButton.setOpacity(0.6);
     }
 
     public void secondLeaderProductionClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(5);
-        thirdStackButton.setDisable(true);
-        thirdStackButton.setOpacity(0.6);
+        secondLeaderProductionButton.setDisable(true);
+        secondLeaderProductionButton.setOpacity(0.6);
     }
 
     public void baseProductionClick(Event event){
@@ -494,7 +495,6 @@ public class PlayerBoardSceneController implements GenericSceneController{
         if(!(clientModel == gui.getClientModel())){
             disableAllButtons();
             myBoardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::returnToMyBoard);
-            return;
         } else myBoardButton.setDisable(true);
         firstShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchFirstShelf);
         secondShelfButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::switchSecondShelf);
@@ -521,10 +521,8 @@ public class PlayerBoardSceneController implements GenericSceneController{
                 if(!s.equals(gui.getMyUsername()))
                     usernamesList.add(s);
             }
-            if(usernamesList.size() >= 1){
-                otherBoard1Button.setText(usernamesList.get(0));
-                otherBoard1Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer2Infos);
-            } else otherBoard1Button.setVisible(false);
+            otherBoard1Button.setText(usernamesList.get(0));
+            otherBoard1Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer2Infos);
             if(usernamesList.size() >= 2) {
                 otherBoard2Button.setText(usernamesList.get(1));
                 otherBoard2Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer3Infos);
