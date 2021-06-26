@@ -183,6 +183,7 @@ public class PlayerBoardTest {
         assertTrue(player.getPlayerBoard().getWarehouse().getFirstShelf().isEmpty());
         assertTrue(player.getPlayerBoard().getWarehouse().getSecondShelf().isEmpty());
         assertTrue(player.getPlayerBoard().getWarehouse().getThirdShelf().isEmpty());
+        assertTrue(player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).isExtraShelf());
         assertEquals(new Servant(), player.getPlayerBoard().getWarehouse().getExtraShelves().get(0).getShelfResource());
         assertEquals(new Shield(2), player.getPlayerBoard().getWarehouse().getExtraShelves().get(1).getShelfResource());
         assertEquals(4, player.getPlayerBoard().getCoffer().getCoins().getVolume());

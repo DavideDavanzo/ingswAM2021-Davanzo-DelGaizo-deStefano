@@ -40,7 +40,8 @@ public class Shelf {
 
     public void emptyThisShelf() {
         empty = true;
-        shelfResource = new Resource(0);
+        if(!isExtraShelf()) shelfResource = new Resource(0);
+        if(isExtraShelf()) shelfResource.setVolume(0);
         availableVolume = dimension;
     }
 
