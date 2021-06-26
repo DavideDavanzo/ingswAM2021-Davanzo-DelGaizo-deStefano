@@ -531,6 +531,10 @@ public class PlayerBoardSceneController implements GenericSceneController{
                 otherBoard3Button.setText(usernamesList.get(2));
                 otherBoard3Button.addEventHandler(MouseEvent.MOUSE_RELEASED, this::askPlayer4Infos);
             } else otherBoard3Button.setVisible(false);
+        } else {
+            otherBoard1Button.setVisible(false);
+            otherBoard2Button.setVisible(false);
+            otherBoard3Button.setVisible(false);
         }
     }
 
