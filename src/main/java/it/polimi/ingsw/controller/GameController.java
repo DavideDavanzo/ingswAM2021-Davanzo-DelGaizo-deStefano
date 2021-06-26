@@ -18,6 +18,7 @@ import it.polimi.ingsw.model.sharedarea.market.Market;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.network.messages.PlayersListMessage;
 import it.polimi.ingsw.network.messages.WarehouseUpdate;
+import it.polimi.ingsw.network.messages.WinMessage;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.observingPattern.Observer;
 import it.polimi.ingsw.view.VirtualView;
@@ -211,9 +212,10 @@ public class GameController extends Observable implements Observer, Serializable
      * @param lossMessage for the user
      */
     private void lorenzoWins(String lossMessage) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(lossMessage).append("Score : ").append(getCurrentPlayer().getVictoryPoints()).append("\n").append("Position : ").append(getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
         VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
-        currentView.showMessage(lossMessage); //TODO: Use a message for loss ??
-        currentView.showMessage("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        currentView.sendMessage(new WinMessage(sb.toString(), true));
         notifyObservers(virtualViewMap.keySet());
     }
 
@@ -243,25 +245,27 @@ public class GameController extends Observable implements Observer, Serializable
 
         if(isSinglePlayer()) {
             VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
-            currentView.showMessage("You Won!");
-            currentView.showMessage("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+            currentView.sendMessage(new WinMessage(singlePlayerWinMessage(), false));
             notifyObservers(virtualViewMap.keySet());
             return;
         }
 
         LinkedList<Player> ranking = match.getRanking();
-        Player winner = ranking.peek();
-        VirtualView winnerView = virtualViewMap.get(winner.getNickname());
         HashMap<String, Integer> completeRanking = new HashMap<>();
 
         for(Player p : ranking) completeRanking.put(p.getNickname(), p.getVictoryPoints());
-        for(int i = 0; i < 20; i++) winnerView.showMessage("YOU WON !!!");
 
-        sendBroadcastMessageExclude(winner.getNickname() + " Won!", winner.getNickname());
-        sendBroadcastMessage(completeRanking.toString());
+        sendBroadcastMessage(new WinMessage("Match Ended!", completeRanking));
 
         notifyObservers(virtualViewMap.keySet());
 
+    }
+
+    public String singlePlayerWinMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("You Won!");
+        sb.append("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        return sb.toString();
     }
 
     /**
