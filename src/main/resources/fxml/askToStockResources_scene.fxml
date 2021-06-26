@@ -66,8 +66,6 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" />
-            <Label alignment="CENTER" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" GridPane.rowIndex="1" />
             <ImageView fx:id="firstLeader" fitHeight="175.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="secondLeader" fitHeight="175.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
          </children>
@@ -166,5 +164,7 @@
             <ImageView fitHeight="22.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
          </children>
       </GridPane>
+      <Label alignment="CENTER" layoutX="265.0" layoutY="239.0" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="265.0" layoutY="64.0" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" />
    </children>
 </AnchorPane>
