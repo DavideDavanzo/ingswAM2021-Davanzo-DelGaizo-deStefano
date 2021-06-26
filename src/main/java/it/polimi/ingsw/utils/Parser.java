@@ -3,6 +3,9 @@ package it.polimi.ingsw.utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * This class implements parser
+ */
 public class Parser {
 
     public static String serialize(Object o) {

@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Set;
 
+/**
+ * This class implements a simplified version of the model
+ */
 public class ClientModel {
 
     private Warehouse warehouse;

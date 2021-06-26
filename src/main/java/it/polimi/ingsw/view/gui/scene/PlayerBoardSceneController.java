@@ -239,35 +239,31 @@ public class PlayerBoardSceneController implements GenericSceneController{
     }
 
     public void initLeaderCards(){
-        try {
-            if(clientModel.getLeaderCards().get(0).isActive()) {
-                firstLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + clientModel.getLeaderCards().get(0).getId() + ".png"))));
-                if(clientModel.getLeaderCards().get(0).getEffect() instanceof ExtraShelfEffect){
-                    firstExtraButton.setDisable(false);
-                    if(!clientModel.getWarehouse().getExtraShelves().get(0).isEmpty()) {
-                        firstExtraPos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
-                        if(clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getVolume() == 2)
-                            firstExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
-                    }
-                } else if(clientModel.getLeaderCards().get(0).getEffect() instanceof ExtraDevEffect) {
-                    firstLeaderProductionButton.setDisable(false);
+        if(clientModel.getLeaderCards().get(0).isActive() && !clientModel.getLeaderCards().get(0).isDiscarded()) {
+            firstLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + clientModel.getLeaderCards().get(0).getId() + ".png"))));
+            if(clientModel.getLeaderCards().get(0).getEffect() instanceof ExtraShelfEffect){
+                firstExtraButton.setDisable(false);
+                if(!clientModel.getWarehouse().getExtraShelves().get(0).isEmpty()) {
+                    firstExtraPos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                    if(clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getVolume() == 2)
+                        firstExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(0).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
                 }
+            } else if(clientModel.getLeaderCards().get(0).getEffect() instanceof ExtraDevEffect) {
+                firstLeaderProductionButton.setDisable(false);
             }
-            if(clientModel.getLeaderCards().get(1).isActive()) {
-                secondLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + clientModel.getLeaderCards().get(1).getId() + ".png"))));
-                if(clientModel.getLeaderCards().get(1).getEffect() instanceof ExtraShelfEffect){
-                    secondExtraButton.setDisable(false);
-                    if(!clientModel.getWarehouse().getExtraShelves().get(1).isEmpty()) {
-                        secondExtraPos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
-                        if(clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getVolume() == 2)
-                            secondExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
-                    }
+        }
+        if(clientModel.getLeaderCards().get(1).isActive() && !clientModel.getLeaderCards().get(1).isDiscarded()) {
+            secondLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + clientModel.getLeaderCards().get(1).getId() + ".png"))));
+            if(clientModel.getLeaderCards().get(1).getEffect() instanceof ExtraShelfEffect){
+                secondExtraButton.setDisable(false);
+                if(!clientModel.getWarehouse().getExtraShelves().get(1).isEmpty()) {
+                    secondExtraPos1.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
+                    if(clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getVolume() == 2)
+                        secondExtraPos2.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + clientModel.getWarehouse().getExtraShelves().get(1).getShelfResource().getClass().getSimpleName().toLowerCase() + ".png"))));
                 }
             } else if(clientModel.getLeaderCards().get(1).getEffect() instanceof ExtraDevEffect) {
                 secondLeaderProductionButton.setDisable(false);
             }
-        } catch (IndexOutOfBoundsException e) {
-            return;
         }
     }
 

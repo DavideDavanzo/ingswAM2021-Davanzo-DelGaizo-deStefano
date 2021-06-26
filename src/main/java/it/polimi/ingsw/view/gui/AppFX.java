@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
 
+/**
+ * Main JavaFX class which starts the main stage and scene.
+ */
 public class AppFX extends Application {
 
     @Override

@@ -9,6 +9,9 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * This class implements the controller of a turn
+ */
 public class TurnController {
 
     private GameController gameController;

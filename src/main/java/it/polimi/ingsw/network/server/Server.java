@@ -21,6 +21,9 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Class that starts a socket server
+ */
 public class Server implements Observer {
 
     private final int socketPort;

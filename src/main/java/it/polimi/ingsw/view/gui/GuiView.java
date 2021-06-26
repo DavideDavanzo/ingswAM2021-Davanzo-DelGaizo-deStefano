@@ -24,6 +24,10 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * This class implements all methods of View and it is used for the Graphic User Interface.
+ */
+
 public class GuiView extends View {
 
     ExecutorService executor;
@@ -58,7 +62,6 @@ public class GuiView extends View {
     }
 
     public void leaderChoice(ArrayList<LeaderCard> choice) {
-        System.out.println(choice.size());
         sendMessage(new LeaderRequest(Parser.serialize(choice)));
         clientModel.setLeaderCards(new LinkedList<>(choice));
     }

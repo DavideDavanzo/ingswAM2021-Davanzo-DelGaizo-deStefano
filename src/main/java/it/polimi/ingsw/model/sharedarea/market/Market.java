@@ -10,6 +10,9 @@ import it.polimi.ingsw.view.cli.CliPrinter;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This class implements the market of the game
+ */
 public class Market extends Observable implements CliPrinter {
 
     private Marble[][] marketMatrix;
@@ -21,6 +24,9 @@ public class Market extends Observable implements CliPrinter {
         init();
     }
 
+    /**
+     * Initializes market
+     */
     private void init() {
 
         ArrayList<Marble> marbleArrayList = new ArrayList<Marble>();
@@ -48,6 +54,10 @@ public class Market extends Observable implements CliPrinter {
         spareMarble = marbleArrayList.get(12);
     }
 
+    /**
+     * Shuffles marbles
+     * @param marbles
+     */
     public void shuffle (ArrayList<Marble> marbles) {
 
         Random random = new Random();
@@ -62,7 +72,14 @@ public class Market extends Observable implements CliPrinter {
     }
 
 
-
+    /**
+     * Take the resources that correspond to the marbles
+     * @param line
+     * @param index
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IllegalChoiceException
+     */
     public ArrayList<Item> getResources(char line, int index) throws IllegalArgumentException, IllegalChoiceException {
 
         ArrayList<Item> list = new ArrayList<Item>();

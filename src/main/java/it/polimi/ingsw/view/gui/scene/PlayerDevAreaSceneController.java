@@ -44,25 +44,25 @@ public class PlayerDevAreaSceneController implements GenericSceneController{
         Stack<DevelopmentCard> secondStack = gui.getClientModel().getDevelopmentCardsArea().getSecondStack();
         Stack<DevelopmentCard> thirdStack = gui.getClientModel().getDevelopmentCardsArea().getThirdStack();
         if(!firstStack.isEmpty()){
-            firstSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(0).getId() + ".png"))));
+            firstSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstStack.get(0).getId() + ".png"))));
             if(firstStack.size() >= 2)
-                firstSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(1).getId() + ".png"))));
+                firstSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstStack.get(1).getId() + ".png"))));
             if(firstStack.size() == 3)
-                firstSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + firstStack.get(2).getId() + ".png"))));
+                firstSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + firstStack.get(2).getId() + ".png"))));
         }
         if(!secondStack.isEmpty()){
-            secondSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(0).getId() + ".png"))));
+            secondSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + secondStack.get(0).getId() + ".png"))));
             if(secondStack.size() >= 2)
-                secondSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(1).getId() + ".png"))));
+                secondSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + secondStack.get(1).getId() + ".png"))));
             if(secondStack.size() == 3)
-                secondSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + secondStack.get(2).getId() + ".png"))));
+                secondSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + secondStack.get(2).getId() + ".png"))));
         }
         if(!thirdStack.isEmpty()){
-            thirdSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(0).getId() + ".png"))));
+            thirdSlotFirstLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(0).getId() + ".png"))));
             if(thirdStack.size() >= 2)
-                thirdSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(1).getId() + ".png"))));
+                thirdSlotSecondLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(1).getId() + ".png"))));
             if(thirdStack.size() == 3)
-                thirdSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/" + thirdStack.get(2).getId() + ".png"))));
+                thirdSlotThirdLvl.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + thirdStack.get(2).getId() + ".png"))));
         }
         firstDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::firstSlotClick);
         secondDevSlot.addEventHandler(MouseEvent.MOUSE_RELEASED, this::secondSlotClick);

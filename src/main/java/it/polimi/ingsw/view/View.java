@@ -20,7 +20,9 @@ import it.polimi.ingsw.observingPattern.Observer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Set;
-
+/**
+ * Defines a generic View to be implemented by each view type
+ */
 public abstract class View extends Observable implements Observer {
 
     protected SocketHandler socketHandler;
@@ -35,10 +37,19 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void login();
 
+    /**
+     * Sends message
+     * @param message
+     */
     public void sendMessage(Message message){
         socketHandler.sendMessage(message);
     }
 
+    /**
+     * Verifies if the chosen username is valid
+     * @param username
+     * @return true or false
+     */
     public boolean validateUsername(String username){
         if(username.contains(" ") || username.contains("!") || username.contains("?") || username.contains("(") || username.contains(")"))
             return false;
@@ -47,14 +58,36 @@ public abstract class View extends Observable implements Observer {
         else return true;
     }
 
+    /**
+     * Asks how many players the user wants to play with
+     */
     public abstract void askNumberOfPlayers();
 
+    /**
+     * Asks the user to choose two leader cards among four
+     * @param leaderCards
+     */
     public abstract void askLeaders(ArrayList<LeaderCard> leaderCards);
 
+    /**
+     * Asks the second, third and fourth players to choose resources
+     * @param msg
+     */
     public abstract void askBlankResources(String msg);
 
+    /**
+     * Asks in which shelf the user wants to place resources
+     * @param resources
+     * @param numExtraShelves
+     */
     public abstract void askToStockMarketResources(ArrayList<Item> resources, int numExtraShelves);
 
+    /**
+     * If White Marble Effect is active
+     * Asks the user which resource the user wants in exchange of a white marble
+     * @param items
+     * @param count
+     */
     public abstract void askToChangeWhiteMarbles(ArrayList<Item> items, int count);
 
     public abstract void showLogin(String msg, boolean successful);
@@ -71,8 +104,14 @@ public abstract class View extends Observable implements Observer {
 
     }
 
+    /**
+     * The user chooses which info he/she wants to access
+     */
     public void chooseInfo(){}
 
+    /**
+     * Asks the user which action he/she wants to take next
+     */
     public void askCommand(){}
 
     public void activateLeaderCards(){}

@@ -11,6 +11,9 @@ import it.polimi.ingsw.network.messages.Message;
 
 import java.util.Set;
 
+/**
+ * Observer Interface
+ */
 public interface Observer {
 
     void update(Message message);
