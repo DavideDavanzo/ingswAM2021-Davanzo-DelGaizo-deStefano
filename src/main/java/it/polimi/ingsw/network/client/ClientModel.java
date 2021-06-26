@@ -23,6 +23,8 @@ public class ClientModel {
     private Path faithTrack;
     private DevelopmentCardsArea developmentCardsArea;
     private LinkedList<LeaderCard> leaderCards;
+    private LeaderCard firstLeader;
+    private LeaderCard secondLeader;
     private Market market;
     private CardMarket cardMarket;
     private boolean myTurn;
@@ -76,6 +78,14 @@ public class ClientModel {
         return cardMarket;
     }
 
+    public LeaderCard getFirstLeader() {
+        return firstLeader;
+    }
+
+    public LeaderCard getSecondLeader() {
+        return secondLeader;
+    }
+
     public int getLorenzoPosition() {
         return lorenzoPosition;
     }
@@ -122,6 +132,11 @@ public class ClientModel {
 
     public void setLorenzoPosition(int lorenzoPosition){
         this.lorenzoPosition = lorenzoPosition;
+    }
+
+    public void setLeadersOrdered() {
+        firstLeader = leaderCards.get(0);
+        secondLeader = leaderCards.get(1);
     }
 
     public Set<String> getUsernamesList() {

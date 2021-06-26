@@ -377,6 +377,7 @@ public class InGameState extends GameState {
         } catch (NotEnoughResourcesException e) {
             currentView.showError("Not enough resources for this type of production. Try again. .");
             currentView.sendMessage(new Ack(false));
+            return;
         } catch (InvalidInputException | ProductionFailException e) {
             //Shouldn't reach this statement.
             e.printStackTrace();
@@ -390,7 +391,11 @@ public class InGameState extends GameState {
     @Override
     public void process(ResourceChoice resourceChoice){
         Player currentPlayer =  gameController.getCurrentPlayer();
-        Resource[] resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        Resource[] resources = null;
+        if(resourceChoice.getMsg() != null) {
+            resources = (Resource[]) Parser.deserialize(resourceChoice.getMsg(), Resource[].class);
+        }
+        else resources = resourceChoice.getResources().toArray(new Resource[0]);
         for(Resource resource : resources) {
             try {
                 currentPlayer.getPlayerBoard().getCoffer().updateCoffer(resource);
