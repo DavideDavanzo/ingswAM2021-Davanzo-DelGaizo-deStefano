@@ -2,7 +2,9 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.network.messages.ErrorMessage;
 import it.polimi.ingsw.network.messages.LorenzoPositionUpdate;
+import it.polimi.ingsw.network.messages.PassTurnMessage;
 import it.polimi.ingsw.network.messages.TurnWakeMessage;
 import it.polimi.ingsw.view.VirtualView;
 
@@ -18,6 +20,7 @@ public class TurnController {
     private Map<String, VirtualView> virtualViewMap;
 
     private int turn;
+    private Thread timerThread;
 
     private LinkedList<Player> players;
     private Player currentPlayer;
@@ -65,6 +68,10 @@ public class TurnController {
 
         gameController.sendBroadcastMessageExclude(currentPlayer.getNickname() + "'s turn started . ." , currentPlayer.getNickname());
         virtualViewMap.get(currentPlayer.getNickname()).sendMessage(new TurnWakeMessage());
+
+        timerThread = new Thread(() -> startTimer(120000));
+        timerThread.start();
+
     }
 
     public void nextPlayer() {
@@ -92,9 +99,24 @@ public class TurnController {
         if(turn == 2) return resourceSupply;
 
         getCurrentPlayer().moveForward(1);
-        //TODO: Move observed by views, update other players
+
         return resourceSupply;
 
+    }
+
+    private void startTimer(int milliseconds){
+        System.out.println("Turn timer started for " + gameController.getCurrentPlayer().getNickname());
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            System.out.println("Turn's timer killed on time");
+            return;
+        }
+        System.out.println("Timer exceeded");
+        VirtualView currentVirtualView = gameController.getVirtualViewMap().get(currentPlayer.getNickname());
+        currentVirtualView.sendMessage(new ErrorMessage("You waited too long!"));
+        currentVirtualView.sendMessage(new PassTurnMessage());
+        nextTurn();
     }
 
     public boolean isCurrentPlayer(String username) {
@@ -111,5 +133,9 @@ public class TurnController {
 
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
+    }
+
+    public Thread getTimerThread(){
+        return timerThread;
     }
 }
