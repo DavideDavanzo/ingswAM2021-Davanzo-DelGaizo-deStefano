@@ -1,5 +1,8 @@
 package it.polimi.ingsw.model.playerboard.path;
 
+/**
+ * The path is made of 24 squares
+ */
 public class Square {
 
     private boolean popeSquare;

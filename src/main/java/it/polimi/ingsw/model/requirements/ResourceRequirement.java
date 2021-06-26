@@ -6,7 +6,10 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 
 import java.util.ArrayList;
-
+/**
+ * This class implements one of the leader card requirement
+ * it requires a certain amount of resource
+ */
 public class ResourceRequirement extends Requirement {
 
     Resource resource;

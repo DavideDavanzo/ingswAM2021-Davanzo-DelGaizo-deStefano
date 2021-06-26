@@ -4,7 +4,10 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.resources.FaithPoint;
-
+/**
+ * This class implements one of the leader card requirement
+ * it requires that the player is in square 14 or on
+ */
 public class FaithPointsRequirement extends Requirement {
 
     FaithPoint points;

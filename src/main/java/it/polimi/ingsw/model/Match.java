@@ -8,6 +8,9 @@ import it.polimi.ingsw.observingPattern.Observable;
 
 import java.util.*;
 
+/**
+ * This class implements a match
+ */
 public class Match extends Observable {
 
     public static final int MAX_PLAYERS = 4;

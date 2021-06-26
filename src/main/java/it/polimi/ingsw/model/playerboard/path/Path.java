@@ -9,6 +9,9 @@ import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.ArrayList;
 
+/**
+ * This class implements the path of a player's board
+ */
 public class Path extends Observable implements CliPrinter {
 
     private final Square[] track = new Square[25];
@@ -67,6 +70,12 @@ public class Path extends Observable implements CliPrinter {
 
     }
 
+    /**
+     * Moves the player's cross ahead
+     * @param totSteps number of steps the cross takes
+     * @return
+     * @throws InvalidInputException
+     */
     //add one by one incoming faith points
     public boolean moveForward(int totSteps) throws InvalidInputException {
         for(int i=0; i<totSteps; i++) {
@@ -86,7 +95,9 @@ public class Path extends Observable implements CliPrinter {
         return false;
     }
 
-    //returns if the player is currently in a Vatican report section
+    /**
+     * returns true if the player is currently in a Vatican report section
+     */
     private boolean isVaticanReport(int position) {
         return track[getCurrentPositionAsInt()].getVaticanReport() == track[position] || (track[getCurrentPositionAsInt()] == track[position] && track[getCurrentPositionAsInt()].isPopeSquare());
     }
@@ -138,6 +149,10 @@ public class Path extends Observable implements CliPrinter {
         return box;
     }
 
+    /**
+     * Path
+     * @return player's path when the user is playing with CLI
+     */
     @Override
     public String print() {
 
