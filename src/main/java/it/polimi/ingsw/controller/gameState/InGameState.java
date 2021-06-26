@@ -377,6 +377,7 @@ public class InGameState extends GameState {
         } catch (NotEnoughResourcesException e) {
             currentView.showError("Not enough resources for this type of production. Try again. .");
             currentView.sendMessage(new Ack(false));
+            return;
         } catch (InvalidInputException | ProductionFailException e) {
             //Shouldn't reach this statement.
             e.printStackTrace();
