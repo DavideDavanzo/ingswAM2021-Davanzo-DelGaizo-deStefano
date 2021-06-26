@@ -6,7 +6,10 @@ import it.polimi.ingsw.model.enums.ECardColor;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
+/**
+ * This class implements one of the leader card requirement
+ * and a certain level
+ */
 public class ColorRequirement extends Requirement {
 
     HashMap<ECardColor, Integer> colors;

@@ -4,6 +4,9 @@ import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.HashMap;
 
+/**
+ * Enumeration for the colors of the cards
+ */
 public enum ECardColor implements CliPrinter {
     GREEN, BLUE, YELLOW, PURPLE;
 

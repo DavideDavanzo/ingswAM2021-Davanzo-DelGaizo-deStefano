@@ -7,6 +7,9 @@ import it.polimi.ingsw.model.enums.ECardColor;
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * This class implements a deck of cards
+ */
 public class Deck {
 
     private Stack<DevelopmentCard> cards;
