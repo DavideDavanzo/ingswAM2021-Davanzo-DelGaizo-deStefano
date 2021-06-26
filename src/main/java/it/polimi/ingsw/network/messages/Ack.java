@@ -26,11 +26,6 @@ public class Ack extends Message {
         view.processAck(this);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public boolean isAck() {
         return ack;
     }

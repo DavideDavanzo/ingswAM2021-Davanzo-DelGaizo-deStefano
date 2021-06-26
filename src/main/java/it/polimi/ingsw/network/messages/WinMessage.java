@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.messages;
 
 import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
+import it.polimi.ingsw.view.ClientView;
 import it.polimi.ingsw.view.View;
 
 import java.util.HashMap;
@@ -27,12 +28,8 @@ public class WinMessage extends Message {
     }
 
     @Override
-    public void apply(View view) {
+    public void apply(ClientView view) {
 
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
 }

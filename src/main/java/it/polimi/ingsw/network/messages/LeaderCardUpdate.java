@@ -32,11 +32,6 @@ public class LeaderCardUpdate extends Message{
         else    view.updateLeaderCards(leaderCards);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public int getIndex() {
         return index;
     }

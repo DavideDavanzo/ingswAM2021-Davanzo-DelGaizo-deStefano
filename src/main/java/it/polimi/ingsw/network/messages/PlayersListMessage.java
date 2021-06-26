@@ -23,11 +23,6 @@ public class PlayersListMessage extends Message{
             view.getClientModel().setSinglePlayer(true);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public Set<String> getUsernamesList() {
         return usernamesList;
     }

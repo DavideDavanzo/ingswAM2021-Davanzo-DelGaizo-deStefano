@@ -26,11 +26,6 @@ public class LoginReply extends Message {
         view.onLoginReply(this);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public boolean isSuccessful() {
         return successful;
     }

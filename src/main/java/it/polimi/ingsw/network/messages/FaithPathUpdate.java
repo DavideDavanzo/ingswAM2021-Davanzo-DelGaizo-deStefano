@@ -23,11 +23,6 @@ public class FaithPathUpdate extends Message{
         view.updateFaithTrack(path);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public Path getPath() {
         return path;
     }

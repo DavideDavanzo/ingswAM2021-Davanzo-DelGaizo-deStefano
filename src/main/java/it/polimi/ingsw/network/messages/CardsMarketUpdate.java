@@ -22,10 +22,6 @@ public class CardsMarketUpdate extends Message{
         view.updateCardMarket(cardMarket);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
 
     public CardMarket getCardMarket() {
         return cardMarket;

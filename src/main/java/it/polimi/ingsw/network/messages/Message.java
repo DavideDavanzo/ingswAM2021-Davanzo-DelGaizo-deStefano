@@ -59,9 +59,13 @@ public abstract class Message {
         this.msg = msg;
     }
 
-    public abstract void apply(ClientView view);
+    public void apply(ClientView view){
+        //overridden only in messages from server to client
+    }
 
-    public abstract void getProcessedBy(GameState gameState) throws InvalidStateException;
+    public void getProcessedBy(GameState gameState) throws InvalidStateException {
+        //overridden only in messages from client to server
+    }
 
     public String getMsg(){
         return msg;

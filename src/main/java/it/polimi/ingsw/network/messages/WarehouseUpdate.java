@@ -24,11 +24,6 @@ public class WarehouseUpdate extends Message{
         view.updateWarehouse(warehouse);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public Warehouse getWarehouse() {
         return warehouse;
     }

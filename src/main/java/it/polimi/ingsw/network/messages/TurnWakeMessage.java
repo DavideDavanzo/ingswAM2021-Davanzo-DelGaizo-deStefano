@@ -26,7 +26,4 @@ public class TurnWakeMessage extends Message {
         view.askCommand();
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-    }
 }

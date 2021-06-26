@@ -34,11 +34,6 @@ public class StockMarketResourcesRequest extends Message {
         view.askToStockMarketResources(resources, numExtraShelves);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public ArrayList<Item> getResources() {
         return resources;
     }

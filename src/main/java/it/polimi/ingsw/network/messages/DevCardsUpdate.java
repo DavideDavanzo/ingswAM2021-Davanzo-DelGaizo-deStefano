@@ -23,11 +23,6 @@ public class DevCardsUpdate extends Message{
         view.updateDevCards(developmentCardsArea);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public void setDevelopmentCardsArea(DevelopmentCardsArea developmentCardsArea) {
         this.developmentCardsArea = developmentCardsArea;
     }

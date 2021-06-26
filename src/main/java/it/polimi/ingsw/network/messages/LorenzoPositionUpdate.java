@@ -19,11 +19,6 @@ public class LorenzoPositionUpdate extends Message{
         view.updateLorenzoPosition(position);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public void setPosition(int position) {
         this.position = position;
     }

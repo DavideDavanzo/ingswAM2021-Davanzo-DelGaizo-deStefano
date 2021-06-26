@@ -23,11 +23,6 @@ public class CofferUpdate extends Message{
         view.updateCoffer(coffer);
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
-
     public Coffer getCoffer() {
         return coffer;
     }

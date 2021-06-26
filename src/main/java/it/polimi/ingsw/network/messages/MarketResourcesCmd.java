@@ -18,11 +18,6 @@ public class MarketResourcesCmd extends Message{
     }
 
     @Override
-    public void apply(ClientView view) {
-
-    }
-
-    @Override
     public void getProcessedBy(GameState gameState) throws InvalidStateException {
         gameState.process(this);
     }

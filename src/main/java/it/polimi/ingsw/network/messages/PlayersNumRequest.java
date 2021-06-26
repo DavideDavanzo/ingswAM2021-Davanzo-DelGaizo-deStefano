@@ -15,8 +15,4 @@ public class PlayersNumRequest extends Message{
         view.askNumberOfPlayers();
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-
-    }
 }

@@ -43,10 +43,6 @@ public class OtherPlayerInfosReply extends Message{
         view.showOtherPlayerClientModel();
     }
 
-    @Override
-    public void getProcessedBy(GameState gameState) throws InvalidStateException {
-    }
-
     public void setWarehouse(Warehouse warehouse) {
         this.warehouse = warehouse;
     }

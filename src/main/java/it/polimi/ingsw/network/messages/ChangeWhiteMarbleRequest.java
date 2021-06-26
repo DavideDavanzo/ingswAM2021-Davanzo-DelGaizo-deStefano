@@ -12,7 +12,6 @@ public class ChangeWhiteMarbleRequest extends Message {
     private ArrayList<Item> itemsGivenByMarble;
     private int objectsToChange;
 
-
     public ChangeWhiteMarbleRequest() {
 
     }
@@ -25,11 +24,6 @@ public class ChangeWhiteMarbleRequest extends Message {
         super("You have to change" + count + " white marbles using the power given by your leader cards:");
         this.itemsGivenByMarble = itemsGivenByMarble;
         this.objectsToChange = count;
-    }
-
-    @Override
-    public void apply(ClientView view) {
-
     }
 
     @Override
