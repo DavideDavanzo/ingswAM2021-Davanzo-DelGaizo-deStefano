@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * This class implements the scene in which the player chooses one or more resources then added to its warehouse
@@ -42,6 +43,8 @@ public class ResourcePopupController implements GenericSceneController {
     @FXML
     private ImageView stone = new ImageView();
 
+    @FXML
+    private Label label;
 
     public void initialize(){
         chosenResources = new ArrayList<>();
@@ -51,13 +54,14 @@ public class ResourcePopupController implements GenericSceneController {
         shield.setPickOnBounds(true);
         stone.setPickOnBounds(true);
         handleClick();
+        label.setText("Choose " + choiceNumber + " resource(s) to take among these:");
     }
 
     public void setResourceImages() {
-        coin.setImage(new Image(getClass().getResourceAsStream("/images/resources/coin.png")));
-        shield.setImage(new Image(getClass().getResourceAsStream("/images/resources/shield.png")));
-        servant.setImage(new Image(getClass().getResourceAsStream("/images/resources/servant.png")));
-        stone.setImage(new Image(getClass().getResourceAsStream("/images/resources/stone.png")));
+        coin.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/coin.png"))));
+        shield.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
+        servant.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
+        stone.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
     }
 
     private void handleClick() {
