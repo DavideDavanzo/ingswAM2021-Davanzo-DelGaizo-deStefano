@@ -9,15 +9,12 @@
 
 <BorderPane fx:id="pane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
     <top>
-        <Label text="Choose 1 resource among these:" textFill="#752b2b" style="-fx-background-color:  #e1c1c1;">
+        <Label id="label" fx:id="label" textFill="#752b2b" style="-fx-background-color:  #e1c1c1;">
             <font>
                 <Font size="14.0" name="SystemBold"/>
             </font>
         </Label>
     </top>
-    <bottom>
-        <Label id="label" fx:id="label" />
-    </bottom>
     <center>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
             <children>

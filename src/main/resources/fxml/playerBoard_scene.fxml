@@ -295,17 +295,17 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="otherBoard1Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="194.0" text="Player 2" GridPane.columnIndex="1">
+            <Button fx:id="otherBoard1Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="194.0" GridPane.columnIndex="1">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="otherBoard2Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" text="Player 3" GridPane.columnIndex="2">
+            <Button fx:id="otherBoard2Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" GridPane.columnIndex="2">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="otherBoard3Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="486.0" text="Player 4" GridPane.columnIndex="3">
+            <Button fx:id="otherBoard3Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="486.0" GridPane.columnIndex="3">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

@@ -36,7 +36,10 @@ public class InitState extends GameState {
 
         ArrayList<LeaderCard> leaderCards = new LeaderCardParser().deserialize(leaderRequest.getMsg());
 
-        for(LeaderCard l : leaderCards) current.giveLeaderCard(l);
+        for(LeaderCard l : leaderCards)
+            current.giveLeaderCard(l);
+
+        currentView.showMessage("Leader cards correctly chosen.");
 
         Integer resourceSupply;
         try {

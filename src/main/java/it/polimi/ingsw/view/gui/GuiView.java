@@ -79,12 +79,10 @@ public class GuiView extends View {
 
     @Override
     public void askBlankResources(String msg) {
-
-            ResourcePopupController rpc = new ResourcePopupController();
-            rpc.setResourceImages();
-            rpc.setChoiceNumber(Integer.parseInt(msg));
-            Platform.runLater(() -> SceneController.changeScene(this, rpc, "resource_popup.fxml"));
-
+        ResourcePopupController rpc = new ResourcePopupController();
+        rpc.setResourceImages();
+        rpc.setChoiceNumber(Integer.parseInt(msg));
+        Platform.runLater(() -> SceneController.changeScene(this, rpc, "resource_popup.fxml"));
     }
 
     @Override
