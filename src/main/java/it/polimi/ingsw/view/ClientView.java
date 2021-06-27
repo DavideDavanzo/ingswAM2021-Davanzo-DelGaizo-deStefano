@@ -12,6 +12,7 @@ import it.polimi.ingsw.network.client.SocketHandler;
 import it.polimi.ingsw.network.messages.Ack;
 import it.polimi.ingsw.network.messages.LoginReply;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.WinMessage;
 
 import java.util.LinkedList;
 import java.util.concurrent.ExecutorService;
@@ -46,6 +47,8 @@ public abstract class ClientView extends View{
     public abstract void showOtherPlayerClientModel();
 
     public abstract void waitTurn();
+
+    public abstract void endGame(WinMessage winMessage);
 
     @Override
     public void updateWarehouse(Warehouse warehouse) {
