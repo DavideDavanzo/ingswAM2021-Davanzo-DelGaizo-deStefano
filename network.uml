@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.network</OriginalElement>
+  <nodes>
+    <node x="83.91666666666667" y="166.0">it.polimi.ingsw.network.server</node>
+    <node x="24.08333333333333" y="0.0">it.polimi.ingsw.network.client</node>
+    <node x="31.416666666666657" y="85.0">it.polimi.ingsw.network.messages</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.network.server" target="it.polimi.ingsw.network.messages" relationship="CREATE">
+      <point x="0.0" y="-15.5" />
+      <point x="40.000000000000014" y="15.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.messages" target="it.polimi.ingsw.network.messages" relationship="DEPENDENCY">
+      <point x="-40.0" y="15.5" />
+      <point x="71.41666666666666" y="136.0" />
+      <point x="11.416666666666657" y="136.0" />
+      <point x="11.416666666666657" y="100.5" />
+      <point x="-80.0" y="-0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.messages" target="it.polimi.ingsw.network.client" relationship="CREATE">
+      <point x="40.000000000000014" y="-15.5" />
+      <point x="151.41666666666669" y="63.0" />
+      <point x="133.25" y="63.0" />
+      <point x="43.66666666666667" y="15.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.client" target="it.polimi.ingsw.network.messages" relationship="DEPENDENCY">
+      <point x="0.0" y="15.5" />
+      <point x="89.58333333333333" y="63.0" />
+      <point x="71.41666666666667" y="63.0" />
+      <point x="-39.999999999999986" y="-15.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.server" target="it.polimi.ingsw.network.server" relationship="CREATE">
+      <point x="0.0" y="15.5" />
+      <point x="151.41666666666669" y="217.0" />
+      <point x="63.91666666666667" y="217.0" />
+      <point x="63.91666666666667" y="181.5" />
+      <point x="-67.5" y="-0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.client" target="it.polimi.ingsw.network.client" relationship="CREATE">
+      <point x="-43.66666666666667" y="15.5" />
+      <point x="45.91666666666666" y="51.0" />
+      <point x="4.083333333333329" y="51.0" />
+      <point x="4.083333333333329" y="15.5" />
+      <point x="-65.5" y="-0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="80.0" y="91.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

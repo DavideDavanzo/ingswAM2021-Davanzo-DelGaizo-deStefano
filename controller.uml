@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.controller</OriginalElement>
+  <nodes>
+    <node x="0.0" y="0.0">it.polimi.ingsw.controller.TurnController</node>
+    <node x="24.0" y="399.0">it.polimi.ingsw.controller.GameController</node>
+    <node x="99.0" y="1414.0">it.polimi.ingsw.controller.gameState</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.controller.TurnController" target="it.polimi.ingsw.controller.GameController" relationship="TO_ONE">
+      <point x="136.5" y="172.5" />
+      <point x="318.5" y="372.0" />
+      <point x="300.5" y="372.0" />
+      <point x="118.5" y="-480.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.TurnController" relationship="TO_ONE">
+      <point x="-39.5" y="-480.5" />
+      <point x="142.5" y="372.0" />
+      <point x="136.5" y="372.0" />
+      <point x="-45.5" y="172.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
+      <point x="20.75" y="-15.5" />
+      <point x="202.75" y="1387.0" />
+      <point x="221.5" y="1387.0" />
+      <point x="39.5" y="480.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.gameState" relationship="CREATE">
+      <point x="-118.5" y="480.5" />
+      <point x="63.5" y="1387.0" />
+      <point x="119.75" y="1387.0" />
+      <point x="-62.25" y="-15.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState" target="it.polimi.ingsw.controller.gameState" relationship="CREATE">
+      <point x="0.0" y="15.5" />
+      <point x="182.0" y="1465.0" />
+      <point x="79.0" y="1465.0" />
+      <point x="79.0" y="1429.5" />
+      <point x="-83.0" y="-0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState" target="it.polimi.ingsw.controller.GameController" relationship="TO_ONE">
+      <point x="-20.75" y="-15.5" />
+      <point x="161.25" y="1387.0" />
+      <point x="142.5" y="1387.0" />
+      <point x="-39.5" y="480.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.gameState" relationship="TO_ONE">
+      <point x="118.5" y="480.5" />
+      <point x="300.5" y="1387.0" />
+      <point x="244.25" y="1387.0" />
+      <point x="62.25" y="-15.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.TurnController" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
+      <point x="-136.5" y="172.5" />
+      <point x="45.5" y="372.0" />
+      <point x="63.5" y="372.0" />
+      <point x="-118.5" y="-480.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.TurnController" relationship="CREATE">
+      <point x="39.5" y="-480.5" />
+      <point x="221.5" y="372.0" />
+      <point x="227.5" y="372.0" />
+      <point x="45.5" y="172.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="83.0" y="91.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

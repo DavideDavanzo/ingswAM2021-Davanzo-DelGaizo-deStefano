@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.controller.gameState</OriginalElement>
+  <nodes>
+    <node x="0.0" y="548.0">it.polimi.ingsw.controller.gameState.InGameState</node>
+    <node x="121.78846153846155" y="921.0">it.polimi.ingsw.controller.gameState.InitState</node>
+    <node x="232.84615384615384" y="1162.0">it.polimi.ingsw.controller.gameState.LoginState</node>
+    <node x="211.5" y="0.0">it.polimi.ingsw.controller.gameState.GameState</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.controller.gameState.InitState" target="it.polimi.ingsw.controller.gameState.GameState" relationship="GENERALIZATION">
+      <point x="67.25" y="-94.5" />
+      <point x="323.53846153846155" y="895.0" />
+      <point x="342.5" y="895.0" />
+      <point x="0.0" y="249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.LoginState" target="it.polimi.ingsw.controller.gameState.InitState" relationship="CREATE">
+      <point x="-50.75" y="-61.5" />
+      <point x="283.5961538461538" y="1136.0" />
+      <point x="256.28846153846155" y="1136.0" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.LoginState" target="it.polimi.ingsw.controller.gameState.GameState" relationship="GENERALIZATION">
+      <point x="50.75" y="-61.5" />
+      <point x="385.0961538461538" y="1136.0" />
+      <point x="401.28846153846155" y="1136.0" />
+      <point x="401.28846153846155" y="523.0" />
+      <point x="342.5" y="523.0" />
+      <point x="0.0" y="249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.InGameState" target="it.polimi.ingsw.controller.gameState.GameState" relationship="GENERALIZATION">
+      <point x="0.0" y="-160.5" />
+      <point x="166.0" y="523.0" />
+      <point x="342.5" y="523.0" />
+      <point x="0.0" y="249.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.InitState" target="it.polimi.ingsw.controller.gameState.InGameState" relationship="CREATE">
+      <point x="-67.25" y="-94.5" />
+      <point x="189.03846153846155" y="895.0" />
+      <point x="166.0" y="895.0" />
+      <point x="0.0" y="160.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.3999999999999999" showDependencies="true" x="203.50000000000045" y="56.00000000000023" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
