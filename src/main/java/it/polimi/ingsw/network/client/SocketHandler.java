@@ -1,9 +1,8 @@
 package it.polimi.ingsw.network.client;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.polimi.ingsw.observingPattern.Observable;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.utils.Parser;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +15,6 @@ public class SocketHandler extends Observable implements Runnable {
     private String username;
     private BufferedReader socketIn;
     private PrintWriter socketOut;
-    private final ObjectMapper objectMapper;
     private final Socket socket;
 
     public SocketHandler(Socket socket){
@@ -27,7 +25,6 @@ public class SocketHandler extends Observable implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        objectMapper = new ObjectMapper();
     }
 
     @Override
@@ -39,24 +36,14 @@ public class SocketHandler extends Observable implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //System.out.println("Received: " + msg);
-            try {
-                notifyObservers(objectMapper.readValue(msg , Message.class));
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
+            notifyObservers((Message) Parser.deserialize(msg, Message.class));
         }
         System.exit(0);
     }
 
     public void sendMessage(Message message){
         message.setUsername(username);
-        try {
-            socketOut.println(objectMapper.writeValueAsString(message));
-            //System.out.println("Sent: " + objectMapper.writeValueAsString(message));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        socketOut.println(Parser.serialize(message));
     }
 
     public BufferedReader getSocketIn() {
@@ -65,10 +52,6 @@ public class SocketHandler extends Observable implements Runnable {
 
     public PrintWriter getSocketOut() {
         return socketOut;
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
     }
 
     public Socket getSocket() {
