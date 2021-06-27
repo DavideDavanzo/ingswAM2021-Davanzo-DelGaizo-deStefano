@@ -29,7 +29,22 @@ public class WinMessage extends Message {
 
     @Override
     public void apply(ClientView view) {
-
+        view.endGame(this);
     }
 
+    public boolean isLorenzoWins() {
+        return lorenzoWins;
+    }
+
+    public void setLorenzoWins(boolean lorenzoWins) {
+        this.lorenzoWins = lorenzoWins;
+    }
+
+    public HashMap<String, Integer> getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(HashMap<String, Integer> ranking) {
+        this.ranking = ranking;
+    }
 }

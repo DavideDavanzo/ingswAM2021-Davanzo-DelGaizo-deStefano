@@ -951,6 +951,19 @@ public class CliView extends ClientView {
     }
 
     @Override
+    public void endGame(WinMessage winMessage) {
+        if(clientModel.isSinglePlayer()){
+            if(winMessage.isLorenzoWins())
+                System.out.println("Lorenzo wins!");
+            else    System.out.println("Congratulation you have beaten Lorenzo!");
+        } else {
+            System.out.println("Game over! " + (winMessage.getRanking().keySet().toArray()[0].equals(username)?"You are the winner!":(winMessage.getRanking().keySet().toArray()[0] + " is the winner!")));
+            System.out.println("These are the final rankings:");
+            System.out.println(winMessage.getRanking());
+        }
+    }
+
+    @Override
     public synchronized void processAck(Ack ack) {
         try {
             wait(100);
