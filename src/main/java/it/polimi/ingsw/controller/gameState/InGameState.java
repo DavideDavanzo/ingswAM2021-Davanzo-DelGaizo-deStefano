@@ -373,6 +373,10 @@ public class InGameState extends GameState {
                         return;
                     }
                 }
+            } else {
+                currentView.showError("Not enough resources for this type of production. Try again. .");
+                currentView.sendMessage(new Ack(false));
+                return;
             }
         } catch (NotEnoughResourcesException e) {
             currentView.showError("Not enough resources for this type of production. Try again. .");
