@@ -71,6 +71,11 @@ public class Player extends Observable {
         activeTrade = false;
         bigActionToken = true;
         victoryPoints = 0;
+        try {
+            playerBoard.getPath().moveForward(23);
+        } catch (InvalidInputException e) {
+            e.printStackTrace();
+        }
     }
 
     public void giveLeaderCard(LeaderCard leader) {
@@ -140,7 +145,7 @@ public class Player extends Observable {
 
     public int getCurrentVictoryPoints() {
 
-        int victoryPoints = playerBoard.calculateVictoryPoints();      //add points given by development cards and path
+        int victoryPoints = playerBoard.calculateVictoryPoints();      //add points given by development cards, path and resources
 
         for(LeaderCard card : leaderCards)
             victoryPoints += card.calculateVictoryPoints();   //add points given by leader cards

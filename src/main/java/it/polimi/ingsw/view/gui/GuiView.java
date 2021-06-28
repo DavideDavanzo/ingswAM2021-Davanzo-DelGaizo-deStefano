@@ -179,10 +179,8 @@ public class GuiView extends ClientView {
 
     @Override
     public void endGame(WinMessage winMessage) {
-        Platform.runLater(() -> SceneController.changeScene(this, new WinnerSceneController(winMessage), "playerBoard_scene.fxml"));
+        Platform.runLater(() -> SceneController.changeScene(this, new WinnerSceneController(winMessage), "winner_scene.fxml"));
+        showMessage(winMessage.getMsg());
     }
-
-
-
 
 }

@@ -13,8 +13,8 @@ public class WinMessage extends Message {
 
     private HashMap<String, Integer> ranking;
 
-    public WinMessage(String msg) {
-        super(msg);
+    public WinMessage() {
+
     }
 
     public WinMessage(String msg, boolean lorenzoWins) {

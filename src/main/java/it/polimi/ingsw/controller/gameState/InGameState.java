@@ -476,7 +476,10 @@ public class InGameState extends GameState {
         }
 
         gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
-        if(gameController.isCurrentPlayer(disconnection.getUsername())) gameController.getTurnController().nextTurn();
+        if(gameController.isCurrentPlayer(disconnection.getUsername())){
+            gameController.getTurnController().getTimerThread().interrupt();
+            gameController.getTurnController().nextTurn();
+        }
     }
 
     public boolean bigActionNotAvailable(boolean token, VirtualView currentView) {

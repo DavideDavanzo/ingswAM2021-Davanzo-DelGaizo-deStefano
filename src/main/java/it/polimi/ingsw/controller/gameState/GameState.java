@@ -76,10 +76,6 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
-    public void process(TimeoutMessage timeoutMessage){
-        System.out.println("Got timeout from " + timeoutMessage.getMsg() + " handler");
-    }
-
     public void process(Disconnection disconnection) {
         gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
         gameController.getVirtualViewMap().get(disconnection.getUsername()).disconnect();
