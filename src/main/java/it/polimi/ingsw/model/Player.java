@@ -71,11 +71,6 @@ public class Player extends Observable {
         activeTrade = false;
         bigActionToken = true;
         victoryPoints = 0;
-        try {
-            playerBoard.getPath().moveForward(23);
-        } catch (InvalidInputException e) {
-            e.printStackTrace();
-        }
     }
 
     public void giveLeaderCard(LeaderCard leader) {

@@ -74,6 +74,7 @@ public class Match extends Observable {
         return players.peek();
     }
 
+    //TODO: handle draw
     public LinkedList<Player> getRanking() {
          LinkedList<Player> ranking = new LinkedList<>(players);
          ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());

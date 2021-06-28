@@ -1,17 +1,17 @@
 package it.polimi.ingsw.network.messages;
 
-import it.polimi.ingsw.controller.gameState.GameState;
-import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.ClientView;
-import it.polimi.ingsw.view.View;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class WinMessage extends Message {
 
     boolean lorenzoWins;
 
-    private HashMap<String, Integer> ranking;
+    private HashMap<String, Integer> rankingTable;
+
+    private LinkedList<String> ranking;
 
     public WinMessage() {
 
@@ -22,8 +22,9 @@ public class WinMessage extends Message {
         this.lorenzoWins = lorenzoWins;
     }
 
-    public WinMessage(String msg, HashMap ranking) {
+    public WinMessage(String msg, HashMap rankingTable, LinkedList<String> ranking) {
         super(msg);
+        this.rankingTable = rankingTable;
         this.ranking = ranking;
     }
 
@@ -40,11 +41,19 @@ public class WinMessage extends Message {
         this.lorenzoWins = lorenzoWins;
     }
 
-    public HashMap<String, Integer> getRanking() {
+    public HashMap<String, Integer> getRankingTable() {
+        return rankingTable;
+    }
+
+    public void setRankingTable(HashMap<String, Integer> rankingTable) {
+        this.rankingTable = rankingTable;
+    }
+
+    public LinkedList<String> getRanking() {
         return ranking;
     }
 
-    public void setRanking(HashMap<String, Integer> ranking) {
+    public void setRanking(LinkedList<String> ranking) {
         this.ranking = ranking;
     }
 }

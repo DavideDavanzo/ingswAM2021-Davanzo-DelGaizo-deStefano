@@ -251,11 +251,19 @@ public class GameController extends Observable implements Observer, Serializable
         }
 
         LinkedList<Player> ranking = match.getRanking();
-        HashMap<String, Integer> completeRanking = new HashMap<>();
 
-        for(Player p : ranking) completeRanking.put(p.getNickname(), p.getVictoryPoints());
+        HashMap<String, Integer> rankingTable = new HashMap<>();
 
-        sendBroadcastMessage(new WinMessage("Match Ended!", completeRanking));
+        for(Player p : ranking){
+            rankingTable.put(p.getNickname(), p.getVictoryPoints());
+        }
+
+        LinkedList<String> rankingUsernames = new LinkedList<>();
+        for(Object nickname : ranking.stream().map(Player::getNickname).toArray()){
+            rankingUsernames.add((String) nickname);
+        }
+
+        sendBroadcastMessage(new WinMessage("Match Ended!", rankingTable, rankingUsernames));
 
         notifyObservers(virtualViewMap.keySet());
 

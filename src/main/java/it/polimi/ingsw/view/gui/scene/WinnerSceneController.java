@@ -3,12 +3,8 @@ package it.polimi.ingsw.view.gui.scene;
 import it.polimi.ingsw.network.messages.WinMessage;
 import it.polimi.ingsw.view.gui.GuiView;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import java.util.Objects;
 
 /**
  * Ranking scene
@@ -64,13 +60,13 @@ public class WinnerSceneController implements GenericSceneController{
                 secondPlaceLabel.setText("In second place: Lorenzo");
             }
         } else {
-            firstPlaceLabel.setText("The winner is: " + winMessage.getRanking().keySet().toArray()[0] + " (" + winMessage.getRanking().values().toArray()[0] + " pts.)");
+            firstPlaceLabel.setText("The winner is: " + winMessage.getRanking().get(0) + " (" + winMessage.getRankingTable().get(winMessage.getRanking().get(0)) + " pts.)");
             if(gui.getClientModel().getUsernamesList().size() >= 2){
-                secondPlaceLabel.setText("In second place: " + winMessage.getRanking().keySet().toArray()[1] + " (" + winMessage.getRanking().values().toArray()[1] + " pts.)");
+                secondPlaceLabel.setText("In second place: " + winMessage.getRanking().get(1) + " (" +  winMessage.getRankingTable().get(winMessage.getRanking().get(1)) + " pts.)");
                 if(gui.getClientModel().getUsernamesList().size() >= 3){
-                    thirdPlaceLabel.setText("In third place: " + winMessage.getRanking().keySet().toArray()[2] + " (" + winMessage.getRanking().values().toArray()[2] + " pts.)");
+                    thirdPlaceLabel.setText("In third place: " + winMessage.getRanking().get(2) + " (" +  winMessage.getRankingTable().get(winMessage.getRanking().get(2)) + " pts.)");
                     if(gui.getClientModel().getUsernamesList().size() == 4)
-                        fourthPlaceLabel.setText("In fourth place: " + winMessage.getRanking().keySet().toArray()[3] + " (" + winMessage.getRanking().values().toArray()[3] + " pts.)");
+                        fourthPlaceLabel.setText("In fourth place: " + winMessage.getRanking().get(3) + " (" +  winMessage.getRankingTable().get(winMessage.getRanking().get(3)) + " pts.)");
                 }
             }
         }
