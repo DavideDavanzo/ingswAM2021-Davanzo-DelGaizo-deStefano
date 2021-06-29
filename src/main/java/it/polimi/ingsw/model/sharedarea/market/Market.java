@@ -200,15 +200,16 @@ public class Market extends Observable implements CliPrinter {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(spareMarble.print() + " ↓ ↓ ↓ ↓");
+        stringBuilder.append(spareMarble.print());
         for(int i = 0; i < 3; i++){
             stringBuilder.append( "\n");
             stringBuilder.append("  ");
             for(int j = 0; j < 4; j++){
                 stringBuilder.append(marketMatrix[i][j].print() + " ");
             }
-            stringBuilder.append("\uD83E\uDC14");
+            stringBuilder.append("←");
         }
+        stringBuilder.append("\n  ↑ ↑ ↑ ↑");
         return stringBuilder.toString();
     }
 
