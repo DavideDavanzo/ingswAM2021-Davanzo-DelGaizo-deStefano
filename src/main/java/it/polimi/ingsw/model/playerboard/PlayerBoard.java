@@ -224,16 +224,21 @@ public class PlayerBoard implements CliPrinter {
         //add also points given by the path position and papal tokens
         boardPoints += path.getPathVictoryPoints();
 
+        int resourcesPoints = getAllResourcePoints();
+
+        return boardPoints + (resourcesPoints / 5);
+
+    }
+
+    public int getAllResourcePoints() {
         int resourcesPoints = 0;
         for(Shelf shelf : warehouse.getAllWarehouseShelves()){
-            resourcesPoints += shelf.getShelfResource().getVolume();
+            if(!shelf.isEmpty()) resourcesPoints += shelf.getShelfResource().getVolume();
         }
         for(Resource resource : coffer.getAllCofferResources()){
             resourcesPoints += resource.getVolume();
         }
-
-        return boardPoints + (resourcesPoints / 5);
-
+        return resourcesPoints;
     }
 
     public DevelopmentCardsArea getDevelopmentCardsArea() {

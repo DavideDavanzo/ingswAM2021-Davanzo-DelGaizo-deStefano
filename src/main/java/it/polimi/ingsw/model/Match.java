@@ -74,11 +74,27 @@ public class Match extends Observable {
         return players.peek();
     }
 
-    //TODO: handle draw
+
     public LinkedList<Player> getRanking() {
          LinkedList<Player> ranking = new LinkedList<>(players);
          ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());
+         ranking = tieBreakerCheck(ranking);
          return ranking;
+    }
+
+    public LinkedList<Player> tieBreakerCheck(LinkedList<Player> initRanking) {
+
+        for(int i = 0 ; i < initRanking.size() - 1; i++) {
+            for(int j = i + 1 ; j < initRanking.size(); j++) {
+                if(initRanking.get(i).getCurrentVictoryPoints() == initRanking.get(j).getCurrentVictoryPoints()) {
+                    if(initRanking.get(i).getPlayerBoard().getAllResourcePoints() < initRanking.get(j).getPlayerBoard().getAllResourcePoints()) {
+                        Collections.swap(initRanking, i, j);
+                    }
+                }
+            }
+
+        }
+        return initRanking;
     }
 
     public SharedArea getSharedArea() {
