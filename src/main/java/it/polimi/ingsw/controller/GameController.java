@@ -272,7 +272,7 @@ public class GameController extends Observable implements Observer, Serializable
     public String singlePlayerWinMessage() {
         StringBuilder sb = new StringBuilder();
         sb.append("You Won!");
-        sb.append("Score : " + getCurrentPlayer().getVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        sb.append("Score : " + getCurrentPlayer().getCurrentVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
         return sb.toString();
     }
 
@@ -474,5 +474,9 @@ public class GameController extends Observable implements Observer, Serializable
 
     public boolean isEndGame() {
         return endGame;
+    }
+
+    public GameState getGameState() {
+        return gameState;
     }
 }
