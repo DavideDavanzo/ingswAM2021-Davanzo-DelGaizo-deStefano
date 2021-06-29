@@ -59,29 +59,28 @@ public class MatchTest {
         Player p3 = new Player("lorenzo");
         Player p4 = new Player("dave");
 
-
-        p1.moveForward(20); //20 points
-        p1.getWarehouse().getFirstShelf().setShelfResource(new Coin(1));
-        p1.getWarehouse().getThirdShelf().setShelfResource(new Servant(2)); //3 resources in the Wh
-        p1.getPlayerBoard().getCoffer().updateCoffer(new Coin(2)); // 3 + 2 = 5 -> 1 extra point = 21
-        //no cards
-
-        p2.moveForward(20); //20 points
-        p2.getPlayerBoard().getCoffer().updateCoffer(new Coin(6)); //6/5 = 1 extra point -> 21 BUT 6 resources (p1 has 5)
-        //no cards
-
-        p3.moveForward(21); //21 points
-        p3.getPlayerBoard().getCoffer().updateCoffer(new Servant(4)); //4 items-> no extra point 21 points and 4 resources
-
-        p4.moveForward(21); //21 points
-        p4.getPlayerBoard().getCoffer().updateCoffer(new Coin(6)); //22 points
-
         match.addPlayer(p1);
         match.addPlayer(p2);
         match.addPlayer(p3);
         match.addPlayer(p4);
 
-        //ranking should be: dave=22points(6 resources) dario=21points(6 resources) ale=21points(5 resources) lorenzo=21points(4 resources)
+        p1.moveForward(20); //17 points including pope tokens
+        p1.getWarehouse().getFirstShelf().setShelfResource(new Coin(1));
+        p1.getWarehouse().getThirdShelf().setShelfResource(new Servant(2)); //3 resources in the Wh
+        p1.getPlayerBoard().getCoffer().updateCoffer(new Coin(2)); // 3 + 2 = 5 -> 1 extra point = 18
+        //no cards
+
+        p2.moveForward(20); //12 points
+        p2.getPlayerBoard().getCoffer().updateCoffer(new Coin(6)); //6/5 = 1 extra point -> 13 BUT 6 resources (p1 has 5)
+        //no cards
+
+        p3.moveForward(21); //16 points
+        p3.getPlayerBoard().getCoffer().updateCoffer(new Servant(4)); //4 items-> no extra point 16 points and 4 resources
+
+        p4.moveForward(21); //16 points
+        p4.getPlayerBoard().getCoffer().updateCoffer(new Coin(6)); //17 points
+
+        //ranking should be: dave=18points(6 resources) dario=21points(6 resources) ale=21points(5 resources) lorenzo=21points(4 resources)
 
         LinkedList<Player> ranking = match.getRanking();
         for (Player p: ranking) System.out.println(p.getNickname() + " " + p.getCurrentVictoryPoints());

@@ -41,9 +41,9 @@ public class Path extends Observable implements CliPrinter {
         for(int i=15; i<=17; i++)
             track[i].setVictoryPoints(9);
         for(int i=18; i<=20; i++)
-            track[18].setVictoryPoints(12);
+            track[i].setVictoryPoints(12);
         for(int i=21; i<=23; i++)
-            track[21].setVictoryPoints(16);
+            track[i].setVictoryPoints(16);
         track[24].setVictoryPoints(20);
 
         //setting the three Pope spaces

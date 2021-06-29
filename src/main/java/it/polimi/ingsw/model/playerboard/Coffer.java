@@ -57,22 +57,10 @@ public class Coffer extends Observable implements CliPrinter {
         return totalResources;
     }
 
-    public String printResourceCoffer(){
-
-        StringBuilder stringBuilder = new StringBuilder();
-        for(Resource resource : getAllCofferResources()){
-            stringBuilder.append(resource.print());
-        }
-        return stringBuilder.toString();
-    }
-
-
-
     @Override
     public String print() {
 
         StringBuilder stringBuilder = new StringBuilder();
-
 
         stringBuilder.append("╔════════════════════╗\n")
                      .append("║ "  + getCoins().getVolume() + " " + getCoins().print() + "           " + getShields().getVolume() + " " + getShields().print() + "║ \n")
@@ -83,6 +71,5 @@ public class Coffer extends Observable implements CliPrinter {
         Color.ANSI_WHITE.escape();
         return stringBuilder.toString();
     }
-
 
 }
