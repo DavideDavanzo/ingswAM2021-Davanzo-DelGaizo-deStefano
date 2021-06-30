@@ -106,7 +106,7 @@ public class StockResourcesSceneController implements GenericSceneController{
         }
     }
 
-    public void addToFirstShelf(Event event){
+    private void addToFirstShelf(Event event){
         choices.add(1);
         for(Node node : toFirstShelfGridPane.getChildren()){
             ImageView imageView = (ImageView) node;
@@ -122,7 +122,7 @@ public class StockResourcesSceneController implements GenericSceneController{
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
-    public void addToSecondShelf(Event event){
+    private void addToSecondShelf(Event event){
         choices.add(2);
         for(Node node : toSecondShelfGridPane.getChildren()){
             ImageView imageView = (ImageView) node;
@@ -138,7 +138,7 @@ public class StockResourcesSceneController implements GenericSceneController{
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
-    public void addToThirdShelf(Event event){
+    private void addToThirdShelf(Event event){
         choices.add(3);
         for(Node node : toThirdShelfGridPane.getChildren()){
             ImageView imageView = (ImageView) node;
@@ -154,7 +154,7 @@ public class StockResourcesSceneController implements GenericSceneController{
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
-    public void discard(Event event){
+    private void discard(Event event){
         choices.add(0);
         resourcesGridPane.getChildren().get(currResourceIndex++).setOpacity(0.5);
         if(currResourceIndex < incomingResources.size())
@@ -163,7 +163,7 @@ public class StockResourcesSceneController implements GenericSceneController{
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
-    public void addToFirstExtra(Event event){
+    private void addToFirstExtra(Event event){
         choices.add(4);
         for(Node node : toFirstExtraGridPane.getChildren()){
             ImageView imageView = (ImageView) node;
@@ -179,7 +179,7 @@ public class StockResourcesSceneController implements GenericSceneController{
             gui.sendMessage(new ArrangeInWarehouseCmd(choices));
     }
 
-    public void addToSecondExtra(Event event){
+    private void addToSecondExtra(Event event){
         choices.add(5);
         for(Node node : toSecondExtraGridPane.getChildren()){
             ImageView imageView = (ImageView) node;

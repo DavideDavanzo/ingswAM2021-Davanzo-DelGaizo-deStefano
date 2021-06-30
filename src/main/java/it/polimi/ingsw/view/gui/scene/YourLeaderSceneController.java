@@ -75,7 +75,7 @@ public class YourLeaderSceneController implements GenericSceneController {
 
     }
 
-    public void leader1ButtonClick(Event event) {
+    private void leader1ButtonClick(Event event) {
         if(!gui.getClientModel().getSecondLeader().isActive()) {
             if(leader2Button.isDisabled()) {
                 leader1Button.setOpacity(0);
@@ -94,7 +94,7 @@ public class YourLeaderSceneController implements GenericSceneController {
         discardButton.setVisible(true);
     }
 
-    public void leader2ButtonClick(Event event) {
+    private void leader2ButtonClick(Event event) {
         if(!gui.getClientModel().getFirstLeader().isActive()) {
             if(leader1Button.isDisabled()) {
                 leader2Button.setOpacity(0);
@@ -125,15 +125,15 @@ public class YourLeaderSceneController implements GenericSceneController {
         }
     }
 
-    public void backButtonClick(Event event) {
+    private void backButtonClick(Event event) {
         Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
     }
 
-    public void activateButtonClick(Event event) {
+    private void activateButtonClick(Event event) {
         gui.activateLeaderCards(selected);
     }
 
-    public void discardButtonClick(Event event) {
+    private void discardButtonClick(Event event) {
         gui.tossLeaderCards(selected);
     }
 

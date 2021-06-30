@@ -22,9 +22,6 @@ public class SceneController {
 
     public static void changeScene(GuiView gui, String fxml) {
 
-        if(gui == null)
-            System.out.println("GUI NULL in changeScene");
-
         GenericSceneController controller;
 
         try {
