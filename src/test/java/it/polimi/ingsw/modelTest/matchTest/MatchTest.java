@@ -64,26 +64,30 @@ public class MatchTest {
         match.addPlayer(p3);
         match.addPlayer(p4);
 
-        p1.moveForward(20); //17 points including pope tokens
+        p1.moveForward(20);
         p1.getWarehouse().getFirstShelf().setShelfResource(new Coin(1));
         p1.getWarehouse().getThirdShelf().setShelfResource(new Servant(2)); //3 resources in the Wh
         p1.getPlayerBoard().getCoffer().updateCoffer(new Coin(2)); // 3 + 2 = 5 -> 1 extra point = 18
         //no cards
 
-        p2.moveForward(20); //12 points
+        p2.moveForward(20);
         p2.getPlayerBoard().getCoffer().updateCoffer(new Coin(6)); //6/5 = 1 extra point -> 13 BUT 6 resources (p1 has 5)
         //no cards
 
-        p3.moveForward(21); //16 points
+        p3.moveForward(21);
         p3.getPlayerBoard().getCoffer().updateCoffer(new Servant(4)); //4 items-> no extra point 16 points and 4 resources
 
-        p4.moveForward(21); //16 points
+        p4.moveForward(21);
         p4.getPlayerBoard().getCoffer().updateCoffer(new Coin(6)); //17 points
 
-        //ranking should be: dave=18points(6 resources) dario=21points(6 resources) ale=21points(5 resources) lorenzo=21points(4 resources)
-
         LinkedList<Player> ranking = match.getRanking();
-        for (Player p: ranking) System.out.println(p.getNickname() + " " + p.getCurrentVictoryPoints());
+        int dario = 0;
+        int ale = 0;
+        for(Player p : ranking) {
+            if(p.getNickname().equals("dario")) dario = ranking.indexOf(p);
+            if(p.getNickname().equals("ale")) ale = ranking.indexOf(p);
+        }
+        assertTrue(dario < ale);
 
     }
 }
