@@ -50,12 +50,11 @@ public class WinnerSceneController implements GenericSceneController{
     public void initialize(){
         setLabels();
         if(winner)
-            gui.makeSound("/sounds/winner");
-        else gui.makeSound("sounds/fail");
+            gui.makeSound("/sounds/winner.mp3");
+        else gui.makeSound("/sounds/fail.mp3");
     }
 
     private void setLabels(){
-
         if(gui.getClientModel().isSinglePlayer()){
             if(winMessage.isLorenzoWins()){
                 firstPlaceLabel.setText("The winner is Lorenzo!");

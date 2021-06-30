@@ -13,9 +13,11 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.media.*;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 
 /**
@@ -24,6 +26,7 @@ import java.util.concurrent.Executors;
 public class GuiView extends ClientView {
 
     private Alert alert;
+    MediaPlayer mediaPlayer;
 
     public GuiView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;
@@ -37,6 +40,7 @@ public class GuiView extends ClientView {
     public void start() {
         socketHandler.addObserver(this);
         new Thread(socketHandler).start();
+        new Thread(this::startMusic).start();
     }
 
     @Override
@@ -190,10 +194,20 @@ public class GuiView extends ClientView {
         showMessage(winMessage.getMsg());
     }
 
-    public void makeSound(String resourcePath){
-        Media media = new Media(getClass().getResource(resourcePath).toExternalForm());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+    private void startMusic(){
+        Media media = new Media(Objects.requireNonNull(getClass().getResource("/sounds/soundtrack.mp3")).toExternalForm());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setOnEndOfMedia(() -> {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.play();
+        });
         mediaPlayer.play();
+    }
+
+    public void makeSound(String resourcePath){
+        Media media = new Media(Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm());
+        MediaPlayer player = new MediaPlayer(media);
+        player.play();
     }
 
 }
