@@ -49,6 +49,7 @@ public class CommandSceneController implements GenericSceneController {
         SharedAreaSceneController sAsC = new SharedAreaSceneController();
         sAsC.setGui(gui);
         Platform.runLater(() -> SceneController.changeScene(gui, sAsC, "sharedArea_scene.fxml"));
+        gui.makeSound("/sounds/market.mp3", 6);
     }
 
     /**
