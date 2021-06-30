@@ -11,7 +11,8 @@ public enum Color {
     ANSI_PURPLE("\u001B[35m"),
     ANSI_GREY("\u001B[37m"),
     ANSI_BLACK("\033[1;30m"),
-    ANSI_WHITE("\u001B[0m");
+    ANSI_WHITE("\u001B[0m"),
+    ANSI_DARK_GREY("\u001B[90m");
 
 
     public static final String RESET = "\u001B[0m";

@@ -2,7 +2,7 @@ package it.polimi.ingsw.model.sharedarea.market;
 
 import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Stone;
-import  it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.Color;
 
 /**
  * This class represents a grey Marble and returns a Stone
@@ -26,7 +26,7 @@ public class GreyMarble extends Marble{
 
     @Override
     public String print() {
-        return Color.ANSI_GREY.escape() + "●" + Color.ANSI_WHITE.escape();
+        return Color.ANSI_DARK_GREY.escape() + "●" + Color.ANSI_WHITE.escape();
     }
 
     @Override
