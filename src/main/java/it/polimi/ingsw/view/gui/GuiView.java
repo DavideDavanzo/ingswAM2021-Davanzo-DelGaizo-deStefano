@@ -27,6 +27,7 @@ public class GuiView extends ClientView {
 
     private Alert alert;
     MediaPlayer mediaPlayer;
+    Thread musicThread;
 
     public GuiView(SocketHandler socketHandler) {
         this.socketHandler = socketHandler;
@@ -40,7 +41,7 @@ public class GuiView extends ClientView {
     public void start() {
         socketHandler.addObserver(this);
         new Thread(socketHandler).start();
-        new Thread(this::startMusic).start();
+        (musicThread = new Thread(this::startMusic)).start();
     }
 
     @Override
@@ -190,6 +191,7 @@ public class GuiView extends ClientView {
 
     @Override
     public void endGame(WinMessage winMessage) {
+        mediaPlayer.stop();
         Platform.runLater(() -> SceneController.changeScene(this, new WinnerSceneController(winMessage), "winner_scene.fxml"));
         showMessage(winMessage.getMsg());
     }
@@ -204,9 +206,10 @@ public class GuiView extends ClientView {
         mediaPlayer.play();
     }
 
-    public void makeSound(String resourcePath){
+    public synchronized void makeSound(String resourcePath){
         Media media = new Media(Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm());
         MediaPlayer player = new MediaPlayer(media);
+        player.setOnEndOfMedia(() -> {});
         player.play();
     }
 
