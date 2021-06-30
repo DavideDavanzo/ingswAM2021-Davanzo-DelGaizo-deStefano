@@ -53,15 +53,18 @@ public class TurnController {
         updateTurnCounter();
 
         if(gameController.isSinglePlayer()) {
-            try {
-                gameController.flipActionToken();
-                virtualViewMap.get(currentPlayer.getNickname()).updateLorenzoPosition(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
-                if(gameController.getCurrentPlayer().getPlayerBoard().getPath().getTrack()[gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition()].isPopeSquare())
-                    gameController.getCurrentPlayer().getPlayerBoard().getPath().applyVaticanReport(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
-                else if (gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1 > 0 && gameController.getCurrentPlayer().getPlayerBoard().getPath().getTrack()[gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1].isPopeSquare())
-                    gameController.getCurrentPlayer().getPlayerBoard().getPath().applyVaticanReport(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1);
-            } catch (LossException e) {
-                return;
+            System.out.println(turn);
+            if(turn > 2) { //Lorenzo starts always as second, so from the second turn
+                try {
+                    gameController.flipActionToken();
+                    virtualViewMap.get(currentPlayer.getNickname()).updateLorenzoPosition(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
+                    if(gameController.getCurrentPlayer().getPlayerBoard().getPath().getTrack()[gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition()].isPopeSquare())
+                        gameController.getCurrentPlayer().getPlayerBoard().getPath().applyVaticanReport(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
+                    else if (gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1 > 0 && gameController.getCurrentPlayer().getPlayerBoard().getPath().getTrack()[gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1].isPopeSquare())
+                        gameController.getCurrentPlayer().getPlayerBoard().getPath().applyVaticanReport(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1);
+                } catch (LossException e) {
+                    return;
+                }
             }
         }
 
