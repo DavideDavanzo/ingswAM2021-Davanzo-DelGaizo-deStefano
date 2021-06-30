@@ -213,7 +213,7 @@ public class GameController extends Observable implements Observer, Serializable
      */
     private void lorenzoWins(String lossMessage) {
         StringBuilder sb = new StringBuilder();
-        sb.append(lossMessage).append("Score : ").append(getCurrentPlayer().getVictoryPoints()).append("\n").append("Position : ").append(getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        sb.append(lossMessage).append("Score : ").append(getCurrentPlayer().getCurrentVictoryPoints()).append("\n").append("Position : ").append(getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
         VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
         currentView.sendMessage(new WinMessage(sb.toString(), true));
         notifyObservers(virtualViewMap.keySet());
