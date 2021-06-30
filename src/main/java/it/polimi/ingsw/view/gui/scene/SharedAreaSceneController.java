@@ -69,12 +69,12 @@ public class SharedAreaSceneController implements GenericSceneController {
         thirdPurple.addEventHandler(MouseEvent.MOUSE_RELEASED, this::thirdPurpleCardButtonClick);
     }
 
-    public void backButtonClick(Event event){
+    private void backButtonClick(Event event){
         backButton.setDisable(true);
         Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
     }
 
-    public void setMarketImages() {
+    private void setMarketImages() {
 
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 3; j++) {
@@ -89,7 +89,7 @@ public class SharedAreaSceneController implements GenericSceneController {
 
     }
 
-    public void setCardMarketImages() {
+    private void setCardMarketImages() {
 
         for(int i = 0; i < 4; i++) {
             for(int j = 0; j < 3; j++) {
@@ -105,115 +105,115 @@ public class SharedAreaSceneController implements GenericSceneController {
         }
     }
 
-    public void firstRowArrowButtonClick(Event event){
+    private void firstRowArrowButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             gui.sendMessage(new MarketResourcesCmd( 'r',0));
         else System.out.println("Not your turn!");
     }
 
-    public void secondRowArrowButtonClick(Event event) {
+    private void secondRowArrowButtonClick(Event event) {
         if(gui.getClientModel().isMyTurn())
             gui.sendMessage(new MarketResourcesCmd( 'r',1));
         else System.out.println("Not your turn!");
     }
 
-    public void thirdRowArrowButtonClick(Event event) {
+    private void thirdRowArrowButtonClick(Event event) {
         if(gui.getClientModel().isMyTurn())
             gui.sendMessage(new MarketResourcesCmd( 'r',2));
         else System.out.println("Not your turn!");
     }
 
-    public void firstColumnArrowButtonClick(Event event) {
+    private void firstColumnArrowButtonClick(Event event) {
         if(gui.getClientModel().isMyTurn())
             gui.sendMessage(new MarketResourcesCmd( 'c',0));
         else System.out.println("Not your turn!");
     }
 
-    public void secondColumnArrowButtonClick(Event event) {
+    private void secondColumnArrowButtonClick(Event event) {
         if(gui.getClientModel().isMyTurn())
             gui.sendMessage(new MarketResourcesCmd( 'c',1));
         else System.out.println("Not your turn!");
     }
 
-    public void thirdColumnArrowButtonCLick(Event event) {
+    private void thirdColumnArrowButtonCLick(Event event) {
         if(gui.getClientModel().isMyTurn())
             gui.sendMessage(new MarketResourcesCmd( 'c',2));
         else System.out.println("Not your turn!");
     }
 
-    public void fourthColumnArrowButtonClick(Event event) {
+    private void fourthColumnArrowButtonClick(Event event) {
         if(gui.getClientModel().isMyTurn())
             gui.sendMessage(new MarketResourcesCmd( 'c',3));
         else System.out.println("Not your turn!");
     }
 
-    public void firstGreenCardButtonClick(Event event){
+    private void firstGreenCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.GREEN, 1), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void firstBlueCardButtonClick(Event event){
+    private void firstBlueCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.BLUE, 1), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void firstYellowCardButtonClick(Event event){
+    private void firstYellowCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.YELLOW, 1), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void firstPurpleCardButtonClick(Event event){
+    private void firstPurpleCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.PURPLE, 1), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void secondGreenCardButtonClick(Event event){
+    private void secondGreenCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.GREEN, 2), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void secondBlueCardButtonClick(Event event){
+    private void secondBlueCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.BLUE, 2), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void secondYellowCardButtonClick(Event event){
+    private void secondYellowCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.YELLOW, 2), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void secondPurpleCardButtonClick(Event event){
+    private void secondPurpleCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.PURPLE, 2), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void thirdGreenCardButtonClick(Event event){
+    private void thirdGreenCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.GREEN, 3), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void thirdBlueCardButtonClick(Event event){
+    private void thirdBlueCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.BLUE, 3), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void thirdYellowCardButtonClick(Event event){
+    private void thirdYellowCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.YELLOW, 3), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");
     }
 
-    public void thirdPurpleCardButtonClick(Event event){
+    private void thirdPurpleCardButtonClick(Event event){
         if(gui.getClientModel().isMyTurn())
             Platform.runLater(() -> SceneController.changeScene(gui, new PlayerDevAreaSceneController(ECardColor.PURPLE, 3), "playerDevArea_scene.fxml"));
         else System.out.println("Not your turn!");

@@ -38,7 +38,7 @@ public class LoginSceneController implements GenericSceneController {
     /**
      * Button clicked after typing the nickname
      */
-    public void loginButtonClick(Event event) {
+    private void loginButtonClick(Event event) {
         loginButton.setDisable(true);
         String nickname = usernameTextField.getText();
         if(isValid(nickname))

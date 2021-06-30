@@ -10,11 +10,11 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #CBD4C2;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.PlayersNumberSceneController">
    <children>
-      <Button fx:id="singlePlayerButton" layoutX="78.0" layoutY="104.0" mnemonicParsing="false" onAction="#singlePlayerButtonClick" prefHeight="34.0" prefWidth="102.0" text="SinglePlayer">
+      <Button fx:id="singlePlayerButton" layoutX="78.0" layoutY="104.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="102.0" text="SinglePlayer">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font></Button>
-      <Button fx:id="multiPlayerButton" layoutX="407.0" layoutY="104.0" mnemonicParsing="false" onAction="#multiPlayerButtonClick" prefHeight="34.0" prefWidth="102.0" text="Multiplayer">
+      <Button fx:id="multiPlayerButton" layoutX="407.0" layoutY="104.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="102.0" text="Multiplayer">
          <font>
             <Font name="System Bold Italic" size="13.0" />
          </font></Button>

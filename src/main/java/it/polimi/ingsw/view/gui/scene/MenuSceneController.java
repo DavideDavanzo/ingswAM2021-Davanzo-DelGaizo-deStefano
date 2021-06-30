@@ -25,12 +25,12 @@ public class MenuSceneController implements GenericSceneController {
         quitButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::quitButtonClick);
     }
 
-    public void playButtonClick(Event event) {
+    private void playButtonClick(Event event) {
         playButton.setDisable(true);
         gui.login();
     }
 
-    public void quitButtonClick(Event event) {
+    private void quitButtonClick(Event event) {
         System.exit(0);
     }
 

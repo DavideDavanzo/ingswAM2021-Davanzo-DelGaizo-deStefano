@@ -14,6 +14,8 @@ public class WinnerSceneController implements GenericSceneController{
 
     private GuiView gui;
 
+    private boolean winner;
+
     private WinMessage winMessage;
 
     @FXML
@@ -47,15 +49,19 @@ public class WinnerSceneController implements GenericSceneController{
     @FXML
     public void initialize(){
         setLabels();
+        if(winner)
+            gui.makeSound("/sounds/winner");
+        else gui.makeSound("sounds/fail");
     }
 
-    public void setLabels(){
+    private void setLabels(){
 
         if(gui.getClientModel().isSinglePlayer()){
             if(winMessage.isLorenzoWins()){
                 firstPlaceLabel.setText("The winner is Lorenzo!");
                 secondPlaceLabel.setText("In second place: " + gui.getUsername());
             } else {
+                winner = true;
                 firstPlaceLabel.setText("The winner is: " + gui.getUsername());
                 secondPlaceLabel.setText("In second place: Lorenzo");
             }
@@ -69,6 +75,8 @@ public class WinnerSceneController implements GenericSceneController{
                         fourthPlaceLabel.setText("In fourth place: " + winMessage.getRanking().get(3) + " (" +  winMessage.getRankingTable().get(winMessage.getRanking().get(3)) + " pts.)");
                 }
             }
+            if(!winMessage.getRanking().get(winMessage.getRanking().size()-1).equals(gui.getUsername()))
+                winner = true;
         }
     }
 

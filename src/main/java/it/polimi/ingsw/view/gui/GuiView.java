@@ -11,7 +11,8 @@ import it.polimi.ingsw.view.ClientView;
 import it.polimi.ingsw.view.gui.scene.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.media.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -134,6 +135,11 @@ public class GuiView extends ClientView {
     @Override
     public synchronized void processAck(Ack ack) {
         Platform.runLater(() -> SceneController.changeScene(this, new PlayerBoardSceneController(clientModel), "playerBoard_scene.fxml"));
+        if(ack.isAck()) {
+            makeSound("/sounds/positive.mp3");
+        } else {
+            makeSound("/sounds/error.mp3");
+        }
     }
 
     @Override
@@ -164,6 +170,7 @@ public class GuiView extends ClientView {
             }
             else    alert.setContentText(msg);
             alert.show();
+            makeSound("/sounds/message_pop_up.mp3");
         });
     }
 
@@ -181,6 +188,12 @@ public class GuiView extends ClientView {
     public void endGame(WinMessage winMessage) {
         Platform.runLater(() -> SceneController.changeScene(this, new WinnerSceneController(winMessage), "winner_scene.fxml"));
         showMessage(winMessage.getMsg());
+    }
+
+    public void makeSound(String resourcePath){
+        Media media = new Media(getClass().getResource(resourcePath).toExternalForm());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
     }
 
 }

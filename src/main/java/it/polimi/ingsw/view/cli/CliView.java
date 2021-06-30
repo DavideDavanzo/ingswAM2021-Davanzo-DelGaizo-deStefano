@@ -420,7 +420,7 @@ public class CliView extends ClientView {
         }
     }
 
-    public void tossLeaderCards() {
+    private void tossLeaderCards() {
         int choice = 0;
         if(clientModel.getLeaderCards().stream().filter(l -> !l.isDiscarded()).count() == 0){
             System.out.println("You have no leader card");

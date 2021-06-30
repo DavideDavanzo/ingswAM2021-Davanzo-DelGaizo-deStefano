@@ -8,6 +8,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -44,7 +45,7 @@ public class CommandSceneController implements GenericSceneController {
     /**
      * This button leads to the SharedArea scene
      */
-    public void sharedAreaButtonClick(Event event) {
+    private void sharedAreaButtonClick(Event event) {
         SharedAreaSceneController sAsC = new SharedAreaSceneController();
         sAsC.setGui(gui);
         Platform.runLater(() -> SceneController.changeScene(gui, sAsC, "sharedArea_scene.fxml"));
@@ -53,11 +54,11 @@ public class CommandSceneController implements GenericSceneController {
     /**
      * This button leads to the player's playerboard
      */
-    public void yourBoardButtonClick(Event event) {
+    private void yourBoardButtonClick(Event event) {
         Platform.runLater(() -> SceneController.changeScene(gui, new PlayerBoardSceneController(gui.getClientModel()), "playerBoard_scene.fxml"));
     }
 
-    public void passTurnButtonClick(Event event) {
+    private void passTurnButtonClick(Event event) {
         if(gui.getClientModel().isMyTurn()) {
             gui.getClientModel().setMyTurn(false);
             gui.sendMessage(new PassTurnMessage());
@@ -65,12 +66,12 @@ public class CommandSceneController implements GenericSceneController {
         } else gui.showMessage("Not your turn!");
     }
 
-    public void quitButtonClick(Event event) {
+    private void quitButtonClick(Event event) {
         gui.disconnect();
         Platform.runLater(() -> SceneController.changeScene(gui, "menu_scene.fxml", () -> System.exit(0)));
     }
 
-    public void leaderButtonClick(Event event) {
+    private void leaderButtonClick(Event event) {
         YourLeaderSceneController yLsC = new YourLeaderSceneController();
         yLsC.setGui(gui);
         Platform.runLater(() -> SceneController.changeScene(gui, yLsC, "yourLeader_scene.fxml"));

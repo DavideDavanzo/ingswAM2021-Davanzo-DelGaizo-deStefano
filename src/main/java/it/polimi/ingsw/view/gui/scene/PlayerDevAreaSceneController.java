@@ -70,19 +70,19 @@ public class PlayerDevAreaSceneController implements GenericSceneController{
         backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
     }
 
-    public void firstSlotClick(Event event){
+    private void firstSlotClick(Event event){
         gui.sendMessage(new BuyCardCmd(color, cardLvl, 1));
     }
 
-    public void secondSlotClick(Event event){
+    private void secondSlotClick(Event event){
         gui.sendMessage(new BuyCardCmd(color, cardLvl, 2));
     }
 
-    public void thirdSlotClick(Event event){
+    private void thirdSlotClick(Event event){
         gui.sendMessage(new BuyCardCmd(color, cardLvl, 3));
     }
 
-    public void backButtonClick(Event event){
+    private void backButtonClick(Event event){
         Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
     }
 

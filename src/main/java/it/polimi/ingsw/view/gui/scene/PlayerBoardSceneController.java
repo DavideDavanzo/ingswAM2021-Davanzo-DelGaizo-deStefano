@@ -209,7 +209,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         position[clientModel.getLorenzoPosition()].setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/soloMatch/croce.png"))));
     }
 
-    public void initDevCards(){
+    private void initDevCards(){
         Stack<DevelopmentCard> firstStack = clientModel.getDevelopmentCardsArea().getFirstStack();
         Stack<DevelopmentCard> secondStack = clientModel.getDevelopmentCardsArea().getSecondStack();
         Stack<DevelopmentCard> thirdStack = clientModel.getDevelopmentCardsArea().getThirdStack();
@@ -239,7 +239,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void initLeaderCards(){
+    private void initLeaderCards(){
         if(clientModel.getLeaderCards().get(0).isActive() && !clientModel.getLeaderCards().get(0).isDiscarded()) {
             firstLeader.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/cardsFront/" + clientModel.getLeaderCards().get(0).getId() + ".png"))));
             if(clientModel.getLeaderCards().get(0).getEffect() instanceof ExtraShelfEffect){
@@ -268,30 +268,30 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void askPlayer2Infos(Event event){
+    private void askPlayer2Infos(Event event){
         if(usernamesList.size() >= 1)
             askForOtherPlayerboard(usernamesList.get(0));
     }
 
-    public void askPlayer3Infos(Event event){
+    private void askPlayer3Infos(Event event){
         if(usernamesList.size() >= 2)
             askForOtherPlayerboard(usernamesList.get(1));
     }
 
-    public void askPlayer4Infos(Event event){
+    private void askPlayer4Infos(Event event){
         if(usernamesList.size() >= 3)
             askForOtherPlayerboard(usernamesList.get(2));
     }
 
-    public void returnToMyBoard(Event event){
+    private void returnToMyBoard(Event event){
         Platform.runLater(() -> SceneController.changeScene(gui, new PlayerBoardSceneController(gui.getClientModel()), "playerBoard_scene.fxml"));
     }
 
-    public void askForOtherPlayerboard(String otherUsername){
+    private void askForOtherPlayerboard(String otherUsername){
         gui.sendMessage(new OtherPlayerInfosRequest(otherUsername));
     }
 
-    public void switchFirstShelf(Event event){
+    private void switchFirstShelf(Event event){
         shelvesToSwitch.add(1);
         if(shelvesToSwitch.size() == 2){
             gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
@@ -299,7 +299,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void switchSecondShelf(Event event){
+    private void switchSecondShelf(Event event){
         shelvesToSwitch.add(2);
         if(shelvesToSwitch.size() == 2){
             gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
@@ -307,7 +307,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void switchThirdShelf(Event event){
+    private void switchThirdShelf(Event event){
         shelvesToSwitch.add(3);
         if(shelvesToSwitch.size() == 2){
             gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
@@ -315,7 +315,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void switchFirstExtra(Event event){
+    private void switchFirstExtra(Event event){
         shelvesToSwitch.add(4);
         if(shelvesToSwitch.size() == 2){
             gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
@@ -323,7 +323,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void switchSecondExtra(Event event){
+    private void switchSecondExtra(Event event){
         shelvesToSwitch.add(5);
         if(shelvesToSwitch.size() == 2){
             gui.sendMessage(new SwitchShelvesCmd(shelvesToSwitch.get(0), shelvesToSwitch.get(1)));
@@ -331,42 +331,42 @@ public class PlayerBoardSceneController implements GenericSceneController{
         }
     }
 
-    public void firstStackClick(Event event){
+    private void firstStackClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(1);
         firstStackButton.setDisable(true);
         firstStackButton.setOpacity(0.6);
     }
 
-    public void secondStackClick(Event event){
+    private void secondStackClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(2);
         secondStackButton.setDisable(true);
         secondStackButton.setOpacity(0.6);
     }
 
-    public void thirdStackClick(Event event){
+    private void thirdStackClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(3);
         thirdStackButton.setDisable(true);
         thirdStackButton.setOpacity(0.6);
     }
 
-    public void firstLeaderProductionClick(Event event){
+    private void firstLeaderProductionClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(4);
         firstLeaderProductionButton.setDisable(true);
         firstLeaderProductionButton.setOpacity(0.6);
     }
 
-    public void secondLeaderProductionClick(Event event){
+    private void secondLeaderProductionClick(Event event){
         activateProductionButton.setDisable(false);
         productionStacks.add(5);
         secondLeaderProductionButton.setDisable(true);
         secondLeaderProductionButton.setOpacity(0.6);
     }
 
-    public void baseProductionClick(Event event){
+    private void baseProductionClick(Event event){
         baseProduction = new Trade();
         baseProduction.setInput(new ArrayList<>());
         baseProduction.setOutput(new ArrayList<>());
@@ -374,7 +374,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         baseProductionAnchorPane.setVisible(true);
     }
 
-    public void coinInputClick(Event event){
+    private void coinInputClick(Event event){
         baseProduction.getInput().add(new Coin(1));
         if(baseProduction.getInput().size() == 1)
             firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/coin.png"))));
@@ -383,7 +383,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         handleBaseInputClick();
     }
 
-    public void shieldInputClick(Event event){
+    private void shieldInputClick(Event event){
         baseProduction.getInput().add(new Shield(1));
         if(baseProduction.getInput().size() == 1)
             firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
@@ -392,7 +392,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         handleBaseInputClick();
     }
 
-    public void stoneInputClick(Event event){
+    private void stoneInputClick(Event event){
         baseProduction.getInput().add(new Stone(1));
         if(baseProduction.getInput().size() == 1)
             firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
@@ -401,7 +401,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
         handleBaseInputClick();
     }
 
-    public void servantInputClick(Event event){
+    private void servantInputClick(Event event){
         baseProduction.getInput().add(new Servant(1));
         if(baseProduction.getInput().size() == 1)
             firstInputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
@@ -410,35 +410,35 @@ public class PlayerBoardSceneController implements GenericSceneController{
         handleBaseInputClick();
     }
 
-    public void coinOutputClick(Event event){
+    private void coinOutputClick(Event event){
         baseProduction.getOutput().add(new Coin(1));
         outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/coin.png"))));
         handleBaseOutputClick();
     }
 
-    public void shieldOutputClick(Event event){
+    private void shieldOutputClick(Event event){
         baseProduction.getOutput().add(new Shield(1));
         outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/shield.png"))));
         handleBaseOutputClick();
     }
 
-    public void stoneOutputClick(Event event){
+    private void stoneOutputClick(Event event){
         baseProduction.getOutput().add(new Stone(1));
         outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/stone.png"))));
         handleBaseOutputClick();
     }
 
-    public void servantOutputClick(Event event){
+    private void servantOutputClick(Event event){
         baseProduction.getOutput().add(new Servant(1));
         outputImageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/resources/servant.png"))));
         handleBaseOutputClick();
     }
 
-    public void activateProduction(Event event){
+    private void activateProduction(Event event){
         gui.sendMessage(new ActivateProductionCmd(baseProduction, baseProduction!=null, productionStacks));
     }
 
-    public void backButtonClick(Event event){
+    private void backButtonClick(Event event){
         backButton.setDisable(true);
         Platform.runLater(() -> SceneController.changeScene(gui, "command_scene.fxml"));
     }
@@ -492,6 +492,7 @@ public class PlayerBoardSceneController implements GenericSceneController{
             baseProductionButton.setDisable(true);
         }
         backButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::backButtonClick);
+        myBoardButton.setText("My board (" + gui.getUsername() + ")");
         if(!(clientModel == gui.getClientModel())){
             disableAllButtons();
             myBoardButton.addEventHandler(MouseEvent.MOUSE_RELEASED, this::returnToMyBoard);
