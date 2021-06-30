@@ -50,8 +50,8 @@ public class WinnerSceneController implements GenericSceneController{
     public void initialize(){
         setLabels();
         if(winner)
-            gui.makeSound("/sounds/winner.mp3");
-        else gui.makeSound("/sounds/fail.mp3");
+            gui.makeSound("/sounds/winner.mp3", 5);
+        else gui.makeSound("/sounds/fail.mp3", 5);
     }
 
     private void setLabels(){

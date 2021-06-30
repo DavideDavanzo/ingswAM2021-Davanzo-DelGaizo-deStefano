@@ -209,6 +209,7 @@ public class GuiView extends ClientView {
     public synchronized void makeSound(String resourcePath){
         Media media = new Media(Objects.requireNonNull(getClass().getResource(resourcePath)).toExternalForm());
         MediaPlayer player = new MediaPlayer(media);
+        player.setOnEndOfMedia(() -> {});
         player.play();
     }
 

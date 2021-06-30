@@ -953,14 +953,15 @@ public class CliView extends ClientView {
     @Override
     public void endGame(WinMessage winMessage) {
         if(clientModel.isSinglePlayer()){
-            if(winMessage.isLorenzoWins())
-                System.out.println("Lorenzo wins!");
-            else    System.out.println("Congratulation you have beaten Lorenzo!");
+            System.out.println(winMessage.getMsg());
+            if(!winMessage.isLorenzoWins())
+                System.out.println("Congratulations, you have beaten Lorenzo!");
         } else {
             System.out.println("Game over! " + (winMessage.getRanking().get(0).equals(username)?"You are the winner!":(winMessage.getRanking().get(0) + " is the winner!")));
             System.out.println("These are the final scores:");
             System.out.println(winMessage.getRankingTable());
         }
+        System.exit(0);
     }
 
     @Override
