@@ -19,6 +19,8 @@ using Java language to create a distributed system. This is composed of a single
 
 More precisely, we were asked to implement an MVC design pattern and a TCP network using sockets.
 
+
+
 ## Tools, plugins and external libraries
 
 - Intellij IDEA
@@ -57,27 +59,27 @@ __Advanced (2)__
 First of all download the [jar]().
 
 Server and clients use the same one, launching it differently.
-- __Server__: download and double click on the [ServerApp.bat]() file or type from cmd line
+- __Server__: download and double click on the [ServerApp.bat]() file (default port number: 1234) or type from cmd line
 
-        java -jar MaestriDelRinascimento.jar <port>
+        java -jar MaestriDelRinascimento.jar <port_num>
   
-    Replace <port> with the port's number you want to use (e.g. 1234).\
+    Replace <port_num> with the port's number you want to use (e.g. 1234).\
     WARNING! CLIENTS MUST KNOW THIS NUMBER TO PLAY!
   
 
 - __Client__: each client can choose independently to play using Cli or Gui.
-    - __Gui__ --> download and double click on the [ClientGuiApp.bat]() file or type from cmd line
+    - __Gui__ --> download and double click on the [ClientGuiApp.bat]() file (default port number: 1234) or type from cmd line
       
-            java -jar MaestriDelRinascimento.jar <server_IP> <port>
+            java -jar MaestriDelRinascimento.jar <server_IP> <port_num>
     
-        Replace <port> with the same number used by the server.\
+        Replace <port_num> with the same number used by the server.\
         Replace <server_IP> with the IP number of the server host.
     - __Cli__ --> to be able to see every color and symbol used in this version download and configure WSL. To do so follow this [link](https://github.com/ingconti/W10JavaCLI). \
         Then type on Ubuntu Shell
         
-            java -jar MaestriDelRinascimento.jar -cli <server_IP> <port>
+            java -jar MaestriDelRinascimento.jar -cli <server_IP> <port_num>
       
-        Replace <port> with the same number used by the server.\
+        Replace <port_num> with the same number used by the server.\
         Replace <server_IP> with the IP number of the server host.
   
 ## Play
