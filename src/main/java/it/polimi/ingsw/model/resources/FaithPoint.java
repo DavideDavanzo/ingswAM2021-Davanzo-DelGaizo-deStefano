@@ -3,6 +3,8 @@ package it.polimi.ingsw.model.resources;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 
 /**
  * Class which represents an amount of faith points
@@ -75,5 +77,10 @@ public class FaithPoint extends Item {
     @Override
     public String toString() {
         return "FaithPoint: " + getVolume();
+    }
+
+    @Override
+    public String print() {
+        return Color.ANSI_RED.escape() + "† " + Color.ANSI_WHITE.escape();
     }
 }

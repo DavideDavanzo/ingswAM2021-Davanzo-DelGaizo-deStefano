@@ -1,18 +1,20 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
-import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.Trade;
 import it.polimi.ingsw.model.effects.Discount;
-import it.polimi.ingsw.model.market.Marble;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
+import it.polimi.ingsw.model.sharedarea.market.Marble;
 import it.polimi.ingsw.model.playerboard.PlayerBoard;
 import it.polimi.ingsw.model.effects.WhiteMarbleEffect;
 
 import it.polimi.ingsw.model.playerboard.Shelf;
+import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.*;
+import it.polimi.ingsw.observingPattern.Observable;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -22,11 +24,12 @@ import java.util.Stack;
  * <h1>Player</h1>
  * Represents a player in a {@link Match}.
  */
-public class Player {
+public class Player extends Observable {
 
     private String nickname;
 
     private PlayerBoard playerBoard;
+    private boolean inkwell;
 
     private LinkedList<LeaderCard> leaderCards;
 
@@ -39,6 +42,9 @@ public class Player {
     private ArrayList<Trade> extraTrades;
     private boolean activeTrade;
 
+    private ArrayList<Item> itemsToArrangeInWarehouse;
+    private boolean bigActionToken;
+
     private int victoryPoints;
 
     /**
@@ -47,9 +53,11 @@ public class Player {
     public Player() {
         playerBoard = new PlayerBoard();
         leaderCards = new LinkedList<>();
+        inkwell = false;
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
+        bigActionToken = true;
         victoryPoints = 0;
     }
 
@@ -57,9 +65,11 @@ public class Player {
         playerBoard = new PlayerBoard();
         leaderCards = new LinkedList<>();
         this.nickname = nickname;
+        inkwell = false;
         whiteMarblePower = false;
         activeDiscount = false;
         activeTrade = false;
+        bigActionToken = true;
         victoryPoints = 0;
     }
 
@@ -130,7 +140,7 @@ public class Player {
 
     public int getCurrentVictoryPoints() {
 
-        int victoryPoints = playerBoard.calculateVictoryPoints();      //add points given by development cards and path
+        int victoryPoints = playerBoard.calculateVictoryPoints();      //add points given by development cards, path and resources
 
         for(LeaderCard card : leaderCards)
             victoryPoints += card.calculateVictoryPoints();   //add points given by leader cards
@@ -146,6 +156,10 @@ public class Player {
 
     public void setVictoryPoints(int victoryPoints) {
         this.victoryPoints =victoryPoints;
+    }
+
+    public void setItemsToArrangeInWarehouse(ArrayList<Item> itemsToArrangeInWarehouse) {
+        this.itemsToArrangeInWarehouse = itemsToArrangeInWarehouse;
     }
 
     public void pay(DevelopmentCard developmentCard) throws NotEnoughResourcesException, InvalidInputException {
@@ -181,6 +195,22 @@ public class Player {
         playerBoard.getWarehouse().addResourcesToShelf(newResource, warehouseShelf);
     }
 
+    public boolean moveForward(int steps) throws InvalidInputException {
+        return this.getPlayerBoard().getPath().moveForward(steps);
+    }
+
+    public int devCardCount() {
+        return playerBoard.getDevelopmentCardsArea().getCardCount();
+    }
+
+    public boolean hasTwoWhiteMarblePowers() {
+        int count = 0;
+        for(LeaderCard l : leaderCards) {
+            if(l.isActive() && (l.getEffect() instanceof WhiteMarbleEffect)) count++;
+        }
+        return count == 2;
+    }
+
     public PlayerBoard getPlayerBoard() {
         return playerBoard;
     }
@@ -205,4 +235,43 @@ public class Player {
         return nickname;
     }
 
+    public Warehouse getWarehouse() {
+        return this.getPlayerBoard().getWarehouse();
+    }
+
+    public ArrayList<Item> getItemsToArrangeInWarehouse() {
+        return itemsToArrangeInWarehouse;
+    }
+
+    public int extraShelvesCount() {
+        int count = 0;
+        for(LeaderCard l : getLeaderCards()) {
+            if(l.getEffect() instanceof ExtraShelfEffect && l.isActive()) count++;
+        }
+        return count;
+    }
+
+    public void giveBigActionToken() {
+        bigActionToken = true;
+    }
+
+    public boolean hasBigActionToken() {
+        return bigActionToken;
+    }
+
+    public void revokeBigActionToken() {
+        bigActionToken = false;
+    }
+
+    public boolean hasInkwell() {
+        return inkwell;
+    }
+
+    public void giveInkwell() {
+        inkwell = true;
+    }
+
+    public void setInkwell(boolean inkwell) {
+        this.inkwell = inkwell;
+    }
 }

@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import it.polimi.ingsw.view.cli.CliPrinter;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Resource.class, name = "resource"),
         @JsonSubTypes.Type(value = Coin.class, name = "coin"),
@@ -19,7 +22,7 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotE
 /**
  * Abstract class which represents either a resource or faith points
  */
-abstract public class Item {
+abstract public class Item implements CliPrinter, Serializable {
 
     protected int volume;
 

@@ -1,0 +1,482 @@
+package it.polimi.ingsw.controller;
+
+import it.polimi.ingsw.controller.gameState.GameState;
+import it.polimi.ingsw.controller.gameState.LoginState;
+import it.polimi.ingsw.exceptions.InvalidInputException;
+import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
+import it.polimi.ingsw.exceptions.controllerExceptions.NicknameException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
+import it.polimi.ingsw.model.Match;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.playerboard.Coffer;
+import it.polimi.ingsw.model.playerboard.DevelopmentCardsArea;
+import it.polimi.ingsw.model.playerboard.Warehouse;
+import it.polimi.ingsw.model.playerboard.path.Path;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.model.sharedarea.market.Market;
+import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.PlayersListMessage;
+import it.polimi.ingsw.network.messages.WarehouseUpdate;
+import it.polimi.ingsw.network.messages.WinMessage;
+import it.polimi.ingsw.observingPattern.Observable;
+import it.polimi.ingsw.observingPattern.Observer;
+import it.polimi.ingsw.view.VirtualView;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.*;
+import java.util.stream.IntStream;
+
+/**
+ * This class implements the controller of the game
+ */
+public class GameController extends Observable implements Observer, Serializable {
+
+    private Match match;
+    private Map<String, VirtualView> virtualViewMap;
+
+    private int chosenPlayerNum;
+    private boolean endGame;
+
+    private GameState gameState;
+    private TurnController turnController;
+
+    private Stack<ArrayList<LeaderCard>> leaderChoices;
+
+    public GameController() {
+        this.chosenPlayerNum = 0;
+        this.endGame = false;
+        this.virtualViewMap = Collections.synchronizedMap(new HashMap<>());
+        this.gameState = new LoginState(this);
+        this.leaderChoices = new Stack<>();
+    }
+
+    public void onMessage(Message received) {
+
+        try {
+            received.getProcessedBy(gameState);
+        } catch (InvalidStateException e) {
+            // Handled by GameState
+        }
+
+    }
+
+    public synchronized boolean logPlayer(String nickname, VirtualView virtualView) {
+
+        while(!virtualViewMap.isEmpty() && (chosenPlayerNum == 0)) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if(virtualViewMap.isEmpty()) {
+
+            try {
+                addVirtualView(nickname, virtualView);
+                virtualView.connect();
+            } catch (NicknameException e) { //This catch will never happen, it's explicit just for code richness.
+                virtualView.showLogin("error", false);
+                return false;
+            }
+
+            //TO RECEIVE INCOMING MESSAGES
+            virtualView.addObserver(this);
+            virtualView.start();
+
+            virtualView.showLogin("You've been logged in successfully", true);
+            virtualView.askNumberOfPlayers();
+
+        }
+        else if(!isFull()) {
+
+            try {
+                addVirtualView(nickname, virtualView);
+                virtualView.connect();
+            } catch (NicknameException e) {
+                virtualView.showLogin("Nickname already logged, try another one", false);
+                return false;
+            }
+
+            //TO RECEIVE INCOMING MESSAGES
+            virtualView.addObserver(this);
+            virtualView.start();
+            virtualView.showLogin("You've been logged in successfully", true);
+
+            if(isFull()) {
+                //TODO: Restore interrupted match ??
+                gameState.nextState();
+                startMatch();
+            }
+
+        }
+        else if(isFull()){
+            virtualView.showLogin("Sorry, something went wrong", false);
+            return false;
+        }
+        else {
+            virtualView.showError("Sorry, something went wrong..");
+        }
+
+        return true;
+
+    }
+
+    /**
+     * Handles reconnection
+     * @param nickname
+     * @param virtualView
+     */
+    public void reconnect(String nickname, VirtualView virtualView) {
+        virtualView.connect();
+        virtualViewMap.put(nickname, virtualView);
+        virtualView.addObserver(this);
+        virtualView.start();
+        for(Player p : match.getPlayers()){
+            if(p.getNickname().equals(nickname)){
+                match.addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getWarehouse().addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getCoffer().addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getDevelopmentCardsArea().addObserver(virtualViewMap.get(nickname));
+                p.getPlayerBoard().getPath().addObserver(virtualViewMap.get(nickname));
+                virtualView.updateFaithTrack(p.getPlayerBoard().getPath());
+                virtualView.updateDevCards(p.getPlayerBoard().getDevelopmentCardsArea());
+                virtualView.updateWarehouse(p.getPlayerBoard().getWarehouse());
+                virtualView.updateCoffer(p.getPlayerBoard().getCoffer());
+                virtualView.updateLeaderCards(p.getLeaderCards());
+                break;
+            }
+        }
+        virtualView.showLogin("Reconnection to match completed. Wait for your turn...", true);
+    }
+
+    public boolean verifyConnected(String nickname) {
+        return virtualViewMap.get(nickname).isConnected();
+    }
+
+    /**
+     * Starts a match
+     */
+    public void startMatch() {
+        System.out.println("Starting match..."); //Server side message.
+
+        match = new Match();
+        for(Map.Entry<String, VirtualView> entry : virtualViewMap.entrySet()) {
+            Player p = new Player(entry.getKey());
+            match.addPlayer(p);
+            match.addObserver(entry.getValue());
+            match.getSharedArea().getMarket().addObserver(entry.getValue());
+            match.getSharedArea().getCardMarket().addObserver(entry.getValue());
+            p.getPlayerBoard().getWarehouse().addObserver(entry.getValue());
+            p.getPlayerBoard().getCoffer().addObserver(entry.getValue());
+            p.getPlayerBoard().getDevelopmentCardsArea().addObserver(entry.getValue());
+            p.getPlayerBoard().getPath().addObserver(entry.getValue());
+            p.getPlayerBoard().getPath().addObserver(this);
+        }
+        match.getSharedArea().getMarket().notifyObservers(match.getSharedArea().getMarket());
+        match.getSharedArea().getCardMarket().notifyObservers(match.getSharedArea().getCardMarket());
+
+        if(isSinglePlayer()) match.setToSinglePlayer();
+        else match.shufflePlayers();
+        getPlayers().peek().giveInkwell(); //Gives the inkwell to the first player
+
+        turnController = new TurnController(this, virtualViewMap);
+        turnController.updateTurnCounter();
+        prepareLeaderChoices();
+
+        if(virtualViewMap.size() !=1 )
+            sendBroadcastMessage("Match started!\nPlayers: " + virtualViewMap.keySet() + "\n" + turnController.getCurrentPlayer().getNickname() + " is the first player");
+        sendBroadcastMessage(new PlayersListMessage(virtualViewMap.keySet()));
+        askLeaders();
+
+    }
+
+    public void askLeaders() {
+        virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
+    }
+
+    public void flipActionToken() throws LossException {
+        try {
+            String action = match.getLorenzoIlMagnifico().flipTokenReadAction();
+            virtualViewMap.get(getCurrentPlayer().getNickname()).showMessage(action);
+        } catch (LossException e) {
+            lorenzoWins(e.getMessage());
+            throw new LossException("");
+        }
+    }
+
+    /**
+     * Declares Lorenzo as the winner
+     * @param lossMessage for the user
+     */
+    private void lorenzoWins(String lossMessage) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(lossMessage).append("Score : ").append(getCurrentPlayer().getCurrentVictoryPoints()).append("\n").append("Position : ").append(getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
+        currentView.sendMessage(new WinMessage(sb.toString(), true));
+        notifyObservers(virtualViewMap.keySet());
+    }
+
+    private void prepareLeaderChoices() {
+
+        ArrayList<LeaderCard> leaderCards = match.getLeaders();
+        Collections.shuffle(leaderCards);
+
+        for(int players = 0; players < chosenPlayerNum; players++) {
+
+            ArrayList<LeaderCard> choice = new ArrayList<>();
+
+            for(int i = 0; i < 4; i++) {
+                choice.add(leaderCards.get(i + players * 4));
+            }
+
+            leaderChoices.push(choice);
+
+        }
+
+    }
+
+    /**
+     * Declares the winner and the rest of the ranking
+     */
+    public void handleEndGame() {
+
+        if(isSinglePlayer()) {
+            VirtualView currentView = virtualViewMap.get(getCurrentPlayer().getNickname());
+            currentView.sendMessage(new WinMessage(singlePlayerWinMessage(), false));
+            notifyObservers(virtualViewMap.keySet());
+            return;
+        }
+
+        LinkedList<Player> ranking = match.getRanking();
+
+        HashMap<String, Integer> rankingTable = new HashMap<>();
+
+        for(Player p : ranking){
+            rankingTable.put(p.getNickname(), p.getVictoryPoints());
+        }
+
+        LinkedList<String> rankingUsernames = new LinkedList<>();
+        for(Object nickname : ranking.stream().map(Player::getNickname).toArray()){
+            rankingUsernames.add((String) nickname);
+        }
+
+        sendBroadcastMessage(new WinMessage("Match Ended!", rankingTable, rankingUsernames));
+
+        notifyObservers(virtualViewMap.keySet());
+
+    }
+
+    public String singlePlayerWinMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("You Won!");
+        sb.append("Score : " + getCurrentPlayer().getCurrentVictoryPoints() + "\n" + "Position : " + getCurrentPlayer().getPlayerBoard().getPath().getCurrentPositionAsInt());
+        return sb.toString();
+    }
+
+    /**
+     * Moves all the crosses of the players except the one of the current player
+     * @param player
+     * @param steps
+     * @return
+     */
+    public boolean moveAllExcept(Player player, int steps) {
+
+        String nickname = player.getNickname();
+        boolean maxMovement = false;
+
+        for(Player other : getPlayers()) {
+            if(!other.getNickname().equals(nickname)) {
+                try {
+                    if(!virtualViewMap.get(other.getNickname()).isConnected()) continue;
+                    if(other.moveForward(steps)) maxMovement = true;
+                } catch (InvalidInputException e) {
+                    //Should never reach this statement
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return maxMovement;
+    }
+
+    public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
+        if(virtualViewMap.containsKey(nickname)) throw new NicknameException();
+        virtualViewMap.put(nickname, virtualView);
+    }
+
+    public Map<String, VirtualView> getVirtualViewMap() {
+        return virtualViewMap;
+    }
+
+    public void sendBroadcastMessage(String message) {
+        for(VirtualView v : virtualViewMap.values()) {
+            if(v.isConnected()) v.showMessage(message);
+        }
+    }
+
+    public void sendBroadcastMessageExclude(String message, String nickname) {
+        for(Map.Entry<String, VirtualView> entry : virtualViewMap.entrySet()) {
+            if(!entry.getKey().equals(nickname) && entry.getValue().isConnected()) {
+                entry.getValue().showMessage(message);
+            }
+        }
+    }
+
+    private void sendBroadcastMessage(Message message){
+        for(VirtualView v : virtualViewMap.values()) {
+            if(v.isConnected()) v.sendMessage(message);
+        }
+    }
+
+    public synchronized long connectedPlayersAsInt() {
+        return virtualViewMap.values().stream().filter(VirtualView::isConnected).count();
+    }
+
+    /**
+     * Handles disconnection of the user
+     * @param nickname
+     */
+    public synchronized void disconnect(String nickname) {
+        int count = 1;
+        for(Player p : getPlayers()) {
+            if(p.getNickname().equals(nickname) && p.hasInkwell()) {
+                try {
+                    while(!virtualViewMap.get(getPlayers().get(getPlayers().indexOf(p) + count).getNickname()).isConnected()) {
+                        count++;
+                    }
+                    p.setInkwell(false);
+                    getPlayers().get(getPlayers().indexOf(p) + count).giveInkwell();
+                } catch(IndexOutOfBoundsException ie) {
+                    count = 0;
+                    while(!virtualViewMap.get(getPlayers().get(count).getNickname()).isConnected()) {
+                        count++;
+                    }
+                    p.setInkwell(false);
+                    getPlayers().get(count).giveInkwell();
+                } finally {
+                    virtualViewMap.get(nickname).disconnect();
+                }
+            }
+        }
+        virtualViewMap.get(nickname).disconnect();
+    }
+
+    public boolean isCurrentPlayer(String username) {
+        return turnController.isCurrentPlayer(username);
+    }
+
+    public Player getCurrentPlayer() {
+        return turnController.getCurrentPlayer();
+    }
+
+    public boolean isFull() {
+        return chosenPlayerNum != 0 && chosenPlayerNum == virtualViewMap.size();
+    }
+
+    public boolean isSinglePlayer() {
+        return chosenPlayerNum == 1 && virtualViewMap.size() == 1;
+    }
+
+    public void setGameState(GameState gameState) {
+        this.gameState = gameState;
+    }
+
+    public boolean setChosenPlayersNum(int number) {
+
+        if(number > 0 && number <= Match.MAX_PLAYERS) {
+            this.chosenPlayerNum = number;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public void updateQueue() {
+        turnController.updateQueue();
+    }
+
+    @Override
+    public void update(Message message) {
+        onMessage(message);
+    }
+
+    @Override
+    public void update(Warehouse warehouse) {
+        //do nothing
+    }
+
+    @Override
+    public void update(Path path) {
+        //do nothing
+    }
+
+    @Override
+    public void update(Coffer coffer) {
+        //do nothing
+    }
+
+    @Override
+    public void update(DevelopmentCardsArea developmentCardsArea) {
+        //do nothing
+    }
+
+    @Override
+    public void update(Market market) {
+        //do nothing
+    }
+
+    @Override
+    public void update(CardMarket cardMarket) {
+        //do nothing
+    }
+
+    @Override
+    public void update(int pathPosition) {
+        match.getPlayers().forEach(p -> p.getPlayerBoard().getPath().applyVaticanReport(pathPosition));
+    }
+
+    @Override
+    public void update(Set<String> usernames) {
+        //do nothing
+    }
+
+    public void setMatch(Match match) {
+        this.match = match;
+    }
+
+    public void setTurnController(TurnController turnController) {
+        this.turnController = turnController;
+    }
+
+    public void setEndGame(boolean endGame) {
+        this.endGame = endGame;
+    }
+
+    public LinkedList<Player> getPlayers() {
+        return match.getPlayers();
+    }
+
+    public TurnController getTurnController() {
+        return turnController;
+    }
+
+    public int getChosenPlayerNum() {
+        return chosenPlayerNum;
+    }
+
+    public Match getMatch() {
+        return match;
+    }
+
+    public boolean isEndGame() {
+        return endGame;
+    }
+
+    public GameState getGameState() {
+        return gameState;
+    }
+}

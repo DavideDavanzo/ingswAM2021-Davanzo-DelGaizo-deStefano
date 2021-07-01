@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.SubScene?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane fx:id="mainAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="394.0" prefWidth="723.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="371.0" fitWidth="600.0" layoutX="123.0" layoutY="23.0">
+         <image>
+            <Image url="@../images/Masters of Renaissance_PlayerBoard (11_2020)-1.png" />
+         </image>
+      </ImageView>
+       <ImageView fx:id="pos0" fitHeight="21.0" fitWidth="25.0" layoutX="147.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos1" fitHeight="21.0" fitWidth="25.0" layoutX="176.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos2" fitHeight="21.0" fitWidth="25.0" layoutX="206.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos3" fitHeight="21.0" fitWidth="25.0" layoutX="208.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos4" fitHeight="21.0" fitWidth="25.0" layoutX="206.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos5" fitHeight="21.0" fitWidth="25.0" layoutX="235.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos6" fitHeight="21.0" fitWidth="25.0" layoutX="263.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos7" fitHeight="21.0" fitWidth="25.0" layoutX="293.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos8" fitHeight="21.0" fitWidth="25.0" layoutX="325.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos9" fitHeight="21.0" fitWidth="25.0" layoutX="354.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos10" fitHeight="21.0" fitWidth="25.0" layoutX="354.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos11" fitHeight="21.0" fitWidth="25.0" layoutX="351.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos12" fitHeight="21.0" fitWidth="25.0" layoutX="383.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos13" fitHeight="21.0" fitWidth="25.0" layoutX="411.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos14" fitHeight="21.0" fitWidth="25.0" layoutX="440.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos15" fitHeight="21.0" fitWidth="25.0" layoutX="470.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos16" fitHeight="21.0" fitWidth="25.0" layoutX="500.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos17" fitHeight="21.0" fitWidth="25.0" layoutX="499.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos18" fitHeight="21.0" fitWidth="25.0" layoutX="497.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos19" fitHeight="21.0" fitWidth="25.0" layoutX="529.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos20" fitHeight="21.0" fitWidth="25.0" layoutX="559.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos21" fitHeight="21.0" fitWidth="25.0" layoutX="588.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos22" fitHeight="21.0" fitWidth="25.0" layoutX="616.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos23" fitHeight="21.0" fitWidth="25.0" layoutX="646.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+       <ImageView fx:id="pos24" fitHeight="21.0" fitWidth="25.0" layoutX="676.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="shelf1" fitHeight="22.0" fitWidth="27.0" layoutX="189.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="shelf2pos1" fitHeight="22.0" fitWidth="27.0" layoutX="175.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="shelf2pos2" fitHeight="22.0" fitWidth="27.0" layoutX="202.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="shelf3pos1" fitHeight="22.0" fitWidth="27.0" layoutX="160.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="shelf3pos2" fitHeight="22.0" fitWidth="27.0" layoutX="188.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="shelf3pos3" fitHeight="22.0" fitWidth="27.0" layoutX="216.0" layoutY="246.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot1lvl1" fitHeight="140.0" fitWidth="95.0" layoutX="360.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot1lvl2" fitHeight="147.0" fitWidth="96.0" layoutX="359.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot1lvl3" fitHeight="142.0" fitWidth="94.0" layoutX="360.0" layoutY="162.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot2lvl1" fitHeight="141.0" fitWidth="93.0" layoutX="475.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot2lvl2" fitHeight="148.0" fitWidth="98.0" layoutX="474.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot2lvl3" fitHeight="140.0" fitWidth="95.0" layoutX="475.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot3lvl1" fitHeight="143.0" fitWidth="97.0" layoutX="593.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot3lvl2" fitHeight="139.0" fitWidth="94.0" layoutX="594.0" layoutY="198.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="slot3lvl3" fitHeight="141.0" fitWidth="96.0" layoutX="593.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="shieldCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="218.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="stoneCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="216.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="coinCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="163.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="servantCoffer" fitHeight="22.0" fitWidth="27.0" layoutX="163.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="popeToken1" fitHeight="42.0" fitWidth="40.0" layoutX="273.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="popeToken2" fitHeight="42.0" fitWidth="40.0" layoutX="418.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="popeToken3" fitHeight="42.0" fitWidth="40.0" layoutX="596.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="backButton" layoutX="662.0" layoutY="106.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="Back">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label fx:id="coinCofferVolume" layoutX="147.0" layoutY="306.0" prefHeight="24.0" prefWidth="16.0" textFill="WHITE" />
+      <Label fx:id="servantCofferVolume" layoutX="146.0" layoutY="341.0" prefHeight="20.0" prefWidth="14.0" textFill="WHITE" />
+      <Label fx:id="stoneCofferVolume" layoutX="203.0" layoutY="339.0" prefHeight="20.0" prefWidth="14.0" textFill="WHITE" />
+      <Label fx:id="shieldCofferVolume" layoutX="204.0" layoutY="307.0" prefHeight="20.0" prefWidth="14.0" textFill="WHITE" />
+      <Button fx:id="firstShelfButton" layoutX="163.0" layoutY="175.0" mnemonicParsing="false" opacity="0.0" prefHeight="28.0" prefWidth="70.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="secondShelfButton" layoutX="157.0" layoutY="208.0" mnemonicParsing="false" opacity="0.0" prefHeight="30.0" prefWidth="85.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="thirdShelfButton" layoutX="146.0" layoutY="244.0" mnemonicParsing="false" opacity="0.0" prefHeight="27.0" prefWidth="105.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="firstStackButton" disable="true" layoutX="354.0" layoutY="159.0" mnemonicParsing="false" opacity="0.0" prefHeight="209.0" prefWidth="106.0" text="stack&#10;chosen for&#10;production" textAlignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="secondStackButton" disable="true" layoutX="469.0" layoutY="161.0" mnemonicParsing="false" opacity="0.0" prefHeight="207.0" prefWidth="107.0" text="stack&#10;chosen for&#10;production" textAlignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="thirdStackButton" disable="true" layoutX="587.0" layoutY="162.0" mnemonicParsing="false" opacity="0.0" prefHeight="205.0" prefWidth="109.0" text="stack&#10;chosen for&#10;production">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="activateProductionButton" disable="true" layoutX="270.0" layoutY="184.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="75.0" text="Activate&#10;production" textAlignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <AnchorPane fx:id="baseProductionAnchorPane" disable="true" layoutX="348.0" layoutY="146.0" prefHeight="212.0" prefWidth="352.0" visible="false">
+         <children>
+            <SubScene fx:id="baseProductionSubScene" fill="#d69b6d" height="236.0" width="350.0">
+              <root>
+                <Region />
+              </root>
+            </SubScene>
+            <GridPane fx:id="baseInputGridPane" layoutX="140.0" layoutY="55.0" prefHeight="45.0" prefWidth="196.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="68.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../images/resources/shield.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../images/resources/stone.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../images/resources/servant.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Button fx:id="coinInputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="shieldInputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="servantInputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="3">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="stoneInputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+            </GridPane>
+            <GridPane fx:id="baseOutputGridPane" layoutX="140.0" layoutY="141.0" prefHeight="45.0" prefWidth="196.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/resources/coin.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                     <image>
+                        <Image url="@../images/resources/shield.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                     <image>
+                        <Image url="@../images/resources/stone.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                     <image>
+                        <Image url="@../images/resources/servant.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="coinOutputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="shieldOutputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="1">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="stoneOutputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="2">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+                  <Button fx:id="servantOutputButton" mnemonicParsing="false" opacity="0.0" prefHeight="50.0" prefWidth="50.0" GridPane.columnIndex="3">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor></Button>
+               </children>
+            </GridPane>
+            <Label layoutX="14.0" layoutY="51.0" prefHeight="53.0" prefWidth="107.0" text="Choose 2 resources&#10;as input for &#10;base production" textAlignment="CENTER" />
+            <Label layoutX="14.0" layoutY="137.0" prefHeight="53.0" prefWidth="107.0" text="Choose a resource&#10;as output for &#10;base production" textAlignment="CENTER" />
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="firstInputImageView" fitHeight="20.0" fitWidth="20.0" layoutX="281.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="secondInputImageView" fitHeight="20.0" fitWidth="20.0" layoutX="281.0" layoutY="305.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="outputImageView" fitHeight="20.0" fitWidth="20.0" layoutX="318.0" layoutY="294.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="baseProductionButton" layoutX="268.0" layoutY="272.0" mnemonicParsing="false" opacity="0.0" prefHeight="60.0" prefWidth="76.0" text="chosen" textAlignment="CENTER">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fx:id="tokenBack" fitHeight="60.0" fitWidth="60.0" layoutX="133.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="blackCrossStart" fitHeight="28.0" fitWidth="24.0" layoutX="125.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos110" fitHeight="21.0" fitWidth="25.0" layoutX="185.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos25" fitHeight="21.0" fitWidth="25.0" layoutX="215.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos31" fitHeight="21.0" fitWidth="25.0" layoutX="215.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos41" fitHeight="21.0" fitWidth="25.0" layoutX="217.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos51" fitHeight="21.0" fitWidth="25.0" layoutX="244.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos61" fitHeight="21.0" fitWidth="25.0" layoutX="272.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos71" fitHeight="21.0" fitWidth="25.0" layoutX="303.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos81" fitHeight="21.0" fitWidth="25.0" layoutX="334.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos91" fitHeight="21.0" fitWidth="25.0" layoutX="360.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos101" fitHeight="21.0" fitWidth="25.0" layoutX="360.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos111" fitHeight="21.0" fitWidth="25.0" layoutX="360.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos121" fitHeight="21.0" fitWidth="25.0" layoutX="392.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos131" fitHeight="21.0" fitWidth="25.0" layoutX="420.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos141" fitHeight="21.0" fitWidth="25.0" layoutX="449.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos151" fitHeight="21.0" fitWidth="25.0" layoutX="479.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos161" fitHeight="21.0" fitWidth="25.0" layoutX="508.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos171" fitHeight="21.0" fitWidth="25.0" layoutX="509.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos181" fitHeight="21.0" fitWidth="25.0" layoutX="509.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos191" fitHeight="21.0" fitWidth="25.0" layoutX="538.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos201" fitHeight="21.0" fitWidth="25.0" layoutX="569.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos211" fitHeight="21.0" fitWidth="25.0" layoutX="597.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos221" fitHeight="21.0" fitWidth="25.0" layoutX="625.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos231" fitHeight="21.0" fitWidth="25.0" layoutX="655.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="pos241" fitHeight="21.0" fitWidth="25.0" layoutX="685.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <GridPane layoutY="23.0" prefHeight="371.0" prefWidth="128.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fx:id="firstLeader" fitHeight="186.0" fitWidth="136.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/cardsBack/Masters%20of%20Renaissance__Cards_BACK_3mmBleed-49-1.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="secondLeader" fitHeight="186.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+               <image>
+                  <Image url="@../images/cardsBack/Masters%20of%20Renaissance__Cards_BACK_3mmBleed-49-1.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="firstLeaderProductionButton" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="186.0" prefWidth="124.0" text="chosen&#10;for production" textAlignment="CENTER" />
+            <Button fx:id="secondLeaderProductionButton" disable="true" mnemonicParsing="false" opacity="0.0" prefHeight="185.0" prefWidth="124.0" text="chosen&#10;for production" textAlignment="CENTER" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <GridPane prefHeight="20.0" prefWidth="723.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Button fx:id="myBoardButton" mnemonicParsing="false" prefHeight="127.0" prefWidth="185.0" text="My board">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="otherBoard1Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="194.0" GridPane.columnIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="otherBoard2Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="189.0" GridPane.columnIndex="2">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="otherBoard3Button" mnemonicParsing="false" prefHeight="25.0" prefWidth="486.0" GridPane.columnIndex="3">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+      </GridPane>
+      <ImageView fx:id="firstExtraPos1" fitHeight="34.0" fitWidth="34.0" layoutX="22.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="firstExtraPos2" fitHeight="34.0" fitWidth="34.0" layoutX="69.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="firstExtraButton" disable="true" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="85.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <ImageView fx:id="secondExtraPos1" fitHeight="34.0" fitWidth="34.0" layoutX="22.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="secondExtraPos2" fitHeight="34.0" fitWidth="34.0" layoutX="69.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="secondExtraButton" disable="true" layoutX="20.0" layoutY="351.0" mnemonicParsing="false" opacity="0.0" prefHeight="34.0" prefWidth="85.0">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>

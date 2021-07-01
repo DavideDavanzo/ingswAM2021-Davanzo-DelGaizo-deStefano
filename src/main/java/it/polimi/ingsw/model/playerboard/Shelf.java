@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model.playerboard;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.resources.*;
 
 /**
@@ -11,7 +13,7 @@ public class Shelf {
 
     private boolean empty;
 
-    private final int dimension;
+    private int dimension;
 
     private boolean extraShelf;
 
@@ -25,8 +27,12 @@ public class Shelf {
      */
     private int availableVolume;
 
+    public Shelf(){
+    }
+
     public Shelf(int dimension) {
         extraShelf = false;
+        shelfResource = new Resource(0);
         this.dimension = dimension;
         availableVolume = dimension;
         empty = true;
@@ -34,7 +40,8 @@ public class Shelf {
 
     public void emptyThisShelf() {
         empty = true;
-        shelfResource.setVolume(0);
+        if(!isExtraShelf()) shelfResource = new Resource(0);
+        if(isExtraShelf()) shelfResource.setVolume(0);
         availableVolume = dimension;
     }
 
@@ -48,28 +55,21 @@ public class Shelf {
 
         if(newResource.getVolume() > availableVolume)   //Trying to introduce more resources than available spaces
             throw new InvalidInputException("Not enough spaces available in this shelf");
-
         else {
-
             if (isEmpty() && newResource.getVolume() > 0 && !isExtraShelf()) {
                 setShelfResource(newResource);   //Empty case, just sets.
                 empty = false;
             }
-
             else {
-
                 shelfResource.update(newResource);
-
                 if(shelfResource.getVolume() == 0 && !isExtraShelf()) {
                     emptyThisShelf();   //Empties the shelf.
                     return;
                 }
-
             }
 
             empty = false;
             availableVolume = dimension - shelfResource.getVolume();
-
         }
 
     }
@@ -87,6 +87,11 @@ public class Shelf {
     }
 
     public void setShelfResource(Resource resource) throws IllegalArgumentException {
+
+        if(resource == null) {
+            emptyThisShelf();
+            return;
+        }
 
         int volume = resource.getVolume();
 
@@ -106,7 +111,20 @@ public class Shelf {
         return availableVolume;
     }
 
+    /**
+     * Special volume getter.
+     * @return 0 if the shelf is empty, resource's volume otherwise.
+     */
+    @JsonIgnore
+    public int getResourceVolume() {
+        return shelfResource == null ? 0 : shelfResource.getVolume();
+    }
+
     public int getDimension() {
         return dimension;
     }
+
+
+
+
 }

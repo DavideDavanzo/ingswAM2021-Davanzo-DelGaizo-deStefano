@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.model.requirements</OriginalElement>
+  <nodes>
+    <node x="312.0" y="409.0">it.polimi.ingsw.model.requirements.ColorRequirement</node>
+    <node x="718.0" y="0.0">it.polimi.ingsw.model.requirements.ColorLevelRequirement</node>
+    <node x="260.0" y="22.5">it.polimi.ingsw.model.requirements.BlankRequirement</node>
+    <node x="473.0" y="0.0">it.polimi.ingsw.model.requirements.ResourceRequirement</node>
+    <node x="0.0" y="0.0">it.polimi.ingsw.model.requirements.FaithPointsRequirement</node>
+    <node x="378.5" y="254.0">it.polimi.ingsw.model.requirements.Requirement</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.model.requirements.Requirement" target="it.polimi.ingsw.model.requirements.ColorRequirement" relationship="DEPENDENCY">
+      <point x="-48.25" y="50.5" />
+      <point x="426.75" y="382.0" />
+      <point x="393.5" y="382.0" />
+      <point x="-81.5" y="-95.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.FaithPointsRequirement" target="it.polimi.ingsw.model.requirements.Requirement" relationship="GENERALIZATION">
+      <point x="60.0" y="95.0" />
+      <point x="180.0" y="212.0" />
+      <point x="498.6804347826087" y="212.0" />
+      <point x="498.6804347826087" y="232.0" />
+      <point x="475.0" y="232.0" />
+      <point x="0.0" y="-50.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.ColorLevelRequirement" target="it.polimi.ingsw.model.requirements.Requirement" relationship="GENERALIZATION">
+      <point x="-88.5" y="95.0" />
+      <point x="806.5" y="212.0" />
+      <point x="498.6804347826087" y="212.0" />
+      <point x="498.6804347826087" y="232.0" />
+      <point x="475.0" y="232.0" />
+      <point x="0.0" y="-50.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.Requirement" target="it.polimi.ingsw.model.requirements.ColorLevelRequirement" relationship="DEPENDENCY">
+      <point x="77.20000000000005" y="-50.5" />
+      <point x="552.2" y="232.0" />
+      <point x="983.5" y="232.0" />
+      <point x="88.5" y="95.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.BlankRequirement" target="it.polimi.ingsw.model.requirements.Requirement" relationship="GENERALIZATION">
+      <point x="48.25" y="72.5" />
+      <point x="404.75" y="212.0" />
+      <point x="498.6804347826087" y="212.0" />
+      <point x="498.6804347826087" y="232.0" />
+      <point x="475.0" y="232.0" />
+      <point x="0.0" y="-50.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.Requirement" target="it.polimi.ingsw.model.requirements.ResourceRequirement" relationship="DEPENDENCY">
+      <point x="38.60000000000002" y="-50.5" />
+      <point x="513.6" y="222.0" />
+      <point x="641.75" y="222.0" />
+      <point x="56.25" y="95.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.Requirement" target="it.polimi.ingsw.model.requirements.BlankRequirement" relationship="DEPENDENCY">
+      <point x="-38.59999999999991" y="-50.5" />
+      <point x="436.4000000000001" y="222.0" />
+      <point x="308.25" y="222.0" />
+      <point x="-48.25" y="72.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.Requirement" target="it.polimi.ingsw.model.requirements.FaithPointsRequirement" relationship="DEPENDENCY">
+      <point x="-77.19999999999993" y="-50.5" />
+      <point x="397.80000000000007" y="232.0" />
+      <point x="60.0" y="232.0" />
+      <point x="-60.0" y="95.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.ResourceRequirement" target="it.polimi.ingsw.model.requirements.Requirement" relationship="GENERALIZATION">
+      <point x="-56.25" y="95.0" />
+      <point x="529.25" y="212.0" />
+      <point x="498.6804347826087" y="212.0" />
+      <point x="498.6804347826087" y="232.0" />
+      <point x="475.0" y="232.0" />
+      <point x="0.0" y="-50.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.model.requirements.ColorRequirement" target="it.polimi.ingsw.model.requirements.Requirement" relationship="GENERALIZATION">
+      <point x="81.5" y="-95.0" />
+      <point x="556.5" y="382.0" />
+      <point x="523.25" y="382.0" />
+      <point x="48.25" y="50.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="522.0" y="56.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

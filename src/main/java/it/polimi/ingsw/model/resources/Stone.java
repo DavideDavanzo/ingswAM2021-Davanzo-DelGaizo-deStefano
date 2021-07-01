@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.resources;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 
 /**
  * Class which represents an amount of stones
@@ -47,6 +49,10 @@ public class Stone extends Resource {
         return 0;
     }
 
+    @Override
+    public String print() {
+        return Color.ANSI_GREY.escape() + "● " + Color.ANSI_WHITE.escape();
+    }
 
     @Override
     public boolean equals(Object o) {

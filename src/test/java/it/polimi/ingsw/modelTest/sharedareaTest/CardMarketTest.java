@@ -2,6 +2,7 @@ package it.polimi.ingsw.modelTest.sharedareaTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.cards.Trade;
@@ -32,7 +33,7 @@ public class CardMarketTest {
     }
 
     @Test
-    public void takeTest() {
+    public void takeTest() throws IllegalArgumentException {
 
         //@TestedMethod
         DevelopmentCard card = underTest.takeCard("GREEN", 1);

@@ -2,22 +2,25 @@ package it.polimi.ingsw.model.playerboard;
 
 import it.polimi.ingsw.exceptions.InvalidInputException;
 import it.polimi.ingsw.exceptions.ProductionFailException;
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.EndGameException;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
+import it.polimi.ingsw.model.enums.Color;
 import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.resources.*;
+import it.polimi.ingsw.view.cli.CliPrinter;
 
 import java.util.ArrayList;
 
 /**
  * <h1>PlayerBoard</h1>
  */
-public class PlayerBoard {
+public class PlayerBoard implements CliPrinter {
 
-    private final Warehouse warehouse;
-    private final Coffer coffer;
-    private final DevelopmentCardsArea developmentCardsArea;
-    private final Path path;
+    private Warehouse warehouse;
+    private Coffer coffer;
+    private DevelopmentCardsArea developmentCardsArea;
+    private Path path;
 
     public PlayerBoard() {
         warehouse = new Warehouse();
@@ -28,7 +31,7 @@ public class PlayerBoard {
 
     //given an arraylist of development cards, check if there are enough resource iun the player's warehouse and coffer.
     // If so take input resources starting from the main shelves and sequentially towards the coffer if needed
-    public void activateProduction(ArrayList<DevelopmentCard> chosenDevCards) throws ProductionFailException, NotEnoughResourcesException, InvalidInputException {
+    public boolean activateProduction(ArrayList<DevelopmentCard> chosenDevCards) throws ProductionFailException, NotEnoughResourcesException, InvalidInputException {
 
         ArrayList<Resource> totalInputRequired = new ArrayList<>();
         ArrayList<Item> totalProductionOutput = new ArrayList<>();
@@ -42,19 +45,19 @@ public class PlayerBoard {
             throw new ProductionFailException("Resources chosen do not match with production requirements");
         else {
             payRequiredResources(totalInputRequired);
-            produce(totalProductionOutput);
+            return produce(totalProductionOutput);
         }
 
     }
 
     //put all the incoming resource in the coffer and update the player's faith points
-    public void produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
-
+    public boolean produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
+        boolean cantMove = false;
         for(Item product : totalProductionOutput) {
-            path.moveForward(product.pathSteps());
-            coffer.updateCoffer(product);
+                cantMove = path.moveForward(product.pathSteps());
+                coffer.updateCoffer(product);
         }
-
+        return cantMove;
     }
 
     //take from the player's warehouse and coffer the resources needed by the transaction
@@ -64,7 +67,7 @@ public class PlayerBoard {
         ArrayList<Resource> totalCost = new ArrayList<>(totalInputRequired.size());
         for(Resource r : totalInputRequired) totalCost.add(r.clone());
 
-        for(Resource newResource : totalCost) {
+        for(Resource resource : totalCost) {
 
             for (Shelf s : getWarehouse().getAllWarehouseShelves()) {
 
@@ -72,14 +75,14 @@ public class PlayerBoard {
 
                     previousVolume = s.getShelfResource().getVolume();
 
-                    if (previousVolume >= newResource.getVolume()) {
+                    if (previousVolume >= resource.getVolume()) {
 
-                        newResource.setVolume(-newResource.getVolume());
-                        s.updateShelf(newResource);
-                        newResource.setVolume(-newResource.getVolume());
+                        resource.setVolume(-resource.getVolume());
+                        warehouse.addResourcesToShelf(resource, s);
+                        resource.setVolume(-resource.getVolume());
 
                         if(s.isEmpty() || s.getShelfResource().getVolume() != previousVolume) {
-                            newResource.setVolume(0);
+                            resource.setVolume(0);
                         }
 
                     }
@@ -87,21 +90,45 @@ public class PlayerBoard {
 
                         try {
 
-                            newResource.setVolume(-newResource.getVolume());
-                            s.updateShelf(newResource);
-                            newResource.setVolume(-newResource.getVolume());
+                            resource.setVolume(-resource.getVolume());
+                            warehouse.addResourcesToShelf(resource, s);
+                            resource.setVolume(-resource.getVolume());
 
                         } catch(NotEnoughResourcesException e) {
 
-                            newResource.setVolume(newResource.getVolume() + s.getShelfResource().getVolume());
+                            resource.setVolume(resource.getVolume() + s.getShelfResource().getVolume());
 
                             if(!s.isExtraShelf())
-                                s.emptyThisShelf();
-                            else
+                                warehouse.emptyShelf(s);
+                            else {
                                 s.getShelfResource().setVolume(0);
+                                warehouse.notifyObservers(warehouse);
+                            }
 
-                            coffer.updateCoffer(newResource);
-                            newResource.setVolume(0);
+                            if(warehouse.getExtraShelves() != null && warehouse.getExtraShelves().size() != 0){
+                                for(Shelf extraShelf : warehouse.getExtraShelves()){
+                                    if(!extraShelf.isEmpty()) {
+                                        previousVolume = extraShelf.getShelfResource().getVolume();
+                                        if (extraShelf.getShelfResource().getVolume() >= -resource.getVolume()) {
+                                            warehouse.addResourcesToShelf(resource, extraShelf);
+                                            if (extraShelf.isEmpty() || extraShelf.getShelfResource().getVolume() != previousVolume)
+                                                resource.setVolume(0);
+                                        } else {
+                                            try{
+                                                warehouse.addResourcesToShelf(resource, extraShelf);
+                                            } catch(NotEnoughResourcesException ex) {
+                                                extraShelf.emptyThisShelf();
+                                                resource.setVolume(resource.getVolume() + previousVolume);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if(resource.getVolume() != 0) {
+                                coffer.updateCoffer(resource);
+                                resource.setVolume(0);
+                            }
 
                         }
 
@@ -110,10 +137,10 @@ public class PlayerBoard {
 
             }
 
-            if(newResource.getVolume() != 0) {
-                newResource.setVolume(-newResource.getVolume());
-                coffer.updateCoffer(newResource);
-                newResource.setVolume(0);
+            if(resource.getVolume() != 0) {
+                resource.setVolume(-resource.getVolume());
+                coffer.updateCoffer(resource);
+                resource.setVolume(0);
             }
 
         }
@@ -175,13 +202,10 @@ public class PlayerBoard {
 
     }
 
-    public void activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
-
+    public boolean activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
         payRequiredResources(input);
-
-        path.moveForward(output.pathSteps());
         coffer.updateCoffer(output);
-
+        return path.moveForward(output.pathSteps());
     }
 
     public int calculateVictoryPoints() {
@@ -199,8 +223,21 @@ public class PlayerBoard {
         //add also points given by the path position and papal tokens
         boardPoints += path.getPathVictoryPoints();
 
-        return boardPoints;
+        int resourcesPoints = getAllResourcePoints();
 
+        return boardPoints + (resourcesPoints / 5);
+
+    }
+
+    public int getAllResourcePoints() {
+        int resourcesPoints = 0;
+        for(Shelf shelf : warehouse.getAllWarehouseShelves()){
+            if(!shelf.isEmpty()) resourcesPoints += shelf.getShelfResource().getVolume();
+        }
+        for(Resource resource : coffer.getAllCofferResources()){
+            resourcesPoints += resource.getVolume();
+        }
+        return resourcesPoints;
     }
 
     public DevelopmentCardsArea getDevelopmentCardsArea() {
@@ -219,4 +256,46 @@ public class PlayerBoard {
         return path;
     }
 
+    public void setWarehouse(Warehouse warehouse){
+        this.warehouse = warehouse;
+    }
+
+    public void setCoffer(Coffer coffer) {
+        this.coffer = coffer;
+    }
+
+    public void setDevelopmentCardsArea(DevelopmentCardsArea developmentCardsArea) {
+        this.developmentCardsArea = developmentCardsArea;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
+    @Override
+    public String print() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("       ╔═════╗\n")
+                     .append("       ║ " + (warehouse.getFirstShelf().getShelfResource() != null ? warehouse.getFirstShelf().getShelfResource().getVolume() : " -") + " " + (warehouse.getFirstShelf().getShelfResource() != null ? warehouse.getFirstShelf().getShelfResource().print() : " ") + "║ " + "                       ┌─────"+ Color.ANSI_RED.escape() +"───────────────"+ Color.ANSI_WHITE.escape() +"─────────┐    ┌─────────┐ "+ Color.ANSI_RED.escape() +"   ┌─────────────────────────────┐"+ Color.ANSI_WHITE.escape() + "                 ╔════════════════════╗\n")
+                     .append("       ╚═════╝" + "                        │  " + path.crossValue(5) + Color.ANSI_RED.escape() + " │ " + path.crossValue(6) +  "  │ " + path.crossValue(7) + "  │ " + path.crossValue(8) + "  │ "+ Color.ANSI_WHITE.escape()+ path.crossValue(9) +"  │ " + path.crossValue(10) + " │    │  " + path.getPopeTokens().get(1).popeToken() +"  │ "+ Color.ANSI_RED.escape() +"   │ " + path.crossValue(19) + " │ "+ path.crossValue(20) + " │ " + path.crossValue(21) + " │ " + path.crossValue(22) +" │ " + path.crossValue(23) + " │ " + path.crossValue(24) + " │"+ Color.ANSI_WHITE.escape() + "                 ║ "  + coffer.getCoins().getVolume() + " " + coffer.getCoins().print() + "           " + coffer.getShields().getVolume() + " " + coffer.getShields().print() + "║ \n")
+                     .append("    ╔═══════════╗" + "                     │────"+ Color.ANSI_RED.escape() +"┌───────────────"+ Color.ANSI_WHITE.escape() +"────┐────│    │         │  "+ Color.ANSI_RED.escape() +"  │────┌────────────────────────┘"+ Color.ANSI_WHITE.escape() +"                 ║                    ║ \n")
+                     .append("    ║    " + (warehouse.getSecondShelf().getShelfResource() != null ? warehouse.getSecondShelf().getShelfResource().getVolume() : " -") + " " + (warehouse.getSecondShelf().getShelfResource() != null ? warehouse.getSecondShelf().getShelfResource().print() : " ") + "   ║" + "                     │ "+ path.crossValue(4) + "  │    ┌─────────┐    │ " + path.crossValue(11) + " │    └─────────┘    │ " + path.crossValue(18) + " │      ┌─────────┐ " + "                        ║ " + coffer.getServants().getVolume() + " " + coffer.getServants().print() + "           "                      + coffer.getStones().getVolume() + " " + coffer.getStones().print() + "║\n")
+                     .append("    ╚═══════════╝" + "         ┌───────────┘────│    │  " + path.getPopeTokens().get(0).popeToken() + "  │"+ Color.ANSI_RED.escape() +"    │────└───────────────────"+ Color.ANSI_WHITE.escape() +"┘────│      │  " + path.getPopeTokens().get(2).popeToken() + "  │" + "                         ╚════════════════════╝\n")
+                    .append(" ╔══════════════════╗" + "     │ " + path.crossValue(0) +" │ "    + path.crossValue(1) + " │ " + path.crossValue(2) + " │ " + path.crossValue(3) + "  │    │         │ "+ Color.ANSI_RED.escape() +"   │ " + path.crossValue(12) + " │ "+ path.crossValue(13) + " │ " + path.crossValue(14) +" │ "+ path.crossValue(15) + " │ " + path.crossValue(16) + " │ "+ Color.ANSI_WHITE.escape() +path.crossValue(17) + " │      │         │\n ")
+                    .append("║       " + (warehouse.getThirdShelf().getShelfResource() != null ? warehouse.getThirdShelf().getShelfResource().getVolume() : " -") + " " + (warehouse.getThirdShelf().getShelfResource() != null ? warehouse.getThirdShelf().getShelfResource().print() : " ") + "       ║" + "     └────────────────┘    └─────────┘"+ Color.ANSI_RED.escape() +"    └────────────────────────"+ Color.ANSI_WHITE.escape() +"─────┘      └─────────┘    \n")
+                    .append(" ╚══════════════════╝\n");
+
+        if (warehouse.getExtraShelves() != null) {
+            stringBuilder.append("Extra shelves:\n");
+            for (Shelf extraShelf : warehouse.getExtraShelves()) {
+                stringBuilder.append("   ╔═══════════════╗\n")
+                             .append("   ║      " + (extraShelf.getShelfResource().getVolume()) + " " + extraShelf.getShelfResource().print() + "     ║\n")
+                             .append("   ╚═══════════════╝\n");
+            }
+
+            stringBuilder.append(developmentCardsArea.print());
+        }
+        return stringBuilder.toString();
+
+    }
 }

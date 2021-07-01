@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.resources;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.enums.ECardColor;
 
 /**
  * Class which represents a group of servants
@@ -57,6 +59,11 @@ public class Servant extends Resource {
         Servant otherServant = (Servant) o;
 
         return this.volume == otherServant.getVolume();
+    }
+
+    @Override
+    public String print() {
+        return Color.ANSI_PURPLE.escape() + "● " + Color.ANSI_WHITE.escape();
     }
 
     //TODO: Remove

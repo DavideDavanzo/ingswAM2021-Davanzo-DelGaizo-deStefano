@@ -1,6 +1,6 @@
 package it.polimi.ingsw.modelTest.marketTest;
 
-import it.polimi.ingsw.model.market.*;
+import it.polimi.ingsw.model.sharedarea.market.*;
 import it.polimi.ingsw.model.resources.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

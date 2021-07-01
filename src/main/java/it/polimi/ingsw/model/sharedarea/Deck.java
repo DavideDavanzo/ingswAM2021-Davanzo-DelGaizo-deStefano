@@ -1,11 +1,15 @@
 package it.polimi.ingsw.model.sharedarea;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
 import it.polimi.ingsw.model.enums.ECardColor;
 
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * This class implements a deck of cards
+ */
 public class Deck {
 
     private Stack<DevelopmentCard> cards;
@@ -45,6 +49,7 @@ public class Deck {
         return this.cards.pop();
     }
 
+    @JsonIgnore
     public boolean isEmpty() {
         return cards.isEmpty();
     }

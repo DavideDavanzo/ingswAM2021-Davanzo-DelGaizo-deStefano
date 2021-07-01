@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="377.0" prefWidth="381.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <ImageView fitHeight="377.0" fitWidth="267.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../images/warehouse.png" />
+            </image>
+        </ImageView>
+        <ImageView fx:id="firstShelfFirstResource" fitHeight="50.0" fitWidth="50.0" layoutX="115.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="secondShelfFirstResource" fitHeight="50.0" fitWidth="50.0" layoutX="84.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="secondShelfSecondResource" fitHeight="50.0" fitWidth="50.0" layoutX="134.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="thirdShelfFirstResource" fitHeight="50.0" fitWidth="50.0" layoutX="59.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="thirdShelfSecondResource" fitHeight="50.0" fitWidth="50.0" layoutX="109.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="thirdShelfThirdResource" fitHeight="50.0" fitWidth="50.0" layoutX="159.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true" />
+        <GridPane fx:id="leadersGridPane" gridLinesVisible="true" layoutX="268.0" layoutY="29.0" prefHeight="348.0" prefWidth="115.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label alignment="CENTER" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" />
+                <Label alignment="CENTER" prefHeight="49.0" prefWidth="116.0" text="No active&#10;leader card" textAlignment="CENTER" GridPane.rowIndex="1" />
+                <ImageView fx:id="firstLeader" fitHeight="175.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" />
+                <ImageView fx:id="secondLeader" fitHeight="175.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+            <Button fx:id="secondLeaderButton" mnemonicParsing="false" opacity="0.0" prefHeight="212.0" prefWidth="130.0" GridPane.rowIndex="1">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="firstLeaderButton" mnemonicParsing="false" opacity="0.0" prefHeight="183.0" prefWidth="123.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            </children>
+            <opaqueInsets>
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+            </opaqueInsets>
+        </GridPane>
+      <Label layoutX="7.0" layoutY="6.0" text="Choose which leader card(s) to use for this white marbles:" />
+      <GridPane fx:id="whiteMarblesGridPane" layoutX="321.0" layoutY="2.0" prefHeight="25.0" prefWidth="50.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+    </children>
+</AnchorPane>

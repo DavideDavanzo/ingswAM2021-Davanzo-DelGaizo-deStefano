@@ -15,12 +15,19 @@ public class BlankRequirement extends Requirement {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
         return null;
     }
+
+
 
     @Override
     public String toString() {
         return "No Requirement";
+    }
+
+    @Override
+    public String print() {
+        return null;
     }
 }

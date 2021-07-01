@@ -9,7 +9,17 @@ import it.polimi.ingsw.model.sharedarea.SharedArea;
  */
 
 public class TossDevCardsToken extends LorenzoToken {
+
     public ECardColor color;
+
+    public TossDevCardsToken() {
+        super();
+    }
+
+    public TossDevCardsToken(ECardColor color) {
+        super();
+        this.color = color;
+    }
 
     /**
      * This method removes two cards of color ECardColor color from the development card area
@@ -23,6 +33,10 @@ public class TossDevCardsToken extends LorenzoToken {
         }
     }
 
+    @Override
+    public String toString() {
+        return "Toss Dev Card Token: tosses 2 of the lowest level " + color.toString() + " cards.";
+    }
 }
 
 

@@ -1,20 +1,15 @@
 package it.polimi.ingsw.modelTest.marketTest;
 
+import it.polimi.ingsw.exceptions.marketExceptions.IllegalArgumentException;
 import it.polimi.ingsw.exceptions.marketExceptions.IllegalChoiceException;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.market.*;
+import it.polimi.ingsw.model.sharedarea.market.*;
 import it.polimi.ingsw.model.resources.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class MarketPlaceTest {
 
@@ -34,7 +29,7 @@ public class MarketPlaceTest {
 
         //Other Market Creation
         Marble[][] anotherOne = { {new BlueMarble(), new WhiteMarble(), new YellowMarble(), new GreyMarble()},
-                                  {new WhiteMarble(), new PurpleMarble(), new RedMarble(), new WhiteMarble()},
+                                  {new RedMarble(), new WhiteMarble(), new BlueMarble(), new WhiteMarble()},
                                   {new GreyMarble(), new YellowMarble(), new PurpleMarble(), new WhiteMarble()}
         };
         otherMarket.setMarketMatrix(anotherOne);
@@ -43,7 +38,7 @@ public class MarketPlaceTest {
         Marble spareMarble = new WhiteMarble();
         market.setSpareMarble(spareMarble);
 
-        Marble secondSpareMarble = new BlueMarble();
+        Marble secondSpareMarble = new PurpleMarble();
         otherMarket.setSpareMarble(secondSpareMarble);
 
         //Returned Items

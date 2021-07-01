@@ -28,8 +28,8 @@ public class Discount {
         return discountResource;
     }
 
-    @Override
-    public String toString() {
-        return discountResource.toString();
-    }
+
+
+
+
 }

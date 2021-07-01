@@ -3,10 +3,10 @@ package it.polimi.ingsw.model.requirements;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import it.polimi.ingsw.view.cli.CliPrinter;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.cards.DevelopmentCard;
-import it.polimi.ingsw.model.resources.*;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -25,7 +25,7 @@ import it.polimi.ingsw.model.resources.*;
  * can be a set of {@link DevelopmentCard} of different color, having reached
  * a certain position on the path etc.
  */
-public abstract class Requirement {
+public abstract class Requirement implements CliPrinter {
 
     /**
      * Returns true if the activation of a certain {@link LeaderCard} is valid.
@@ -38,6 +38,9 @@ public abstract class Requirement {
      * Special Getter that returns the unique attribute of a Requirement.
      * @return
      */
-    public abstract Object getAttribute();
+    public abstract Object returnAttribute();
+
+
+
 
 }

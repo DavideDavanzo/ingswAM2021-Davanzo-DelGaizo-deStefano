@@ -6,7 +6,10 @@ import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 
 import java.util.ArrayList;
-
+/**
+ * This class implements one of the leader card requirement
+ * it requires a certain amount of resource
+ */
 public class ResourceRequirement extends Requirement {
 
     Resource resource;
@@ -29,7 +32,11 @@ public class ResourceRequirement extends Requirement {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getResource();
+    }
+
+    public Resource getResource(){
         return resource;
     }
 
@@ -41,4 +48,10 @@ public class ResourceRequirement extends Requirement {
     public String toString() {
         return "Have at least " + resource.toString();
     }
+
+    @Override
+    public String print() {
+        return resource.getVolume() + " " + resource.print() + "                                ";
+    }
+
 }

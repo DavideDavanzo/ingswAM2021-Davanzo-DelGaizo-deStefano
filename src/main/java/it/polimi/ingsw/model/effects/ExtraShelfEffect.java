@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.effects;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.cards.LeaderCard;
 import it.polimi.ingsw.model.playerboard.Shelf;
 import it.polimi.ingsw.model.playerboard.Warehouse;
 import it.polimi.ingsw.model.resources.Resource;
@@ -10,6 +12,8 @@ import it.polimi.ingsw.model.resources.Resource;
  * exclusive for one specific type of {@link Resource}
  */
 public class ExtraShelfEffect extends Effect {
+
+    @JsonSerialize(as = Resource.class)
     private Resource shelfResource;
 
     /**
@@ -40,7 +44,11 @@ public class ExtraShelfEffect extends Effect {
      * @return is Effect's Resource attribute
      */
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getShelfResource();
+    }
+
+    private Resource getShelfResource(){
         return shelfResource;
     }
 
@@ -62,5 +70,10 @@ public class ExtraShelfEffect extends Effect {
     @Override
     public String toString() {
         return "Extra Shelf that can hold " + shelfResource.toString();
+    }
+
+    @Override
+    public String print() {
+        return shelfResource.print() + " " + shelfResource.print() + "   ";
     }
 }

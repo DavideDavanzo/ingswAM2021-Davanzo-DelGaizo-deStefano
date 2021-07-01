@@ -1,31 +1,51 @@
 package it.polimi.ingsw.model.cards;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 public class DevCardParser {
 
     public ArrayList<DevelopmentCard> parse() {
 
-        ArrayList<DevelopmentCard> developmentCards = new ArrayList<>();
+        ArrayList<DevelopmentCard> developmentCards;
 
-        try(Reader reader = new FileReader("src/main/resources/developmentCards")) {
+        InputStream is = null;
+        is = this.getClass().getClassLoader().getResourceAsStream("developmentCards");
+        BufferedReader buf = new BufferedReader(new InputStreamReader(is));
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            DevelopmentCard[] cards = objectMapper.readValue(reader, DevelopmentCard[].class);
-
-            developmentCards = new ArrayList<>(Arrays.asList(cards));
-
+        String line = null;
+        try {
+            line = buf.readLine();
         } catch (IOException e) {
-            System.out.println("No json file for development cards..");
             e.printStackTrace();
         }
+        StringBuilder sb = new StringBuilder();
+
+        while(line != null) {
+            sb.append(line).append("\n");
+            try {
+                line = buf.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String fileAsString = sb.toString();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        DevelopmentCard[] cards = new DevelopmentCard[0];
+        try {
+            cards = objectMapper.readValue(fileAsString, DevelopmentCard[].class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        developmentCards = new ArrayList<>(Arrays.asList(cards));
+
 
         return developmentCards;
 

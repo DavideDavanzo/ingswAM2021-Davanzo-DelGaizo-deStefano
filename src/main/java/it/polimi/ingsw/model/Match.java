@@ -1,61 +1,69 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.cards.LeaderCard;
+import it.polimi.ingsw.model.cards.LeaderCardParser;
 import it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico;
 import it.polimi.ingsw.model.sharedarea.SharedArea;
+import it.polimi.ingsw.observingPattern.Observable;
 
 import java.util.*;
 
-public class Match {
+/**
+ * This class implements a match
+ */
+public class Match extends Observable {
 
-    private LinkedList<Player> players = new LinkedList<>();
+    public static final int MAX_PLAYERS = 4;
+
+    private LinkedList<Player> players;
     private SharedArea sharedArea;
-    private int turn;
-    private Player currentPlayer;
+    private ArrayList<LeaderCard> leaders;
 
     private boolean singlePlayer;
     private LorenzoIlMagnifico lorenzoIlMagnifico;
 
-
-    public void initPlayers(){
-        for(Player p: players){
-            //p.giveLeaderCard(Stack<LeaderCard>)
-        }
+    public Match() {
+        this.players = new LinkedList<>();
+        this.sharedArea = new SharedArea();
+        this.leaders = createLeaders();
     }
 
-   public boolean isSinglePlayer(){
+    public void setToSinglePlayer() {
+        this.lorenzoIlMagnifico = new LorenzoIlMagnifico(sharedArea.getCardMarket());
+        this.singlePlayer = true;
+    }
+
+    private ArrayList<LeaderCard> createLeaders() {
+        return new LeaderCardParser().parse();
+    }
+
+    public boolean isSinglePlayer(){
        return singlePlayer;
    }
 
-
-   public void addPlayer(Player p){
+    public void addPlayer(Player p){
        players.add(p);
    }
 
+    public void shufflePlayers(){
+         Random random = new Random();
 
-   private void chooseOrder(){
-        Random random = new Random();
+         for(int i = 0; i < players.size(); i++){
 
-        for(int i = 0; i < players.size(); i++){
+             int index = i + random.nextInt(players.size() - i);
 
-            int index = i + random.nextInt(players.size() - i);
-
-            Player temp = players.get(index);
-            players.set(index, players.get(i));
-            players.set(i, temp);
+             Player temp = players.get(index);
+             players.set(index, players.get(i));
+             players.set(i, temp);
        }
-   }
-
-   public void updateQueue() {
-        Player p = players.remove();
-        players.add(p);
-   }
+    }
 
     public LinkedList<Player> getPlayers() {
         return players;
     }
 
-    public int getTurn() {
-        return turn;
+    public ArrayList<LeaderCard> getLeaders() {
+        return leaders;
     }
 
     public LorenzoIlMagnifico getLorenzoIlMagnifico() {
@@ -66,13 +74,31 @@ public class Match {
         return players.peek();
     }
 
-   public LinkedList<Player> getRanking() {
-        LinkedList<Player> ranking = new LinkedList<>(players);
-        ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());
-        return ranking;
-   }
+
+    public LinkedList<Player> getRanking() {
+         LinkedList<Player> ranking = new LinkedList<>(players);
+         ranking.sort(Comparator.comparingInt(Player::getCurrentVictoryPoints).reversed());
+         ranking = tieBreakerCheck(ranking);
+         return ranking;
+    }
+
+    public LinkedList<Player> tieBreakerCheck(LinkedList<Player> initRanking) {
+
+        for(int i = 0 ; i < initRanking.size() - 1; i++) {
+            for(int j = i + 1 ; j < initRanking.size(); j++) {
+                if(initRanking.get(i).getCurrentVictoryPoints() == initRanking.get(j).getCurrentVictoryPoints()) {
+                    if(initRanking.get(i).getPlayerBoard().getAllResourcePoints() < initRanking.get(j).getPlayerBoard().getAllResourcePoints()) {
+                        Collections.swap(initRanking, i, j);
+                    }
+                }
+            }
+
+        }
+        return initRanking;
+    }
 
     public SharedArea getSharedArea() {
         return sharedArea;
     }
+
 }

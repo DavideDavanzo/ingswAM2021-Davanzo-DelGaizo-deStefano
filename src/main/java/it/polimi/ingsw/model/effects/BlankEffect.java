@@ -15,12 +15,17 @@ public class BlankEffect extends Effect {
     }
 
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
         return null;
     }
 
     @Override
     public String toString() {
         return "No Effect";
+    }
+
+    @Override
+    public String print() {
+        return "None !  ";
     }
 }

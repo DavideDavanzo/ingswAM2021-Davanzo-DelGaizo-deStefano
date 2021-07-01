@@ -16,7 +16,8 @@
         ]
       }
     },
-    "victoryPoints" : 4
+    "victoryPoints" : 4,
+    "id" : 1
   },
   {
     "requirement" : {
@@ -35,7 +36,8 @@
         ]
       }
     },
-    "victoryPoints" : 4
+    "victoryPoints" : 4,
+    "id" : 2
   },
   {
     "requirement" : {
@@ -54,7 +56,8 @@
         ]
       }
     },
-    "victoryPoints" : 4
+    "victoryPoints" : 4,
+    "id" : 3
   },
   {
     "requirement" : {
@@ -73,7 +76,8 @@
         ]
       }
     },
-    "victoryPoints" : 4
+    "victoryPoints" : 4,
+    "id" : 4
   },
   {
     "requirement" : {
@@ -84,7 +88,8 @@
       "@type" : "whiteMarbleEff",
       "marble" : {"@type" : "yellow"}
     },
-    "victoryPoints" : 5
+    "victoryPoints" : 5,
+    "id" : 5
   },
   {
     "requirement" : {
@@ -95,7 +100,8 @@
       "@type" : "whiteMarbleEff",
       "marble" : {"@type" : "grey"}
     },
-    "victoryPoints" : 5
+    "victoryPoints" : 5,
+    "id" : 6
   },
   {
     "requirement" : {
@@ -106,7 +112,8 @@
       "@type" : "whiteMarbleEff",
       "marble" : {"@type" : "blue"}
     },
-    "victoryPoints" : 5
+    "victoryPoints" : 5,
+    "id" : 7
   },
   {
     "requirement" : {
@@ -117,7 +124,8 @@
       "@type" : "whiteMarbleEff",
       "marble" : {"@type" : "purple"}
     },
-    "victoryPoints" : 5
+    "victoryPoints" : 5,
+    "id" : 8
   },
   {
     "requirement" : {
@@ -128,7 +136,8 @@
       "@type" : "discountEff",
       "discount" : {"discountResource" : {"@type" : "servant", "volume" : -1}}
     },
-    "victoryPoints" : 2
+    "victoryPoints" : 2,
+    "id" : 9
   },
   {
     "requirement" : {
@@ -139,7 +148,8 @@
       "@type" : "discountEff",
       "discount" : {"discountResource" : {"@type" : "shield", "volume" : -1}}
     },
-    "victoryPoints" : 2
+    "victoryPoints" : 2,
+    "id" : 10
   },
   {
     "requirement" : {
@@ -150,7 +160,8 @@
       "@type" : "discountEff",
       "discount" : {"discountResource" : {"@type" : "coin", "volume" : -1}}
     },
-    "victoryPoints" : 2
+    "victoryPoints" : 2,
+    "id" : 11
   },
   {
     "requirement" : {
@@ -161,7 +172,8 @@
       "@type" : "discountEff",
       "discount" : {"discountResource" : {"@type" : "stone", "volume" : -1}}
     },
-    "victoryPoints" : 2
+    "victoryPoints" : 2,
+    "id" : 12
   },
   {
     "requirement" : {
@@ -170,9 +182,10 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "coin", "volume" : 2}
+      "shelfResource" : {"@type" : "coin", "volume" : 0}
     },
-    "victoryPoints" : 3
+    "victoryPoints" : 3,
+    "id" : 13
   },
   {
     "requirement" : {
@@ -181,9 +194,10 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "stone", "volume" : 2}
+      "shelfResource" : {"@type" : "stone", "volume" : 0}
     },
-    "victoryPoints" : 3
+    "victoryPoints" : 3,
+    "id" : 14
   },
   {
     "requirement" : {
@@ -192,9 +206,10 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "shield", "volume" : 2}
+      "shelfResource" : {"@type" : "shield", "volume" : 0}
     },
-    "victoryPoints" : 3
+    "victoryPoints" : 3,
+    "id" : 15
   },
   {
     "requirement" : {
@@ -203,9 +218,10 @@
     },
     "effect" : {
       "@type" : "extraShelfEff",
-      "shelfResource" : {"@type" : "servant", "volume" : 2}
+      "shelfResource" : {"@type" : "servant", "volume" : 0}
     },
-    "victoryPoints" : 3
+    "victoryPoints" : 3,
+    "id": 16
   },
   {
     "requirement" : {
@@ -215,7 +231,8 @@
     "effect" : {
       "@type" : "blankEff"
     },
-    "victoryPoints" : 7
+    "victoryPoints" : 7,
+    "id": 65
   },
   {
     "requirement" : {
@@ -225,6 +242,7 @@
     "effect" : {
       "@type" : "blankEff"
     },
-    "victoryPoints" : 8
+    "victoryPoints" : 8,
+    "id" : 66
   }
 ]

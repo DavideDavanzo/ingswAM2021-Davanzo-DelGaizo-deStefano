@@ -3,13 +3,9 @@ package it.polimi.ingsw.model.effects;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import it.polimi.ingsw.view.cli.CliPrinter;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.LeaderCard;
-import it.polimi.ingsw.model.requirements.BlankRequirement;
-import it.polimi.ingsw.model.requirements.ColorLevelRequirement;
-import it.polimi.ingsw.model.requirements.ColorRequirement;
-import it.polimi.ingsw.model.requirements.ResourceRequirement;
-import it.polimi.ingsw.model.resources.FaithPoint;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
@@ -26,7 +22,7 @@ import it.polimi.ingsw.model.resources.FaithPoint;
  * through a {@link LeaderCard}. Once active, it lasts until the
  * end of the game
  */
-public abstract class Effect {
+public abstract class Effect implements CliPrinter {
 
     /**
      * Applies the effect on a Player
@@ -37,7 +33,7 @@ public abstract class Effect {
     /**
      * Special Getter
      * @return is the attribute of an Effect
-     * also see: {@link ExtraShelfEffect#getAttribute()}
+     * also see: {@link ExtraShelfEffect#returnAttribute()}
      */
-    public abstract Object getAttribute();
+    public abstract Object returnAttribute();
 }

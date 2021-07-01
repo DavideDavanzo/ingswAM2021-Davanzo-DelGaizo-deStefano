@@ -2,6 +2,8 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.cards.Trade;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.resources.Item;
 import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.model.resources.FaithPoint;
 
@@ -41,8 +43,8 @@ public class ExtraDevEffect extends Effect {
      * @return is Effect's Trade attribute
      */
     @Override
-    public Object getAttribute() {
-        return extraTrade;
+    public Object returnAttribute() {
+        return getExtraTrade();
     }
 
     public Trade getExtraTrade() {
@@ -58,4 +60,12 @@ public class ExtraDevEffect extends Effect {
         return "Extra Trade " + extraTrade.toString();
     }
 
+    @Override
+    public String print() {
+        for (Resource r : extraTrade.getInput()) {
+            for (Item p : extraTrade.getOutput())
+                return r.print() + "\u2192 " + p.print() + " " + Color.ANSI_RED.escape() + "†" + Color.ANSI_WHITE.escape();
+        }
+        return null;
+    }
 }

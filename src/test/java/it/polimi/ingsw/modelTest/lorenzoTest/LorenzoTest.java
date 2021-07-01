@@ -1,5 +1,6 @@
 package it.polimi.ingsw.modelTest.lorenzoTest;
 
+import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.lorenzo.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,7 +13,7 @@ public class LorenzoTest {
 
     @Test
     @DisplayName("test that method adds the right amount to Lorenzo's position")
-    public void testCrossToken(){
+    public void testCrossToken() throws LossException {
         CrossToken tested = new CrossToken();
         LorenzoIlMagnifico lorenzoIlMagnifico = new LorenzoIlMagnifico();
         lorenzoIlMagnifico.move(2);
@@ -23,7 +24,7 @@ public class LorenzoTest {
 
     @Test
     @DisplayName("test that method adds the right amount to Lorenzo's position and actually shuffles tokens")
-    public void testCrossAndShuffle(){
+    public void testCrossAndShuffle() throws LossException {
         CrossAndShuffleToken tested = new CrossAndShuffleToken();
         LorenzoIlMagnifico lorenzoIlMagnifico = new LorenzoIlMagnifico();
         lorenzoIlMagnifico.move(1);

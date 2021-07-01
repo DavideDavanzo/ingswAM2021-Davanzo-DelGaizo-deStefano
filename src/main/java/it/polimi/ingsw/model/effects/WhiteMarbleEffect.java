@@ -1,8 +1,10 @@
 package it.polimi.ingsw.model.effects;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.market.Marble;
-import it.polimi.ingsw.model.market.Market;
+import it.polimi.ingsw.model.enums.Color;
+import it.polimi.ingsw.model.sharedarea.market.Marble;
+import it.polimi.ingsw.model.sharedarea.market.Market;
 
 /**
  * Gives the {@link Player} an extra colored {@link Marble} that
@@ -10,12 +12,14 @@ import it.polimi.ingsw.model.market.Market;
  * during his turn
  */
 public class WhiteMarbleEffect extends Effect {
+
+    @JsonSerialize(as = Marble.class)
     private Marble marble;
 
     /**
      * Default Constructor
      */
-    public WhiteMarbleEffect() {}
+    public WhiteMarbleEffect() { }
 
     /**
      * Main Constructor
@@ -40,7 +44,11 @@ public class WhiteMarbleEffect extends Effect {
      * @return is Effect's Marble attribute
      */
     @Override
-    public Object getAttribute() {
+    public Object returnAttribute() {
+        return getMarble();
+    }
+
+    private Marble getMarble(){
         return marble;
     }
 
@@ -60,5 +68,11 @@ public class WhiteMarbleEffect extends Effect {
     @Override
     public String toString() {
         return "White Marble becomes " + marble.toString();
+    }
+
+
+    @Override
+    public String print() {
+        return Color.ANSI_WHITE.escape() + "● " + " \u2192 " + marble.returnItem().print() + " ";
     }
 }

@@ -6,8 +6,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.NotEnoughResourcesException;
 
+import java.io.Serializable;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME)
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Coin.class, name = "coin"),
         @JsonSubTypes.Type(value = Servant.class, name = "servant"),
@@ -74,9 +76,9 @@ public class Resource extends Item {
         return volume == resource.volume;
     }
 
-    //TODO: Remove
+    @Override
     public boolean sameType(Object o) {
-        return false;
+        return o instanceof Resource;
     }
 
     @Override
@@ -87,5 +89,10 @@ public class Resource extends Item {
     @Override
     public String toString() {
         return "Resource: " + getVolume();
+    }
+
+    @Override
+    public String print() {
+        return "? ";
     }
 }
