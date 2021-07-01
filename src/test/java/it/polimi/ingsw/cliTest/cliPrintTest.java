@@ -15,6 +15,7 @@ import it.polimi.ingsw.model.playerboard.path.Path;
 import it.polimi.ingsw.model.requirements.Requirement;
 import it.polimi.ingsw.model.resources.*;
 import it.polimi.ingsw.model.sharedarea.CardMarket;
+import it.polimi.ingsw.network.client.ClientModel;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -140,7 +141,7 @@ public class cliPrintTest {
     @Test
     public void printPlayerboard(){
 
-        PlayerBoard playerBoard = new PlayerBoard();
+        ClientModel playerBoard = new ClientModel();
 
         System.out.println(playerBoard.print());;
     }

@@ -160,39 +160,36 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
             for (int i = 0; i < firstStack.size() - 1; i++)
                 stringBuilder.append(ECardColor.getColorMap().get(firstStack.get(i).getColor()).escape() + "╚═════════" + Color.ANSI_WHITE.escape());
             stringBuilder.append(ECardColor.getColorMap().get(firstStack.peek().getColor()).escape() + "╚═════════════════════════════════════╝\n" + Color.ANSI_WHITE.escape());
-
-            stringBuilder.append("\n");
         }
-            if (secondStack.isEmpty()) {
-                stringBuilder.append("second deck: there are no cards in this deck\n");
-            }
-            else {
-                stringBuilder.append("second deck:\n");
-                for (int i = 0; i < secondStack.size() - 1; i++)
-                    stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "╔═════════" + Color.ANSI_WHITE.escape());
-                stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
-                stringBuilder.append("\n");
-                for (int i = 0; i < secondStack.size() - 1; i++)
-                    stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "║ lvl " + secondStack.get(i).getLevel() + "   ");
-                stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ DEV CARD " + "lvl " + secondStack.peek().getLevel() + "                      ║");
-                stringBuilder.append("\n");
-                for (int i = 0; i < secondStack.size() - 1; i++)
+        if (secondStack.isEmpty()) {
+            stringBuilder.append("second deck: there are no cards in this deck\n");
+        }
+        else {
+            stringBuilder.append("second deck:\n");
+            for (int i = 0; i < secondStack.size() - 1; i++)
+                stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "╔═════════" + Color.ANSI_WHITE.escape());
+            stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "╔═════════════════════════════════════╗" + Color.ANSI_WHITE.escape());
+            stringBuilder.append("\n");
+            for (int i = 0; i < secondStack.size() - 1; i++)
+                stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "║ lvl " + secondStack.get(i).getLevel() + "   ");
+            stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ DEV CARD " + "lvl " + secondStack.peek().getLevel() + "                      ║");
+            stringBuilder.append("\n");
+            for (int i = 0; i < secondStack.size() - 1; i++)
+            stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "║         ");
+            stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ cost  " + Color.ANSI_WHITE.escape() + secondStack.peek().printCost() + ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "                  ║");
+            stringBuilder.append("\n");
+            for (int i = 0; i < secondStack.size() - 1; i++)
                 stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "║         ");
-                stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ cost  " + Color.ANSI_WHITE.escape() + secondStack.peek().printCost() + ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "                  ║");
-                stringBuilder.append("\n");
-                for (int i = 0; i < secondStack.size() - 1; i++)
-                    stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "║         ");
-                    stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + secondStack.peek().printTrade() + ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + " ║");
-                stringBuilder.append("\n");
-                for (int i = 0; i < secondStack.size() - 1; i++)
-                    stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "║ vp: " + secondStack.get(i).getVictoryPoints() + secondStack.get(i).spaceForPoints() + "  ");
-                stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ vp : " + secondStack.peek().getVictoryPoints() + secondStack.peek().spaceForPoints() + "                             ║");
-                stringBuilder.append("\n");
-                for (int i = 0; i < secondStack.size() - 1; i++)
-                    stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "╚═════════" + Color.ANSI_WHITE.escape());
-                stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "╚═════════════════════════════════════╝\n" + Color.ANSI_WHITE.escape());
-                stringBuilder.append("\n");
-            }
+                stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ trade " + Color.ANSI_WHITE.escape() + secondStack.peek().printTrade() + ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + " ║");
+            stringBuilder.append("\n");
+            for (int i = 0; i < secondStack.size() - 1; i++)
+                stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "║ vp: " + secondStack.get(i).getVictoryPoints() + secondStack.get(i).spaceForPoints() + "  ");
+            stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "║ vp : " + secondStack.peek().getVictoryPoints() + secondStack.peek().spaceForPoints() + "                             ║");
+            stringBuilder.append("\n");
+            for (int i = 0; i < secondStack.size() - 1; i++)
+                stringBuilder.append(ECardColor.getColorMap().get(secondStack.get(i).getColor()).escape() + "╚═════════" + Color.ANSI_WHITE.escape());
+            stringBuilder.append(ECardColor.getColorMap().get(secondStack.peek().getColor()).escape() + "╚═════════════════════════════════════╝\n" + Color.ANSI_WHITE.escape());
+        }
 
             if (thirdStack.isEmpty())
                 stringBuilder.append("third deck: there are no cards in this deck\n");

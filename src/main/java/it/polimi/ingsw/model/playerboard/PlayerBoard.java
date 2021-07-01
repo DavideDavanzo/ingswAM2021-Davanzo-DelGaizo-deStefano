@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * <h1>PlayerBoard</h1>
  */
-public class PlayerBoard implements CliPrinter {
+public class PlayerBoard {
 
     private Warehouse warehouse;
     private Coffer coffer;
@@ -29,7 +29,7 @@ public class PlayerBoard implements CliPrinter {
         developmentCardsArea = new DevelopmentCardsArea();
     }
 
-    //given an arraylist of development cards, check if there are enough resource iun the player's warehouse and coffer.
+    //given an arraylist of development cards, check if there are enough resource in the player's warehouse and coffer.
     // If so take input resources starting from the main shelves and sequentially towards the coffer if needed
     public boolean activateProduction(ArrayList<DevelopmentCard> chosenDevCards) throws ProductionFailException, NotEnoughResourcesException, InvalidInputException {
 
@@ -50,7 +50,7 @@ public class PlayerBoard implements CliPrinter {
 
     }
 
-    //put all the incoming resource in the coffer and update the player's faith points
+    //put all the incoming resources in the coffer and update the player's faith points if needed
     public boolean produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
         boolean cantMove = false;
         for(Item product : totalProductionOutput) {
@@ -272,30 +272,4 @@ public class PlayerBoard implements CliPrinter {
         this.path = path;
     }
 
-    @Override
-    public String print() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("       ╔═════╗\n")
-                     .append("       ║ " + (warehouse.getFirstShelf().getShelfResource() != null ? warehouse.getFirstShelf().getShelfResource().getVolume() : " -") + " " + (warehouse.getFirstShelf().getShelfResource() != null ? warehouse.getFirstShelf().getShelfResource().print() : " ") + "║ " + "                       ┌─────"+ Color.ANSI_RED.escape() +"───────────────"+ Color.ANSI_WHITE.escape() +"─────────┐    ┌─────────┐ "+ Color.ANSI_RED.escape() +"   ┌─────────────────────────────┐"+ Color.ANSI_WHITE.escape() + "                 ╔════════════════════╗\n")
-                     .append("       ╚═════╝" + "                        │  " + path.crossValue(5) + Color.ANSI_RED.escape() + " │ " + path.crossValue(6) +  "  │ " + path.crossValue(7) + "  │ " + path.crossValue(8) + "  │ "+ Color.ANSI_WHITE.escape()+ path.crossValue(9) +"  │ " + path.crossValue(10) + " │    │  " + path.getPopeTokens().get(1).popeToken() +"  │ "+ Color.ANSI_RED.escape() +"   │ " + path.crossValue(19) + " │ "+ path.crossValue(20) + " │ " + path.crossValue(21) + " │ " + path.crossValue(22) +" │ " + path.crossValue(23) + " │ " + path.crossValue(24) + " │"+ Color.ANSI_WHITE.escape() + "                 ║ "  + coffer.getCoins().getVolume() + " " + coffer.getCoins().print() + "           " + coffer.getShields().getVolume() + " " + coffer.getShields().print() + "║ \n")
-                     .append("    ╔═══════════╗" + "                     │────"+ Color.ANSI_RED.escape() +"┌───────────────"+ Color.ANSI_WHITE.escape() +"────┐────│    │         │  "+ Color.ANSI_RED.escape() +"  │────┌────────────────────────┘"+ Color.ANSI_WHITE.escape() +"                 ║                    ║ \n")
-                     .append("    ║    " + (warehouse.getSecondShelf().getShelfResource() != null ? warehouse.getSecondShelf().getShelfResource().getVolume() : " -") + " " + (warehouse.getSecondShelf().getShelfResource() != null ? warehouse.getSecondShelf().getShelfResource().print() : " ") + "   ║" + "                     │ "+ path.crossValue(4) + "  │    ┌─────────┐    │ " + path.crossValue(11) + " │    └─────────┘    │ " + path.crossValue(18) + " │      ┌─────────┐ " + "                        ║ " + coffer.getServants().getVolume() + " " + coffer.getServants().print() + "           "                      + coffer.getStones().getVolume() + " " + coffer.getStones().print() + "║\n")
-                     .append("    ╚═══════════╝" + "         ┌───────────┘────│    │  " + path.getPopeTokens().get(0).popeToken() + "  │"+ Color.ANSI_RED.escape() +"    │────└───────────────────"+ Color.ANSI_WHITE.escape() +"┘────│      │  " + path.getPopeTokens().get(2).popeToken() + "  │" + "                         ╚════════════════════╝\n")
-                    .append(" ╔══════════════════╗" + "     │ " + path.crossValue(0) +" │ "    + path.crossValue(1) + " │ " + path.crossValue(2) + " │ " + path.crossValue(3) + "  │    │         │ "+ Color.ANSI_RED.escape() +"   │ " + path.crossValue(12) + " │ "+ path.crossValue(13) + " │ " + path.crossValue(14) +" │ "+ path.crossValue(15) + " │ " + path.crossValue(16) + " │ "+ Color.ANSI_WHITE.escape() +path.crossValue(17) + " │      │         │\n ")
-                    .append("║       " + (warehouse.getThirdShelf().getShelfResource() != null ? warehouse.getThirdShelf().getShelfResource().getVolume() : " -") + " " + (warehouse.getThirdShelf().getShelfResource() != null ? warehouse.getThirdShelf().getShelfResource().print() : " ") + "       ║" + "     └────────────────┘    └─────────┘"+ Color.ANSI_RED.escape() +"    └────────────────────────"+ Color.ANSI_WHITE.escape() +"─────┘      └─────────┘    \n")
-                    .append(" ╚══════════════════╝\n");
-
-        if (warehouse.getExtraShelves() != null) {
-            stringBuilder.append("Extra shelves:\n");
-            for (Shelf extraShelf : warehouse.getExtraShelves()) {
-                stringBuilder.append("   ╔═══════════════╗\n")
-                             .append("   ║      " + (extraShelf.getShelfResource().getVolume()) + " " + extraShelf.getShelfResource().print() + "     ║\n")
-                             .append("   ╚═══════════════╝\n");
-            }
-
-            stringBuilder.append(developmentCardsArea.print());
-        }
-        return stringBuilder.toString();
-
-    }
 }
