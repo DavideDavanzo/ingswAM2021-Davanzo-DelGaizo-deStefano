@@ -2,7 +2,7 @@
 
 ![](src/main/resources/images/loading_screen.jpg)
 
-<img src="https://craniointernational.com/2021/wp-content/uploads/2021/05/Masters-of-Renaissance_box3D.png" width=120px height=120 px align="right" />
+<img src="https://craniointernational.com/2021/wp-content/uploads/2021/05/Masters-of-Renaissance_box3D.png" width=140px height=140 px align="right" />
 
 Java porting of [Maestri del Rinascimento](http://www.craniocreations.it/prodotto/masters-of-renaissance) 
 (board game by [Cranio Creations](http://www.craniocreations.it)), 
@@ -28,6 +28,7 @@ More precisely, we were asked to implement an MVC design pattern and a TCP netwo
 ## Functionalities
 
 __Main ones__
+
 -[x] Single-player match
 -[x] Multi-player match (2 to 4) 
 -[x] Socket connection
@@ -35,6 +36,7 @@ __Main ones__
 -[x] Gui
 
 __Advanced (2)__
+
 -[x] Multiple parallel matches
 -[ ] Persistence
 -[ ] Parameters editor
