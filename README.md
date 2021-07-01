@@ -1,5 +1,5 @@
 # Prova Finale di Ingegneria del Software - a.a. 2020-21
-___
+
 ![](src/main/resources/images/loading_screen.jpg)
 
 <img src="https://craniointernational.com/2021/wp-content/uploads/2021/05/Masters-of-Renaissance_box3D.png" width=120px height=120 px align="right" />
@@ -13,20 +13,20 @@ Course held by: Alessandro Margara.
 Developers: Davide Davanzo, Dario Del Gaizo, Alessandra de Stefano.
 
 ## About the project
-___
+
 The target of this project was to develop the software version of a chosen board game, 
 using Java language to create a distributed system. This is composed of a single server connected to multiple clients.
 
 More precisely, we were asked to implement an MVC design pattern and a TCP network using sockets.
 
 ## UML
-___
+
 - [initial UML]()
 - [final UML]() (complete)
 - [final UMLs]() (divided by packages)
 
 ## Functionalities
-___
+
 __Main ones__
 -[x] Single-player match
 -[x] Multi-player match (2 to 4) 
@@ -42,9 +42,8 @@ __Advanced (2)__
 -[x] Resilience to disconnections
 
 ## Run
-___
-First of all download the [jar]().
 
+First of all download the [jar]().
 
 Server and clients use the same one, launching it differently.
 - __Server__: download and double click on the [ServerApp.bat]() file or type from cmd line
@@ -71,5 +70,5 @@ Server and clients use the same one, launching it differently.
         Replace <server_IP> with the IP number of the server host.
   
 ## Play
-___
+
 You can check the game's rules [here](src/main/resources/maestri-rules.pdf). Now you are ready to have fun!
