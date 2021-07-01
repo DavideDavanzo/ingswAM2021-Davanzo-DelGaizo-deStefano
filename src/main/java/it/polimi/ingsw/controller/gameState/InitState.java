@@ -16,12 +16,21 @@ import it.polimi.ingsw.view.VirtualView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Initial state of the Match, Leader Cards picking and Resources
+ * for players 2, 3, 4. The next State is {@link InGameState}.
+ */
 public class InitState extends GameState {
 
     public InitState(GameController gameController) {
         super(gameController);
     }
 
+    /**
+     * Processes the {@link LeaderCard} pick at the start of the game.
+     * @param leaderRequest received request.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(LeaderRequest leaderRequest) throws InvalidStateException {
 
@@ -55,6 +64,12 @@ public class InitState extends GameState {
         currentView.askBlankResources(resourceSupply.toString());
     }
 
+    /**
+     * Initial resource choice by players 2, 3, 4.
+     * Adds the resources to the player's {@link Warehouse}.
+     * @param resourceChoice received choice.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(ResourceChoice resourceChoice) throws InvalidStateException {
         Resource[] resources = null;
@@ -76,7 +91,11 @@ public class InitState extends GameState {
         else nextTurnInit();
     }
 
-
+    /**
+     * Processes a disconnection, notifies other players. If the number of players
+     * is under the value of 2, it interrupts a multiplayer game.
+     * @param disconnection is the disconnection message.
+     */
     @Override
     public void process(Disconnection disconnection) {
         gameController.notifyObservers(gameController.getVirtualViewMap().keySet());
@@ -89,6 +108,10 @@ public class InitState extends GameState {
         }
     }
 
+    /**
+     * Moves on with the turn in the initial phase of the game, when Leader Cards are
+     * being chosen, together with initial resources.
+     */
     private void nextTurnInit() {
         gameController.updateQueue();
         gameController.getTurnController().updateTurnCounter();
@@ -97,6 +120,12 @@ public class InitState extends GameState {
         gameController.askLeaders();
     }
 
+    /**
+     * Adds chosen initial resources in an ordered way into the player's {@link Warehouse}.
+     * @param resources is the list of resources.
+     * @throws InvalidInputException
+     * @throws NotEnoughResourcesException
+     */
     private void addToShelfInit(ArrayList<Resource> resources) throws InvalidInputException, NotEnoughResourcesException {
         Warehouse warehouse = gameController.getCurrentPlayer().getWarehouse();
 
@@ -111,6 +140,9 @@ public class InitState extends GameState {
         }
     }
 
+    /**
+     * Changes the game state, to {@link InGameState}.
+     */
     @Override
     public void nextState() {
         gameController.setGameState(new InGameState(gameController));
