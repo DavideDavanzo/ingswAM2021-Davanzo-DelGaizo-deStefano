@@ -19,11 +19,20 @@ using Java language to create a distributed system. This is composed of a single
 
 More precisely, we were asked to implement an MVC design pattern and a TCP network using sockets.
 
+## Tools, plugins and external libraries
+
+- Intellij IDEA
+- Maven
+- Git
+- Jason + Jackson
+- JavaFX + SceneBuilder
+- JUnit
+
 ## UML
 
 - [initial UML]()
 - [final UML]() (complete)
-- [final UMLs]() (divided by packages)
+- [final UMLs](uml) (divided by packages)
 
 ## Functionalities
 
