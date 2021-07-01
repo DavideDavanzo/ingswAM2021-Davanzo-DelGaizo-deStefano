@@ -3,52 +3,63 @@
   <ID>JAVA</ID>
   <OriginalElement>it.polimi.ingsw.network</OriginalElement>
   <nodes>
-    <node x="83.91666666666667" y="166.0">it.polimi.ingsw.network.server</node>
-    <node x="24.08333333333333" y="0.0">it.polimi.ingsw.network.client</node>
-    <node x="31.416666666666657" y="85.0">it.polimi.ingsw.network.messages</node>
+    <node x="-90.00000000000023" y="1017.0">it.polimi.ingsw.network.client.Client</node>
+    <node x="424.5" y="651.0">it.polimi.ingsw.network.server.ServerClientHandler</node>
+    <node x="185.50000000000003" y="570.0">it.polimi.ingsw.network.messages</node>
+    <node x="30.5" y="0.0">it.polimi.ingsw.network.client.ClientModel</node>
+    <node x="-112.50000000000023" y="662.5">it.polimi.ingsw.network.client.SocketHandler</node>
+    <node x="384.0" y="1003.0">it.polimi.ingsw.network.server.Server</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="it.polimi.ingsw.network.server" target="it.polimi.ingsw.network.messages" relationship="CREATE">
-      <point x="0.0" y="-15.5" />
-      <point x="40.000000000000014" y="15.5" />
+    <edge source="it.polimi.ingsw.network.server.ServerClientHandler" target="it.polimi.ingsw.network.messages" relationship="CREATE">
+      <point x="0.0" y="-117.5" />
+      <point x="533.0" y="626.0" />
+      <point x="305.5" y="626.0" />
+      <point x="40.0" y="15.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.server.Server" target="it.polimi.ingsw.network.server.ServerClientHandler" relationship="CREATE">
+      <point x="-74.5" y="-227.0" />
+      <point x="458.5" y="912.0" />
+      <point x="533.0" y="912.0" />
+      <point x="0.0" y="117.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.server.Server" target="it.polimi.ingsw.network.messages" relationship="CREATE">
+      <point x="74.5" y="-227.0" />
+      <point x="607.5" y="912.0" />
+      <point x="449.5" y="912.0" />
+      <point x="449.5" y="631.0" />
+      <point x="305.5" y="631.0" />
+      <point x="40.0" y="15.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.network.client.SocketHandler" target="it.polimi.ingsw.network.messages" relationship="DEPENDENCY">
+      <point x="0.0" y="-106.0" />
+      <point x="-11.500000000000227" y="631.0" />
+      <point x="305.5" y="631.0" />
+      <point x="40.0" y="15.5" />
     </edge>
     <edge source="it.polimi.ingsw.network.messages" target="it.polimi.ingsw.network.messages" relationship="DEPENDENCY">
       <point x="-40.0" y="15.5" />
-      <point x="71.41666666666666" y="136.0" />
-      <point x="11.416666666666657" y="136.0" />
-      <point x="11.416666666666657" y="100.5" />
+      <point x="225.5" y="621.0" />
+      <point x="165.50000000000003" y="621.0" />
+      <point x="165.50000000000003" y="585.5" />
       <point x="-80.0" y="-0.0" />
     </edge>
-    <edge source="it.polimi.ingsw.network.messages" target="it.polimi.ingsw.network.client" relationship="CREATE">
-      <point x="40.000000000000014" y="-15.5" />
-      <point x="151.41666666666669" y="63.0" />
-      <point x="133.25" y="63.0" />
-      <point x="43.66666666666667" y="15.5" />
+    <edge source="it.polimi.ingsw.network.messages" target="it.polimi.ingsw.network.client.ClientModel" relationship="CREATE">
+      <point x="0.0" y="-15.5" />
+      <point x="265.5" y="545.0" />
+      <point x="290.5" y="545.0" />
+      <point x="0.0" y="260.0" />
     </edge>
-    <edge source="it.polimi.ingsw.network.client" target="it.polimi.ingsw.network.messages" relationship="DEPENDENCY">
-      <point x="0.0" y="15.5" />
-      <point x="89.58333333333333" y="63.0" />
-      <point x="71.41666666666667" y="63.0" />
-      <point x="-39.999999999999986" y="-15.5" />
-    </edge>
-    <edge source="it.polimi.ingsw.network.server" target="it.polimi.ingsw.network.server" relationship="CREATE">
-      <point x="0.0" y="15.5" />
-      <point x="151.41666666666669" y="217.0" />
-      <point x="63.91666666666667" y="217.0" />
-      <point x="63.91666666666667" y="181.5" />
-      <point x="-67.5" y="-0.0" />
-    </edge>
-    <edge source="it.polimi.ingsw.network.client" target="it.polimi.ingsw.network.client" relationship="CREATE">
-      <point x="-43.66666666666667" y="15.5" />
-      <point x="45.91666666666666" y="51.0" />
-      <point x="4.083333333333329" y="51.0" />
-      <point x="4.083333333333329" y="15.5" />
-      <point x="-65.5" y="-0.0" />
+    <edge source="it.polimi.ingsw.network.client.Client" target="it.polimi.ingsw.network.client.SocketHandler" relationship="CREATE">
+      <point x="0.0" y="-95.0" />
+      <point x="0.0" y="106.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="80.0" y="91.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic" zoom="0.3999999999999999" showDependencies="true" x="80.0" y="91.50000000000011" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.network.server.Server</node>
+  </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>

@@ -3,69 +3,92 @@
   <ID>JAVA</ID>
   <OriginalElement>it.polimi.ingsw.controller</OriginalElement>
   <nodes>
-    <node x="0.0" y="0.0">it.polimi.ingsw.controller.TurnController</node>
-    <node x="24.0" y="399.0">it.polimi.ingsw.controller.GameController</node>
-    <node x="99.0" y="1414.0">it.polimi.ingsw.controller.gameState</node>
+    <node x="886.7272727272725" y="987.4999999999999">it.polimi.ingsw.controller.TurnController</node>
+    <node x="934.7272727272725" y="1406.7727272727275">it.polimi.ingsw.controller.GameController</node>
+    <node x="425.5" y="1925.5">it.polimi.ingsw.controller.gameState.InitState</node>
+    <node x="394.0" y="1439.5">it.polimi.ingsw.controller.gameState.InGameState</node>
+    <node x="458.5" y="2278.5">it.polimi.ingsw.controller.gameState.LoginState</node>
+    <node x="141.72727272727275" y="909.2727272727273">it.polimi.ingsw.controller.gameState.GameState</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="it.polimi.ingsw.controller.TurnController" target="it.polimi.ingsw.controller.GameController" relationship="TO_ONE">
-      <point x="136.5" y="172.5" />
-      <point x="318.5" y="372.0" />
-      <point x="300.5" y="372.0" />
-      <point x="118.5" y="-480.5" />
+    <edge source="it.polimi.ingsw.controller.gameState.InitState" target="it.polimi.ingsw.controller.gameState.GameState" relationship="GENERALIZATION">
+      <point x="-134.5" y="0.0" />
+      <point x="257.72727272727275" y="2020.0" />
+      <point x="-15.0" y="238.0" />
     </edge>
-    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.TurnController" relationship="TO_ONE">
-      <point x="-39.5" y="-480.5" />
-      <point x="142.5" y="372.0" />
-      <point x="136.5" y="372.0" />
-      <point x="-45.5" y="172.5" />
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.gameState.GameState" relationship="TO_ONE">
+      <point x="-39.00027272727243" y="-480.5" />
+      <point x="1053.727" y="1350.0" />
+      <point x="131.0" y="202.72727272727275" />
     </edge>
-    <edge source="it.polimi.ingsw.controller.gameState" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
-      <point x="20.75" y="-15.5" />
-      <point x="202.75" y="1387.0" />
-      <point x="221.5" y="1387.0" />
-      <point x="39.5" y="480.5" />
+    <edge source="it.polimi.ingsw.controller.gameState.GameState" target="it.polimi.ingsw.controller.GameController" relationship="TO_ONE">
+      <point x="131.0" y="219.72727272727275" />
+      <point x="1023.7270000000001" y="1367.0" />
+      <point x="-69.00027272727243" y="-480.5" />
     </edge>
-    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.gameState" relationship="CREATE">
-      <point x="-118.5" y="480.5" />
-      <point x="63.5" y="1387.0" />
-      <point x="119.75" y="1387.0" />
-      <point x="-62.25" y="-15.5" />
+    <edge source="it.polimi.ingsw.controller.gameState.GameState" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
+      <point x="0.0" y="238.0" />
+      <point x="272.72727272727275" y="1887.2727272727275" />
+      <point x="-158.0" y="0.0" />
     </edge>
-    <edge source="it.polimi.ingsw.controller.gameState" target="it.polimi.ingsw.controller.gameState" relationship="CREATE">
-      <point x="0.0" y="15.5" />
-      <point x="182.0" y="1465.0" />
-      <point x="79.0" y="1465.0" />
-      <point x="79.0" y="1429.5" />
-      <point x="-83.0" y="-0.0" />
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.gameState.GameState" relationship="DEPENDENCY">
+      <point x="158.0" y="0.0" />
+      <point x="1268.2272727272725" y="1887.2727272727275" />
+      <point x="1268.2272727272725" y="969.9999999999999" />
+      <point x="131.0" y="-177.27272727272737" />
     </edge>
-    <edge source="it.polimi.ingsw.controller.gameState" target="it.polimi.ingsw.controller.GameController" relationship="TO_ONE">
-      <point x="-20.75" y="-15.5" />
-      <point x="161.25" y="1387.0" />
-      <point x="142.5" y="1387.0" />
-      <point x="-39.5" y="480.5" />
-    </edge>
-    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.gameState" relationship="TO_ONE">
-      <point x="118.5" y="480.5" />
-      <point x="300.5" y="1387.0" />
-      <point x="244.25" y="1387.0" />
-      <point x="62.25" y="-15.5" />
-    </edge>
-    <edge source="it.polimi.ingsw.controller.TurnController" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
-      <point x="-136.5" y="172.5" />
-      <point x="45.5" y="372.0" />
-      <point x="63.5" y="372.0" />
-      <point x="-118.5" y="-480.5" />
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.gameState.LoginState" relationship="CREATE">
+      <point x="-158.0" y="467.7272727272725" />
+      <point x="101.5" y="15.0" />
     </edge>
     <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.TurnController" relationship="CREATE">
-      <point x="39.5" y="-480.5" />
-      <point x="221.5" y="372.0" />
-      <point x="227.5" y="372.0" />
-      <point x="45.5" y="172.5" />
+      <point x="30.0" y="-480.5" />
+      <point x="54.0" y="172.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.InitState" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
+      <point x="134.5" y="0.0" />
+      <point x="-158.0" y="132.72727272727252" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.GameController" target="it.polimi.ingsw.controller.TurnController" relationship="TO_ONE">
+      <point x="15.0" y="-480.5" />
+      <point x="39.0" y="172.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.TurnController" target="it.polimi.ingsw.controller.GameController" relationship="TO_ONE">
+      <point x="24.0" y="172.5" />
+      <point x="0.0" y="-480.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.LoginState" target="it.polimi.ingsw.controller.gameState.InitState" relationship="CREATE">
+      <point x="0.0" y="-61.5" />
+      <point x="0.0" y="94.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.LoginState" target="it.polimi.ingsw.controller.gameState.GameState" relationship="GENERALIZATION">
+      <point x="-101.5" y="0.0" />
+      <point x="242.72699999999998" y="2340.0" />
+      <point x="-30.000272727272772" y="238.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.InGameState" target="it.polimi.ingsw.controller.gameState.GameState" relationship="GENERALIZATION">
+      <point x="-158.5" y="-160.5" />
+      <point x="128.77272727272725" y="238.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.InitState" target="it.polimi.ingsw.controller.gameState.InGameState" relationship="CREATE">
+      <point x="0.0" y="-94.5" />
+      <point x="0.0" y="160.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.TurnController" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
+      <point x="-2.727272724314389E-4" y="172.5" />
+      <point x="-24.00027272727243" y="-480.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.LoginState" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
+      <point x="101.5" y="0.0" />
+      <point x="-158.0" y="452.7272727272725" />
+    </edge>
+    <edge source="it.polimi.ingsw.controller.gameState.InGameState" target="it.polimi.ingsw.controller.GameController" relationship="DEPENDENCY">
+      <point x="166.0" y="0.0" />
+      <point x="-158.0" y="-287.2727272727275" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.0" showDependencies="true" x="83.0" y="91.5" />
+  <settings layout="Compact" zoom="0.5499999999999999" showDependencies="true" x="425.4545454545455" y="1666.3636363636365" />
   <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
