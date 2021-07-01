@@ -29,19 +29,19 @@ More precisely, we were asked to implement an MVC design pattern and a TCP netwo
 
 __Main ones__
 
--[x] Single-player match
--[x] Multi-player match (2 to 4) 
--[x] Socket connection
--[x] Cli
--[x] Gui
+- [x] Single-player match
+- [x] Multi-player match (2 to 4) 
+- [x] Socket connection
+- [x] Cli
+- [x] Gui
 
 __Advanced (2)__
 
--[x] Multiple parallel matches
--[ ] Persistence
--[ ] Parameters editor
--[ ] Local match
--[x] Resilience to disconnections
+- [x] Multiple parallel matches
+- [ ] Persistence
+- [ ] Parameters editor
+- [ ] Local match
+- [x] Resilience to disconnections
 
 ## Run
 
