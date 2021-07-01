@@ -5,7 +5,8 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.Loss
 import java.util.Stack;
 
 /**
- * The class represents a specific kind of token
+ * The class represents a specific kind of token: it increases
+ * Lorenzo's position by 2.
  */
 public class CrossToken extends LorenzoToken{
 
@@ -17,10 +18,9 @@ public class CrossToken extends LorenzoToken{
     }
 
     /**
-     * This method calls method move(), that increases Lorenzo's position
+     * This method calls method {@link LorenzoIlMagnifico#move(int)}, that increases Lorenzo's position
      * @param lorenzo represents Lorenzo il Magnifico
      */
-
     @Override
     public void activate(LorenzoIlMagnifico lorenzo) throws LossException {
        lorenzo.move(steps);

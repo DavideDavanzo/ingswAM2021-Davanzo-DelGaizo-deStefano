@@ -5,7 +5,8 @@ import it.polimi.ingsw.model.enums.ECardColor;
 import it.polimi.ingsw.model.sharedarea.SharedArea;
 
 /**
- * The class represents a specific kind of token
+ * The class represents a kind of token: if activated
+ * it removes two cards of a specific color from the {@link it.polimi.ingsw.model.sharedarea.CardMarket}.
  */
 
 public class TossDevCardsToken extends LorenzoToken {

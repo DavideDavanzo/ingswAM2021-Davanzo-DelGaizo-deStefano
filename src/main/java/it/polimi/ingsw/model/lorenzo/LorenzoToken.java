@@ -15,7 +15,8 @@ import it.polimi.ingsw.network.messages.*;
         @JsonSubTypes.Type(value = CrossAndShuffleToken.class, name = "CrossAndShuffleToken")
 })
 /**
- * Class that represents the tokens used to play a solo match
+ * Class that represents the tokens used to play a solo match.
+ * They are activated by {@link LorenzoIlMagnifico}.
  */
 public abstract class LorenzoToken {
 

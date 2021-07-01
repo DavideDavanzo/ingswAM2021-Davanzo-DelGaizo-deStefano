@@ -5,7 +5,8 @@ import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.Loss
 import java.util.Random;
 
 /**
- * The class represents a specific kind of token
+ * The class represents a specific kind of token:
+ * it moves Lorenzo forward by 1 and shuffles the token stack.
  */
 public class CrossAndShuffleToken extends CrossToken {
 
@@ -20,7 +21,6 @@ public class CrossAndShuffleToken extends CrossToken {
      * This method calls method move(), that increases Lorenzo's position and shuffles all tokens
      * @param lorenzo represents Lorenzo il Magnifico
      */
-
     @Override
     public void activate(LorenzoIlMagnifico lorenzo) throws LossException {
         lorenzo.move(steps);

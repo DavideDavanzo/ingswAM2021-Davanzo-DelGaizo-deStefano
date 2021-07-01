@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- * Class that represents Lorenzo during a solo match
+ * Class that represents Lorenzo during a solo match.
  */
 public class LorenzoIlMagnifico implements CliPrinter {
 
@@ -24,6 +24,10 @@ public class LorenzoIlMagnifico implements CliPrinter {
         shuffleTokens();
     }
 
+    /**
+     * Constructor that gives Lorenzo the access to che {@link CardMarket}.
+     * @param cardMarket
+     */
     public LorenzoIlMagnifico(CardMarket cardMarket) {
         this.blackCrossPosition = 0;
         this.lorenzoList = initTokens();
@@ -42,6 +46,11 @@ public class LorenzoIlMagnifico implements CliPrinter {
         lorenzoList.add(token);
     }
 
+    /**
+     * Flips a token and reads the corresponding action.
+     * @return a String where the action is portrayed.
+     * @throws LossException
+     */
     public String flipTokenReadAction() throws LossException {
         StringBuilder builder = new StringBuilder();
         builder.append("Lorenzo activated ").append(lorenzoList.peek().toString()).append('\n');
@@ -81,7 +90,7 @@ public class LorenzoIlMagnifico implements CliPrinter {
     }
 
     /**
-     * This method shuffles randomly all the tokens
+     * This method shuffles randomly all the tokens.
      */
     public void shuffleTokens(){
 
@@ -97,6 +106,10 @@ public class LorenzoIlMagnifico implements CliPrinter {
 
     }
 
+    /**
+     * Initializes {@link LorenzoToken}(s).
+     * @return the list of tokens.
+     */
     public LinkedList<LorenzoToken> initTokens() {
         LinkedList<LorenzoToken> list = new LinkedList<>();
         list.push(new TossDevCardsToken(ECardColor.GREEN));

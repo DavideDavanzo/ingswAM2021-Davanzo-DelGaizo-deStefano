@@ -10,6 +10,9 @@ import java.util.HashMap;
 public enum ECardColor implements CliPrinter {
     GREEN, BLUE, YELLOW, PURPLE;
 
+    /**
+     * Maps the {@link ECardColor} with its corresponding ANSI_COLOR.
+     */
     private static final HashMap<ECardColor, Color> colorMap = new HashMap<ECardColor, Color>(){{
         put(GREEN, Color.ANSI_GREEN);
         put(BLUE, Color.ANSI_BLUE);

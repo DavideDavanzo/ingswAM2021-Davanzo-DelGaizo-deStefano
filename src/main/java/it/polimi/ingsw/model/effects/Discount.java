@@ -2,6 +2,11 @@ package it.polimi.ingsw.model.effects;
 
 import it.polimi.ingsw.model.resources.Resource;
 
+/**
+ * A Discount is defined as a resource volume.
+ * When buying a card from the market, the Discount is applied if the relative
+ * {@link it.polimi.ingsw.model.cards.LeaderCard} is activated by the player.
+ */
 public class Discount {
 
     private boolean active;
