@@ -63,12 +63,12 @@ Server and clients use the same one, launching it differently.
         Replace <port> with the same number used by the server.\
         Replace <server_IP> with the IP number of the server host.
     - __Cli__ --> to be able to see every color and symbol used in this version download and configure WSL. To do so follow this [link](https://github.com/ingconti/W10JavaCLI). \
-    Then type on Ubuntu Shell
+        Then type on Ubuntu Shell
+        
+            java -jar MaestriDelRinascimento.jar -cli <server_IP> <port>
       
-            java -jar MaestriDelRinascimento.jar <-cli> <server_IP> <port>
-    
-    Replace <port> with the same number used by the server.\
-    Replace <server_IP> with the IP number of the server host.
+        Replace <port> with the same number used by the server.\
+        Replace <server_IP> with the IP number of the server host.
   
 ##Play
 ___
