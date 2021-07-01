@@ -1,4 +1,4 @@
-#Prova Finale di Ingegneria del Software - a.a. 2020-21
+# Prova Finale di Ingegneria del Software - a.a. 2020-21
 ___
 ![](src/main/resources/images/loading_screen.jpg)
 
@@ -12,20 +12,20 @@ Course held by: Alessandro Margara.
 
 Developers: Davide Davanzo, Dario Del Gaizo, Alessandra de Stefano.
 
-##About the project
+## About the project
 ___
 The target of this project was to develop the software version of a chosen board game, 
 using Java language to create a distributed system. This is composed of a single server connected to multiple clients.
 
 More precisely, we were asked to implement an MVC design pattern and a TCP network using sockets.
 
-##UML
+## UML
 ___
 - [initial UML]()
 - [final UML]() (complete)
 - [final UMLs]() (divided by packages)
 
-##Functionalities
+## Functionalities
 ___
 __Main ones__
 -[x] Single-player match
@@ -41,7 +41,7 @@ __Advanced (2)__
 -[ ] Local match
 -[x] Resilience to disconnections
 
-##Run
+## Run
 ___
 First of all download the [jar]().
 
@@ -70,6 +70,6 @@ Server and clients use the same one, launching it differently.
         Replace <port> with the same number used by the server.\
         Replace <server_IP> with the IP number of the server host.
   
-##Play
+## Play
 ___
 You can check the game's rules [here](src/main/resources/maestri-rules.pdf). Now you are ready to have fun!
