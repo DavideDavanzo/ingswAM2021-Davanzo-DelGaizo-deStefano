@@ -236,26 +236,10 @@ public class CliView extends ClientView {
             System.out.println("op -> other player's board");
         System.out.println("exit -> return to main commands");
 
-        String cmd;
         try {
-            switch (cmd = stdIn.readLine().toLowerCase()) {
+            switch (stdIn.readLine().toLowerCase()) {
                 case "pb":
-                    System.out.println("Faith track:");
-                    System.out.println(clientModel.getFaithTrack().print());
-                    System.out.println("Leader cards:");
-                    if (clientModel.getLeaderCards().size() == 0)
-                        System.out.println("you do not have any leader card");
-                    else {
-                        for (LeaderCard leaderCard : clientModel.getLeaderCards()) {
-                            System.out.println(leaderCard.print());
-                        }
-                    }
-                    System.out.println("Development card area:");
-                    System.out.println(clientModel.getDevelopmentCardsArea().print());
-                    System.out.println("Warehouse:");
-                    System.out.println(clientModel.getWarehouse().print());
-                    System.out.println("Coffer:");
-                    System.out.println(clientModel.getCoffer().print());
+                    System.out.println(clientModel.print());
                     break;
                 case "w":
                     System.out.println("Warehouse:");
@@ -264,6 +248,8 @@ public class CliView extends ClientView {
                 case "ft":
                     System.out.println("Faith track:");
                     System.out.println(clientModel.getFaithTrack().print());
+                    if(clientModel.isSinglePlayer())
+                        System.out.println("Lorenzo il Magnifico position: " + clientModel.getLorenzoPosition());
                     break;
                 case "c":
                     System.out.println("Coffer:");
