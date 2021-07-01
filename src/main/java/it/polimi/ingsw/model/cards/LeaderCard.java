@@ -8,7 +8,8 @@ import it.polimi.ingsw.model.requirements.Requirement;
 
 /**
  * <h1>Leader Cards</h1>
- * Leader Cards
+ * Leader Cards contains a unique {@link Effect} and an activation {@link Requirement}.
+ * It can be activated or tossed.
  */
 public class LeaderCard extends Card {
 
@@ -17,14 +18,27 @@ public class LeaderCard extends Card {
     private boolean active;
     private boolean discarded;
 
+    /**
+     * Default Constructor
+     */
     public LeaderCard() { }
 
+    /**
+     * Points Constructor
+     * @param victoryPoints refers to the card's Victory Points.
+     */
     public LeaderCard(int victoryPoints) {
         super(victoryPoints);
         active = false;
         discarded = false;
     }
 
+    /**
+     * Complete Constructor - no id.
+     * @param victoryPoints refers to the card's Victory Points.
+     * @param requirement is the activation requirement of the card.
+     * @param effect is the effect of the activated card.
+     */
     public LeaderCard(Requirement requirement, Effect effect, int victoryPoints) {
         super(victoryPoints);
         this.requirement = requirement;
@@ -33,6 +47,13 @@ public class LeaderCard extends Card {
         this.discarded = false;
     }
 
+    /**
+     * Complete Constructor
+     * @param victoryPoints refers to the card's Victory Points.
+     * @param requirement is the activation requirement of the card.
+     * @param effect is the effect of the activated card.
+     * @param id is the unique id of the card.
+     */
     public LeaderCard(Requirement requirement, Effect effect, int victoryPoints, int id) {
         super(victoryPoints, id);
         this.requirement = requirement;
@@ -41,7 +62,11 @@ public class LeaderCard extends Card {
         this.discarded = false;
     }
 
-    //TODO: Create a new exception?
+    /**
+     * Activates the card on the specified player.
+     * @param p is the player.
+     * @throws NotEnoughResourcesException
+     */
     public void activateOn(Player p) throws NotEnoughResourcesException {
 
         if(this.isActive()) return;

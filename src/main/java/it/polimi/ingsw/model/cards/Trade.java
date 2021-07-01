@@ -62,6 +62,10 @@ public class Trade {
                 this.equalOutput(trade.getOutput());
     }
 
+    /**
+     * @param resources
+     * @return true if the card's input and the parameter are equals.
+     */
     public boolean equalInput(ArrayList<Resource> resources) {
         if(input == resources) return true;
         if(resources.size() != this.getInput().size()) return false;
@@ -72,6 +76,10 @@ public class Trade {
         return true;
     }
 
+    /**
+     * @param items
+     * @return true if the card's output and the parameter are equals.
+     */
     public boolean equalOutput(ArrayList<Item> items) {
         if(output == items) return true;
         if(items.size() != this.getOutput().size()) return false;

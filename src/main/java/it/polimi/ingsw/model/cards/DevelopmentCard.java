@@ -140,6 +140,10 @@ public class DevelopmentCard extends Card {
                 this.trade.equals(that.trade);
     }
 
+    /**
+     * @param resources is a list of resources.
+     * @return true if the parameter is equal to the cost of the card.
+     */
     public boolean equalCost(ArrayList<Resource> resources) {
         if(cost == resources) return true;
         if(resources.size() != this.getCost().size()) return false;

@@ -5,7 +5,7 @@ import it.polimi.ingsw.view.cli.CliPrinter;
 
 /**
  * <h1>Card</h1>
- * Abstract concept of Card, tracks a card's Victory Voints.
+ * Abstract concept of Card, tracks a card's Victory Points.
  * Inherited by {@link LeaderCard} {@link DevelopmentCard}
  */
 public abstract class Card implements CliPrinter {

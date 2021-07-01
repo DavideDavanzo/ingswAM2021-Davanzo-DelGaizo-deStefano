@@ -7,8 +7,16 @@ import java.util.Arrays;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Special parser, reads and constructs {@link DevelopmentCard}(s) from a given file.
+ * Current implementation: Json.
+ */
 public class DevCardParser {
 
+    /**
+     * Parser the file.
+     * @return a list of the cards.
+     */
     public ArrayList<DevelopmentCard> parse() {
 
         ArrayList<DevelopmentCard> developmentCards;

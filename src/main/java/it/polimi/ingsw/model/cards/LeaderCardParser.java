@@ -8,8 +8,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Special parser, reads and constructs {@link LeaderCard}(s) from a given file.
+ * Current implementation: Json.
+ */
 public class LeaderCardParser {
 
+    /**
+     * Parser the file.
+     * @return a list of the cards.
+     */
     public ArrayList<LeaderCard> parse() {
 
         ArrayList<LeaderCard> leaderCards;
@@ -52,6 +60,10 @@ public class LeaderCardParser {
 
     }
 
+    /**
+     * @param leaderCards is a list of Leader Cards.
+     * @return Json String version of the parameter.
+     */
     public String serialize(ArrayList<LeaderCard> leaderCards) {
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -68,6 +80,11 @@ public class LeaderCardParser {
 
     }
 
+    /**
+     * Returns a list of cards from a Json-type-built String.
+     * @param leadersAsString
+     * @return a list of cards.
+     */
     public ArrayList<LeaderCard> deserialize(String leadersAsString) {
 
         ObjectMapper objectMapper = new ObjectMapper();
