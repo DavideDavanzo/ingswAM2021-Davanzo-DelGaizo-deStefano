@@ -8,6 +8,10 @@ import it.polimi.ingsw.controller.GameController;
 
 import java.util.NoSuchElementException;
 
+/**
+ * GameState represents the generic state of the game, intended as "phase".
+ * It is never a real game state, see: {@link InGameState}, {@link InitState}.
+ */
 public class GameState {
 
     protected GameController gameController;
@@ -76,11 +80,19 @@ public class GameState {
         throw new InvalidStateException("This action cannot be performed during this phase of the game");
     }
 
+    /**
+     * Processes a disconnection, notifies other players.
+     * @param disconnection is the disconnection message.
+     */
     public void process(Disconnection disconnection) {
         gameController.sendBroadcastMessageExclude(disconnection.getUsername() + " lost connection...", disconnection.getUsername());
         gameController.getVirtualViewMap().get(disconnection.getUsername()).disconnect();
     }
 
+    /**
+     * Processes a request for other player's info.
+     * @param otherPlayerInfosRequest is the exclusive message.
+     */
     public void process(OtherPlayerInfosRequest otherPlayerInfosRequest){
         try {
             Player otherPlayer = gameController.getPlayers().stream().filter(p -> p.getNickname().equals(otherPlayerInfosRequest.getOtherUsername())).findAny().get();

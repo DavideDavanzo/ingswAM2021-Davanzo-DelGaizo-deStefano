@@ -23,16 +23,28 @@ import it.polimi.ingsw.model.resources.Resource;
 import it.polimi.ingsw.network.messages.*;
 import it.polimi.ingsw.utils.Parser;
 import it.polimi.ingsw.view.VirtualView;
+import it.polimi.ingsw.model.sharedarea.CardMarket;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class InGameState extends GameState {
 
+    /**
+     * InGameState is the main state of the game: after choosing leader cards, it
+     * allows every action to be performed by the current player.
+     * @param gameController controls the game messages and actions.
+     */
     public InGameState(GameController gameController) {
         super(gameController);
     }
 
+    /**
+     * Performs the action of buying a card from the {@link CardMarket}, notifies
+     * the player if the action is unsuccessful.
+     * @param buyCardCmd received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(BuyCardCmd buyCardCmd) throws InvalidStateException {
 
@@ -93,6 +105,12 @@ public class InGameState extends GameState {
 
     }
 
+    /**
+     * Performs the action of taking resources from the {@link it.polimi.ingsw.model.sharedarea.market.Market}, then
+     * it makes the player rearrange the resources in the {@link Warehouse}.
+     * @param marketResourcesCmd received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(MarketResourcesCmd marketResourcesCmd) throws InvalidStateException {
         char line = marketResourcesCmd.getLine();
@@ -177,6 +195,13 @@ public class InGameState extends GameState {
 
     }
 
+    /**
+     * Performs the action of changing the {@link it.polimi.ingsw.model.sharedarea.market.WhiteMarble}(s) found
+     * in the {@link it.polimi.ingsw.model.sharedarea.market.Market} into actual resources previously chosen by
+     * the current player.
+     * @param changeWhiteMarbleReply received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(ChangeWhiteMarbleReply changeWhiteMarbleReply) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
@@ -187,6 +212,12 @@ public class InGameState extends GameState {
         gameController.getVirtualViewMap().get(changeWhiteMarbleReply.getUsername()).askToStockMarketResources(itemsToArrange, currentPlayer.extraShelvesCount());
     }
 
+    /**
+     * Performs the action of arranging resources in the {@link Warehouse}, notifies
+     * the player if unsuccessful.
+     * @param arrangeInWarehouseCmd received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(ArrangeInWarehouseCmd arrangeInWarehouseCmd) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
@@ -234,6 +265,12 @@ public class InGameState extends GameState {
         currentView.sendMessage(new Ack(true));
     }
 
+    /**
+     * Performs the action of activating {@link LeaderCard}(s), notifies
+     * the player if unsuccessful.
+     * @param activateLeaderCmd received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(ActivateLeaderCmd activateLeaderCmd) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
@@ -259,6 +296,12 @@ public class InGameState extends GameState {
         currentView.sendMessage(new Ack(true));
     }
 
+    /**
+     * Performs the action of discarding {@link LeaderCard}(s), notifies
+     * the player if unsuccessful.
+     * @param discardLeaderCmd received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(DiscardLeaderCmd discardLeaderCmd) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
@@ -291,6 +334,12 @@ public class InGameState extends GameState {
         currentView.sendMessage(new Ack(true));
     }
 
+    /**
+     * Performs the action of activating production given: base production,
+     * slots of cards, extra leader cards. Notifies the player if unsuccessful.
+     * @param activateProductionCmd received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(ActivateProductionCmd activateProductionCmd) throws InvalidStateException {
 
@@ -392,6 +441,11 @@ public class InGameState extends GameState {
         currentView.sendMessage(new Ack(true));
     }
 
+    /**
+     * Puts chosen resources into the player's {@link it.polimi.ingsw.model.playerboard.Coffer}
+     * @param resourceChoice received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(ResourceChoice resourceChoice){
         Player currentPlayer =  gameController.getCurrentPlayer();
@@ -413,6 +467,12 @@ public class InGameState extends GameState {
         gameController.getVirtualViewMap().get(currentPlayer.getNickname()).sendMessage(new Ack(true));
     }
 
+    /**
+     * Performs the action of switching two shelves chosen by the player.
+     * Notifies if unsuccessful.
+     * @param switchShelvesCmd received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(SwitchShelvesCmd switchShelvesCmd) throws InvalidStateException {
 
@@ -440,6 +500,13 @@ public class InGameState extends GameState {
         currentView.sendMessage(new Ack(true));
     }
 
+    /**
+     * Performs the action of passing the turn when a player ends its turn, only if the
+     * current player has already performed a "Big Action".
+     * It interrupts the turn's timer.
+     * @param passTurnMessage received command.
+     * @throws InvalidStateException
+     */
     @Override
     public void process(PassTurnMessage passTurnMessage) throws InvalidStateException {
         Player currentPlayer = gameController.getCurrentPlayer();
@@ -457,6 +524,11 @@ public class InGameState extends GameState {
 
     }
 
+    /**
+     * Processes a disconnection, notifies other players. If the number of players
+     * is under the value of 2, it interrupts a multiplayer game.
+     * @param disconnection is the disconnection message.
+     */
     @Override
     public void process(Disconnection disconnection) {
 
@@ -482,6 +554,12 @@ public class InGameState extends GameState {
         }
     }
 
+    /**
+     *
+     * @param token is the BigActionToken that every player has.
+     * @param currentView is the current player's virtual View
+     * @return true if the player completed a big action during the turn.
+     */
     public boolean bigActionNotAvailable(boolean token, VirtualView currentView) {
         if(!token) {
             currentView.showError("Can't perform a big action in this turn anymore. .");
