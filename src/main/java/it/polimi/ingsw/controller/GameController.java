@@ -29,7 +29,9 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 /**
- * This class implements the controller of the game
+ * This class implements a Controller bind to a {@link Match}.
+ * Communicates with the Model and the players' {@link VirtualView}(s).
+ * It contains the Match and the current {@link GameState}.
  */
 public class GameController extends Observable implements Observer, Serializable {
 
@@ -52,6 +54,11 @@ public class GameController extends Observable implements Observer, Serializable
         this.leaderChoices = new Stack<>();
     }
 
+    /**
+     * Receives and forwards a {@link Message}
+     * to the {@link GameState} that processes it.
+     * @param received is the Message.
+     */
     public void onMessage(Message received) {
 
         try {
@@ -62,6 +69,13 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
+    /**
+     * Logs the player and notifies if the login is successful or
+     * unsuccessful (the Nickname is already taken by another User).
+     * @param nickname is given by the player.
+     * @param virtualView is created by the {@link it.polimi.ingsw.network.server.Server}.
+     * @return true only if the login is successful.
+     */
     public synchronized boolean logPlayer(String nickname, VirtualView virtualView) {
 
         while(!virtualViewMap.isEmpty() && (chosenPlayerNum == 0)) {
@@ -106,7 +120,6 @@ public class GameController extends Observable implements Observer, Serializable
             virtualView.showLogin("You've been logged in successfully", true);
 
             if(isFull()) {
-                //TODO: Restore interrupted match ??
                 gameState.nextState();
                 startMatch();
             }
@@ -125,7 +138,8 @@ public class GameController extends Observable implements Observer, Serializable
     }
 
     /**
-     * Handles reconnection
+     * Handles reconnection sending back all the reconnected
+     * player's features and inserting him back into the game.
      * @param nickname
      * @param virtualView
      */
@@ -157,7 +171,9 @@ public class GameController extends Observable implements Observer, Serializable
     }
 
     /**
-     * Starts a match
+     * Starts a match, adding {@link Observer}(s) and giving the first player
+     * an inkwell.
+     * Creates a {@link TurnController} to handle turn logistics.
      */
     public void startMatch() {
         System.out.println("Starting match..."); //Server side message.
@@ -193,10 +209,19 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
+    /**
+     * Sends a leader card request to the current player.
+     */
     public void askLeaders() {
         virtualViewMap.get(turnController.getCurrentPlayer().getNickname()).askLeaders(leaderChoices.pop());
     }
 
+    /**
+     * SinglePlayer only.
+     * Flips a {@link it.polimi.ingsw.model.lorenzo.LorenzoToken} and sends the
+     * message to the player.
+     * @throws LossException if one of the Loss conditions are reached.
+     */
     public void flipActionToken() throws LossException {
         try {
             String action = match.getLorenzoIlMagnifico().flipTokenReadAction();
@@ -208,8 +233,8 @@ public class GameController extends Observable implements Observer, Serializable
     }
 
     /**
-     * Declares Lorenzo as the winner
-     * @param lossMessage for the user
+     * Declares Lorenzo as the winner and sends score and position.
+     * @param lossMessage for the user.
      */
     private void lorenzoWins(String lossMessage) {
         StringBuilder sb = new StringBuilder();
@@ -219,6 +244,10 @@ public class GameController extends Observable implements Observer, Serializable
         notifyObservers(virtualViewMap.keySet());
     }
 
+    /**
+     * Prepares the right number (# match players) of leader cards stacks,
+     * 4 cards for every stack, from which the initial leader card choice can be performed.
+     */
     private void prepareLeaderChoices() {
 
         ArrayList<LeaderCard> leaderCards = match.getLeaders();
@@ -239,7 +268,8 @@ public class GameController extends Observable implements Observer, Serializable
     }
 
     /**
-     * Declares the winner and the rest of the ranking
+     * Creates the ranking, sending it to the players and declares the winner.
+     * If SinglePlayer, the match is won by the player.
      */
     public void handleEndGame() {
 
@@ -269,6 +299,11 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
+    /**
+     * Creates the SinglePlayer winning message as a String, specifies
+     * position and score.
+     * @return
+     */
     public String singlePlayerWinMessage() {
         StringBuilder sb = new StringBuilder();
         sb.append("You Won!");
@@ -277,10 +312,10 @@ public class GameController extends Observable implements Observer, Serializable
     }
 
     /**
-     * Moves all the crosses of the players except the one of the current player
-     * @param player
-     * @param steps
-     * @return
+     * Moves all the crosses of the players except the one of the specified player.
+     * @param player is the player that will not move.
+     * @param steps number of steps moved.
+     * @return true if the EndGame phase is reached (see game's rules).
      */
     public boolean moveAllExcept(Player player, int steps) {
 
@@ -302,6 +337,12 @@ public class GameController extends Observable implements Observer, Serializable
         return maxMovement;
     }
 
+    /**
+     * Adds a {@link VirtualView} to the {@link #virtualViewMap}.
+     * @param nickname
+     * @param virtualView
+     * @throws NicknameException if the nickname is already taken.
+     */
     public void addVirtualView(String nickname, VirtualView virtualView) throws NicknameException {
         if(virtualViewMap.containsKey(nickname)) throw new NicknameException();
         virtualViewMap.put(nickname, virtualView);
@@ -311,12 +352,21 @@ public class GameController extends Observable implements Observer, Serializable
         return virtualViewMap;
     }
 
+    /**
+     * Sends a String message to all the {@link VirtualView}(s).
+     * @param message
+     */
     public void sendBroadcastMessage(String message) {
         for(VirtualView v : virtualViewMap.values()) {
             if(v.isConnected()) v.showMessage(message);
         }
     }
 
+    /**
+     * Sends a String message to all the {@link VirtualView}(s).
+     * excluding the specified nickname.
+     * @param message
+     */
     public void sendBroadcastMessageExclude(String message, String nickname) {
         for(Map.Entry<String, VirtualView> entry : virtualViewMap.entrySet()) {
             if(!entry.getKey().equals(nickname) && entry.getValue().isConnected()) {
@@ -325,19 +375,28 @@ public class GameController extends Observable implements Observer, Serializable
         }
     }
 
-    private void sendBroadcastMessage(Message message){
+    /**
+     * Sends a {@link Message} to all the {@link VirtualView}(s).
+     * @param message
+     */
+    public void sendBroadcastMessage(Message message){
         for(VirtualView v : virtualViewMap.values()) {
             if(v.isConnected()) v.sendMessage(message);
         }
     }
 
+    /**
+     * @return the number of connected players to the match.
+     */
     public synchronized long connectedPlayersAsInt() {
         return virtualViewMap.values().stream().filter(VirtualView::isConnected).count();
     }
 
     /**
-     * Handles disconnection of the user
-     * @param nickname
+     * Handles disconnection of the user who matches the
+     * nickname parameter. Gives the inkwell to the next connected player
+     * of the list.
+     * @param nickname name of the disconnected player.
      */
     public synchronized void disconnect(String nickname) {
         int count = 1;
@@ -372,6 +431,9 @@ public class GameController extends Observable implements Observer, Serializable
         return turnController.getCurrentPlayer();
     }
 
+    /**
+     * @return true if the game reached it's capacity.
+     */
     public boolean isFull() {
         return chosenPlayerNum != 0 && chosenPlayerNum == virtualViewMap.size();
     }
@@ -384,6 +446,11 @@ public class GameController extends Observable implements Observer, Serializable
         this.gameState = gameState;
     }
 
+    /**
+     * Sets the chosen number of players.
+     * @param number
+     * @return false if the number doesn't respect the 1-4 range.
+     */
     public boolean setChosenPlayersNum(int number) {
 
         if(number > 0 && number <= Match.MAX_PLAYERS) {
@@ -395,6 +462,9 @@ public class GameController extends Observable implements Observer, Serializable
 
     }
 
+    /**
+     * Updates the match queue of players after a turn is completed.
+     */
     public void updateQueue() {
         turnController.updateQueue();
     }
@@ -434,6 +504,11 @@ public class GameController extends Observable implements Observer, Serializable
         //do nothing
     }
 
+    /**
+     * When a player moves, he could reach a Vatican Square.
+     * This method applies Vatican Report check and validation to all the players.
+     * @param pathPosition
+     */
     @Override
     public void update(int pathPosition) {
         match.getPlayers().forEach(p -> p.getPlayerBoard().getPath().applyVaticanReport(pathPosition));

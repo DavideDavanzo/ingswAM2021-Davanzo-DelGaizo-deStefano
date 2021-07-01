@@ -12,7 +12,8 @@ import java.util.LinkedList;
 import java.util.Map;
 
 /**
- * This class implements the controller of a turn
+ * A Turn Controller handles the turn logistics, such as
+ * queue updating, timing and initial resource supplying.
  */
 public class TurnController {
 
@@ -37,6 +38,13 @@ public class TurnController {
         return currentPlayer;
     }
 
+    /**
+     * Updates the turn giving the previous player
+     * his BigAction Token back. Chooses the next player based on
+     * connected players and activates {@link it.polimi.ingsw.model.lorenzo.LorenzoIlMagnifico} actions
+     * if the game is in SinglePlayer mode.
+     * Starts a new timer for the next player.
+     */
     public void nextTurn() {
 
         currentPlayer.giveBigActionToken();
@@ -76,21 +84,35 @@ public class TurnController {
 
     }
 
+    /**
+     * Updates the players' queue and sets the new current player.
+     */
     public void nextPlayer() {
         gameController.updateQueue();
         currentPlayer = players.peek();
     }
 
+    /**
+     * Increments the turn counter by 1.
+     */
     public void updateTurnCounter() {
         turn++;
     }
 
+    /**
+     * Removes the first player and adds it at the end of the queue.
+     */
     public void updateQueue() {
         Player p = players.remove();
         players.add(p);
         currentPlayer = players.peek();
     }
 
+    /**
+     * Calculates the initial resource supply based on the turn counter.
+     * @return the number of resources that the current player has to choose.
+     * @throws Exception
+     */
     public Integer initResourceSupply() throws Exception {
 
         if(turn < 2 || turn > 4) throw new Exception();
@@ -106,6 +128,10 @@ public class TurnController {
 
     }
 
+    /**
+     * Starts a timer and notifies when expired.
+     * @param milliseconds
+     */
     private void startTimer(int milliseconds){
         System.out.println("Turn timer started for " + gameController.getCurrentPlayer().getNickname());
         try {
