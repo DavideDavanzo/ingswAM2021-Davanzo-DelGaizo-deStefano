@@ -32,7 +32,7 @@ More precisely, we were asked to implement an MVC design pattern and a TCP netwo
 
 ## UML
 
-- [initial UML](deliveries/uml/Initial_uml)
+- [initial UML](deliveries/uml/Initial_uml.png)
 - [final UMLs](deliveries/uml) (divided by packages)
 
 ## Functionalities
