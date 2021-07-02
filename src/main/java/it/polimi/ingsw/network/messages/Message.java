@@ -41,7 +41,7 @@ import it.polimi.ingsw.view.ClientView;
         @JsonSubTypes.Type(value = CardsMarketUpdate.class, name = "CardsMarketUpdate"),
         @JsonSubTypes.Type(value = OtherPlayerInfosRequest.class, name = "OtherPlayerInfosRequest"),
         @JsonSubTypes.Type(value = OtherPlayerInfosReply.class, name = "OtherPlayerInfosReply"),
-        @JsonSubTypes.Type(value = LorenzoPositionUpdate.class, name = "LorenzoPositionUpdate"),
+        @JsonSubTypes.Type(value = LorenzoUpdate.class, name = "LorenzoUpdate"),
         @JsonSubTypes.Type(value = PlayersListMessage.class, name = "PlayersListMessage"),
         @JsonSubTypes.Type(value = WinMessage.class, name = "WinMessage"),
         @JsonSubTypes.Type(value = Ack.class, name = "Ack")

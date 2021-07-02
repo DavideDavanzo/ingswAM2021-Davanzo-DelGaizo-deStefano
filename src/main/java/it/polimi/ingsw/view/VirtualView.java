@@ -166,8 +166,8 @@ public class VirtualView extends View {
     }
 
     @Override
-    public void updateLorenzoPosition(int lorenzoPosition) {
-        sendMessage(new LorenzoPositionUpdate(lorenzoPosition));
+    public void updateLorenzo(int lorenzoPosition) {
+        sendMessage(new LorenzoUpdate(lorenzoPosition));
     }
 
     public ServerClientHandler getClientHandler(){

@@ -148,7 +148,7 @@ public class GuiView extends ClientView {
     }
 
     @Override
-    public void updateLorenzoPosition(int lorenzoPosition) {
+    public void updateLorenzo(int lorenzoPosition) {
         clientModel.setLorenzoPosition(lorenzoPosition);
     }
 

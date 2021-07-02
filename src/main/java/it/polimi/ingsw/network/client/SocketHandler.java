@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class SocketHandler extends Observable implements Runnable {
 
@@ -29,16 +30,14 @@ public class SocketHandler extends Observable implements Runnable {
 
     @Override
     public void run() {
-        String msg = null;
-        while (!socket.isClosed()) {
-            try {
-                msg = socketIn.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
+        try {
+            while (true) {
+                notifyObservers((Message) Parser.deserialize(socketIn.readLine(), Message.class));
             }
-            notifyObservers((Message) Parser.deserialize(msg, Message.class));
+        } catch (IOException e) {
+            System.out.println("Connection closed");
+            System.exit(0);
         }
-        System.exit(0);
     }
 
     public void sendMessage(Message message){

@@ -106,7 +106,7 @@ public abstract class View extends Observable implements Observer {
 
     public abstract void disconnect();
 
-    public abstract void updateLorenzoPosition(int lorenzoPosition);
+    public abstract void updateLorenzo(int lorenzoPosition);
 
     public abstract void updateActiveLeader(int index);
 

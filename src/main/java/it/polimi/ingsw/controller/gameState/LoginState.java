@@ -34,7 +34,6 @@ public class LoginState extends GameState {
             else {
                 if(message.getPlayerNum() != 1)
                     gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok,waiting for players . .");
-                else    gameController.getVirtualViewMap().get(message.getUsername()).showMessage("Ok!");
                 gameController.notifyAll();
             }
             if(gameController.isSinglePlayer()){

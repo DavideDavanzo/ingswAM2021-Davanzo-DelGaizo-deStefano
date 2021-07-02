@@ -3,7 +3,6 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.exceptions.playerboardExceptions.resourcesExceptions.LossException;
 import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.network.messages.ErrorMessage;
-import it.polimi.ingsw.network.messages.LorenzoPositionUpdate;
 import it.polimi.ingsw.network.messages.PassTurnMessage;
 import it.polimi.ingsw.network.messages.TurnWakeMessage;
 import it.polimi.ingsw.view.VirtualView;
@@ -65,7 +64,7 @@ public class TurnController {
             if(turn > 2) { //Lorenzo starts always as second, so from the second turn
                 try {
                     gameController.flipActionToken();
-                    virtualViewMap.get(currentPlayer.getNickname()).updateLorenzoPosition(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
+                    virtualViewMap.get(currentPlayer.getNickname()).updateLorenzo(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
                     if(gameController.getCurrentPlayer().getPlayerBoard().getPath().getTrack()[gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition()].isPopeSquare())
                         gameController.getCurrentPlayer().getPlayerBoard().getPath().applyVaticanReport(gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition());
                     else if (gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1 > 0 && gameController.getCurrentPlayer().getPlayerBoard().getPath().getTrack()[gameController.getMatch().getLorenzoIlMagnifico().getBlackCrossPosition() - 1].isPopeSquare())

@@ -4,19 +4,19 @@ import it.polimi.ingsw.controller.gameState.GameState;
 import it.polimi.ingsw.exceptions.controllerExceptions.InvalidStateException;
 import it.polimi.ingsw.view.ClientView;
 
-public class LorenzoPositionUpdate extends Message{
+public class LorenzoUpdate extends Message{
 
     private int position;
 
-    public LorenzoPositionUpdate(){}
+    public LorenzoUpdate(){}
 
-    public LorenzoPositionUpdate(int position){
+    public LorenzoUpdate(int position){
         this.position = position;
     }
 
     @Override
     public void apply(ClientView view) {
-        view.updateLorenzoPosition(position);
+        view.updateLorenzo(position);
     }
 
     public void setPosition(int position) {

@@ -26,14 +26,13 @@ More precisely, we were asked to implement an MVC design pattern and a TCP netwo
 - Intellij IDEA
 - Maven
 - Git
-- Jason + Jackson
+- Json + Jackson
 - JavaFX + SceneBuilder
 - JUnit
 
 ## UML
 
-- [initial UML]()
-- [final UML]() (complete)
+- [initial UML](deliveries/uml/Initial_uml)
 - [final UMLs](deliveries/uml) (divided by packages)
 
 ## Functionalities
@@ -56,10 +55,10 @@ __Advanced (2)__
 
 ## Run
 
-First of all download the [jar]().
+First of all download the [jar](deliveries/MaestriDelRinascimento.jar).
 
 Server and clients use the same one, launching it differently.
-- __Server__: download and double click on the [ServerApp.bat]() file (default port number: 1234) or type from cmd line
+- __Server__: download and double click on the [ServerApp.bat](deliveries/ServerApp.bat) file (default port number: 1234) or type from cmd line
 
         java -jar MaestriDelRinascimento.jar <port_num>
   
@@ -68,7 +67,7 @@ Server and clients use the same one, launching it differently.
   
 
 - __Client__: each client can choose independently to play using Cli or Gui.
-    - __Gui__ --> download and double click on the [ClientGuiApp.bat]() file (default port number: 1234) or type from cmd line
+    - __Gui__ --> download and double click on the [ClientGuiApp.bat](deliveries/ClientGuiApp.bat) file (default port number: 1234) or type from cmd line
       
             java -jar MaestriDelRinascimento.jar <server_IP> <port_num>
     
@@ -81,7 +80,8 @@ Server and clients use the same one, launching it differently.
       
         Replace <port_num> with the same number used by the server.\
         Replace <server_IP> with the IP number of the server host.
-  
+      
+
 ## Play
 
 You can check the game's rules [here](src/main/resources/maestri-rules.pdf). Now you are ready to have fun!
