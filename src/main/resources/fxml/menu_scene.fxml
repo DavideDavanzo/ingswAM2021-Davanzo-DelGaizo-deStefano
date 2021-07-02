@@ -9,9 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.MenuSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.scene.MenuSceneController">
    <children>
-      <ButtonBar layoutY="336.0" prefHeight="64.0" prefWidth="600.0" style="-fx-background-color: #EEE;">
+      <ImageView fitHeight="348.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/loading_screen.jpg" />
+         </image>
+      </ImageView>
+      <ButtonBar layoutY="273.0" prefHeight="64.0" prefWidth="600.0">
          <buttons>
             <Button fx:id="playButton" mnemonicParsing="false" style="-fx-background-color: #CDD6D0;" text="Play" textFill="#9661c1">
                <font>
@@ -34,10 +39,5 @@
             <Insets right="10.0" />
          </padding>
       </ButtonBar>
-      <ImageView fitHeight="348.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/loading_screen.jpg" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>
