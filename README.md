@@ -34,7 +34,7 @@ More precisely, we were asked to implement an MVC design pattern and a TCP netwo
 
 - [initial UML]()
 - [final UML]() (complete)
-- [final UMLs](uml) (divided by packages)
+- [final UMLs](deliveries/uml) (divided by packages)
 
 ## Functionalities
 
