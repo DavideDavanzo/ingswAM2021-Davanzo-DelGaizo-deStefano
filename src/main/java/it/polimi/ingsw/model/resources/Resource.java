@@ -30,6 +30,11 @@ public class Resource extends Item {
         super(numResources);
     }
 
+    /**
+     * Updates the volume of the resource (blank operation).
+     * @param newItems
+     * @throws NotEnoughResourcesException
+     */
     @Override
     public void update(Item newItems) throws NotEnoughResourcesException {
     }

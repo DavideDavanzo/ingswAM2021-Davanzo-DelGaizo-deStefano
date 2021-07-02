@@ -61,6 +61,10 @@ public class Player extends Observable {
         victoryPoints = 0;
     }
 
+    /**
+     * Nickname Constructor
+     * @param nickname
+     */
     public Player(String nickname) {
         playerBoard = new PlayerBoard();
         leaderCards = new LinkedList<>();
@@ -73,6 +77,10 @@ public class Player extends Observable {
         victoryPoints = 0;
     }
 
+    /**
+     * Gives a specified leader card to the player.
+     * @param leader is the specified leader card.
+     */
     public void giveLeaderCard(LeaderCard leader) {
         leaderCards.add(leader);
     }
@@ -138,6 +146,10 @@ public class Player extends Observable {
         return activeTrade;
     }
 
+    /**
+     * Re-calculates the number of victory points and updates the victory point count.
+     * @return the updated number of victory points.
+     */
     public int getCurrentVictoryPoints() {
 
         int victoryPoints = playerBoard.calculateVictoryPoints();      //add points given by development cards, path and resources
@@ -158,10 +170,19 @@ public class Player extends Observable {
         this.victoryPoints =victoryPoints;
     }
 
+    /**
+     * @param itemsToArrangeInWarehouse is a temporary list of items that the player has to arrange in his {@link Warehouse}.
+     */
     public void setItemsToArrangeInWarehouse(ArrayList<Item> itemsToArrangeInWarehouse) {
         this.itemsToArrangeInWarehouse = itemsToArrangeInWarehouse;
     }
 
+    /**
+     * The player pays for a specific Development Card.
+     * @param developmentCard
+     * @throws NotEnoughResourcesException if the player could not pay the card.
+     * @throws InvalidInputException
+     */
     public void pay(DevelopmentCard developmentCard) throws NotEnoughResourcesException, InvalidInputException {
 
         ArrayList<Resource> devCost = new ArrayList<>(developmentCard.getCost().size());
@@ -187,14 +208,33 @@ public class Player extends Observable {
 
     }
 
+    /**
+     * Adds a new development card to to the player's {@link it.polimi.ingsw.model.sharedarea.SharedArea}.
+     * @param developmentCard
+     * @param developmentCardStack is the stack where the card will be placed.
+     * @throws InvalidInputException
+     */
     public void handleNewDevCard(DevelopmentCard developmentCard, Stack<DevelopmentCard> developmentCardStack) throws InvalidInputException {
         playerBoard.getDevelopmentCardsArea().addDevCard(developmentCard, developmentCardStack);
     }
 
+    /**
+     * Adds a new resource to to the player's {@link Warehouse}.
+     * @param newResource
+     * @param warehouseShelf is the specific warehouse shelf.
+     * @throws NotEnoughResourcesException
+     * @throws InvalidInputException
+     */
     public void handleMarketResources(Resource newResource, Shelf warehouseShelf) throws NotEnoughResourcesException, InvalidInputException {
         playerBoard.getWarehouse().addResourcesToShelf(newResource, warehouseShelf);
     }
 
+    /**
+     * Moves a player forward by a specific number of steps (max. position 24).
+     * @param steps
+     * @return true if the player reaches the last square, enabling EndGame.
+     * @throws InvalidInputException
+     */
     public boolean moveForward(int steps) throws InvalidInputException {
         return this.getPlayerBoard().getPath().moveForward(steps);
     }
@@ -203,6 +243,9 @@ public class Player extends Observable {
         return playerBoard.getDevelopmentCardsArea().getCardCount();
     }
 
+    /**
+     * @return true if the player has two white marble powers. See: {@link WhiteMarbleEffect}.
+     */
     public boolean hasTwoWhiteMarblePowers() {
         int count = 0;
         for(LeaderCard l : leaderCards) {
@@ -243,6 +286,9 @@ public class Player extends Observable {
         return itemsToArrangeInWarehouse;
     }
 
+    /**
+     * @return the number of extra shelves. See: {@link ExtraShelfEffect}
+     */
     public int extraShelvesCount() {
         int count = 0;
         for(LeaderCard l : getLeaderCards()) {

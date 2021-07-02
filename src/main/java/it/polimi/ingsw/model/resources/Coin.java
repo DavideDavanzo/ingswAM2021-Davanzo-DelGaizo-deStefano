@@ -16,6 +16,11 @@ public class Coin extends Resource {
         super(numCoins);
     }
 
+    /**
+     * Updates the volume of the resource.
+     * @param newItems is a generic item, but only the same type of resource will be updated.
+     * @throws NotEnoughResourcesException when a negative (<0) update is performed.
+     */
     @Override
     public void update(Item newItems) throws NotEnoughResourcesException {
         if(volume + newItems.addCoins() < 0)

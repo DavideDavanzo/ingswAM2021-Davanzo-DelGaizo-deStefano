@@ -4,10 +4,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * This class implements parser
+ * This class implements a generic parser.
+ * Current implementation: Json
  */
 public class Parser {
 
+    /**
+     * Serializes a generic object.
+     * @param o
+     * @return
+     */
     public static String serialize(Object o) {
 
         String serialized = "";
@@ -21,6 +27,12 @@ public class Parser {
         return serialized;
     }
 
+    /**
+     * Deserializes a Json String.
+     * @param object is a Json String.
+     * @param objectClass Is the class of the Object that has to be deserialized from the String.
+     * @return
+     */
     public static Object deserialize(String object, Class objectClass) {
 
         ObjectMapper objectMapper = new ObjectMapper();

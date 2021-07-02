@@ -17,7 +17,8 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /**
- * This class implements a simplified version of the model
+ * This class implements a local version of the model.
+ * In any case the ClientModel is only queried and no significant actions are performed on it.
  */
 public class ClientModel implements CliPrinter {
 

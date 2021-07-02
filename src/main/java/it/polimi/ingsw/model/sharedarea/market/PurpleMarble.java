@@ -12,6 +12,10 @@ public class PurpleMarble extends Marble{
     public PurpleMarble(){
         super();
     }
+
+    /**
+     * @return 1 Servant.
+     */
     @Override
     public Item returnItem() {
         return new Servant(1);

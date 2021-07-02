@@ -11,6 +11,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
 
+/**
+ * This class handles the socket connection by reading and writing on I/O.
+ */
 public class SocketHandler extends Observable implements Runnable {
 
     private String username;
@@ -40,6 +43,10 @@ public class SocketHandler extends Observable implements Runnable {
         }
     }
 
+    /**
+     * Sends a message.
+     * @param message
+     */
     public void sendMessage(Message message){
         message.setUsername(username);
         socketOut.println(Parser.serialize(message));

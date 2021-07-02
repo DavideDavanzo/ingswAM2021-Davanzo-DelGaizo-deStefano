@@ -12,6 +12,10 @@ public class RedMarble extends Marble{
     public RedMarble(){
         super();
     }
+
+    /**
+     * @return 1 FaithPoint.
+     */
     @Override
     public Item returnItem() {
         return new FaithPoint(1);

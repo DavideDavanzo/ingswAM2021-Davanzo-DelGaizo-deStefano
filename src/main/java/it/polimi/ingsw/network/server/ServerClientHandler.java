@@ -14,7 +14,7 @@ import java.util.Scanner;
 /**
  * Handles socket connection
  */
-public class ServerClientHandler extends Observable implements Runnable{
+public class ServerClientHandler extends Observable implements Runnable {
 
     private String username;
 
@@ -22,6 +22,9 @@ public class ServerClientHandler extends Observable implements Runnable{
     private PrintWriter socketOut;
     private final Socket clientSocket;
 
+    /**
+     * Thread related to the timer.
+     */
     Thread timerThread;
 
     public ServerClientHandler(Socket clientSocket){
@@ -49,12 +52,19 @@ public class ServerClientHandler extends Observable implements Runnable{
         }
     }
 
+    /**
+     * Effectively sends a message.
+     * @param message
+     */
     public void sendMessage(Message message){
         String msg;
         System.out.println("Sent: " + (msg = Parser.serialize(message)));
         socketOut.println(msg);
     }
 
+    /**
+     * @return a message received from a Client.
+     */
     public Message returnClientMessage(){
         Message message = null;
         message = (Message) Parser.deserialize(socketIn.nextLine(), Message.class);

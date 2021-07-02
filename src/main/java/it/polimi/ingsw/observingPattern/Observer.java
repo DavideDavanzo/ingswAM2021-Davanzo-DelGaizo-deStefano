@@ -12,7 +12,8 @@ import it.polimi.ingsw.network.messages.Message;
 import java.util.Set;
 
 /**
- * Observer Interface
+ * Observer Interface. An observer receives an update called on it by
+ * the Observed object.
  */
 public interface Observer {
 

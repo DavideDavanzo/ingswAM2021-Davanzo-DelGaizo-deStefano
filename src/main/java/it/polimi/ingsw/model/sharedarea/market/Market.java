@@ -55,7 +55,7 @@ public class Market extends Observable implements CliPrinter {
     }
 
     /**
-     * Shuffles marbles
+     * Shuffles the marbles.
      * @param marbles
      */
     public void shuffle (ArrayList<Marble> marbles) {
@@ -73,12 +73,12 @@ public class Market extends Observable implements CliPrinter {
 
 
     /**
-     * Take the resources that correspond to the marbles
-     * @param line
-     * @param index
-     * @return
-     * @throws IllegalArgumentException
-     * @throws IllegalChoiceException
+     * Takes the resources that correspond to the marbles.
+     * @param line is either 'r' for rows or 'c' for columns.
+     * @param index goes from 0 to 2 for rows and 0 to 3 for columns.
+     * @return a list with the items.
+     * @throws IllegalArgumentException if the index is out of bound.
+     * @throws IllegalChoiceException if the char is not 'r' or 'c'.
      */
     public ArrayList<Item> getResources(char line, int index) throws IllegalArgumentException, IllegalChoiceException {
 
@@ -115,6 +115,11 @@ public class Market extends Observable implements CliPrinter {
         return list;
     }
 
+    /**
+     * Rearranges the market after a resource pick.
+     * @param line the chosen line.
+     * @param index the chosen index.
+     */
     private void updateMarket(char line, int index){
         Marble tempMarble = spareMarble;
 

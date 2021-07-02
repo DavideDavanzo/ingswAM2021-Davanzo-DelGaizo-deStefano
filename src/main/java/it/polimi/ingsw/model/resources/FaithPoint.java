@@ -19,6 +19,10 @@ public class FaithPoint extends Item {
         super(numPoints);
     }
 
+    /**
+     * Updates the volume of the faith points, maximum is 24.
+     * @param newItems is a generic item, but only the same type of resource will be updated.
+     */
     @Override
     public void update(Item newItems) {
         volume = Math.min( (volume + newItems.addFaithPoints()), 24 );

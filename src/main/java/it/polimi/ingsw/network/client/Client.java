@@ -12,7 +12,7 @@ import java.net.Socket;
 import static javafx.application.Application.launch;
 
 /**
- *
+ * Client Class. Contains the player's {@link Socket} and Username.
  */
 public class Client {
 
@@ -27,6 +27,10 @@ public class Client {
 
     public Client(){}
 
+    /**
+     * Main method that starts the CLI or the GUI based on args.
+     * @param args
+     */
     public static void main(String[] args) {
 
         Client client = new Client();
@@ -37,6 +41,10 @@ public class Client {
 
     }
 
+    /**
+     * Starts the CLI.
+     * @param args
+     */
     public void startCli(String[] args){
 
         String hostName = args[1];

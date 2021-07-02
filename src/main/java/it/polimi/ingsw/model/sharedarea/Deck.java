@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.Stack;
 
 /**
- * This class implements a deck of cards
+ * This class implements a deck of {@link DevelopmentCard}
  */
 public class Deck {
 
@@ -24,6 +24,9 @@ public class Deck {
         this.level = level;
     }
 
+    /**
+     * Shuffles the deck.
+     */
     public void shuffle() {
 
         Random random = new Random();
@@ -37,14 +40,26 @@ public class Deck {
         }
     }
 
+    /**
+     * Adds a development card to the deck.
+     * @param card
+     */
     public void add(DevelopmentCard card) {
         cards.push(card);
     }
 
+    /**
+     * Adds a stack of development cards to the deck.
+     * @param stack
+     */
     public void add(Stack<DevelopmentCard> stack) {
         for(DevelopmentCard d : stack) cards.push(d);
     }
 
+    /**
+     * Takes and removes the top card from a deck.
+     * @return
+     */
     public DevelopmentCard takeCard() {
         return this.cards.pop();
     }

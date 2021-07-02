@@ -15,6 +15,9 @@ public class YellowMarble extends Marble implements Serializable {
         super();
     }
 
+    /**
+     * @return 1 Coin.
+     */
     @Override
     public Item returnItem() {
         return new Coin(1);

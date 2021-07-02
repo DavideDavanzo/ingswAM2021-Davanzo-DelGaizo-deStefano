@@ -14,6 +14,9 @@ public class WhiteMarble extends Marble {
         super();
     }
 
+    /**
+     * @return 1 blank Resource.
+     */
     @Override
     public Item returnItem() {
         return new Resource(1);

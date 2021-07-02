@@ -14,6 +14,9 @@ public class GreyMarble extends Marble{
         super();
     }
 
+    /**
+     * @return 1 Stone.
+     */
     @Override
     public Item returnItem() {
         return new Stone(1);

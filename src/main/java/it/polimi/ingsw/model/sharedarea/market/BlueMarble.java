@@ -13,6 +13,10 @@ public class BlueMarble extends Marble{
     public BlueMarble(){
         super();
     }
+
+    /**
+     * @return 1 Shield.
+     */
     @Override
     public Item returnItem() {
         return new Shield(1);

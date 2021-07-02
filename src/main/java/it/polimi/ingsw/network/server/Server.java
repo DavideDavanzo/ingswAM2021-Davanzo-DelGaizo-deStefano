@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Class that starts a socket server
+ * Class that starts a socket based Server.
  */
 public class Server implements Observer {
 
@@ -47,6 +47,9 @@ public class Server implements Observer {
         server.start();
     }
 
+    /**
+     * Starts the Server and creates a new Socket on the chosen socketPort.
+     */
     public void start(){
 
         System.out.println("Server started");
@@ -77,6 +80,11 @@ public class Server implements Observer {
 
     }
 
+    /**
+     * This method creates the effective game based on a login request by the
+     * player. When a match is full, a new {@link GameController} is created.
+     * @param virtualView
+     */
     public void waitLogin(VirtualView virtualView){
 
         while (true) {

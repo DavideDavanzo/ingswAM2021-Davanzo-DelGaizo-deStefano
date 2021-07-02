@@ -17,6 +17,11 @@ public class Stone extends Resource {
         super(numStones);
     }
 
+    /**
+     * Updates the volume of the resource.
+     * @param newItems is a generic item, but only the same type of resource will be updated.
+     * @throws NotEnoughResourcesException when a negative (<0) update is performed.
+     */
     @Override
     public void update(Item newItems) throws NotEnoughResourcesException {
         if(volume + newItems.addStones() < 0)
