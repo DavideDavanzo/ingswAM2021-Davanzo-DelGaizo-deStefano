@@ -48,7 +48,7 @@ public class Warehouse extends Observable implements CliPrinter {
      * Method to switch two of the three warehouse's main shelves
      * @param shelfOne
      * @param shelfTwo
-     * @throws InvalidInputException
+     * @throws InvalidInputException if the switch operation is not valid.
      */
     public void switchShelves(Shelf shelfOne, Shelf shelfTwo) throws InvalidInputException {
 
@@ -77,7 +77,7 @@ public class Warehouse extends Observable implements CliPrinter {
      * Assures that the given shelves are able to be switched
      * @param shelfOne
      * @param shelfTwo
-     * @return
+     * @return true if the switch is not valid.
      */
     private boolean notValid(Shelf shelfOne, Shelf shelfTwo) {
 
@@ -96,7 +96,7 @@ public class Warehouse extends Observable implements CliPrinter {
     }
 
     /**
-     * Returns all the shelves of the player's warehouse
+     * Returns all the shelves of the player's warehouse.
      */
     public ArrayList<Shelf> getAllWarehouseShelves() {
 
@@ -112,12 +112,19 @@ public class Warehouse extends Observable implements CliPrinter {
 
     }
 
+    /**
+     * @return a list containing all the resources in the warehouse.
+     */
     public ArrayList<Resource> getAllWarehouseResources() {
         ArrayList<Resource> totWarehouseResources = new ArrayList<>();
         getAllWarehouseShelves().stream().filter(s -> !s.isEmpty()).map(Shelf::getShelfResource).forEach(totWarehouseResources::add);
         return totWarehouseResources;
     }
 
+    /**
+     * Adds an extra shelf to the warehouse, after a {@link it.polimi.ingsw.model.effects.ExtraShelfEffect} activation.
+     * @param extraShelf
+     */
     public void addExtraShelf(Shelf extraShelf) {
         extraShelf.setAsExtraShelf();
         if(extraShelves == null)
@@ -126,7 +133,14 @@ public class Warehouse extends Observable implements CliPrinter {
         notifyObservers(this);
     }
 
-    //throws exception if trying to add resources to a shelf while the same type of resource is already in another shelf
+    /**
+     * Adds a resource to a specified shelf.
+     * @param newResource
+     * @param shelf
+     * @throws NotEnoughResourcesException
+     * @throws InvalidInputException when trying to add a resource to an empty shelf and there's
+     * a non-empty shelf with the same resource in the Warehouse.
+     */
     public void addResourcesToShelf(Resource newResource, Shelf shelf) throws NotEnoughResourcesException, InvalidInputException {
         //case: ADDING resources to the MAIN SHELVES only
         if(newResource.getVolume() > 0 && !shelf.isExtraShelf()) {
@@ -147,6 +161,10 @@ public class Warehouse extends Observable implements CliPrinter {
         notifyObservers(this);
     }
 
+    /**
+     * Empties a specified shelf.
+     * @param shelf
+     */
     public void emptyShelf(Shelf shelf){
         shelf.emptyThisShelf();
         notifyObservers(this);

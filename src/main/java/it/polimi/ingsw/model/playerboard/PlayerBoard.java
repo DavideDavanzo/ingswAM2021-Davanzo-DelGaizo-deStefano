@@ -14,6 +14,9 @@ import java.util.ArrayList;
 
 /**
  * <h1>PlayerBoard</h1>
+ * The PlayerBoard is the main feature of the game. It contains a {@link Warehouse} and a
+ * {@link Coffer} to store resources, a {@link DevelopmentCardsArea} to store Development Cards and
+ * the {@link Path}.
  */
 public class PlayerBoard {
 
@@ -29,8 +32,16 @@ public class PlayerBoard {
         developmentCardsArea = new DevelopmentCardsArea();
     }
 
-    //given an arraylist of development cards, check if there are enough resource in the player's warehouse and coffer.
-    // If so take input resources starting from the main shelves and sequentially towards the coffer if needed
+    /**
+     * Given a list of development cards, checks if there are enough resource in the player's warehouse and coffer to
+     * activate a resource Production.
+     * If so, takes input resources starting from the main shelves and sequentially towards the coffer, if needed.
+     * @param chosenDevCards
+     * @return
+     * @throws ProductionFailException if the payment fails.
+     * @throws NotEnoughResourcesException
+     * @throws InvalidInputException
+     */
     public boolean activateProduction(ArrayList<DevelopmentCard> chosenDevCards) throws ProductionFailException, NotEnoughResourcesException, InvalidInputException {
 
         ArrayList<Resource> totalInputRequired = new ArrayList<>();
@@ -50,7 +61,13 @@ public class PlayerBoard {
 
     }
 
-    //put all the incoming resources in the coffer and update the player's faith points if needed
+    /**
+     * Puts all the incoming resources in the coffer and updates the player's faith points if needed.
+     * @param totalProductionOutput
+     * @return
+     * @throws InvalidInputException
+     * @throws NotEnoughResourcesException
+     */
     public boolean produce(ArrayList<Item> totalProductionOutput) throws InvalidInputException, NotEnoughResourcesException {
         boolean cantMove = false;
         for(Item product : totalProductionOutput) {
@@ -60,7 +77,12 @@ public class PlayerBoard {
         return cantMove;
     }
 
-    //take from the player's warehouse and coffer the resources needed by the transaction
+    /**
+     * Takes the resources needed for the transaction from the player's warehouse and coffer. In that order.
+     * @param totalInputRequired
+     * @throws NotEnoughResourcesException
+     * @throws InvalidInputException
+     */
     public void payRequiredResources(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException, InvalidInputException {
 
         int previousVolume;
@@ -146,7 +168,12 @@ public class PlayerBoard {
         }
     }
 
-    //check if the player has enough resources to spend for the transaction
+    /**
+     * Checks, parsing the warehouse and the coffer, if the player has enough resources for the transaction.
+     * @param totalInputRequired is the total input required by the transaction.
+     * @return
+     * @throws NotEnoughResourcesException
+     */
     public boolean possiblePayment(ArrayList<Resource> totalInputRequired) throws NotEnoughResourcesException {
 
         ArrayList<Resource> playerGivenInput = new ArrayList<>();
@@ -202,12 +229,25 @@ public class PlayerBoard {
 
     }
 
+    /**
+     * Activates a base production.
+     * @param input base production input
+     * @param output base production output
+     * @return true if the last {@link it.polimi.ingsw.model.playerboard.path.Square} is reached.
+     * @throws NotEnoughResourcesException if the player doesn't match the production requirements.
+     * @throws InvalidInputException
+     */
     public boolean activateBaseProduction(ArrayList<Resource> input, Item output) throws NotEnoughResourcesException, InvalidInputException {
         payRequiredResources(input);
         coffer.updateCoffer(output);
         return path.moveForward(output.pathSteps());
     }
 
+    /**
+     * Calculates all the victory points present in the PlayerBoard, them being:
+     * DevCards points, Path points and 1 point every 5 resources left.
+     * @return
+     */
     public int calculateVictoryPoints() {
 
         int boardPoints = 0;
@@ -229,6 +269,9 @@ public class PlayerBoard {
 
     }
 
+    /**
+     * @return the total resources points. 1 for every resource.
+     */
     public int getAllResourcePoints() {
         int resourcesPoints = 0;
         for(Shelf shelf : warehouse.getAllWarehouseShelves()){

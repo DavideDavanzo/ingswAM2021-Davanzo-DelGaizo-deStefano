@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.effects.ExtraShelfEffect;
 import it.polimi.ingsw.model.resources.*;
 
 /**
- * Class which represents a single shelf of the player's warehouse
+ * Class that represents a single shelf of the player's {@link Warehouse}.
  */
 public class Shelf {
 
@@ -18,12 +18,12 @@ public class Shelf {
     private boolean extraShelf;
 
     /**
-     * All the resources in the shelf, all of the same type (ex: coins)
+     * The resources in the shelf are all of the same type (ex: coins).
      */
     private Resource shelfResource;
 
     /**
-     * Dynamic attribute that keeps track of the space left in the shelf
+     * Dynamic attribute that keeps track of the space left in the shelf.
      */
     private int availableVolume;
 
@@ -38,6 +38,9 @@ public class Shelf {
         empty = true;
     }
 
+    /**
+     * Empties a shelf, setting the Resource to a Blank one, except for {@link ExtraShelfEffect}.
+     */
     public void emptyThisShelf() {
         empty = true;
         if(!isExtraShelf()) shelfResource = new Resource(0);
@@ -86,6 +89,12 @@ public class Shelf {
         return shelfResource;
     }
 
+    /**
+     * Sets the shelf resource type and initial quantity.
+     * @param resource
+     * @throws IllegalArgumentException if the volume of the resource is negative or
+     * exceeds the maximum capacity of the shelf.
+     */
     public void setShelfResource(Resource resource) throws IllegalArgumentException {
 
         if(resource == null) {

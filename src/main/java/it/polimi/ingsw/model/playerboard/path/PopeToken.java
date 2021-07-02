@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.playerboard.path;
 
 /**
- * This class implements Pope tokens which, if flipped, give the user victory points
+ * This class implements Pope tokens which, if flipped, give the user victory points.
  */
 public class PopeToken  {
 
@@ -18,6 +18,9 @@ public class PopeToken  {
         return faceUp;
     }
 
+    /**
+     * Flips the token. Transition is only from inactive to active.
+     */
     public void flip() {
         if(!isFaceUp())
             faceUp = true;

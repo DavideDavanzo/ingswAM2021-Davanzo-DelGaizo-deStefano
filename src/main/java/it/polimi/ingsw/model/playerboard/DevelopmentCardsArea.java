@@ -30,6 +30,12 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
         cardCount = 0;
     }
 
+    /**
+     * Tries the placement of a Dev Card into a slot.
+     * @param developmentCard
+     * @param slot goes from 1 to 3.
+     * @throws InvalidInputException if the card is not placed over another one of a lesser level.
+     */
     public void addDevCard(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) throws InvalidInputException {
 
         if (notValid(developmentCard, slot)) {
@@ -42,6 +48,11 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
 
     }
 
+    /**
+     * @param colorLevel is a map containing <ECardColors, Integer> pairs.
+     * @return true if {{@link #colorAndLevelCheck(ECardColor, Integer)} is true for
+     * every entry of the map.
+     */
     public boolean hasColorLevel(HashMap<ECardColor, Integer> colorLevel) {
 
         for (Map.Entry<ECardColor, Integer> entry : colorLevel.entrySet()) {
@@ -54,6 +65,11 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
 
     }
 
+    /**
+     * @param colors is a map containing <ECardColors, Integer> pairs.
+     * @return true if {{@link #colorAndNumberCheck(ECardColor, Integer)}} is true for
+     * every entry of the map.
+     */
     public boolean hasColors(HashMap<ECardColor, Integer> colors) {
 
         for (Map.Entry<ECardColor, Integer> entry : colors.entrySet()) {
@@ -66,6 +82,11 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
 
     }
 
+    /**
+     * @param color
+     * @param level
+     * @return true if the Area contains a Card of the specified Color and Level, false otherwise.
+     */
     private boolean colorAndLevelCheck(ECardColor color, Integer level) {
 
         for (Stack<DevelopmentCard> s : area) {
@@ -77,6 +98,12 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
         return false;
     }
 
+    /**
+     * @param color
+     * @param i
+     * @return true if the Area contains as many cards of a specified Color, as the Integer parameter,
+     * false otherwise.
+     */
     private boolean colorAndNumberCheck(ECardColor color, Integer i) {
 
         int count = i;
@@ -91,6 +118,12 @@ public class DevelopmentCardsArea extends Observable implements CliPrinter {
 
     }
 
+    /**
+     * @param developmentCard
+     * @param slot
+     * @return true if the development card cannot be placed on the specified slot.
+     * level N cards can only be placed over level N-1 cards.
+     */
     public boolean notValid(DevelopmentCard developmentCard, Stack<DevelopmentCard> slot) {
 
         if (slot.empty())

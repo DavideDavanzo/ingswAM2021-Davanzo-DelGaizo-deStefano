@@ -10,7 +10,8 @@ import it.polimi.ingsw.view.cli.CliPrinter;
 import java.util.ArrayList;
 
 /**
- * This class implements the path of a player's board
+ * This class implements the path of the {@link it.polimi.ingsw.model.playerboard.PlayerBoard}.
+ * It is made of {@link Square}(s).
  */
 public class Path extends Observable implements CliPrinter {
 
@@ -71,9 +72,9 @@ public class Path extends Observable implements CliPrinter {
     }
 
     /**
-     * Moves the player's cross ahead
-     * @param totSteps number of steps the cross takes
-     * @return
+     * Moves the player's cross forward, with a maximum of 24.
+     * @param totSteps number of steps the cross is moved.
+     * @return true if the last position is reached, enabling EndGame.
      * @throws InvalidInputException
      */
     //add one by one incoming faith points
@@ -96,13 +97,16 @@ public class Path extends Observable implements CliPrinter {
     }
 
     /**
-     * returns true if the player is currently in a Vatican report section
+     * @return True if the player is currently in a Vatican report section.
      */
     private boolean isVaticanReport(int position) {
         return track[getCurrentPositionAsInt()].getVaticanReport() == track[position] || (track[getCurrentPositionAsInt()] == track[position] && track[getCurrentPositionAsInt()].isPopeSquare());
     }
 
-    //if in the right position, flip the player's papal token
+    /**
+     * Applies the Vatican Report effect if the player is in a Report section.
+     * @param position is the player's position.
+     */
     public void applyVaticanReport(int position) {
         if(isVaticanReport(position))
             track[getCurrentPositionAsInt()].getPopeToken().flip();
@@ -110,7 +114,10 @@ public class Path extends Observable implements CliPrinter {
         notifyObservers(this);
     }
 
-    //returns the sum between the points given by the position and the points given by the papal tokens if face up
+    /**
+     * Returns the sum of all active Pope Tokens.
+     * @return
+     */
     @JsonIgnore
     public int getPathVictoryPoints() {
         return popeTokens.stream().filter(PopeToken::isFaceUp).mapToInt(PopeToken::getVictoryPoints).sum() + track[getCurrentPositionAsInt()].getVictoryPoints();
