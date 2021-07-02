@@ -11,7 +11,9 @@ import java.util.ArrayList;
 
 
 /**
- * Coffer is the place where the player stores his production resources
+ * Coffer is the place where the production resources are stored.
+ * It can contain any quantity of every Resource: {@link Coin}, {@link Servant},
+ * {@link Stone}, {@link Shield}.
  */
 public class Coffer extends Observable implements CliPrinter {
 
@@ -20,7 +22,13 @@ public class Coffer extends Observable implements CliPrinter {
     private Resource shields = new Shield();
     private Resource servants = new Servant();
 
-    //add the incoming resources to the correct attribute
+    /**
+     * It updates the Coffer with the specified item.
+     * The resource volume can either be positive (Production) or negative(Payment)
+     * @param newResource
+     * @throws NotEnoughResourcesException
+     * @throws InvalidInputException
+     */
     public void updateCoffer(Item newResource) throws NotEnoughResourcesException, InvalidInputException {
         coins.update(newResource);
         stones.update(newResource);
@@ -45,6 +53,9 @@ public class Coffer extends Observable implements CliPrinter {
         return servants;
     }
 
+    /**
+     * @return a list containing all the Coffer resources.
+     */
     public ArrayList<Resource> getAllCofferResources() {
 
         ArrayList<Resource> totalResources = new ArrayList<>();

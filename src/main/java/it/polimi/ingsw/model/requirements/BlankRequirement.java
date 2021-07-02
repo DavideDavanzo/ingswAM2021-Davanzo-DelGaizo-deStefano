@@ -9,6 +9,11 @@ import it.polimi.ingsw.model.cards.LeaderCard;
  */
 public class BlankRequirement extends Requirement {
 
+    /**
+     * Validates the requirement on a player.
+     * @param p is the Player on which the control is done.
+     * @return true if the player matches the requirement.
+     */
     @Override
     public boolean validateOn(Player p) {
         return true;

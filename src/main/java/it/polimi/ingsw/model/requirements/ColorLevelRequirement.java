@@ -19,6 +19,11 @@ public class ColorLevelRequirement extends Requirement {
         this.colorLevel = colorLevel;
     }
 
+    /**
+     * Validates the requirement on a player.
+     * @param p is the Player on which the control is done.
+     * @return true if the player matches the requirement.
+     */
     @Override
     public boolean validateOn(Player p) {
         return p.getPlayerBoard().getDevelopmentCardsArea().hasColorLevel(colorLevel);

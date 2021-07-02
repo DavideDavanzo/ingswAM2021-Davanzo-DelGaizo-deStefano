@@ -1,7 +1,8 @@
 package it.polimi.ingsw.model.playerboard.path;
 
 /**
- * The path is made of 24 squares
+ * A Square is the smallest unit of the {@link Path}, it may contain
+ * victory points, Vatican Report or {@link PopeToken}.
  */
 public class Square {
 
