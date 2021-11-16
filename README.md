@@ -10,7 +10,7 @@ final test of "Software Engineering" course at Politecnico di Milano.
 
 Course held by: Alessandro Margara.
 
-Developers: Davide Davanzo, Dario Del Gaizo, Alessandra de Stefano.
+Developers: Davide Davanzo, [Dario Del Gaizo](https://github.com/Dario58), [Alessandra de Stefano](https://github.com/AlessandradeStefano).
 
 ## About the project
 
